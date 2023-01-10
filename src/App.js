@@ -12,7 +12,6 @@ function App() {
   return (
     <div>
       <Header />
-
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDoList />}></Route>

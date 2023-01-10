@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "../../App.css";
 const Join = () => {
   const [inputValue, setInputValue] = useState({
     phone: "",
@@ -25,7 +25,7 @@ const Join = () => {
   console.log("보내는 값 :", inputValue);
 
   return (
-    <div>
+    <div className="container">
       <h1>회원가입 ~@^____^@~ </h1>
       <h2>환영합니다~~**^0^**</h2>
       <form>
