@@ -10,6 +10,8 @@ function App() {
 
       <Routes>
         <Route path="/group" element={<Group />}></Route>
+        <Route path="/group" element={<Group />}></Route>
+        <Route path="/group" element={<Group />}></Route>
       </Routes>
     </div>
   );
