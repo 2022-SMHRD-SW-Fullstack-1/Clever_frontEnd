@@ -29,7 +29,7 @@ const Header = () => {
               <a href="/join">회원가입</a>
             </li>
             <li>
-              <a href="/login">로그인</a>
+              <a href="/">로그인</a>
             </li>
           </ul>
         </div>

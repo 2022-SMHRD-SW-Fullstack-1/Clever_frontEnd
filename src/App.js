@@ -7,18 +7,27 @@ import Calendar from "./pages/Calendar/Calendar";
 import Board from "./pages/Board/Board";
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(false);
+  const [auth, setAuth] = useState("");
+
+  useEffect(() => {
+    sessionStorage.getItem("phone") !== null && setUser(true);
+  }, []);
+
   return (
     <div>
       <Header />
+
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDoList />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<Login />}></Route>
       </Routes>
     </div>
   );
