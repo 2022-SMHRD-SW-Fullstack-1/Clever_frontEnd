@@ -8,6 +8,7 @@ import Board from "./pages/Board/Board";
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(false);
@@ -22,10 +23,18 @@ function App() {
     sessionStorage.getItem("phone") !== null && setUser(true);
   }, []);
 
+  const [hello, setHello] = useState("");
+  useEffect(() => {
+    axios
+      .get("/hello")
+      .then((response) => setHello(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <div>
       <Header />
-
+      <div>백엔드에서 가져온 데이터입니다 : {hello}</div>;
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDoList />}></Route>

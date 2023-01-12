@@ -1,14 +1,18 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ApiService from "../../ApiService";
 import logo from "../../image/logo2.png";
 import styles from "./User.module.scss";
+
 const Join = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     mem_id: "",
     mem_name: "",
-    mem_pw1: "",
-    mem_pw2: "",
+    mem_pw: "",
+    mem_check: "",
+    mem_email: "",
   });
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -24,6 +28,26 @@ const Join = () => {
     //   ...inputValue,
     //   joindate: now,
     // });
+    // axios
+    //   .post("/join", {
+    //     mem_id: inputValue.mem_id,
+    //     mem_name: inputValue.mem_name,
+    //     mem_pw: inputValue.mem_pw1,
+    //   })
+    //   .then(function (res) {
+    //     console.log(res.data);
+    //   })
+    //   .catch(function (err) {
+    //     console.log(err);
+    //   });
+    ApiService.addMember(inputValue)
+      .then(function (res) {
+        console.log(res.data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
     console.log("보내는 값 :", inputValue);
   };
   const handleCancel = () => {
@@ -37,7 +61,7 @@ const Join = () => {
         <h3 className={styles.userTitle}>회원가입</h3>
         <div className={styles.inputArea}>
           <form className={styles.inputLine}>
-            <span className={styles.userInputLine}>전화번호</span>
+            <span className={styles.userInputLine}>휴대폰번호</span>
             <input
               className={styles.userInput}
               type="text"
@@ -59,7 +83,7 @@ const Join = () => {
             <input
               className={styles.userInput}
               type="password"
-              name="mem_pw1"
+              name="mem_pw"
               onChange={handleInput}
             ></input>
           </form>
@@ -68,15 +92,35 @@ const Join = () => {
             <input
               className={styles.userInput}
               type="password"
-              name="mem_pw2"
+              name="mem_check"
               onChange={handleInput}
             ></input>
           </form>
+          <form className={styles.inputLine}>
+            <span className={styles.userInputLine}>이메일</span>
+            <input
+              className={styles.userInput}
+              type="text"
+              name="mem_email"
+              onChange={handleInput}
+            ></input>
+          </form>
+          <form className={styles.inputLine}>
+            <span className={styles.userInputLine2}>인증번호</span>
+            <input
+              className={styles.userInput}
+              type="text"
+              name="authNum"
+              onChange={handleInput}
+            ></input>
+            <button className={styles.loginBtn}>인증하기</button>
+          </form>
         </div>
-        <button className={styles.loginBtn} onClick={handleJoin}>
+
+        <button className={styles.joinBtn} onClick={handleJoin}>
           회원가입
         </button>
-        <button className={styles.joinBtn} onClick={handleCancel}>
+        <button className={styles.loginBtn} onClick={handleCancel}>
           취소
         </button>
       </div>
