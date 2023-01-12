@@ -7,6 +7,8 @@ import Calendar from "./pages/Calendar/Calendar";
 import Board from "./pages/Board/Board";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Join from "./pages/User/Join";
+import Login from "./pages/User/Login";
 
 function App() {
   const [hello, setHello] = useState("");
@@ -27,6 +29,8 @@ function App() {
         <Route path="/todolist" element={<ToDo />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
+        <Route path="/join" element={<Join />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </div>
   );

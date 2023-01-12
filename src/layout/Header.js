@@ -15,6 +15,8 @@ const Header = () => {
         <a href="/calendar">일정</a>
         <a href="/board">전달사항</a>
         <a href="/group">그룹</a>
+        <a href="/join">회원가입</a>
+        <a href="/login">로그인</a>
       </div>
       <div className="otherContainer">
         <button>알림</button>

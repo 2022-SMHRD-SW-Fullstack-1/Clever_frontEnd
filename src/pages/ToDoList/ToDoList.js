@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useTodoState } from "./ToDoContext";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.scss";
