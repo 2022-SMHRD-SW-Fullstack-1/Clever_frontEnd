@@ -13,26 +13,29 @@ const Login = ({ getAuth }) => {
   const goToMain = (e) => {
     e.preventDefault();
     login();
-    navigate("../todolist");
   };
   const goToJoin = () => {
     navigate("../join");
   };
   const login = () => {
     axios
-      .post("/clever/login", {
-        memb_phone: inputValue.phone,
-        memb_pw: inputValue.pw,
-      })
-      .then(function (res) {
-        if (res.data !== "") {
-          // getAuth(res.data);
-          getAuth({ mem_id: "01012341234", mem_pw: "1234" });
+      .post("/login", inputValue)
+      .then((res) => {
+        const mem_info = res.data;
+        if (
+          inputValue.mem_id === mem_info.mem_id &&
+          inputValue.mem_pw === mem_info.mem_pw
+        ) {
+          console.log(mem_info);
+          alert("로그인 성공!");
+          getAuth(mem_info);
+          navigate("./todolist");
         } else {
           alert("아이디 비밀번호 확인");
         }
       })
-      .catch(function (error) {
+      .catch((err) => {
+        console.log(err);
         alert("로그인 실패");
       });
   };
@@ -62,16 +65,16 @@ const Login = ({ getAuth }) => {
             <span className={styles.userInputLine}>비밀번호</span>
             <input
               className={styles.userInput}
-              type="text"
+              type="password"
               name="mem_pw"
               onChange={handleInput}
             ></input>
           </form>
         </div>
-        <button className={styles.loginBtn} onClick={goToMain}>
+        <button className={styles.joinBtn} onClick={goToMain}>
           로그인
         </button>
-        <button className={styles.joinBtn} onClick={goToJoin}>
+        <button className={styles.loginBtn} onClick={goToJoin}>
           회원가입
         </button>
       </div>

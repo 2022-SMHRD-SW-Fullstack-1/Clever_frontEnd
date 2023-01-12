@@ -15,12 +15,13 @@ function App() {
   const [auth, setAuth] = useState("");
 
   const getAuth = (data) => {
-    sessionStorage.setItem("phone", data.phone);
-    sessionStorage.setItem("phone", data.pw);
+    console.log(data);
+    sessionStorage.setItem("mem_id", data.mem_id);
+    sessionStorage.setItem("mem_name", data.mem_name);
   };
 
   useEffect(() => {
-    sessionStorage.getItem("phone") !== null && setUser(true);
+    sessionStorage.getItem("mem_id") !== null && setUser(true);
   }, []);
 
   return (
@@ -32,7 +33,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/" element={<Login getAuth={getAuth} />}></Route>
       </Routes>
     </div>
   );

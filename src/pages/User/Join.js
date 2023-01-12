@@ -40,10 +40,18 @@ const Join = () => {
     //     console.log(err);
     //   });
     ApiService.addMember(inputValue)
-      .then(function (res) {
-        console.log(res.data);
+      .then((res) => {
+        console.log("회원가입 성공!");
+        setInputValue({
+          mem_id: "",
+          mem_name: "",
+          mem_pw: "",
+          mem_check: "",
+          mem_email: "",
+        });
+        navigate("./todolist");
       })
-      .catch(function (err) {
+      .catch((err) => {
         console.log(err);
       });
 
