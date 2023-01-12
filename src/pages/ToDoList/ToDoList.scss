@@ -1,0 +1,14 @@
+.todo-list {
+  flex: 1;
+  padding: 20px 32px;
+  padding-bottom: 48px;
+  //   overflow-y: auto;
+}
+
+.todo-list .todo-create {
+  //   position: fixed;
+  margin-top: 100%;
+  float: right;
+  bottom: 0;
+  //   width: 100%;
+}
