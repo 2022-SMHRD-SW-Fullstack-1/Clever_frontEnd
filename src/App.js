@@ -13,6 +13,11 @@ function App() {
   const [user, setUser] = useState(false);
   const [auth, setAuth] = useState("");
 
+  const getAuth = (data) => {
+    sessionStorage.setItem("phone", data.phone);
+    sessionStorage.setItem("phone", data.pw);
+  };
+
   useEffect(() => {
     sessionStorage.getItem("phone") !== null && setUser(true);
   }, []);

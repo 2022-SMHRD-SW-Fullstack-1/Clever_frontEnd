@@ -1,19 +1,40 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../image/logo2.png";
 import styles from "./User.module.scss";
-const Login = () => {
+const Login = ({ getAuth }) => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
-    phone: "",
-    pw: "",
+    mem_id: "",
+    mem_pw: "",
   });
-  const phone = inputValue.phone;
-  const goToMain = () => {
+
+  const goToMain = (e) => {
+    e.preventDefault();
+    login();
     navigate("../todolist");
   };
   const goToJoin = () => {
     navigate("../join");
+  };
+  const login = () => {
+    axios
+      .post("/clever/login", {
+        memb_phone: inputValue.phone,
+        memb_pw: inputValue.pw,
+      })
+      .then(function (res) {
+        if (res.data !== "") {
+          // getAuth(res.data);
+          getAuth({ mem_id: "01012341234", mem_pw: "1234" });
+        } else {
+          alert("아이디 비밀번호 확인");
+        }
+      })
+      .catch(function (error) {
+        alert("로그인 실패");
+      });
   };
 
   const handleInput = (e) => {
@@ -33,7 +54,7 @@ const Login = () => {
             <input
               className={styles.userInput}
               type="text"
-              name="phone"
+              name="mem_id"
               onChange={handleInput}
             ></input>
           </form>
@@ -42,7 +63,7 @@ const Login = () => {
             <input
               className={styles.userInput}
               type="text"
-              name="phone"
+              name="mem_pw"
               onChange={handleInput}
             ></input>
           </form>
