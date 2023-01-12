@@ -32,7 +32,7 @@ const Login = ({ getAuth }) => {
 
           alert("로그인 성공!");
           // 새로고침
-          window.location.replace("/todolist");
+          window.location.replace("/group");
 
           getAuth(mem_info);
           // navigate("./todolist");
