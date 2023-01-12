@@ -15,7 +15,6 @@ function App() {
   const [auth, setAuth] = useState("");
 
   const getAuth = (data) => {
-    console.log(data);
     sessionStorage.setItem("mem_id", data.mem_id);
     sessionStorage.setItem("mem_name", data.mem_name);
   };
