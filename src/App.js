@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState(false);
-  const [auth, setAuth] = useState("");
+  const [user, setUser] = useState("");
+  const [auth, setAuth] = useState(false);
 
   const getAuth = (data) => {
     sessionStorage.setItem("mem_id", data.mem_id);
@@ -20,12 +20,21 @@ function App() {
   };
 
   useEffect(() => {
-    sessionStorage.getItem("mem_id") !== null && setUser(true);
-  }, []);
+    sessionStorage.getItem("mem_id") !== null && setAuth(true);
+    loginUser();
+    console.log(auth);
+  }, [auth]);
 
+  const loginUser = () => {
+    if (auth == false) {
+      return <></>;
+    } else {
+      return <Header />;
+    }
+  };
   return (
     <div>
-      <Header />
+      {loginUser()}
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDoList />}></Route>

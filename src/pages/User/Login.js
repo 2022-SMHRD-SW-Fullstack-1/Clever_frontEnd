@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../image/logo2.png";
 import styles from "./User.module.scss";
+
 const Login = ({ getAuth }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [inputValue, setInputValue] = useState({
     mem_id: "",
     mem_pw: "",
@@ -27,9 +29,13 @@ const Login = ({ getAuth }) => {
           inputValue.mem_pw === mem_info.mem_pw
         ) {
           console.log(mem_info);
+
           alert("로그인 성공!");
+          // 새로고침
+          window.location.replace("/todolist");
+
           getAuth(mem_info);
-          navigate("./todolist");
+          // navigate("./todolist");
         } else {
           alert("아이디 비밀번호 확인");
         }

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../ApiService";
 import logo from "../../image/logo2.png";
+import Header from "../../layout/Header";
 import styles from "./User.module.scss";
 const Join = () => {
   const navigate = useNavigate();
@@ -13,6 +14,11 @@ const Join = () => {
     mem_check: "",
     mem_email: "",
   });
+  const [idAlertSentence, setIdAlertSentence] =
+    useState("휴대폰번호를 입력해주세요");
+  const [pwAlertSentence, setPwAlertSentence] = useState("");
+  const [emailAlertSentence, setEmailAlertSentence] = useState("");
+  const { mem_id, mem_name, mem_pw, mem_check, mem_email } = inputValue;
   const handleInput = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -20,25 +26,8 @@ const Join = () => {
       [name]: value,
     });
   };
+
   const handleJoin = () => {
-    // const time = new Date();
-    // let now = time.toLocaleString();
-    // setInputValue({
-    //   ...inputValue,
-    //   joindate: now,
-    // });
-    // axios
-    //   .post("/join", {
-    //     mem_id: inputValue.mem_id,
-    //     mem_name: inputValue.mem_name,
-    //     mem_pw: inputValue.mem_pw1,
-    //   })
-    //   .then(function (res) {
-    //     console.log(res.data);
-    //   })
-    //   .catch(function (err) {
-    //     console.log(err);
-    //   });
     ApiService.addMember(inputValue)
       .then((res) => {
         console.log("회원가입 성공!");
@@ -49,71 +38,99 @@ const Join = () => {
           mem_check: "",
           mem_email: "",
         });
-        navigate("./todolist");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
-
     console.log("보내는 값 :", inputValue);
-    ApiService.addMember(inputValue);
   };
   const handleCancel = () => {
     navigate("/");
   };
 
+  const pwCheck = (mem_check) => {
+    if (mem_pw === mem_check && 4 < mem_check.length && mem_check.length < 17) {
+      setPwAlertSentence("사용가능한 비밀번호입니다.");
+    } else if (mem_pw !== mem_check) {
+      setPwAlertSentence("비밀번호가 일치하지 않습니다.");
+    } else {
+      setPwAlertSentence("다시 입력해주세요");
+    }
+  };
+
+  const emailCheck = (mem_email) => {
+    let joinEmail = /[a-zA-Z0-9_-]+@[a-z]+.[a-z]+$/;
+    if (!joinEmail.test(mem_email)) {
+      setEmailAlertSentence("유효한 이메일을 입력해 주세요.");
+    } else {
+      setEmailAlertSentence("");
+    }
+  };
+
   return (
-    <div className="container">
-      <div className={styles.loginContainer}>
-        {/* <img src={logo} alt="logo title"></img> */}
-        <h3 className={styles.userTitle}>회원가입</h3>
-        <div className={styles.inputArea}>
-          <form className={styles.inputLine}>
-            <span className={styles.userInputLine}>휴대폰번호</span>
-            <input
-              className={styles.userInput}
-              type="text"
-              name="mem_id"
-              onChange={handleInput}
-            ></input>
-          </form>
-          <form className={styles.inputLine}>
-            <span className={styles.userInputLine}>이름</span>
-            <input
-              className={styles.userInput}
-              type="text"
-              name="mem_name"
-              onChange={handleInput}
-            ></input>
-          </form>
-          <form className={styles.inputLine}>
-            <span className={styles.userInputLine}>비밀번호</span>
-            <input
-              className={styles.userInput}
-              type="password"
-              name="mem_pw"
-              onChange={handleInput}
-            ></input>
-          </form>
-          <form className={styles.inputLine}>
-            <span className={styles.userInputLine}>비밀번호 확인</span>
-            <input
-              className={styles.userInput}
-              type="password"
-              name="mem_check"
-              onChange={handleInput}
-            ></input>
-          </form>
-          <form className={styles.inputLine}>
-            <span className={styles.userInputLine}>이메일</span>
-            <input
-              className={styles.userInput}
-              type="text"
-              name="mem_email"
-              onChange={handleInput}
-            ></input>
-          </form>
-          <form className={styles.inputLine}>
+    <>
+      <Header />
+      <div className="container">
+        <div className={styles.loginContainer}>
+          {/* <img src={logo} alt="logo title"></img> */}
+          <h3 className={styles.userTitle}>회원가입</h3>
+          <div className={styles.inputArea}>
+            <form className={styles.inputLine}>
+              <span className={styles.userInputLine}>휴대폰번호</span>
+              <input
+                className={styles.userInput}
+                type="text"
+                name="mem_id"
+                onChange={handleInput}
+                maxLength="11"
+              ></input>
+              <div className="inputDescription">{idAlertSentence}</div>
+            </form>
+            <form className={styles.inputLine}>
+              <span className={styles.userInputLine}>이름</span>
+              <input
+                className={styles.userInput}
+                type="text"
+                name="mem_name"
+                onChange={handleInput}
+              ></input>
+            </form>
+            <form className={styles.inputLine}>
+              <span className={styles.userInputLine}>비밀번호</span>
+              <input
+                className={styles.userInput}
+                type="password"
+                name="mem_pw"
+                onChange={handleInput}
+              ></input>
+              <div className="inputDescription">
+                (영문 대소문자/숫자 4자~16자)
+              </div>
+            </form>
+            <form className={styles.inputLine}>
+              <span className={styles.userInputLine}>비밀번호 확인</span>
+              <input
+                className={styles.userInput}
+                type="password"
+                name="mem_check"
+                onChange={handleInput}
+                onBlur={() => pwCheck(mem_check)}
+              ></input>
+              <div className="inputDescription">{pwAlertSentence}</div>
+            </form>
+            <form className={styles.inputLine}>
+              <span className={styles.userInputLine}>이메일</span>
+              <input
+                className={styles.userInput}
+                type="text"
+                name="mem_email"
+                onChange={handleInput}
+                onBlur={() => emailCheck(mem_email)}
+              ></input>
+              <div className="inputDescription">{emailAlertSentence}</div>
+            </form>
+            {/* <form className={styles.inputLine}>
             <span className={styles.userInputLine2}>인증번호</span>
             <input
               className={styles.userInput}
@@ -122,17 +139,18 @@ const Join = () => {
               onChange={handleInput}
             ></input>
             <button className={styles.loginBtn}>인증하기</button>
-          </form>
-        </div>
+          </form> */}
+          </div>
 
-        <button className={styles.joinBtn} onClick={handleJoin}>
-          회원가입
-        </button>
-        <button className={styles.loginBtn} onClick={handleCancel}>
-          취소
-        </button>
+          <button className={styles.joinBtn} disabled onClick={handleJoin}>
+            회원가입
+          </button>
+          <button className={styles.loginBtn} onClick={handleCancel}>
+            취소
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
