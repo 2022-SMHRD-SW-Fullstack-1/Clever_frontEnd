@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import ApiService from "../../ApiService";
 import logo from "../../image/logo2.png";
 import styles from "./User.module.scss";
-
 const Join = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
@@ -49,6 +48,7 @@ const Join = () => {
       });
 
     console.log("보내는 값 :", inputValue);
+    ApiService.addMember(inputValue);
   };
   const handleCancel = () => {
     navigate("/");
