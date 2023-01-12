@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineBorder, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "./ToDoCalendar.scss";
+import styled from "styled-components";
 
 const now = new Date();
 const isFullSize = false;
@@ -76,15 +77,11 @@ const CalendarData = () => {
 
   useEffect(() => {
     setTotalDate(changeDate(month));
-    console.log("month changed -> ", changeDate(month));
+    console.log("month changed-> ", changeDate(month));
   }, [month]);
 
-  const goToday = () => {
-    setMonth(nowMonth);
-    setToday(nowDay);
-  };
-
   let arrIndex;
+  let preWeek;
 
   {
     isFullSize
@@ -95,14 +92,48 @@ const CalendarData = () => {
             console.log(`arrIndex:${arrIndex}`);
           }
         });
-    console.log("날짜 ->", totalDate[arrIndex][0]);
+  }
+
+  const [leftArrow, setLeftArrow] = useState(false);
+  const [RightArrow, setRightArrow] = useState(false);
+  const [arrowIndex, setArrowIndex] = useState();
+
+  // 지난 주로 이동
+  const clickLeft = (e) => {
+    // console.log("지난주2", totalDate[arrIndex - 1]);
+    arrIndex = arrIndex - 1;
+    // console.log("리턴 -1", arrIndex);
+    setLeftArrow(true);
+    return arrIndex;
+  };
+  if (leftArrow === true) {
+    arrIndex = arrIndex - 1;
+
+    // console.log("왼쪽", arrIndex);
+  }
+
+  // 다음 주로 이동
+  const clickRight = (e) => {
+    // console.log("다음주", totalDate[arrIndex + 1]);
+    arrIndex = arrIndex + 1;
+    // console.log("리턴 +1", arrIndex);
+    setRightArrow(true);
+    return arrIndex;
+  };
+  if (RightArrow === true) {
+    arrIndex = arrIndex + 1;
+    // console.log("오른쪽", arrIndex);
+  }
+
+  // 오늘 날짜 표시
+  for (let i = 1; i <= 7; i++) {
+    if (totalDate[arrIndex][i] == nowDate) {
+      console.log("오늘 날짜", nowDate);
+    }
   }
 
   return (
     <div className="calendar-table">
-      {/* <h2>
-        {year}년 {todayMonth}월
-      </h2> */}
       <thead className="calendar-head">
         <tr className="todo-calendar">
           <th>&nbsp;</th>
@@ -119,7 +150,7 @@ const CalendarData = () => {
       <tbody className="calendar-body">
         <tr className="todo-calendar">
           <td className="arrow">
-            <AiOutlineLeft />
+            <AiOutlineLeft onClick={(e) => clickLeft(`${arrIndex}-1`)} />
           </td>
           <td className="showday">
             <span>{totalDate[arrIndex][0]}</span>
@@ -143,7 +174,7 @@ const CalendarData = () => {
             <span>{totalDate[arrIndex][6]}</span>
           </td>
           <td className="arrow">
-            <AiOutlineRight />
+            <AiOutlineRight onClick={(e) => clickRight(`${arrIndex}+1`)} />
           </td>
         </tr>
       </tbody>

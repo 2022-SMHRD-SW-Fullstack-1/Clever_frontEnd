@@ -30,7 +30,7 @@ function App() {
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
-        <Route path="/todocreate" element={<ToDoCreate />}></Route>
+        <Route path="/todolistcreate" element={<ToDoCreate />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>

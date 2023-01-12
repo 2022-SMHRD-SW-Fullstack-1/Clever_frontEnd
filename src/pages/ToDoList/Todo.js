@@ -23,7 +23,7 @@ const Todo = () => {
         <ToDoTemplate>
           <ToDoHead />
           <ToDoList />
-          <ToDoCreate />
+          {/* <ToDoCreate /> */}
         </ToDoTemplate>
       </TodoProvider>
     </div>
