@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useTodoState } from "./ToDoContext";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.scss";
@@ -13,6 +14,12 @@ import "./ToDoList.scss";
 const ToDoList = () => {
   const todos = useTodoState();
 
+  const navigate = useNavigate();
+
+  const gotoToDoCreate = () => {
+    navigate("/todocreate");
+  };
+
   return (
     <div className="todo-list">
       {/* <TodoListBlock> */}
@@ -25,7 +32,9 @@ const ToDoList = () => {
         />
       ))}
       {/* </TodoListBlock> */}
-      <button className="todo-create">할 일 추가</button>
+      <button className="todo-create" onClick={gotoToDoCreate}>
+        할 일 추가
+      </button>
     </div>
   );
 };

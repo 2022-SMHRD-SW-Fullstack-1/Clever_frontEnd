@@ -20,7 +20,6 @@ const Todo = () => {
         <div className="globalStyle">
           <GlobalStyle />
         </div>
-
         <ToDoTemplate>
           <ToDoHead />
           <ToDoList />

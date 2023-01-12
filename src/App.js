@@ -10,8 +10,8 @@ import axios from "axios";
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 
-import Group from "./pages/Group/Group";
 import ToDoList from "./pages/ToDoList/ToDoList";
+import ToDoCreate from "./pages/ToDoList/ToDoCreate";
 
 function App() {
   const [hello, setHello] = useState("");
@@ -30,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
+        <Route path="/todocreate" element={<ToDoCreate />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
