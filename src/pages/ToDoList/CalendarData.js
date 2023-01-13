@@ -90,6 +90,9 @@ const CalendarData = () => {
           if (arr.indexOf(nowDate) !== -1) {
             arrIndex = totalDate.indexOf(arr);
             console.log(`arrIndex:${arrIndex}`);
+
+            // arrowIndex = totalDate.indexOf(arr);
+            // console.log(`arrowIndex : ${arrowIndex}`);
           }
         });
   }
