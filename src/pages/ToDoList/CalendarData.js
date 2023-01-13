@@ -81,7 +81,7 @@ const CalendarData = () => {
   }, [month]);
 
   let arrIndex;
-  let preWeek;
+  let arrowIndex;
 
   {
     isFullSize
@@ -91,26 +91,28 @@ const CalendarData = () => {
             arrIndex = totalDate.indexOf(arr);
             console.log(`arrIndex:${arrIndex}`);
 
-            // arrowIndex = totalDate.indexOf(arr);
-            // console.log(`arrowIndex : ${arrowIndex}`);
+            arrowIndex = totalDate.indexOf(arr);
+            console.log(`arrowIndex : ${arrowIndex}`);
           }
         });
   }
 
   const [leftArrow, setLeftArrow] = useState(false);
   const [RightArrow, setRightArrow] = useState(false);
-  const [arrowIndex, setArrowIndex] = useState();
 
   // 지난 주로 이동
   const clickLeft = (e) => {
     // console.log("지난주2", totalDate[arrIndex - 1]);
     arrIndex = arrIndex - 1;
+    arrowIndex = arrowIndex - 1;
     // console.log("리턴 -1", arrIndex);
     setLeftArrow(true);
-    return arrIndex;
+    return arrowIndex;
+    // retrun arrIndex
   };
   if (leftArrow === true) {
     arrIndex = arrIndex - 1;
+    arrowIndex = arrowIndex - 1;
 
     // console.log("왼쪽", arrIndex);
   }
