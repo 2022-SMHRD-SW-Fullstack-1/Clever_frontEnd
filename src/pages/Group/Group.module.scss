@@ -1,0 +1,51 @@
+.groupCountArea {
+  text-align: left;
+  padding-left: 9rem;
+  display: flex;
+  .groupCountTitle {
+    margin-right: 10px;
+  }
+  .groupCount {
+    color: #3a4ca8;
+  }
+}
+.groupContainer {
+  margin: 0 auto;
+  border: solid 1px darkgray;
+  border-radius: 30px;
+  width: 60rem;
+  height: 50rem;
+
+  .groupItem {
+    border: solid 1px darkgray;
+    border-radius: 10px;
+    width: 40rem;
+    height: 50px;
+    margin: 30px 40px;
+  }
+
+  .createGroupBtn {
+    width: 130px;
+    height: 130px;
+    border: solid darkgray 1px;
+    font-size: 15px;
+    margin: 20px;
+    background: white;
+    color: black;
+    // padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+
+    .createBtnIn {
+      display: inline;
+      .addIcon {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 10px;
+      }
+
+      .btnDecsription {
+      }
+    }
+  }
+}
