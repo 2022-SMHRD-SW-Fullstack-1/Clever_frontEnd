@@ -58,6 +58,7 @@ const Text = styled.div`
     `}
 `;
 
+// 할일 목록
 const ToDoItem = ({ id, done, text }) => {
   const dispatch = useTodoDispatch();
 

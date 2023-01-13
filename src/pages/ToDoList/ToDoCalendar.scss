@@ -10,14 +10,16 @@ body {
   text-align: center;
 }
 
-.todo-calendar tr {
-  display: table-row;
-  vertical-align: inherit;
-  border-color: inherit;
-  // border-top-color: ;
-  // border-right-color: ;
-  // border-bottom-color: ;
-  // border-left-color: ;
+.todo-calendar {
+  tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    // border-top-color: ;
+    // border-right-color: ;
+    // border-bottom-color: ;
+    // border-left-color: ;
+  }
 }
 .calendar-head {
   th {

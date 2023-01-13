@@ -12,6 +12,9 @@ import Login from "./pages/User/Login";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import ToDoList from "./pages/ToDoList/ToDoList";
+import ToDoCreate from "./pages/ToDoList/ToDoCreate";
+
 function App() {
   const [user, setUser] = useState("");
   const [auth, setAuth] = useState(false);
@@ -40,6 +43,7 @@ function App() {
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
+        <Route path="/todolistcreate" element={<ToDoCreate />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
