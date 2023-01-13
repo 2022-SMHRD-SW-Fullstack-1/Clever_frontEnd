@@ -33,7 +33,7 @@ const Group = ({ user }) => {
           <button
             className={styles.addGroupBtn}
             onClick={handleAdd}
-            closeModal={setModalHandle}
+            setModalHandle={setModalHandle}
           >
             <div className={styles.addBtnIn}>
               <img src={add} className={styles.addIcon} />
