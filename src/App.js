@@ -9,24 +9,37 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import ToDoList from "./pages/ToDoList/ToDoList";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate";
 
 function App() {
-  const [hello, setHello] = useState("");
+  const [user, setUser] = useState("");
+  const [auth, setAuth] = useState(false);
+
+  const getAuth = (data) => {
+    sessionStorage.setItem("mem_id", data.mem_id);
+    sessionStorage.setItem("mem_name", data.mem_name);
+  };
 
   useEffect(() => {
-    axios
-      .get("/hello")
-      .then((response) => setHello(response.data))
-      .catch((error) => console.log(error));
-  }, []);
+    sessionStorage.getItem("mem_id") !== null && setAuth(true);
+    loginUser();
+    console.log(auth);
+  }, [auth]);
 
+  const loginUser = () => {
+    if (auth == false) {
+      return <></>;
+    } else {
+      return <Header />;
+    }
+  };
   return (
     <div>
-      <div>백엔드에서 가져온 데이터입니다 : {hello}</div>;
-      <Header />
+      {loginUser()}
       <Routes>
         <Route path="/group" element={<Group />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
@@ -34,7 +47,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<Login getAuth={getAuth} />}></Route>
       </Routes>
     </div>
   );
