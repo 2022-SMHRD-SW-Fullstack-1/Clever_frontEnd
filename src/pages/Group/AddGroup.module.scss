@@ -1,0 +1,44 @@
+// .addGroupFormContainer {
+//   margin: 30px auto;
+//   border: solid 1px darkgray;
+//   border-radius: 30px;
+//   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
+//   width: 40rem;
+//   height: 40rem;
+// }
+
+.modalContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  // right: 0;
+  // bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .addTitle {
+    text-align: center;
+  }
+}
+
+.modalBlock {
+  position: absolute;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background-color: white;
+  color: black;
+  width: 700px;
+  box-shadow: 1px 1px 1px 1px gray;
+  .modalCloseArea {
+    float: right;
+    .closeBtn {
+      font-size: 20px;
+      border: none;
+      background-color: white;
+    }
+  }
+}

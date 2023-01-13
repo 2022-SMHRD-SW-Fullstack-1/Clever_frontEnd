@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate";
+import AddGroup from "./pages/Group/AddGroup";
 
 function App() {
   const [user, setUser] = useState("");
@@ -38,6 +39,7 @@ function App() {
       {loginUser()}
       <Routes>
         <Route path="/group" element={<Group user={user} />}></Route>
+        <Route path="/addgroup" element={<AddGroup user={user} />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
         <Route path="/todolistcreate" element={<ToDoCreate />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
