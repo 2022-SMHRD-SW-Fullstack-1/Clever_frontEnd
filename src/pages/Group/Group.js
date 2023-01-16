@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Group.module.scss";
 import add from "../../image/add.png";
 import { useNavigate } from "react-router";
+import AddGroup from "./AddGroup";
 
 const Group = ({ user }) => {
   const navigate = useNavigate();
-  const [modalHandle, setModalHandle] = useState(false);
-  const handleAdd = () => {
-    setModalHandle(true);
+
+  // 모달 노출 여부 state
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
   };
+  console.log("modalopen : ", modalOpen);
+  useEffect(() => {}, []);
 
   return (
     <div className="container">
@@ -30,17 +37,14 @@ const Group = ({ user }) => {
           </div>
         </div>
         <div className="groupAddBtnContainer">
-          <button
-            className={styles.addGroupBtn}
-            onClick={handleAdd}
-            setModalHandle={setModalHandle}
-          >
-            <div className={styles.addBtnIn}>
+          <button className={styles.addGroupBtn} onClick={showModal}>
+            <div className={styles.addBtnIn} onClick={showModal}>
               <img src={add} alt="add Button" className={styles.addIcon} />
               <div className={styles.btnDecsriptionArea}>
                 <span className={styles.btnDecsription}>그룹 만들기</span>
               </div>
             </div>
+            {modalOpen && <AddGroup setModalOpen={setModalOpen} />}
           </button>
         </div>
       </div>

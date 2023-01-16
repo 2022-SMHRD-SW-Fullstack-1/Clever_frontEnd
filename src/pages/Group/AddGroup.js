@@ -1,14 +1,40 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styles from "./AddGroup.module.scss";
-const AddGroup = ({ setModalhandle }) => {
-  const close = () => {
-    setModalhandle(true);
+const AddGroup = (props) => {
+  const [inputValue, setInputValue] = useState({
+    group_name: "",
+    mem_id: sessionStorage.getItem("mem_id"),
+  });
+
+  // 모달 끄기
+  const closeModal = (props) => {
+    props.setModalOpen(false);
+  };
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
+    console.log(inputValue);
+  };
+  const handleAddGroup = () => {
+    axios
+      .post("/addgroup", inputValue)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalBlock}>
         <div className={styles.modalCloseArea}>
-          <button className={styles.closeBtn} onClick={close}>
+          <button className={styles.closeBtn} onClick={closeModal}>
             X
           </button>
         </div>
@@ -16,8 +42,18 @@ const AddGroup = ({ setModalhandle }) => {
           <h1>그룹 추가</h1>
         </div>
         <div>
-          <span>그룹이름</span>
-          <input type="text" placeholder="그룹이름"></input>
+          <form>
+            <span>그룹이름</span>
+            <input
+              type="text"
+              placeholder="그룹이름"
+              name="group_name"
+              onChange={handleInput}
+            ></input>
+          </form>
+        </div>
+        <div>
+          <button onClick={handleAddGroup}>추가하기</button>
         </div>
       </div>
     </div>
