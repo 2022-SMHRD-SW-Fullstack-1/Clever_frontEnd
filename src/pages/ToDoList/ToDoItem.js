@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
 import { useTodoDispatch } from "./ToDoContext";
@@ -75,6 +75,7 @@ const ToDoItem = ({ id, done, text }) => {
       id,
     });
   };
+
   return (
     <TodoItemBlock>
       <CheckCircle done={done} onClick={onToggle}>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineBorder, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "./ToDoCalendar.scss";
-import styled from "styled-components";
 
 const now = new Date();
 const isFullSize = false;
@@ -99,43 +98,62 @@ const CalendarData = () => {
 
   const [leftArrow, setLeftArrow] = useState(false);
   const [RightArrow, setRightArrow] = useState(false);
+  const [eventIndex, setEventIndex] = useState();
 
   // 지난 주로 이동
   const clickLeft = (e) => {
-    // console.log("지난주2", totalDate[arrIndex - 1]);
     arrIndex = arrIndex - 1;
-    arrowIndex = arrowIndex - 1;
-    // console.log("리턴 -1", arrIndex);
+
+    console.log("click", e);
+    setEventIndex(e);
+
+    arrowIndex = eventIndex - 1;
+    // setArrowIndex(eventIndex - 1);
+    console.log("A", arrowIndex);
+
     setLeftArrow(true);
     return arrowIndex;
-    // retrun arrIndex
   };
+
   if (leftArrow === true) {
     arrIndex = arrIndex - 1;
-    arrowIndex = arrowIndex - 1;
-
-    // console.log("왼쪽", arrIndex);
+    arrowIndex = eventIndex - 1;
   }
 
   // 다음 주로 이동
   const clickRight = (e) => {
-    // console.log("다음주", totalDate[arrIndex + 1]);
     arrIndex = arrIndex + 1;
-    // console.log("리턴 +1", arrIndex);
+
+    setEventIndex(e);
+    arrowIndex = eventIndex + 1;
+    console.log("R", eventIndex);
+    console.log("arrow", arrIndex);
     setRightArrow(true);
-    return arrIndex;
+
+    return arrowIndex;
   };
+
   if (RightArrow === true) {
     arrIndex = arrIndex + 1;
-    // console.log("오른쪽", arrIndex);
+    arrowIndex = eventIndex + 1;
   }
 
   // 오늘 날짜 표시
-  for (let i = 1; i <= 7; i++) {
-    if (totalDate[arrIndex][i] == nowDate) {
-      console.log("오늘 날짜", nowDate);
+  useEffect(() => {
+    // const calToday = "calToday";
+    const dateClassName = document.querySelectorAll(".calDate");
+    // console.log(dateClassName);
+
+    for (let i = 0; i <= 6; i++) {
+      if (totalDate[arrowIndex][i] === nowDate) {
+        // console.log("오늘 날짜", nowDate);
+        // console.log("오늘 날짜2", totalDate[arrowIndex][i]);
+        // console.log("인덱스", i);
+        // console.log(dateClassName[i]);
+        dateClassName[i].classList.add("calToday");
+      }
     }
-  }
+  }, []);
 
   return (
     <div className="calendar-table">
@@ -155,31 +173,37 @@ const CalendarData = () => {
       <tbody className="calendar-body">
         <tr className="todo-calendar">
           <td className="arrow">
-            <AiOutlineLeft onClick={(e) => clickLeft(`${arrIndex}-1`)} />
+            <AiOutlineLeft
+              className="WeekArrow"
+              onClick={(e) => clickLeft(arrowIndex)}
+            />
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][0]}</span>
+            <span className="calDate">{totalDate[arrowIndex][0]}</span>
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][1]}</span>
+            <span className="calDate">{totalDate[arrowIndex][1]}</span>
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][2]}</span>
+            <span className="calDate">{totalDate[arrowIndex][2]}</span>
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][3]}</span>
+            <span className="calDate">{totalDate[arrowIndex][3]}</span>
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][4]}</span>
+            <span className="calDate">{totalDate[arrowIndex][4]}</span>
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][5]}</span>
+            <span className="calDate">{totalDate[arrowIndex][5]}</span>
           </td>
           <td className="showday">
-            <span>{totalDate[arrIndex][6]}</span>
+            <span className="calDate">{totalDate[arrowIndex][6]}</span>
           </td>
           <td className="arrow">
-            <AiOutlineRight onClick={(e) => clickRight(`${arrIndex}+1`)} />
+            <AiOutlineRight
+              className="WeekArrow"
+              onClick={(e) => clickRight(arrowIndex)}
+            />
           </td>
         </tr>
       </tbody>

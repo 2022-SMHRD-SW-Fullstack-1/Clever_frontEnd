@@ -25,6 +25,16 @@ const initialToDos = [
     text: "냉장고, 냉동고 온도 확인하기",
     done: true,
   },
+  {
+    id: 2,
+    text: "싱크대 바닥 청소",
+    done: false,
+  },
+  {
+    id: 3,
+    text: "마감시 에어컨 끄기",
+    done: false,
+  },
 ];
 
 export function TodoProvider({ children }) {

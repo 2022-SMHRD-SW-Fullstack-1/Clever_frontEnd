@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTodoState } from "./ToDoContext";
 import styled from "styled-components";
+import ToDoToggle from "./ToDoToggle";
 
 const TodoHeadBlock = styled.div`
   h1 {
@@ -28,6 +29,8 @@ const TasksLeft = styled.div`
 `;
 
 const ToDoHead = () => {
+  // console.log("toggle", props);
+
   const today = new Date();
 
   const dateString = today.toLocaleString("ko-KR", {
@@ -39,12 +42,19 @@ const ToDoHead = () => {
   const dayName = today.toLocaleString("ko-KR", { weekday: "long" });
   const todos = useTodoState();
   const undoneTasks = todos.filter((todo) => !todo.done);
+  const doneTasks = todos.filter((todo) => todo.done);
+
+  const [doneList, setDoneList] = useState([]);
+  const [unDoneList, setUnDoneList] = useState([]);
 
   return (
     <TodoHeadBlock>
       <h1>{dateString}</h1>
       <div className="day">{dayName}</div>
       <TasksLeft>할 일 {undoneTasks.length}개 남음 </TasksLeft>
+      <div className="todoToggle">
+        <ToDoToggle />
+      </div>
     </TodoHeadBlock>
   );
 };
