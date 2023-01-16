@@ -28,8 +28,8 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-const ToDoHead = () => {
-  // console.log("toggle", props);
+const ToDoHead = ({ isOn }) => {
+  console.log("toggle", isOn);
 
   const today = new Date();
 

@@ -71,15 +71,11 @@ const ToDoToggle = () => {
       <div className="todo-toggle">
         {isOn === false ? (
           <Desc>
-            <div className="todoDone" onChange={toggleHandler}>
-              완료
-            </div>
+            <div className="todoDone">완료</div>
           </Desc>
         ) : (
           <Desc>
-            <div className="togoDone" onChange={toggleHandler}>
-              미완료
-            </div>
+            <div className="togoDone">미완료</div>
           </Desc>
         )}
       </div>
