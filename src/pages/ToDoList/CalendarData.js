@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineBorder, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "./ToDoCalendar.scss";
-import styled from "styled-components";
 
 const now = new Date();
 const isFullSize = false;

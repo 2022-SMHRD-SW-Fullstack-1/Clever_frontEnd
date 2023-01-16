@@ -1,0 +1,103 @@
+.groupCountArea {
+  text-align: left;
+  padding-left: 9rem;
+  display: flex;
+  margin: 30px 0px 10px 0px;
+  .groupCountTitle {
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .groupCount {
+    color: #3a4ca8;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+.groupContainer {
+  margin: 0 auto;
+  border: solid 1px darkgray;
+  border-radius: 30px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
+  width: 60rem;
+  height: 40rem;
+
+  .groupItem {
+    border: solid 1px darkgray;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
+    border-radius: 10px;
+    width: 55rem;
+    height: 50px;
+    margin: 25px auto;
+    text-align: start;
+    padding-top: 15px;
+    padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    .groupName {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .groupBtnArea {
+      margin-right: 25px;
+      align-items: center;
+
+      .inviteBtn {
+        width: 90px;
+        height: 40px;
+        border: 0;
+        outline: none;
+        font-size: 15px;
+        background: #3a4ca8;
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-right: 15px;
+      }
+      .groupDelBtn {
+        width: 50px;
+        height: 40px;
+        border: 0;
+        outline: none;
+        font-size: 15px;
+        background: #3a4ca8;
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .addGroupBtn {
+    width: 130px;
+    height: 130px;
+    border: solid darkgray 1px;
+    font-size: 15px;
+    margin: 20px;
+    margin-top: 200px;
+    background: white;
+    color: black;
+    // padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
+
+    .addBtnIn {
+      display: inline;
+      text-align: center;
+      .addIcon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .btnDecsriptionArea {
+        padding-top: 20px;
+        .btnDecsription {
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -85,7 +85,7 @@ const Join = () => {
                 onChange={handleInput}
                 maxLength="11"
               ></input>
-              <div className="inputDescription">{idAlertSentence}</div>
+              {/* <div className="inputDescription">{idAlertSentence}</div> */}
             </form>
             <form className={styles.inputLine}>
               <span className={styles.userInputLine}>이름</span>
@@ -142,7 +142,7 @@ const Join = () => {
           </form> */}
           </div>
 
-          <button className={styles.joinBtn} disabled onClick={handleJoin}>
+          <button className={styles.joinBtn} onClick={handleJoin}>
             회원가입
           </button>
           <button className={styles.loginBtn} onClick={handleCancel}>
