@@ -36,7 +36,7 @@ const Group = ({ user }) => {
             setModalHandle={setModalHandle}
           >
             <div className={styles.addBtnIn}>
-              <img src={add} className={styles.addIcon} />
+              <img src={add} alt="add Button" className={styles.addIcon} />
               <div className={styles.btnDecsriptionArea}>
                 <span className={styles.btnDecsription}>그룹 만들기</span>
               </div>
