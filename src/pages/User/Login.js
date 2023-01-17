@@ -28,8 +28,6 @@ const Login = ({ getAuth }) => {
           inputValue.mem_id === mem_info.mem_id &&
           inputValue.mem_pw === mem_info.mem_pw
         ) {
-          console.log(mem_info);
-
           alert("로그인 성공!");
           // 새로고침
           window.location.replace("/group");
