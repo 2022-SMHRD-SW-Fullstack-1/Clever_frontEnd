@@ -18,16 +18,16 @@ function App() {
   const getAuth = (data) => {
     sessionStorage.setItem("mem_id", data.mem_id);
     sessionStorage.setItem("mem_name", data.mem_name);
-    setUser(data.mem_id);
   };
 
   useEffect(() => {
     sessionStorage.getItem("mem_id") !== null && setAuth(true);
     loginUser();
+    setUser(sessionStorage.getItem("mem_id"));
   }, [auth]);
 
   const loginUser = () => {
-    if (auth == false) {
+    if (auth === false) {
       return <></>;
     } else {
       return <Header />;
@@ -44,7 +44,10 @@ function App() {
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
-        <Route path="/" element={<Login getAuth={getAuth} />}></Route>
+        <Route
+          path="/"
+          element={<Login getAuth={getAuth} setUser={setUser} />}
+        ></Route>
       </Routes>
     </div>
   );
