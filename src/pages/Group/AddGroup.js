@@ -27,6 +27,7 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
       .post("/addgroup", inputValue)
       .then((res) => {
         console.log(res.data);
+        closeModal();
       })
       .catch((err) => {
         console.log(err);
