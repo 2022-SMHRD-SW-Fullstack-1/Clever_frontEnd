@@ -1,4 +1,12 @@
-import React, { createContext, useReducer, useContext, useRef } from "react";
+import axios from "axios";
+import React, {
+  createContext,
+  useReducer,
+  useContext,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
 
 const TodoStateContext = createContext(null);
 const TodoDispatchContext = createContext(null);
@@ -36,6 +44,8 @@ const initialToDos = [
     done: false,
   },
 ];
+
+// const initialToDos = () => {};
 
 export function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialToDos);

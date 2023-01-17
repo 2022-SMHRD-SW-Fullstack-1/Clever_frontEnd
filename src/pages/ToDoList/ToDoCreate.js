@@ -1,13 +1,17 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Header from "../../layout/Header";
 import "./ToDoCreate.scss";
 
 const ToDoCreate = () => {
+  let user = sessionStorage.getItem("mem_id");
+  console.log("로그인", user);
+
   const todoTitleRef = useRef();
   const todoContentRef = useRef();
   const todoMethodRef = useRef();
+  const todoCategoryRef = useRef();
   const todoRepeatRef = useRef();
   const todoMemRef = useRef();
   const todoImgRef = useRef();
@@ -20,12 +24,13 @@ const ToDoCreate = () => {
     e.preventDefault();
 
     axios
-      .post("/todolist", {
+      .post("/todolist/addtodo", {
         todo_seq: "",
-        cate_seq: "",
+        cate_seq: todoCategoryRef.current.value,
+        cate_name: todoCategoryRef.current.value,
         todo_title: todoTitleRef.current.value,
-        todo_dt: date,
         todo_content: todoContentRef.current.value,
+        todo_dt: date,
         todo_repeat: todoRepeatRef.current.value,
         mem_id: todoMemRef.current.value,
         todo_method: todoMethodRef.current.value,
@@ -35,10 +40,41 @@ const ToDoCreate = () => {
         alert("등록되었습니다.");
         navigate("/todolist");
       })
-      .catch(() => {
-        console.log("실패함");
+      .catch((err) => {
+        console.log("실패함", err);
       });
   };
+
+  // DB 카테고리 가져오기
+  const [cateList, setCateList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .post("/todolist/getcategory")
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.data.cate_seq);
+        setCateList(res.data);
+      })
+      .catch((err) => {
+        console.log("실패함", err);
+      });
+  }, []);
+
+  // 담당자 가져오기
+  // const [memList, setMemList] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .post("/todolist/getmember")
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       // setCateList(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("실패함", err);
+  //     });
+  // }, []);
 
   return (
     <div>
@@ -93,19 +129,26 @@ const ToDoCreate = () => {
                 ref={todoMethodRef}
                 type="radio"
                 name="method"
-                value="1"
+                value="체크"
               ></input>
               <label>체크만 </label>
               <input
                 ref={todoMethodRef}
                 type="radio"
                 name="method"
-                value="2"
+                value="사진"
               ></input>
               <label>인증샷 </label>
             </tr>
             <tr className="todo-method">
               <td className="todo-head">카테고리</td>
+              <td>
+                <select name="todo-category" ref={todoCategoryRef}>
+                  {cateList.map((item) => (
+                    <option value={item.cate_seq}>{item.cate_name}</option>
+                  ))}
+                </select>
+              </td>
             </tr>
             <tr className="todo-method">
               <td className="todo-head">반복설정</td>
@@ -113,21 +156,21 @@ const ToDoCreate = () => {
                 ref={todoRepeatRef}
                 type="radio"
                 name="repeat"
-                value="daily"
+                value="매일"
               ></input>
               <label>매일 </label>
               <input
                 ref={todoRepeatRef}
                 type="radio"
                 name="repeat"
-                value="weekly"
+                value="주간"
               ></input>
               <label>주간 </label>
               <input
                 ref={todoRepeatRef}
                 type="radio"
                 name="repeat"
-                value="monthly"
+                value="월간"
               ></input>
               <label>월간 </label>
             </tr>
@@ -139,6 +182,9 @@ const ToDoCreate = () => {
               <td className="todo-head">담당자</td>
               <select name="todoMem" ref={todoMemRef}>
                 <option value="A">클레버</option>
+                {/* {cateList.map((item) => (
+                  <option value={item.cate_seq}>{item.cate_name}</option>
+                ))} */}
               </select>
             </tr>
             <tr className="todo-method">

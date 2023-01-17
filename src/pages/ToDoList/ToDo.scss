@@ -18,8 +18,6 @@ body {
   .todoNotice-head {
     padding: 10px;
     font-weight: bold;
-
-    // margin: 10px;
   }
 
   .todo-notice {
@@ -48,5 +46,10 @@ body {
     vertical-align: middle;
 
     text-align: center;
+
+    .todo-cateName {
+      // 카테고리 이름
+      // font-weight: 500px;
+    }
   }
 }

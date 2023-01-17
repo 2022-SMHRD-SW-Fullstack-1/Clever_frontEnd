@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 import { TodoProvider } from "./ToDoContext";
-import ToDoCreate from "./ToDoCreate";
 import ToDoHead from "./ToDoHead";
 import ToDoList from "./ToDoList";
 import ToDoTemplate from "./ToDoTemplate";
@@ -11,13 +10,34 @@ import CalendarData from "./CalendarData";
 import Header from "../../layout/Header";
 import "./ToDo.scss";
 import { TbMessageReport } from "react-icons/tb";
+import axios from "axios";
 
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
     background: #e9ecef
   }
 `;
+
 const Todo = () => {
+  // console.log("props", isOn);
+
+  // db 에 있는 카테고리 가져오기
+  const [cateList, setCateList] = useState([]);
+  useEffect(() => {
+    axios
+      .post("/todolist/getcategory")
+      .then((res) => {
+        console.log(res.data);
+        // console.log(res.data[0].cate_seq);
+        setCateList(res.data);
+      })
+      .catch((err) => {
+        console.log("실패함", err);
+      });
+  }, []);
+
+  console.log("asdf", cateList);
+
   return (
     <div>
       <Header />
@@ -28,7 +48,11 @@ const Todo = () => {
         <div className="todo-notice">공지사항</div>
       </div>
       <div className="todoCate">
-        <div className="todo-category">카테고리</div>
+        <div className="todo-category">
+          {cateList.map((item) => (
+            <span className="todo-cateName"> {item.cate_name} </span>
+          ))}
+        </div>
       </div>
       <TodoProvider>
         <div className="globalStyle">

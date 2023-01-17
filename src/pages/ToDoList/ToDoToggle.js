@@ -59,7 +59,6 @@ const ToDoToggle = () => {
       <ToggleContainer
         // 클릭하면 토글이 켜진 상태(isOn)를 boolean 타입으로 변경하는 메소드가 실행
         onClick={toggleHandler}
-        isOn={isOn}
       >
         <div
           className={`toggle-container ${isOn ? "toggle--checked" : null}`}
