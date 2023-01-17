@@ -1,15 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./AddGroup.module.scss";
-const AddGroup = (props) => {
+
+const AddGroup = ({ setModalOpen, modalOpen }) => {
   const [inputValue, setInputValue] = useState({
     group_name: "",
     mem_id: sessionStorage.getItem("mem_id"),
   });
 
   // 모달 끄기
-  const closeModal = (props) => {
-    props.setModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
+    console.log(modalOpen);
   };
 
   const handleInput = (e) => {

@@ -44,7 +44,9 @@ const Group = ({ user }) => {
                 <span className={styles.btnDecsription}>그룹 만들기</span>
               </div>
             </div>
-            {modalOpen && <AddGroup setModalOpen={setModalOpen} />}
+            {modalOpen && (
+              <AddGroup setModalOpen={setModalOpen} modalOpen={modalOpen} />
+            )}
           </button>
         </div>
       </div>
