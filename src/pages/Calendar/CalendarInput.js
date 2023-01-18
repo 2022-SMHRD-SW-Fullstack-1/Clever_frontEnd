@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ApiService from "../../ApiService";
 
 let checkOn = [];
 const CalendarInput = () => {
@@ -6,7 +7,7 @@ const CalendarInput = () => {
   const [endTime, setEndTime] = useState(0);
   const [Worker, setWorker] = useState("선택");
   const [PlanYear, setPlanYear] = useState(2023);
-  const [PlanMonth, setPlanMonth] = useState(2);
+  const [PlanMonth, setPlanMonth] = useState("02");
   const [Day, setDay] = useState([]);
   const [finalDate, setFinalDate] = useState([]);
   const date = new Date();
@@ -271,7 +272,7 @@ const CalendarInput = () => {
     console.log("14번");
     const arrMonth = [];
     for (var i = 1; i < 13; i++) {
-      arrMonth.push(i);
+      i > 10 ? arrMonth.push(i) : arrMonth.push("0" + i);
     }
     let optionMonth = arrMonth.map((item, index) => {
       return (
@@ -286,26 +287,36 @@ const CalendarInput = () => {
     return optionMonth;
   };
 
-  // function registerSchedule() {
-  //   for(var i=0; i<finalDate.length; i++){
-  //     e.preventDefault();
+  const registerSchedule = () => {
+    var dateLength = [...finalDate];
 
-  //     let setSchedul = {
-  //       worker: this.state.username,
-  //       year: this.state.password,
-  //       month: this.state.firstName,
-  //       workTime: this.state.lastName,
-  //       date: finalDate[i]
-  //     };
+    var saveArrScheduleInfo = [];
 
-  //     ApiService.setSchedul(setSchedul)
-  //       .then((res) => {
-  //              })
-  //       .catch((err) => {
-  //         alert("일정등록시 빈칸이 없어야합니다.");
-  //       });
-  //   };
-  //   }
+    for (var i = 0; i < dateLength.length; i++) {
+      dateLength[i] >= 10
+        ? saveArrScheduleInfo.push({
+            mem_id: String(Worker),
+            att_date: `${PlanYear}-${PlanMonth}-${dateLength[i]}`,
+            att_sche_start_time: String(startTime),
+            att_sche_end_time: String(endTime),
+          })
+        : saveArrScheduleInfo.push({
+            mem_id: String(Worker),
+            att_date: `${PlanYear}-${PlanMonth}-0${dateLength[i]}`,
+            att_sche_start_time: String(startTime),
+            att_sche_end_time: String(endTime),
+          });
+    }
+    console.log("보낼배열", saveArrScheduleInfo);
+
+    ApiService.saveArrScheduleInfo(saveArrScheduleInfo)
+      .then((res) => {
+        console.log("성공");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
 
   return (
     <div className="container">
@@ -344,7 +355,6 @@ const CalendarInput = () => {
           </td>
           <br />
           <br />
-          <button>등록하기</button>
 
           <br />
           <p>
@@ -359,8 +369,14 @@ const CalendarInput = () => {
             날짜 : {finalDate}
           </p>
         </tr>
-        {/* <button onClick={registerSchedule}>등록</button> */}
       </form>
+      <button
+        onClick={() => {
+          registerSchedule();
+        }}
+      >
+        등록
+      </button>
     </div>
   );
 };

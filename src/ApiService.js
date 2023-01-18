@@ -23,5 +23,12 @@ class ApiService {
   addMember(member) {
     return axios.post("/join", member);
   }
+
+  saveArrScheduleInfo(saveArrScheduleInfo) {
+    // var arrData = { saveArrScheduleInfo: saveArrScheduleInfo };
+    return axios.post("/saveArrScheduleInfo", {
+      saveArrScheduleInfo: saveArrScheduleInfo,
+    });
+  }
 }
 export default new ApiService();
