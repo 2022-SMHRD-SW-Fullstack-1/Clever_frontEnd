@@ -1,11 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./Group.module.scss";
+import InviteGroup from "./InviteGroup";
 const GroupItem = ({ group_seq, group_name, id }) => {
   const [groupInfo, setGroupInfo] = useState({
     group_seq: group_seq,
     mem_id: id,
   });
+  const [showInviteModal, setShowInviteModal] = useState(false);
+
+  const inviteGroup = () => {
+    setShowInviteModal(true);
+  };
 
   const delGroup = () => {
     axios
@@ -25,7 +31,16 @@ const GroupItem = ({ group_seq, group_name, id }) => {
           <span className={styles.groupName}>{group_name}</span>
         </div>
         <div className={styles.groupBtnArea}>
-          <button className={styles.inviteBtn}>그룹초대</button>
+          <button className={styles.inviteBtn} onClick={inviteGroup}>
+            그룹초대
+          </button>
+          {showInviteModal && (
+            <InviteGroup
+              setShowInviteModal={setShowInviteModal}
+              showInviteModal={showInviteModal}
+              group_seq={group_seq}
+            />
+          )}
           <button className={styles.groupDelBtn} onClick={delGroup}>
             삭제
           </button>

@@ -68,21 +68,24 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
           </button>
         </div>
         <div className={styles.addTitle}>
-          <h1>그룹 추가</h1>
+          <span>그룹 만들기</span>
         </div>
         <div>
-          <form>
-            <span>그룹이름</span>
-            <input
-              type="text"
-              placeholder="그룹이름"
-              name="group_name"
-              onChange={handleInput}
-            ></input>
+          <form className={styles.addGroupInput}>
+            <div className={styles.inputName}>
+              <input
+                type="text"
+                placeholder=" 그룹 이름"
+                name="group_name"
+                onChange={handleInput}
+              ></input>
+            </div>
           </form>
         </div>
         <div>
-          <button onClick={handleAddGroup}>추가하기</button>
+          <button className={styles.addGroupBtn} onClick={handleAddGroup}>
+            추가하기
+          </button>
         </div>
       </div>
     </div>
