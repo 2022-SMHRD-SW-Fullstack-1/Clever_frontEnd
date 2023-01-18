@@ -18,19 +18,17 @@ const Group = ({ user }) => {
   const showModal = () => {
     setModalOpen(true);
   };
-  console.log("modalopen : ", modalOpen);
+
   useEffect(() => {
     axios
       .post("/getgrouplist", id)
       .then((res) => {
         setGroupList(res.data);
-        console.log(res.data);
-        console.log("그룹유저값:", id);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [groupList]);
 
   let groupCnt = groupList.length;
 
@@ -42,7 +40,11 @@ const Group = ({ user }) => {
       </div>
 
       <div className={styles.groupContainer}>
-        {groupEmpty ? <GroupEmpty /> : <GroupNotEmpty groupList={groupList} />}
+        {groupEmpty ? (
+          <GroupEmpty />
+        ) : (
+          <GroupNotEmpty groupList={groupList} id={id} />
+        )}
         <div className="groupAddBtnContainer">
           <button className={styles.addGroupBtn}>
             <div className={styles.addBtnIn} onClick={showModal}>
