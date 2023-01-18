@@ -109,7 +109,7 @@ const CalendarData = () => {
 
     arrowIndex = eventIndex - 1;
     // setArrowIndex(eventIndex - 1);
-    console.log("A", arrowIndex);
+    // console.log("A", arrowIndex);
 
     setLeftArrow(true);
     return arrowIndex;
@@ -126,8 +126,8 @@ const CalendarData = () => {
 
     setEventIndex(e);
     arrowIndex = eventIndex + 1;
-    console.log("R", eventIndex);
-    console.log("arrow", arrIndex);
+    // console.log("R", eventIndex);
+    // console.log("arrow", arrIndex);
     setRightArrow(true);
 
     return arrowIndex;
@@ -146,10 +146,6 @@ const CalendarData = () => {
 
     for (let i = 0; i <= 6; i++) {
       if (totalDate[arrowIndex][i] === nowDate) {
-        // console.log("오늘 날짜", nowDate);
-        // console.log("오늘 날짜2", totalDate[arrowIndex][i]);
-        // console.log("인덱스", i);
-        // console.log(dateClassName[i]);
         dateClassName[i].classList.add("calToday");
       }
     }

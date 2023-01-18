@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
 import { useTodoDispatch } from "./ToDoContext";
-import axios from "axios";
+import ToDoDB from "./ToDoDB";
 
 const Remove = styled.div`
   display: flex;
@@ -77,11 +77,16 @@ const ToDoItem = ({ id, done, text }) => {
     });
   };
 
+  const todoListDB = () => {
+    <ToDoDB />;
+  };
+
   return (
     <TodoItemBlock>
       <CheckCircle done={done} onClick={onToggle}>
         {done && <MdDone />}
       </CheckCircle>
+      <ToDoDB />
       <Text done={done}>{text}</Text>
       <Remove onClick={onRemove}>
         <MdDelete />

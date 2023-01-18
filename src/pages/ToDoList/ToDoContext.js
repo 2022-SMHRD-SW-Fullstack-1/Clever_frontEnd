@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, {
   createContext,
   useReducer,
@@ -8,11 +7,7 @@ import React, {
   useState,
 } from "react";
 
-const TodoStateContext = createContext(null);
-const TodoDispatchContext = createContext(null);
-const TodoNextIdContext = createContext(null);
-
-function todoReducer(state, action) {
+export function todoReducer(state, action) {
   switch (action.type) {
     case "CREATE":
       return state.concat(action.todo);
@@ -45,7 +40,9 @@ const initialToDos = [
   },
 ];
 
-// const initialToDos = () => {};
+const TodoStateContext = createContext(null);
+const TodoDispatchContext = createContext(null);
+const TodoNextIdContext = createContext(null);
 
 export function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialToDos);

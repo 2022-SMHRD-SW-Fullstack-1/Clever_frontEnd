@@ -16,6 +16,9 @@ const ToDoCreate = () => {
   const todoMemRef = useRef();
   const todoImgRef = useRef();
 
+  const todoWeeklyRef = useRef();
+  const todoMonthlyRef = useRef();
+
   const navigate = useNavigate();
 
   const date = new Date();
@@ -34,6 +37,9 @@ const ToDoCreate = () => {
         todo_repeat: todoRepeatRef.current.value,
         mem_id: todoMemRef.current.value,
         todo_method: todoMethodRef.current.value,
+
+        todo_repeatWeekly: todoWeeklyRef.current.value,
+        todo_repeatMonthly: todoMonthlyRef.current.value,
       })
       .then((res) => {
         console.log(res.data);
@@ -44,6 +50,46 @@ const ToDoCreate = () => {
         console.log("실패함", err);
       });
   };
+
+  // 반복설정
+  const [value, setValue] = useState("");
+  const todoRepeat = (e) => {
+    console.log("C", e.target.value);
+    setValue(e.target.value);
+  };
+
+  // 반복 주간
+  const [weeklyValue, setWeeklyValue] = useState("");
+  const repeatWeekly = (e) => {
+    // console.log("w", e.target.value);
+    setWeeklyValue(e.target.value);
+  };
+
+  // 반복 월별 날짜 가져오기
+  const [dateList, setDateList] = useState([]);
+  // const dateList = [];
+
+  const now = new Date();
+  const nowMonth = now.getMonth() + 1;
+
+  useEffect(() => {
+    if (nowMonth === 1 || 3 || 5 || 7 || 8 || 10 || 12) {
+      for (let i = 1; i <= 31; i++) {
+        console.log("이번달", nowMonth);
+        dateList.push(i);
+        console.log("날짜", dateList);
+      }
+    } else if (nowMonth === 4 || 6 || 9 || 11) {
+      for (let i = 1; i <= 30; i++) {
+        dateList.push(i);
+      }
+    } else if (nowMonth === 2) {
+      for (let i = 1; i <= 29; i++) {
+        dateList.push(i);
+      }
+      return dateList;
+    }
+  }, []);
 
   // DB 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
@@ -153,26 +199,87 @@ const ToDoCreate = () => {
             <tr className="todo-method">
               <td className="todo-head">반복설정</td>
               <input
+                className="todo-repeat"
                 ref={todoRepeatRef}
                 type="radio"
                 name="repeat"
                 value="매일"
+                onChange={(e) => {
+                  setValue(e.target.value);
+                }}
+                onClick={todoRepeat}
               ></input>
               <label>매일 </label>
               <input
+                className="todo-repeat"
                 ref={todoRepeatRef}
                 type="radio"
                 name="repeat"
                 value="주간"
+                onClick={todoRepeat}
               ></input>
-              <label>주간 </label>
+              <label>
+                주간
+                {value === "주간" ? (
+                  <select
+                    className="repeat-weekly"
+                    onChange={(e) => {
+                      setWeeklyValue(e.target.value);
+                    }}
+                    onChange={repeatWeekly}
+                    ref={todoWeeklyRef}
+                    value={weeklyValue}
+                  >
+                    <option value="월" key="월">
+                      월요일
+                    </option>
+                    <option value="화" key="화">
+                      화요일
+                    </option>
+                    <option value="수" key="수">
+                      수요일
+                    </option>
+                    <option value="목" key="목">
+                      목요일
+                    </option>
+                    <option value="금" key="금">
+                      금요일
+                    </option>
+                    <option value="토" key="토">
+                      토요일
+                    </option>
+                    <option value="일" key="일">
+                      일요일
+                    </option>
+                  </select>
+                ) : (
+                  <></>
+                )}
+              </label>
               <input
+                className="todo-repeat"
                 ref={todoRepeatRef}
                 type="radio"
                 name="repeat"
                 value="월간"
+                onClick={todoRepeat}
               ></input>
-              <label>월간 </label>
+              <label>
+                월간
+                {value === "월간" ? (
+                  <select
+                    value="repeat-monthly"
+                    ref={todoMonthlyRef}
+                    value={dateList.item}
+                  >
+                    {dateList.map((item) => (
+                      <option value={item}>{item}일</option>
+                    ))}
+                  </select>
+                ) : (
+                  <></>
+                )}
+              </label>
             </tr>
 
             <tr className="todo-option">

@@ -43,13 +43,15 @@ body {
 
   .todo-category {
     display: table-cell;
+    // display: flex;
     vertical-align: middle;
 
     text-align: center;
+    // align-items: center;
 
     .todo-cateName {
-      // 카테고리 이름
-      // font-weight: 500px;
+      float: left;
+      width: 25%;
     }
   }
 }

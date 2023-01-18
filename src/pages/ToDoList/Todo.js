@@ -12,10 +12,15 @@ import "./ToDo.scss";
 import { TbMessageReport } from "react-icons/tb";
 import axios from "axios";
 
+import styled from "styled-components";
+
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
     background: #e9ecef
   }
+`;
+const cateCk = styled.div`
+  background: #3a4ca8;
 `;
 
 const Todo = () => {
@@ -50,7 +55,9 @@ const Todo = () => {
       <div className="todoCate">
         <div className="todo-category">
           {cateList.map((item) => (
-            <span className="todo-cateName"> {item.cate_name} </span>
+            <div className="todo-cateName" onChange={cateCk}>
+              {item.cate_name}
+            </div>
           ))}
         </div>
       </div>
