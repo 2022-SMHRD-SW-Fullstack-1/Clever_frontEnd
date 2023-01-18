@@ -9,9 +9,11 @@ import Group from "./pages/Group/Group";
 import ToDo from "./pages/ToDoList/Todo";
 import Calendar from "./pages/Calendar/Calendar";
 import Board from "./pages/Board/Board";
+
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate";
+import AddGroup from "./pages/Group/AddGroup";
 
 function App() {
   const [user, setUser] = useState("");
@@ -25,11 +27,11 @@ function App() {
   useEffect(() => {
     sessionStorage.getItem("mem_id") !== null && setAuth(true);
     loginUser();
-    console.log(auth);
+    setUser(sessionStorage.getItem("mem_id"));
   }, [auth]);
 
   const loginUser = () => {
-    if (auth == false) {
+    if (auth === false) {
       return <></>;
     } else {
       return <Header />;
@@ -39,13 +41,17 @@ function App() {
     <div>
       {loginUser()}
       <Routes>
-        <Route path="/group" element={<Group />}></Route>
+        <Route path="/group" element={<Group user={user} />}></Route>
+        <Route path="/addgroup" element={<AddGroup user={user} />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
         <Route path="/todolistcreate" element={<ToDoCreate />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
-        <Route path="/" element={<Login getAuth={getAuth} />}></Route>
+        <Route
+          path="/"
+          element={<Login getAuth={getAuth} setUser={setUser} />}
+        ></Route>
       </Routes>
     </div>
   );

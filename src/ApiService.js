@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const USER_API_BASE_URL = "http://localhost:8099/clever";
-
 class ApiService {
   // fetchUsers() {
   //   return axios.get(USER_API_BASE_URL);
@@ -23,7 +21,7 @@ class ApiService {
   //   return axios.post(USER_API_BASE_URL + "/" + user.id, user);
   // }
   addMember(member) {
-    return axios.post(USER_API_BASE_URL, member);
+    return axios.post("/join", member);
   }
 }
 export default new ApiService();
