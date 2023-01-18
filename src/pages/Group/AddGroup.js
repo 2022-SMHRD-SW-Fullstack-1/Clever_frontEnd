@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./AddGroup.module.scss";
 
 const AddGroup = ({ setModalOpen, modalOpen }) => {
@@ -8,10 +8,23 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
     mem_id: sessionStorage.getItem("mem_id"),
   });
 
+  const infoRef = useRef({});
+
   // 모달 끄기
   const closeModal = () => {
     setModalOpen(false);
     console.log(modalOpen);
+  };
+
+  const joinManager = () => {
+    axios
+      .post("/joinManager", infoRef.current)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleInput = (e) => {
@@ -26,13 +39,26 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
     axios
       .post("/addgroup", inputValue)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        const group_seq = res.data;
+        const obj = {
+          ...inputValue,
+          group_seq,
+        };
+        infoRef.current = obj;
+      })
+      .then(() => {
+        joinManager();
         closeModal();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    console.log(infoRef);
+  }, [inputValue]);
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalBlock}>
