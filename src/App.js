@@ -10,6 +10,7 @@ import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
+import CalendarInput from "./pages/Calendar/CalendarInput";
 
 function App() {
   const [user, setUser] = useState("");
@@ -44,6 +45,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
+        <Route path="/calendarInput" element={<CalendarInput />}></Route>
         <Route
           path="/"
           element={<Login getAuth={getAuth} setUser={setUser} />}
