@@ -22,13 +22,13 @@
   .inputLine {
     display: flex;
     margin: 10px;
-
+    flex-direction: column;
     .userInputLine {
       text-align: left;
       width: 180px;
       color: darkgray;
       padding: 5px 5px 15px 5px;
-      border-bottom: 1px solid darkgray;
+      // border-bottom: 1px solid darkgray;
     }
     .userInputLine2 {
       text-align: left;
@@ -43,8 +43,9 @@
       border: none;
       border-bottom: 1px solid darkgray;
       padding-bottom: 10px;
+      padding-left: 7px;
       font-size: 15px;
-      text-align: center;
+      // text-align: center;
       &:focus {
         outline: none;
       }
