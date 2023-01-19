@@ -99,9 +99,7 @@ const ToDoHead = () => {
       <h1>{dateString}</h1>
       <div className="day">{dayName}</div>
       <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft>
-      <div className="todoToggle">
-        <ToDoToggle />
-      </div>
+      <div className="todoToggle">{/* <ToDoToggle /> */}</div>
     </TodoHeadBlock>
   );
 };
