@@ -1,10 +1,23 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styles from "./InviteGroup.module.scss";
 const InviteGroup = ({ setShowInviteModal, showInviteModal, group_seq }) => {
   const close = () => {
     setShowInviteModal(false);
   };
-
+  const [inviteCode, setInviteCode] = useState("");
+  useEffect(() => {
+    axios
+      .post("/getinvitecode", { group_seq: group_seq })
+      .then((res) => {
+        console.log(res.data);
+        setInviteCode(res.data);
+        console.log(group_seq);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <div className={styles.modalContainer} onClick={close}>
@@ -16,7 +29,10 @@ const InviteGroup = ({ setShowInviteModal, showInviteModal, group_seq }) => {
             <span className={styles.description}>
               화면에 뜬 초대코드를 휴대폰에서 입력해주세요.
             </span>
-            <div className={styles.inviteCode}>AX2FG43G</div>
+            <div className={styles.inviteCode}>{inviteCode}</div>
+            <button className={styles.closeBtn} onClick={close}>
+              닫기
+            </button>
           </div>
         </div>
       </div>

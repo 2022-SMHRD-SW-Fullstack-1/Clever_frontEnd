@@ -21,7 +21,7 @@ const Group = ({ user }) => {
 
   useEffect(() => {
     axios
-      .post("/getgrouplist", id)
+      .post("/getgrouplist", { mem_id: id })
       .then((res) => {
         setGroupList(res.data);
       })
