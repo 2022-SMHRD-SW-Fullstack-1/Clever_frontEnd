@@ -60,7 +60,7 @@ const Text = styled.div`
 `;
 
 // 할일 목록
-const ToDoItem = ({ id, done }) => {
+const ToDoItem = ({ id, done, text }) => {
   // console.log("done", done);
 
   const toDoId = [];
@@ -102,24 +102,32 @@ const ToDoItem = ({ id, done }) => {
   // console.log("id", toDoId);
 
   return (
+    // <TodoItemBlock>
+    //   <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+    //   <Text done={done}>{text}</Text>
+    //   <Remove>
+    //     <MdDelete />
+    //   </Remove>
+    // </TodoItemBlock>
+
     <div>
-      {todoList.map((item) => (
-        <TodoItemBlock>
-          <CheckCircle done={done} onClick={onToggle}>
-            {done && <MdDone />}
-          </CheckCircle>
-          <Text done={done}>{item.todo_title}</Text>
-          <Remove onClick={onRemove}>
-            <MdDelete />
-          </Remove>
-        </TodoItemBlock>
-      ))}
+      {todoList
+        .filter((item, idx) => idx <= 6)
+        .map((item) => (
+          <TodoItemBlock>
+            <CheckCircle done={done} onClick={onToggle}>
+              {done && <MdDone />}
+            </CheckCircle>
+            {/* {todoList.map((item) => ( */}
+            <Text done={done}>{item.todo_title}</Text>
+            {/* ))} */}
+            <Remove onClick={onRemove}>
+              <MdDelete />
+            </Remove>
+          </TodoItemBlock>
+        ))}
     </div>
   );
 };
 
 export default React.memo(ToDoItem);
-
-// export function useTodoState() {
-//   return useContext(ToDoItem);
-// }

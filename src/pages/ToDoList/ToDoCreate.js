@@ -34,12 +34,12 @@ const ToDoCreate = () => {
         todo_title: todoTitleRef.current.value,
         todo_content: todoContentRef.current.value,
         todo_dt: date,
-        todo_repeat: todoRepeatRef.current.value,
+        todo_repeat: value,
         mem_id: todoMemRef.current.value,
         todo_method: todoMethodRef.current.value,
 
-        todo_repeatWeekly: todoWeeklyRef.current.value,
-        todo_repeatMonthly: todoMonthlyRef.current.value,
+        // todo_repeatWeekly: todoWeeklyRef.current.value,
+        // todo_repeatMonthly: todoMonthlyRef.current.value,
       })
       .then((res) => {
         console.log(res.data);
@@ -58,6 +58,7 @@ const ToDoCreate = () => {
     setValue(e.target.value);
   };
 
+  console.log("as", value);
   // 반복 주간
   const [weeklyValue, setWeeklyValue] = useState("");
   const repeatWeekly = (e) => {
@@ -108,19 +109,19 @@ const ToDoCreate = () => {
   }, []);
 
   // 담당자 가져오기
-  // const [memList, setMemList] = useState([]);
+  const [memList, setMemList] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .post("/todolist/getmember")
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       // setCateList(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("실패함", err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .post("/todolist/getmember")
+      .then((res) => {
+        console.log("mem", res.data);
+        // setCateList(res.data);
+      })
+      .catch((err) => {
+        console.log("실패함", err);
+      });
+  }, []);
 
   return (
     <div>
