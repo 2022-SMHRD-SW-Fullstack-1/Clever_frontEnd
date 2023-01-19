@@ -1,6 +1,6 @@
 import daygrid from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../../styles/calendar.css";
 import googleCalendar from "@fullcalendar/google-calendar";
 import interaction from "@fullcalendar/interaction";
@@ -22,10 +22,11 @@ const Calendar = () => {
   const workingTime = [{ arrive: "07:00", live: "18:00" }];
   const arrSchedule = [];
   const scheduleList = useRef([]);
+  console.log("count0");
 
   ApiService.getSchedule()
     .then((res) => {
-      console.log("0번", res.data[0]);
+      console.log("count2");
       res.data.map((item, index) => {
         scheduleList.current.push({
           title: `${item.att_sche_start_time}~${item.att_sche_end_time}`,
@@ -33,9 +34,11 @@ const Calendar = () => {
         });
       });
     })
+
     .catch((err) => {
       alert(err);
     });
+
   arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
   arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
 
@@ -302,6 +305,7 @@ const Calendar = () => {
         </div>
       </div>
       <a href="/calendarInput">등록하러가기</a>
+      {console.log("count1")}
     </div>
   );
 };

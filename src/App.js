@@ -22,6 +22,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log("Test111");
     sessionStorage.getItem("mem_id") !== null && setAuth(true);
     loginUser();
     setUser(sessionStorage.getItem("mem_id"));
