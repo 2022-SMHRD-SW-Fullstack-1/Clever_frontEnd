@@ -1,0 +1,67 @@
+.modalContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, 0.6);
+
+  .modalBlock {
+    width: 480px;
+    height: 300px;
+    background-color: white;
+    position: relative;
+    box-sizing: border-box;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    .close {
+      float: right;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .modalContents {
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      padding: 0 20px 32px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .description {
+        text-align: center;
+      }
+
+      .inviteCode {
+        margin: 30px auto;
+        border-radius: 2px;
+        width: 70%;
+        height: 60px;
+        border: 1px solid #e5e5e5;
+        padding: 9px 12px;
+        outline: none;
+        box-sizing: border-box;
+        font-size: 30px;
+        text-align: center;
+      }
+    }
+  }
+}
+.closeBtn {
+  width: 90px;
+  height: 40px;
+  border: 0;
+  outline: none;
+  font-size: 15px;
+  background: #3a4ca8;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 20px auto;
+}
