@@ -18,7 +18,7 @@ const InviteGroup = ({ setShowInviteModal, showInviteModal, group_seq }) => {
   }, []);
   return (
     <>
-      <div className={styles.modalContainer} onClick={close}>
+      <div className={styles.modalContainer}>
         <div className={styles.modalBlock}>
           <span className={styles.close} onClick={close}>
             &times;

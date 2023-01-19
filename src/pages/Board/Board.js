@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import AddBoardCate from "./AddBoardCate";
 import styles from "./Board.module.scss";
 
 const Board = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [groupInfo, setGroupInfo] = useState(location.state);
   const handleWrite = () => {
     navigate("/writeboard");
   };
@@ -21,6 +24,12 @@ const Board = () => {
           <span className={styles.categoryName}>카테고리</span>
 
           <button onClick={openAddCategory}>카테고리 추가</button>
+          {showAddCategory && (
+            <AddBoardCate
+              setShowAddCategory={setShowAddCategory}
+              groupInfo={groupInfo}
+            />
+          )}
         </div>
       </div>
       <div className={styles.boardContainer}>게시글 목록</div>

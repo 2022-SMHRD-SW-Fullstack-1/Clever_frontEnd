@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Group.module.scss";
 import InviteGroup from "./InviteGroup";
 const GroupItem = ({ group_seq, group_name, id }) => {
+  const navigate = useNavigate();
   const [groupInfo, setGroupInfo] = useState({
     group_seq: group_seq,
     mem_id: id,
   });
+
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const inviteGroup = () => {
@@ -24,11 +27,17 @@ const GroupItem = ({ group_seq, group_name, id }) => {
       });
   };
 
+  const handleEnterGroup = () => {
+    navigate("/board", { state: groupInfo });
+  };
+
   return (
     <div className="groupItemContainer">
       <div className={styles.groupItem}>
         <div className={styles.groupNameArea}>
-          <span className={styles.groupName}>{group_name}</span>
+          <span className={styles.groupName} onClick={handleEnterGroup}>
+            {group_name}
+          </span>
         </div>
         <div className={styles.groupBtnArea}>
           <button className={styles.inviteBtn} onClick={inviteGroup}>

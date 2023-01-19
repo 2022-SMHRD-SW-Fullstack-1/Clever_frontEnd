@@ -59,7 +59,7 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
     console.log(infoRef);
   }, [inputValue]);
   return (
-    <div className={styles.modalContainer} onClick={closeModal}>
+    <div className={styles.modalContainer}>
       <div className={styles.modalBlock}>
         <div className={styles.modalCloseArea}>
           <span className={styles.closeBtn} onClick={closeModal}>

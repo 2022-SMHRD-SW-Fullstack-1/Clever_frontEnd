@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const WriteBoard = () => {
-  return <div>WriteBoard</div>;
+  return <div>writeboard</div>;
 };
 
 export default WriteBoard;
