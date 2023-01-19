@@ -27,16 +27,20 @@
       font-size: 25px;
     }
     .modalContents {
-      margin: 0 auto;
+      margin-top: 100px;
       width: 100%;
       position: relative;
       padding: 0 20px 32px;
       box-sizing: border-box;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       flex-direction: column;
+      margin: 0 auto;
+
       .description {
         text-align: center;
+        font-size: 20px;
+        font-weight: bold;
       }
 
       .inviteCode {
@@ -50,6 +54,18 @@
         box-sizing: border-box;
         font-size: 30px;
         text-align: center;
+      }
+      .okBtn {
+        width: 90px;
+        height: 40px;
+        border: 0;
+        outline: none;
+        font-size: 15px;
+        background: #3a4ca8;
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-top: 30px;
       }
     }
   }
