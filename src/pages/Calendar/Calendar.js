@@ -5,6 +5,7 @@ import "../../styles/calendar.css";
 import googleCalendar from "@fullcalendar/google-calendar";
 import interaction from "@fullcalendar/interaction";
 import { v4 as uuidv4 } from "uuid";
+import ApiService from "../../ApiService";
 
 const Calendar = () => {
   const date = new Date();
@@ -12,6 +13,36 @@ const Calendar = () => {
   const month = date.getMonth();
   const day = date.getDate();
   const today = year + "-" + month + 1 + "-" + day;
+  const [workerName, setWorkerName] = useState("");
+  const apiKey = "AIzaSyAHG8iIVB4i-q5o7KRjdvKcwVc67JzZEWc";
+  const [selectedDate, setSelectecDate] = useState(today);
+  let arrAddList = useRef([]);
+  const [thisDayListState, setThisDayListState] = useState([]);
+  const [arrAddListState, setArrAddListState] = useState([]);
+  const workingTime = [{ arrive: "07:00", live: "18:00" }];
+  const arrSchedule = [];
+  const scheduleList = useRef([]);
+
+  ApiService.getSchedule()
+    .then((res) => {
+      console.log("0번", res.data[0]);
+      res.data.map((item, index) => {
+        scheduleList.current.push({
+          title: `${item.att_sche_start_time}~${item.att_sche_end_time}`,
+          date: item.att_date,
+        });
+      });
+    })
+    .catch((err) => {
+      alert(err);
+    });
+  arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
+  arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
+
+  console.log("받아온 일정", scheduleList.current);
+  console.log("scheduleList", scheduleList[0]);
+  console.log("arrSchedule", arrSchedule);
+  console.log("비교결과 :", arrSchedule[0] === scheduleList[0]);
 
   var workerList = [
     { workerName: "선택", startTime: "16:10", endTime: "21:10" },
@@ -36,6 +67,7 @@ const Calendar = () => {
       endTime: "09:10",
     },
   ];
+
   const workerListRendering = () => {
     var result = workerList.map((item, index) => {
       return <option key={index}>{item.workerName}</option>;
@@ -43,24 +75,6 @@ const Calendar = () => {
     return result;
   };
 
-  const [workerName, setWorkerName] = useState("");
-  const apiKey = "AIzaSyAHG8iIVB4i-q5o7KRjdvKcwVc67JzZEWc";
-  const [selectedDate, setSelectecDate] = useState(today);
-  let arrAddList = useRef([]);
-  const [thisDayListState, setThisDayListState] = useState([]);
-  const [arrAddListState, setArrAddListState] = useState([]);
-  const workingTime = [{ arrive: "07:00", live: "18:00" }];
-  console.log("리스트상태", arrAddList.current);
-  console.log("클릭한날짜", selectedDate);
-  const arrSchedule = [];
-
-  for (var i = 1; i < 20; i++) {
-    if (i < 10) {
-      arrSchedule.push({ title: "07:00~15:0" + i, date: "2023010" + i });
-    } else {
-      arrSchedule.push({ title: "07:00~15:00", date: "202301" + i });
-    }
-  }
   console.log(arrSchedule);
   console.log("유저 : ", workerName);
   var thisDayList = useRef([

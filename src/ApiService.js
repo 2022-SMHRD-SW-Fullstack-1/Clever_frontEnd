@@ -28,5 +28,9 @@ class ApiService {
     // var arrData = { saveArrScheduleInfo: saveArrScheduleInfo };
     return axios.post("/saveArrScheduleInfo", saveArrScheduleInfo);
   }
+
+  getSchedule() {
+    return axios.get("/getSchedule");
+  }
 }
 export default new ApiService();

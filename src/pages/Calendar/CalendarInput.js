@@ -296,12 +296,15 @@ const CalendarInput = () => {
       dateLength[i] >= 10
         ? saveArrScheduleInfo.push({
             mem_id: String(Worker),
+            // mem_id: "01075780324",
             att_date: `${PlanYear}-${PlanMonth}-${dateLength[i]}`,
             att_sche_start_time: String(startTime),
             att_sche_end_time: String(endTime),
           })
         : saveArrScheduleInfo.push({
             mem_id: String(Worker),
+            // mem_id: "01075780324",
+
             att_date: `${PlanYear}-${PlanMonth}-0${dateLength[i]}`,
             att_sche_start_time: String(startTime),
             att_sche_end_time: String(endTime),
@@ -311,7 +314,7 @@ const CalendarInput = () => {
 
     ApiService.saveArrScheduleInfo(saveArrScheduleInfo)
       .then((res) => {
-        console.log("성공");
+        alert("등록성공");
       })
       .catch((err) => {
         alert(err);
@@ -357,7 +360,7 @@ const CalendarInput = () => {
           <br />
 
           <br />
-          <p>
+          {/* <p>
             직원: {Worker}
             <br />
             요일 : {Day}
@@ -367,7 +370,7 @@ const CalendarInput = () => {
             근무시간 : {startTime}~{endTime}
             <br />
             날짜 : {finalDate}
-          </p>
+          </p> */}
         </tr>
       </form>
       <button
