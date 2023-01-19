@@ -22,6 +22,7 @@ const Calendar = () => {
   const workingTime = [{ arrive: "07:00", live: "18:00" }];
   const arrSchedule = [];
   const scheduleList = useRef([]);
+  var copySchedule = [];
   console.log("count0");
 
   ApiService.getSchedule()
@@ -29,7 +30,7 @@ const Calendar = () => {
       console.log("count2");
       res.data.map((item, index) => {
         scheduleList.current.push({
-          title: `${item.att_sche_start_time}~${item.att_sche_end_time}`,
+          title: `${item.mem_name}${item.att_sche_start_time}~${item.att_sche_end_time}`,
           date: item.att_date,
         });
       });
@@ -42,6 +43,9 @@ const Calendar = () => {
   arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
   arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
 
+  copySchedule = [...scheduleList.current];
+  scheduleList.current = [];
+  console.log("카피", copySchedule);
   console.log("받아온 일정", scheduleList.current);
   console.log("scheduleList", scheduleList[0]);
   console.log("arrSchedule", arrSchedule);
@@ -230,7 +234,7 @@ const Calendar = () => {
               textColor: "yellow",
             },
           ]}
-          events={arrSchedule}
+          events={copySchedule}
           eventClick={function (info) {
             alert(info.date + info.event.title);
             info.el.style.borderColor = "red";
