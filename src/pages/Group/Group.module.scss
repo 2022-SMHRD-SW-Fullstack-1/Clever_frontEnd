@@ -69,8 +69,8 @@
   }
 
   .addGroupBtn {
-    width: 130px;
-    height: 130px;
+    width: 200px;
+    height: 70px;
     border: solid darkgray 1px;
     font-size: 15px;
     margin: 20px;
@@ -79,19 +79,28 @@
     color: black;
     // padding: 10px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 40px;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
+    align-items: center;
+    text-align: center;
 
     .addBtnIn {
-      display: inline;
-      text-align: center;
+      display: flex;
+      background-color: antiquewhite;
+
       .addIcon {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
+
+        background-color: aqua;
       }
 
       .btnDecsriptionArea {
-        padding-top: 20px;
+        // padding-top: 20px;
+
+        margin: 0 auto;
+        padding: 10px;
+        background-color: blue;
         .btnDecsription {
           font-size: 18px;
           font-weight: bold;

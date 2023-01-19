@@ -10,9 +10,7 @@ const InviteGroup = ({ setShowInviteModal, showInviteModal, group_seq }) => {
     axios
       .post("/getinvitecode", { group_seq: group_seq })
       .then((res) => {
-        console.log(res.data);
         setInviteCode(res.data);
-        console.log(group_seq);
       })
       .catch((err) => {
         console.log(err);
