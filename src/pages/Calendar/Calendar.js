@@ -225,6 +225,7 @@ const Calendar = () => {
           locale="ko" //한글 버전
           selectable={true}
           height={700}
+          dayMaxEventRows={2}
           //이벤트
           eventSources={[
             {
