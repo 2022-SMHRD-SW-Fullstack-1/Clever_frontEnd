@@ -5,8 +5,6 @@
   z-index: 100;
   top: 0;
   left: 0;
-  // right: 0;
-  // bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +13,7 @@
 
   .modalBlock {
     width: 480px;
-    height: 521px;
+    height: 300px;
     background-color: white;
     position: relative;
     box-sizing: border-box;
@@ -25,6 +23,7 @@
     .close {
       float: right;
       font-size: 25px;
+      cursor: pointer;
     }
     .modalContents {
       margin-top: 100px;
@@ -69,4 +68,16 @@
       }
     }
   }
+}
+.closeBtn {
+  width: 90px;
+  height: 40px;
+  border: 0;
+  outline: none;
+  font-size: 15px;
+  background: #3a4ca8;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 20px auto;
 }
