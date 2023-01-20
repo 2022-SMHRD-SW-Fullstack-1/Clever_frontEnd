@@ -63,32 +63,51 @@ body {
     }
   }
 }
+
 .show-todo {
-  .todoTemplate {
-    float: left;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-    // top: 50%;
-    // left: 50%;
-
-    margin: 0 auto;
-  }
+  align-items: center;
+  margin-top: 20px;
 }
 
-.todoDetail {
-  .todo-detail {
-    position: relative;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 32px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
+.todoTemplate {
+  float: left;
+  // flex-grow: 2;
+
+  display: flex;
+
+  // margin: auto;
+
+  // margin-top: 20px;
+  margin-left: 25%;
+
+  justify-content: center;
+  align-items: center;
+  // top: 50%;
+  // left: 50%;
+
+  // margin: 0 auto;
+}
+
+.todo-detail {
+  width: 512px;
+  height: 768px;
+
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 4%);
+
+  margin: 0 auto;
+  margin-top: 40px;
+
+  margin-bottom: 32px;
+  margin-left: 50px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
 }
