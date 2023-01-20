@@ -22,15 +22,13 @@ const AddBoardCate = ({ setShowAddCategory, groupInfo }) => {
 
   const handleAddCate = () => {
     axios
-      .post("/countboardcategory", inputValue)
+      .post("/board/countcategory", inputValue)
       .then((res) => {
-        // if (res.data < 5) {
-        //   //   addCategory();
-        //   console.log(res.data);
-        // } else {
-        //   alert("한 그룹당 카테고리는 5개만 생성할 수 있습니다.");
-        // }
-        console.log(res.data);
+        if (res.data < 5) {
+          addCategory();
+        } else {
+          alert("한 그룹당 카테고리는 5개만 생성할 수 있습니다.");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -38,9 +36,10 @@ const AddBoardCate = ({ setShowAddCategory, groupInfo }) => {
   };
   const addCategory = () => {
     axios
-      .post("/addboardcategory", inputValue)
+      .post("/board/addcategory", inputValue)
       .then((res) => {
-        console.log(res.data);
+        alert("카테고리가 추가되었습니다.");
+        setShowAddCategory(false);
       })
       .catch((err) => {
         console.log(err);
