@@ -1,24 +1,37 @@
 .categoryContainer {
-  margin-top: 50px;
   display: flex;
-  justify-content: center;
+  margin: 50px auto;
+  text-align: center;
   .categoryItem {
     display: flex;
-    justify-content: center;
     margin: 0 auto;
+    border: 1px solid darkgray;
+    border-radius: 30px;
+    width: 55rem;
+    height: 50px;
+    justify-content: center;
 
     .categoryName {
-      border-bottom: 4px solid #3a4ca8;
       font-size: 20px;
-      padding-bottom: 10px;
+      padding-top: 10px;
+      padding-bottom: 5px;
       width: auto;
-      margin: 20px;
+      height: auto;
+      margin-left: 20px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    .categoryName:hover {
+      font-weight: bold;
+      border-bottom: 4px solid #3a4ca8;
     }
   }
-  .cateAddBtn {
-    width: 40px;
-    height: 40px;
-  }
+}
+.cateAddBtn {
+  width: 50px;
+  height: 50px;
+
+  cursor: pointer;
 }
 
 .boardContainer {

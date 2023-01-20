@@ -55,12 +55,16 @@ const AddBoardCate = ({ setShowAddCategory, groupInfo }) => {
           </span>
           <div className={styles.modalContents}>
             <span className={styles.description}>카테고리 추가</span>
+            <span className={styles.addDescription}>
+              한 그룹당 최대 5개까지 생성할 수 있습니다.
+            </span>
             <input
               className={styles.cateNameInput}
               onChange={handleInput}
               name="cate_name"
               placeholder="카테고리명을 입력하세요."
             ></input>
+
             <button className={styles.addCateBtn} onClick={handleAddCate}>
               추가하기
             </button>

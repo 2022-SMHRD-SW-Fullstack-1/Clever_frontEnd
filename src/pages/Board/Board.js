@@ -10,6 +10,7 @@ const Board = () => {
   const location = useLocation();
   const [groupInfo, setGroupInfo] = useState(location.state);
   const [cateList, setCateList] = useState([]);
+  const [category, setCategory] = useState();
   const cateEmpty = cateList.length === 0;
 
   const handleWrite = () => {
@@ -19,13 +20,15 @@ const Board = () => {
   const openAddCategory = () => {
     setShowAddCategory(true);
   };
+  const handleCategory = () => {
+    console.log();
+  };
 
   useEffect(() => {
     axios
       .post("/board/getcategory", groupInfo)
       .then((res) => {
         setCateList(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -36,14 +39,20 @@ const Board = () => {
     <div className="container">
       <div className={styles.categoryContainer}>
         <div className={styles.categoryItem}>
-          <span className={styles.categoryName}>공지사항</span>
-          <span className={styles.categoryName}>특이사항</span>
           {cateEmpty ? (
             <div>카테고리를 생성해주세요</div>
           ) : (
             cateList &&
-            cateList.map(({ cate_name }) => {
-              return <div className={styles.categoryName}>{cate_name}</div>;
+            cateList.map(({ cate_name, cate_seq }) => {
+              return (
+                <div
+                  className={styles.categoryName}
+                  key={cate_seq}
+                  onClick={handleCategory}
+                >
+                  {cate_name}
+                </div>
+              );
             })
           )}
         </div>
@@ -57,6 +66,7 @@ const Board = () => {
           />
         )}
       </div>
+
       <div className={styles.boardContainer}>게시글 목록</div>
       <button className={styles.writeBtn} onClick={handleWrite}>
         글 작성

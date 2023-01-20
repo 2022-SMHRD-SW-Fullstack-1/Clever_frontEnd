@@ -13,7 +13,7 @@
 
   .modalBlock {
     width: 480px;
-    height: 300px;
+    height: 320px;
     background-color: white;
     position: relative;
     box-sizing: border-box;
@@ -43,7 +43,8 @@
       }
 
       .cateNameInput {
-        margin: 30px auto;
+        margin: 40px auto;
+        margin-bottom: 0;
         border-radius: 2px;
         width: 70%;
         height: 60px;
@@ -53,6 +54,11 @@
         box-sizing: border-box;
         font-size: 20px;
         text-align: center;
+      }
+      .addDescription {
+        font-size: 15px;
+        width: 70%;
+        margin: 0 auto;
       }
     }
   }
