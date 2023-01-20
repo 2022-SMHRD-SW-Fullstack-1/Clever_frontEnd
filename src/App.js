@@ -14,6 +14,7 @@ import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
+import WriteBoard from "./pages/Board/WriteBoard";
 
 function App() {
   const [user, setUser] = useState("");
@@ -52,6 +53,7 @@ function App() {
           path="/"
           element={<Login getAuth={getAuth} setUser={setUser} />}
         ></Route>
+        <Route path="/writeboard" element={<WriteBoard />}></Route>
       </Routes>
     </div>
   );

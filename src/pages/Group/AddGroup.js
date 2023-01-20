@@ -13,7 +13,6 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
   // 모달 끄기
   const closeModal = () => {
     setModalOpen(false);
-    console.log(modalOpen);
   };
 
   const joinManager = () => {
@@ -63,9 +62,9 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
     <div className={styles.modalContainer}>
       <div className={styles.modalBlock}>
         <div className={styles.modalCloseArea}>
-          <button className={styles.closeBtn} onClick={closeModal}>
-            X
-          </button>
+          <span className={styles.closeBtn} onClick={closeModal}>
+            &times;
+          </span>
         </div>
         <div className={styles.addTitle}>
           <span>그룹 만들기</span>
