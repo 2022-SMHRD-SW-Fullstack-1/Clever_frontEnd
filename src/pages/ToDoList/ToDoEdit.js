@@ -1,13 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../layout/Header";
-import "./ToDoCreate.scss";
 
-const ToDoCreate = () => {
-  let user = sessionStorage.getItem("mem_id");
-  console.log("로그인", user);
-
+const ToDoEdit = () => {
   const todoTitleRef = useRef();
   const todoContentRef = useRef();
   const todoMethodRef = useRef();
@@ -20,14 +16,38 @@ const ToDoCreate = () => {
   const todoMonthlyRef = useRef();
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const todo_seq = location.state;
 
   const date = new Date();
+
+  // 할 일 데이터 가져오기
+  const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/todolist/edittodo", {
+        todo_seq: todo_seq,
+        cate_seq: todoCategoryRef.current.value,
+        cate_name: todoCategoryRef.current.value,
+        todo_title: todoTitleRef.current.value,
+        todo_content: todoContentRef.current.value,
+        todo_dt: date,
+        todo_repeat: value,
+        mem_id: todoMemRef.current.value,
+        todo_method: todoMethodRef.current.value,
+      })
+      .then((res) => {
+        console.log("res", res);
+      });
+  }, []);
 
   const submitCk = (e) => {
     e.preventDefault();
 
     axios
-      .post("/todolist/addtodo", {
+      .post("/todolist/edittodo", {
         todo_seq: "",
         cate_seq: todoCategoryRef.current.value,
         cate_name: todoCategoryRef.current.value,
@@ -58,7 +78,6 @@ const ToDoCreate = () => {
     setValue(e.target.value);
   };
 
-  console.log("as", value);
   // 반복 주간
   const [weeklyValue, setWeeklyValue] = useState("");
   const repeatWeekly = (e) => {
@@ -148,7 +167,9 @@ const ToDoCreate = () => {
                       ref={todoTitleRef}
                       placeholder="할 일 제목"
                       size="50"
-                    ></input>
+                    >
+                      {/* {todoTitleRef} */}
+                    </input>
                   </td>
                 </tr>
                 <tr>
@@ -305,4 +326,4 @@ const ToDoCreate = () => {
   );
 };
 
-export default ToDoCreate;
+export default ToDoEdit;

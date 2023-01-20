@@ -52,6 +52,43 @@ body {
     .todo-cateName {
       float: left;
       width: 25%;
+
+      // border: none;
+      border-top-color: white;
+      border-left-color: white;
+      border-right-color: white;
+      border-bottom-color: #3a4ca8;
+
+      background-color: white;
     }
+  }
+}
+.show-todo {
+  .todoTemplate {
+    float: left;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    // top: 50%;
+    // left: 50%;
+
+    margin: 0 auto;
+  }
+}
+
+.todoDetail {
+  .todo-detail {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
 }
