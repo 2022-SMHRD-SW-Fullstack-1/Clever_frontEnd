@@ -21,9 +21,6 @@ const Header = () => {
               <a href="/calendar"> 일정</a>
             </li>
             <li>
-              <a href="/board"> 전달사항</a>
-            </li>
-            <li>
               <a href="/group"> 그룹</a>
             </li>
             <li>
