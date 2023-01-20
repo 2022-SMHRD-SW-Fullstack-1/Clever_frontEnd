@@ -1,15 +1,23 @@
 .categoryContainer {
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
   .categoryItem {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    margin: 0 auto;
 
     .categoryName {
       border-bottom: 4px solid #3a4ca8;
       font-size: 20px;
       padding-bottom: 10px;
       width: auto;
+      margin: 20px;
     }
+  }
+  .cateAddBtn {
+    width: 40px;
+    height: 40px;
   }
 }
 
