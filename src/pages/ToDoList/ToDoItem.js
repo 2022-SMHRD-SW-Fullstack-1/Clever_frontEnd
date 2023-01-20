@@ -1,10 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { MdDone, MdDelete } from "react-icons/md";
+import { MdDone, MdDelete, MdEdit } from "react-icons/md";
 import { useTodoDispatch } from "./ToDoContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Remove = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dee2e6;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: #ff6b6b;
+  }
+  display: none;
+`;
+
+const Edit = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,10 +74,12 @@ const Text = styled.div`
 `;
 
 // 할일 목록
-const ToDoItem = ({ id, done, text }) => {
+const ToDoItem = ({ todos }) => {
   // console.log("done", done);
 
   const toDoId = [];
+
+  const navigate = useNavigate();
 
   const dispatch = useTodoDispatch();
 
@@ -71,7 +87,7 @@ const ToDoItem = ({ id, done, text }) => {
     dispatch({
       type: "TOGGLE",
       // id: toDoId,
-      id,
+      id: todos.id,
     });
   };
 
@@ -79,27 +95,38 @@ const ToDoItem = ({ id, done, text }) => {
     dispatch({
       type: "REMOVE",
       // id: toDoId,
-      id,
+      id: todos.id,
     });
   };
 
+  const [todoSelect, setTodoSelect] = useState("");
+
+  // 할 일 수정 페이지로 이동
+  const onEdit = (item, e) => {
+    setTodoSelect(item.todo_seq);
+    navigate("/todolistedit", { state: todoSelect });
+  };
+
   // DB 할 일 가져오기
-  const [todoList, setTodoList] = useState([]);
+  // const [todoList, setTodoList] = useState([]);
 
-  useEffect(() => {
-    axios
-      .post("/todolist/todolist")
-      .then((res) => {
-        // console.log("db1", res.data);
-        setTodoList(res.data);
-      })
-      .catch((err) => {
-        console.log("실패함", err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("/todolist/todolist")
+  //     .then((res) => {
+  //       // dispatch({
+  //       //   type: "CREATE"
+  //       // });
+  //       // console.log("asdf", res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("실패함", err);
+  //     });
+  // }, []);
 
-  todoList.map((item) => toDoId.push(item.todo_seq));
+  // todoList.map((item) => toDoId.push(item.todo_seq));
   // console.log("id", toDoId);
+  // console.log("state : ", todoSelect);
 
   return (
     // <TodoItemBlock>
@@ -111,21 +138,28 @@ const ToDoItem = ({ id, done, text }) => {
     // </TodoItemBlock>
 
     <div>
-      {todoList
+      {/* {todos
         .filter((item, idx) => idx <= 6)
-        .map((item) => (
-          <TodoItemBlock>
-            <CheckCircle done={done} onClick={onToggle}>
-              {done && <MdDone />}
+        .map((item, idx) => (
+          <TodoItemBlock key={item + idx}>
+            <CheckCircle done={todos.done} onClick={onToggle}>
+              {todos.done && <MdDone />}
             </CheckCircle>
-            {/* {todoList.map((item) => ( */}
-            <Text done={done}>{item.todo_title}</Text>
-            {/* ))} */}
+            <Text done={todos.done}>{item.todo_title}</Text>
+            <Remove
+              key={item.todo_seq}
+              onClick={(e) => {
+                onEdit(item, e);
+              }}
+              value={item.todo_seq}
+            >
+              <MdEdit />
+            </Remove>
             <Remove onClick={onRemove}>
               <MdDelete />
             </Remove>
           </TodoItemBlock>
-        ))}
+        ))} */}
     </div>
   );
 };

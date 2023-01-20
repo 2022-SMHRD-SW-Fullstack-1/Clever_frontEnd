@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 const cateCk = styled.div`
-  background: #3a4ca8;
+  // background: #3a4ca8;
 `;
 
 const Todo = () => {
@@ -55,21 +55,26 @@ const Todo = () => {
       <div className="todoCate">
         <div className="todo-category">
           {cateList.map((item) => (
-            <div className="todo-cateName" onChange={cateCk}>
+            <button className="todo-cateName" onChange={cateCk}>
               {item.cate_name}
-            </div>
+            </button>
           ))}
         </div>
       </div>
-      <TodoProvider>
-        <div className="globalStyle">
-          <GlobalStyle />
-        </div>
-        <ToDoTemplate>
-          <ToDoHead />
-          <ToDoList />
-        </ToDoTemplate>
-      </TodoProvider>
+      <div className="globalStyle">
+        <GlobalStyle />
+      </div>
+      <div className="show-todo">
+        <TodoProvider>
+          <div className="todoTemplate">
+            <ToDoTemplate>
+              <ToDoHead />
+              <ToDoList />
+            </ToDoTemplate>
+          </div>
+        </TodoProvider>
+        <div className="todo-detail"> 상세보기</div>
+      </div>
     </div>
   );
 };

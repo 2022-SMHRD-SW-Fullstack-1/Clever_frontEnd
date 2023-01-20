@@ -23,11 +23,11 @@ export function todoReducer(state, action) {
 }
 
 const initialToDos = [
-  {
-    id: 1,
-    text: "냉장고, 냉동고 온도 확인하기",
-    done: true,
-  },
+  // {{
+  //   id: 1,
+  //   text: "냉장고, 냉동고 온도 확인하기",
+  //   done: true,
+  // },
   // {
   //   id: 2,
   //   text: "싱크대 바닥 청소",
@@ -37,7 +37,7 @@ const initialToDos = [
   //   id: 3,
   //   text: "마감시 에어컨 끄기",
   //   done: false,
-  // },
+  // },}
 ];
 
 const TodoStateContext = createContext(null);
