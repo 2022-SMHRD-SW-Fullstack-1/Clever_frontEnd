@@ -28,7 +28,8 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
     axios
       .post("/board/postboard", inputValue)
       .then((res) => {
-        console.log(res.data);
+        alert("게시글 등록 완료!");
+        close();
       })
       .catch((err) => {
         console.log(err);
