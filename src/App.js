@@ -18,9 +18,11 @@ import AddGroup from "./pages/Group/AddGroup";
 import ToDoEdit from "./pages/ToDoList/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
 
-
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({
+    mem_id: "",
+    mem_name: "",
+  });
   const [auth, setAuth] = useState(false);
 
   const getAuth = (data) => {
@@ -31,7 +33,10 @@ function App() {
   useEffect(() => {
     sessionStorage.getItem("mem_id") !== null && setAuth(true);
     loginUser();
-    setUser(sessionStorage.getItem("mem_id"));
+    setUser({
+      mem_id: sessionStorage.getItem("mem_id"),
+      mem_name: sessionStorage.getItem("mem_name"),
+    });
   }, [auth]);
 
   const loginUser = () => {
@@ -41,6 +46,7 @@ function App() {
       return <Header />;
     }
   };
+
   return (
     <div>
       {loginUser()}

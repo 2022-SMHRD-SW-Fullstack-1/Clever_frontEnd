@@ -13,13 +13,14 @@
 
   .modalBlock {
     width: 50rem;
-    height: 50rem;
+    height: 45rem;
     background-color: white;
     position: relative;
     box-sizing: border-box;
     margin: 50px auto;
     padding: 20px;
     background: #fff;
+    overflow: auto;
     .close {
       float: right;
       font-size: 25px;
@@ -56,10 +57,14 @@
         font-size: 17px;
         margin-top: 20px;
         padding: 0px 12px;
-        height: 500px;
+        height: 450px;
         border: none;
         outline: none;
         overflow: auto;
+      }
+      .fileInput {
+        border-bottom: solid 1px darkgray;
+        font-size: 18px;
       }
     }
   }
