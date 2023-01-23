@@ -1,7 +1,7 @@
 import React from "react";
 import GroupItem from "./GroupItem";
 
-const GroupNotEmpty = ({ groupList, id }) => {
+const GroupNotEmpty = ({ groupList, user }) => {
   return (
     <>
       {groupList &&
@@ -11,7 +11,7 @@ const GroupNotEmpty = ({ groupList, id }) => {
               key={group_seq}
               group_seq={group_seq}
               group_name={group_name}
-              id={id}
+              user={user}
             />
           );
         })}

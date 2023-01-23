@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddBoardCate from "./Category/AddBoardCate";
 import styles from "./Board.module.scss";
@@ -12,11 +12,14 @@ const Board = () => {
   const [showWriteModal, setShowWriteModal] = useState(false);
   const [groupInfo, setGroupInfo] = useState(location.state);
   const mem_id = groupInfo.mem_id;
+  const mem_name = groupInfo.mem_name;
   const [category, setCategory] = useState("");
   const [writerInfo, setWriterInfo] = useState({
     category: category,
     mem_id: mem_id,
+    mem_name: mem_name,
   });
+  const infoRef = useRef({});
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [cateList, setCateList] = useState([]);
   const cateEmpty = cateList.length === 0;
@@ -36,13 +39,18 @@ const Board = () => {
       .post("/board/getcategory", groupInfo)
       .then((res) => {
         setCateList(res.data);
-        console.log(res.data);
         setCategory(res.data[0].cate_seq);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  const obj = {
+    ...writerInfo,
+    category,
+  };
+  infoRef.current = obj;
 
   return (
     <div className="container">
@@ -87,12 +95,11 @@ const Board = () => {
       {showWriteModal && (
         <WriteBoard
           setShowWriteModal={setShowWriteModal}
-          writerInfo={writerInfo}
+          writerInfo={infoRef}
         />
       )}
     </div>
   );
-
 };
 
 export default Board;
