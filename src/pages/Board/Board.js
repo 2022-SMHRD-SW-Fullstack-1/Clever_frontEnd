@@ -5,19 +5,20 @@ import styles from "./Board.module.scss";
 import add from "../../image/add.png";
 import axios from "axios";
 import WriteBoard from "./WriteBoard";
+import BoardList from "./BoardList/BoardList";
 
 const Board = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showWriteModal, setShowWriteModal] = useState(false);
   const [groupInfo, setGroupInfo] = useState(location.state);
-  const mem_id = groupInfo.mem_id;
-  const mem_name = groupInfo.mem_name;
+
   const [category, setCategory] = useState("");
   const [writerInfo, setWriterInfo] = useState({
     category: category,
-    mem_id: mem_id,
-    mem_name: mem_name,
+    mem_id: groupInfo.mem_id,
+    mem_name: groupInfo.mem_name,
+    group_seq: groupInfo.group_seq,
   });
   const infoRef = useRef({});
   const [showAddCategory, setShowAddCategory] = useState(false);
@@ -88,7 +89,9 @@ const Board = () => {
         )}
       </div>
 
-      <div className={styles.boardContainer}>게시글 목록</div>
+      <div className={styles.boardContainer}>
+        <BoardList writerInfo={infoRef} />
+      </div>
       <button className={styles.writeBtn} onClick={handleWrite}>
         글 작성
       </button>

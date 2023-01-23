@@ -47,7 +47,6 @@ function App() {
     }
   };
 
-  console.log("유저값,,,", user);
   return (
     <div>
       {loginUser()}

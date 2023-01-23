@@ -20,6 +20,7 @@
     margin: 50px auto;
     padding: 20px;
     background: #fff;
+    overflow: auto;
     .close {
       float: right;
       font-size: 25px;
@@ -60,6 +61,10 @@
         border: none;
         outline: none;
         overflow: auto;
+      }
+      .fileInput {
+        border-bottom: solid 1px darkgray;
+        font-size: 18px;
       }
     }
   }

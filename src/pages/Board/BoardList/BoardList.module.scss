@@ -1,0 +1,21 @@
+.emptyList {
+  margin: 100px;
+  align-items: center;
+}
+.listItemContainer {
+  align-items: center;
+  margin: 0 auto;
+  margin-left: 135px;
+  margin-bottom: 10px;
+  border: solid 1px darkgray;
+  border-radius: 10px;
+  width: 55rem;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+
+  .contentArea {
+    display: inline;
+    text-align: start;
+  }
+}

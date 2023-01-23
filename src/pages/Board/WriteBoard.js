@@ -26,7 +26,7 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
 
   const handlePost = () => {
     axios
-      .post("/board/postboard", inputValue)
+      .post("/board/post", inputValue)
       .then((res) => {
         alert("게시글 등록 완료!");
         close();
@@ -35,7 +35,7 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
         console.log(err);
       });
   };
-  // // console.log("writerinfo: ", writerInfo.current);
+  console.log("writerinfo: ", writerInfo.current);
   // console.log(inputValue);
   // console.log("cateseq? ", cate_seq);
 
@@ -62,7 +62,12 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
               onChange={handleChange}
             ></textarea>
             <div className={styles.fileArea}>
-              <input type="file" id="file" multiple></input>
+              <input
+                className={styles.fileInput}
+                type="file"
+                id="file"
+                multiple
+              ></input>
             </div>
             <button className={styles.addBtn} onClick={handlePost}>
               올리기
