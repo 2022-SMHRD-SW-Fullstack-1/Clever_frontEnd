@@ -54,11 +54,11 @@ const ToDoCreate = () => {
   // 반복설정
   const [value, setValue] = useState("");
   const todoRepeat = (e) => {
-    console.log("C", e.target.value);
+    // console.log("C", e.target.value);
     setValue(e.target.value);
   };
 
-  console.log("as", value);
+  // console.log("as", value);
   // 반복 주간
   const [weeklyValue, setWeeklyValue] = useState("");
   const repeatWeekly = (e) => {
@@ -115,7 +115,7 @@ const ToDoCreate = () => {
     axios
       .post("/todolist/getmember")
       .then((res) => {
-        // console.log("mem", res.data);
+        console.log("mem",res.data);
         setMemList(res.data);
       })
       .catch((err) => {

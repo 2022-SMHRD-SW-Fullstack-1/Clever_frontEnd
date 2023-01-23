@@ -9,6 +9,7 @@ import ToDoItem from "./ToDoItem";
 import "./ToDoList.scss";
 import axios from "axios";
 import { MdDelete, MdDone, MdEdit } from "react-icons/md";
+import ToDoDetail from "./ToDoDetail";
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -131,13 +132,32 @@ const ToDoList = () => {
     });
   };
 
+  
+  // 할 일 수정 페이지로 이동
   const [todoSelect, setTodoSelect] = useState("");
 
-  // 할 일 수정 페이지로 이동
   const onEdit = (item, e) => {
-    setTodoSelect(item.todo_seq);
-    navigate("/todolistedit", { state: todoSelect });
+    console.log("item", item);
+    setTodoSelect(item.id);
+    navigate("/todolistedit", { state: item });
   };
+
+  // 할 일 상세보기
+  const [todoDetail, setTodoDetail] = useState()
+
+  const onDetail=(item, e)=>{
+    console.log("e", e.target.innerText)
+    setTodoDetail(item.text)
+    console.log("detail",item)
+     const {detailId} = item.id
+    return (
+      <ToDoDetail item={e.target.innerText}/>
+      
+    )
+ 
+
+  }
+
 
   return (
     <div className="todoContent">
@@ -153,7 +173,7 @@ const ToDoList = () => {
                 <CheckCircle done={item.done} onClick={() => onToggle(item.id)}>
                   {item.done && <MdDone />}
                 </CheckCircle>
-                <Text done={item.done}>{item.text}</Text>
+                <Text done={item.done} key={item+idx} onClick={(e)=>{onDetail(item,e) }} value={item.text}>{item.text}</Text>
                 <Remove
                   key={item.id}
                   onClick={(e) => {
@@ -170,7 +190,6 @@ const ToDoList = () => {
             ))}
         </TodoListBlock>
       </div>
-
       <div className="todoCreate-Img">
         <img src={add} className="todoCreateImg" onClick={gotoToDoCreate}></img>
       </div>

@@ -13,6 +13,7 @@ import { TbMessageReport } from "react-icons/tb";
 import axios from "axios";
 
 import styled from "styled-components";
+import ToDoDetail from "./ToDoDetail";
 
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
@@ -24,7 +25,7 @@ const cateCk = styled.div`
 `;
 
 const Todo = () => {
-  // console.log("props", isOn);
+ 
 
   // db 에 있는 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
@@ -41,8 +42,9 @@ const Todo = () => {
       });
   }, []);
 
-  console.log("asdf", cateList);
+  // console.log("asdf", cateList);
 
+  
   return (
     <div>
       <Header />
@@ -73,7 +75,9 @@ const Todo = () => {
             </ToDoTemplate>
           </div>
         </TodoProvider>
-        <div className="todo-detail"> 상세보기</div>
+        <div className="todo-detail"> 
+        <ToDoDetail  />
+        </div>
       </div>
     </div>
   );
