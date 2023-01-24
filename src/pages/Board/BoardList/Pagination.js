@@ -3,9 +3,6 @@ import styles from "./Pagination.module.scss";
 
 const Pagination = ({ total, limit, page, setPage }) => {
   const numPages = Math.ceil(total / limit);
-
-  //   console.log(total);
-  //   console.log(limit);
   return (
     <>
       <nav className={styles.nav}>

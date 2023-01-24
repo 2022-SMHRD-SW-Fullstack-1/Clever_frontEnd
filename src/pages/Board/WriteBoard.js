@@ -23,7 +23,6 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
       [name]: value,
     });
   };
-
   const handlePost = () => {
     axios
       .post("/board/post", inputValue)
@@ -35,9 +34,33 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
         console.log(err);
       });
   };
-  console.log("writerinfo: ", writerInfo.current);
+  // console.log("writerinfo: ", writerInfo.current);
   // console.log(inputValue);
   // console.log("cateseq? ", cate_seq);
+  const [inputFile, setInputFile] = useState({});
+  const handleChangeFile = (e) => {
+    setInputFile(e.target.files);
+  };
+  const fileUpload = () => {
+    const formData = new FormData();
+    // add File Data to formData
+
+    formData.append("inputFile", inputFile[0].File);
+    console.log("formdata : ", formData.get("inputFile"));
+    axios
+      .post("/board/file", formData, {
+        headers: {
+          "Content-Type": `multipart/form-data; `,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(inputFile[0]);
+      });
+  };
 
   return (
     <>
@@ -65,9 +88,10 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
               <input
                 className={styles.fileInput}
                 type="file"
-                id="file"
-                multiple
+                name="inputFile"
+                onChange={handleChangeFile}
               ></input>
+              <button onClick={fileUpload}>파일업로드</button>
             </div>
             <button className={styles.addBtn} onClick={handlePost}>
               올리기
