@@ -154,9 +154,9 @@ const ToDoList = () => {
       <ToDoDetail item={e.target.innerText}/>
       
     )
- 
-
   }
+
+  // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
 
   return (
@@ -186,6 +186,7 @@ const ToDoList = () => {
                 <Remove onClick={onRemove}>
                   <MdDelete />
                 </Remove>
+                <img src="./add.png" alt="image" className="todoComImg"/>
               </TodoItemBlock>
             ))}
         </TodoListBlock>
