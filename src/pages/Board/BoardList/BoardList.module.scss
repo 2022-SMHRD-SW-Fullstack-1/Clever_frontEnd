@@ -5,17 +5,46 @@
 .listItemContainer {
   align-items: center;
   margin: 0 auto;
-  margin-left: 135px;
+  //   margin-left: 135px;
   margin-bottom: 10px;
   border: solid 1px darkgray;
   border-radius: 10px;
-  width: 55rem;
-  height: 80px;
+  width: 50rem;
+  height: 60px;
   display: flex;
   justify-content: space-between;
 
+  .itemSeq {
+    width: auto;
+    margin-left: 30px;
+    width: 30px;
+  }
   .contentArea {
-    display: inline;
     text-align: start;
+    width: 300px;
+
+    .itemTitle {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .itemContent {
+      font-size: 15px;
+      color: darkgray;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .writer {
+    text-align: right;
+    width: 150px;
+  }
+  .date {
+    font-size: 13px;
+  }
+  .settingArea {
+    margin-right: 20px;
   }
 }
