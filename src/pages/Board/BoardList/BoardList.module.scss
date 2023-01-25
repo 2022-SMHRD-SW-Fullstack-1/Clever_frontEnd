@@ -27,6 +27,10 @@
       font-size: 20px;
       font-weight: bold;
     }
+    .itemTitle:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
 
     .itemContent {
       font-size: 15px;
@@ -35,6 +39,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .itemContent:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
   .writer {
