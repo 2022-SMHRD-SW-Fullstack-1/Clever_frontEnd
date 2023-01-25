@@ -51,7 +51,7 @@ const Todo = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <Header />
       <CalendarData />
       <div className="todoNotice">
@@ -94,6 +94,8 @@ const Todo = () => {
           </div>
           <ToDoList />
         </TodoProvider>
+
+        <div className="todo-detail"></div>
       </div>
     </div>
   );
