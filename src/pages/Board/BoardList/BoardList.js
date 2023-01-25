@@ -2,7 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./BoardList.module.scss";
 import Pagination from "./Pagination";
-const BoardList = ({ writerInfo }) => {
+import BoardDetail from "../BoardDetail/BoardDetail";
+import menu from "../../../image/menu.png";
+const BoardList = ({ writerInfo, cateName }) => {
   const category = writerInfo.current.category;
   const [boardList, setBoardList] = useState([]);
   const [limit, setLimit] = useState(7);
@@ -10,7 +12,13 @@ const BoardList = ({ writerInfo }) => {
   const offset = (page - 1) * limit;
   const [total, setTotal] = useState(boardList.length);
   const listEmpty = boardList.length === 0;
+  const [showDetail, setShowDetail] = useState(false);
 
+  const [detailItem, setDetailItem] = useState({});
+  const handleDetail = (item) => {
+    setDetailItem(item.item);
+    setShowDetail(true);
+  };
   useEffect(() => {
     axios
       .post("board/list", { cate_seq: category })
@@ -23,9 +31,17 @@ const BoardList = ({ writerInfo }) => {
       });
   }, [category, boardList]);
   // }, []);
+  // console.log(cateName);
 
   return (
     <div className="container">
+      {showDetail && (
+        <BoardDetail
+          setShowDetail={setShowDetail}
+          detailItem={detailItem}
+          category={cateName}
+        />
+      )}
       {listEmpty ? (
         <div className={styles.emptyList}>게시물이 없습니다.</div>
       ) : (
@@ -35,10 +51,16 @@ const BoardList = ({ writerInfo }) => {
             <div key={idx} className={styles.listItemContainer}>
               <div className={styles.itemSeq}>{item.notice_seq}</div>
               <div className={styles.contentArea}>
-                <div className={styles.title}>
+                <div
+                  className={styles.title}
+                  onClick={() => handleDetail({ item })}
+                >
                   <span className={styles.itemTitle}>{item.notice_title}</span>
                 </div>
-                <div className={styles.content}>
+                <div
+                  className={styles.content}
+                  onClick={() => handleDetail({ item })}
+                >
                   <span className={styles.itemContent}>
                     {item.notice_content}
                   </span>
@@ -60,7 +82,7 @@ const BoardList = ({ writerInfo }) => {
                 </div>
               </div>
               <div className={styles.settingArea}>
-                <button>설정</button>
+                <img src={menu} className={styles.menu} />
               </div>
             </div>
           );

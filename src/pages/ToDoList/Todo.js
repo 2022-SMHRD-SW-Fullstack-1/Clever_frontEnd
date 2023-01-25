@@ -44,7 +44,7 @@ const Todo = () => {
   console.log("asdf", cateList);
 
   return (
-    <div>
+    <div className="container">
       <Header />
       <CalendarData />
       <div className="todoNotice">
@@ -73,7 +73,7 @@ const Todo = () => {
             </ToDoTemplate>
           </div>
         </TodoProvider>
-        <div className="todo-detail"> 상세보기</div>
+        <div className="todo-detail"></div>
       </div>
     </div>
   );

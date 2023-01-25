@@ -30,6 +30,7 @@ const GroupItem = ({ group_seq, group_name, user }) => {
 
   const handleEnterGroup = () => {
     navigate("/board", { state: groupInfo });
+    sessionStorage.setItem("group_seq", groupInfo.group_seq);
   };
 
   return (

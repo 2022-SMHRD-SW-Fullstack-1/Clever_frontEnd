@@ -14,6 +14,7 @@ const Board = () => {
   const [groupInfo, setGroupInfo] = useState(location.state);
 
   const [category, setCategory] = useState("");
+  const [cateName, setCateName] = useState("");
   const [writerInfo, setWriterInfo] = useState({
     category: category,
     mem_id: groupInfo.mem_id,
@@ -41,6 +42,7 @@ const Board = () => {
       .then((res) => {
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
+        setCateName(res.data[0].cate_name);
       })
       .catch((err) => {
         console.log(err);
@@ -70,7 +72,10 @@ const Board = () => {
                       : styles.categoryName
                   }
                   key={idx}
-                  onClick={() => setCategory(item.cate_seq)}
+                  onClick={() => {
+                    setCategory(item.cate_seq);
+                    setCateName(item.cate_name);
+                  }}
                 >
                   {item.cate_name}
                 </div>
@@ -90,7 +95,7 @@ const Board = () => {
       </div>
 
       <div className={styles.boardContainer}>
-        <BoardList writerInfo={infoRef} />
+        <BoardList writerInfo={infoRef} cateName={cateName} />
       </div>
       <button className={styles.writeBtn} onClick={handleWrite}>
         글 작성
