@@ -5,10 +5,10 @@ import styled, { css } from "styled-components";
 
 import add from "./add.png";
 
-import ToDoItem from "./ToDoItem";
 import "./ToDoList.scss";
 import axios from "axios";
 import { MdDelete, MdDone, MdEdit } from "react-icons/md";
+import ToDoDetail from "./ToDoDetail";
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -21,6 +21,9 @@ const Remove = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  margin-right: 0px;
+
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
@@ -34,6 +37,9 @@ const Edit = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+left : 500px
+
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
@@ -50,6 +56,11 @@ const TodoItemBlock = styled.div`
   padding-bottom: 12px;
   &:hover {
     ${Remove} {
+      display: initial;
+    }
+  }
+  &:hover {
+    ${Edit} {
       display: initial;
     }
   }
@@ -131,13 +142,28 @@ const ToDoList = () => {
     });
   };
 
+  // 할 일 수정 페이지로 이동
   const [todoSelect, setTodoSelect] = useState("");
 
-  // 할 일 수정 페이지로 이동
   const onEdit = (item, e) => {
-    setTodoSelect(item.todo_seq);
-    navigate("/todolistedit", { state: todoSelect });
+    console.log("item", item);
+    setTodoSelect(item.id);
+    navigate("/todolistedit", { state: item });
   };
+
+  // 할 일 상세보기
+  const [todoDetail, setTodoDetail] = useState();
+  const [todoTitle, setTodoTitle] = useState("");
+
+  const onDetail = (item, e) => {
+    // console.log("e", e.target.innerText);
+    setTodoTitle(e.target.innerText);
+    setTodoDetail(item.id);
+    // console.log("detail", item.id);
+    const { detailId } = item.id;
+  };
+
+  // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
   return (
     <div className="todoContent">
@@ -153,8 +179,17 @@ const ToDoList = () => {
                 <CheckCircle done={item.done} onClick={() => onToggle(item.id)}>
                   {item.done && <MdDone />}
                 </CheckCircle>
-                <Text done={item.done}>{item.text}</Text>
-                <Remove
+                <Text
+                  done={item.done}
+                  key={item + idx}
+                  onClick={(e) => {
+                    onDetail(item, e);
+                  }}
+                  value={item.text}
+                >
+                  {item.text}
+                </Text>
+                <Edit
                   key={item.id}
                   onClick={(e) => {
                     onEdit(item, e);
@@ -162,17 +197,25 @@ const ToDoList = () => {
                   value={item.id}
                 >
                   <MdEdit />
-                </Remove>
+                </Edit>
                 <Remove onClick={onRemove}>
                   <MdDelete />
                 </Remove>
+                {/* <img src="./add.png" alt="image" className="todoComImg" /> */}
               </TodoItemBlock>
             ))}
         </TodoListBlock>
+        {/* <div className="todoCreate-Img">
+          <img
+            src={add}
+            className="todoCreateImg"
+            onClick={gotoToDoCreate}
+          ></img>
+        </div> */}
       </div>
 
-      <div className="todoCreate-Img">
-        <img src={add} className="todoCreateImg" onClick={gotoToDoCreate}></img>
+      <div className="todo-detail">
+        <ToDoDetail item={todoDetail} />
       </div>
     </div>
   );

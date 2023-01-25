@@ -16,8 +16,8 @@ const ToDoCreate = () => {
   const todoMemRef = useRef();
   const todoImgRef = useRef();
 
-  const todoWeeklyRef = useRef();
-  const todoMonthlyRef = useRef();
+  // const todoWeeklyRef = useRef();
+  // const todoMonthlyRef = useRef();
 
   const navigate = useNavigate();
 
@@ -54,43 +54,42 @@ const ToDoCreate = () => {
   // 반복설정
   const [value, setValue] = useState("");
   const todoRepeat = (e) => {
-    console.log("C", e.target.value);
+    // console.log("C", e.target.value);
     setValue(e.target.value);
   };
 
-  console.log("as", value);
-  // 반복 주간
-  const [weeklyValue, setWeeklyValue] = useState("");
-  const repeatWeekly = (e) => {
-    // console.log("w", e.target.value);
-    setWeeklyValue(e.target.value);
-  };
+  // // console.log("as", value);
+  // // 반복 주간
+  // const [weeklyValue, setWeeklyValue] = useState("");
+  // const repeatWeekly = (e) => {
+  //   // console.log("w", e.target.value);
+  //   setWeeklyValue(e.target.value);
+  // };
 
   // 반복 월별 날짜 가져오기
-  const [dateList, setDateList] = useState([]);
-  // const dateList = [];
+  // const [dateList, setDateList] = useState([]);
 
-  const now = new Date();
-  const nowMonth = now.getMonth() + 1;
+  // const now = new Date();
+  // const nowMonth = now.getMonth() + 1;
 
-  useEffect(() => {
-    if (nowMonth === 1 || 3 || 5 || 7 || 8 || 10 || 12) {
-      for (let i = 1; i <= 31; i++) {
-        // console.log("이번달", nowMonth);
-        dateList.push(i);
-        // console.log("날짜", dateList);
-      }
-    } else if (nowMonth === 4 || 6 || 9 || 11) {
-      for (let i = 1; i <= 30; i++) {
-        dateList.push(i);
-      }
-    } else if (nowMonth === 2) {
-      for (let i = 1; i <= 29; i++) {
-        dateList.push(i);
-      }
-      return dateList;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (nowMonth === 1 || 3 || 5 || 7 || 8 || 10 || 12) {
+  //     for (let i = 1; i <= 31; i++) {
+  //       // console.log("이번달", nowMonth);
+  //       dateList.push(i);
+  //       // console.log("날짜", dateList);
+  //     }
+  //   } else if (nowMonth === 4 || 6 || 9 || 11) {
+  //     for (let i = 1; i <= 30; i++) {
+  //       dateList.push(i);
+  //     }
+  //   } else if (nowMonth === 2) {
+  //     for (let i = 1; i <= 29; i++) {
+  //       dateList.push(i);
+  //     }
+  //     return dateList;
+  //   }
+  // }, []);
 
   // DB 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
@@ -115,7 +114,7 @@ const ToDoCreate = () => {
     axios
       .post("/todolist/getmember")
       .then((res) => {
-        // console.log("mem", res.data);
+        console.log("mem", res.data);
         setMemList(res.data);
       })
       .catch((err) => {
@@ -221,7 +220,7 @@ const ToDoCreate = () => {
               ></input>
               <label>
                 주간
-                {value === "주간" ? (
+                {/* {value === "주간" ? (
                   <select
                     className="repeat-weekly"
                     onChange={(e) => {
@@ -255,7 +254,7 @@ const ToDoCreate = () => {
                   </select>
                 ) : (
                   <></>
-                )}
+                )} */}
               </label>
               <input
                 className="todo-repeat"
@@ -267,7 +266,7 @@ const ToDoCreate = () => {
               ></input>
               <label>
                 월간
-                {value === "월간" ? (
+                {/* {value === "월간" ? (
                   <select
                     value="repeat-monthly"
                     ref={todoMonthlyRef}
@@ -279,7 +278,7 @@ const ToDoCreate = () => {
                   </select>
                 ) : (
                   <></>
-                )}
+                )} */}
               </label>
             </tr>
 

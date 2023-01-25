@@ -1,0 +1,50 @@
+.todoDetail {
+    font-family: "Gotham Book";
+    font-size: 21px;
+
+    align-items: center;
+    // text-align: center;
+
+    .todoCom-mem{
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      font-weight: bold;
+      color:#3A4CA8;
+    }
+
+  .todoCom-img{
+    width: 500px;
+    height: 350px;
+
+    border: 1px solid black;
+// border-color: black;
+
+margin-top: 20px;
+      margin-bottom: 20px;
+
+}  
+
+.todoCom-time{
+  margin-top: 20px;
+      margin-bottom: 20px;
+
+      font-weight: bold;
+}
+
+.todoCom-memo{
+  width: 500px;
+    height: 250px;
+
+border: 1px solid black;
+
+  margin-top: 20px;
+      margin-bottom: 20px;
+
+
+}
+
+}
+
+  

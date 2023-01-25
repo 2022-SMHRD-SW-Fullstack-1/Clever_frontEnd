@@ -18,7 +18,12 @@ const ToDoEdit = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const todo_seq = location.state;
+  const todo_item = location.state
+
+  const todo_seq = location.state.id;
+  console.log("seq", todo_seq);
+  const todo_title = location.state.text 
+  console.log("title", todo_title)
 
   const date = new Date();
 
