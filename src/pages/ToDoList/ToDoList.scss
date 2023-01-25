@@ -2,16 +2,26 @@ body {
   font-family: "Gotham Book";
 }
 
+.todoContent {
+  // flex-direction: row;
+  display: flex;
+  // float: left;
+  align-items: center;
+  justify-content: center;
+  // display: block;
+  // display: inline-block;
+}
+
 .todo-list {
   flex: 1;
   padding: 20px 32px;
   padding-bottom: 48px;
-  //   overflow-y: auto;
+  overflow-y: auto;
 
   .todo-create {
     //   position: fixed;
     margin-top: 100%;
-    float: right;
+    // float: right;
     bottom: 0;
     // width: 100%;
   }
@@ -34,11 +44,46 @@ body {
     margin: 0 auto;
 
     object-fit: cover;
-  
   }
-  .todoComImg{
-   float: right;
+  .todoComImg {
+    float: right;
   }
-
 }
 
+.todo-detail {
+  // float: right;
+  float: left;
+  // clear: both;
+
+  width: 512px;
+  height: 768px;
+
+  top: 0px;
+
+  // background-color: aqua;
+  // background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 4%);
+
+  padding: 20px;
+  justify-content: center;
+  // display: inline-block;
+  // display: flex;
+  // display: -webkit-box;
+  // display: -webkit-flex;
+  // display: -ms-flexbox;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  // -webkit-flex-direction: row;
+  // -ms-flex-direction: row;
+  // flex-direction: row;
+  position: relative;
+
+  margin: 0 auto;
+  // margin-bottom: 32px;
+  // margin-left: 50px;
+  // margin-left: 1100px;
+
+  // margin-top: 20px;
+}
