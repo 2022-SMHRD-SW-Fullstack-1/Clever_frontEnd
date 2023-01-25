@@ -23,42 +23,32 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
       [name]: value,
     });
   };
-  const handlePost = () => {
-    axios
-      .post("/board/post", inputValue)
-      .then((res) => {
-        alert("게시글 등록 완료!");
-        close();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  // console.log("writerinfo: ", writerInfo.current);
-  // console.log(inputValue);
-  // console.log("cateseq? ", cate_seq);
   const [inputFile, setInputFile] = useState({});
   const handleChangeFile = (e) => {
     setInputFile(e.target.files);
   };
-  const fileUpload = () => {
+  const handlePost = (e) => {
+    e.preventDefault();
     const formData = new FormData();
     // add File Data to formData
-
-    formData.append("inputFile", inputFile[0].File);
-    console.log("formdata : ", formData.get("inputFile"));
+    formData.append("inputFile", inputFile[0]);
+    const blob = new Blob([JSON.stringify(inputValue)], {
+      type: "application/json",
+    });
+    formData.append("inputValue", blob);
     axios
-      .post("/board/file", formData, {
+      .post("/board/post", formData, {
         headers: {
           "Content-Type": `multipart/form-data; `,
         },
       })
       .then((res) => {
-        console.log(res.data);
+        alert("게시글 등록 완료!");
+        close();
       })
       .catch((err) => {
+        alert("등록 실패");
         console.log(err);
-        console.log(inputFile[0]);
       });
   };
 
@@ -91,7 +81,6 @@ const WriteBoard = ({ setShowWriteModal, writerInfo }) => {
                 name="inputFile"
                 onChange={handleChangeFile}
               ></input>
-              <button onClick={fileUpload}>파일업로드</button>
             </div>
             <button className={styles.addBtn} onClick={handlePost}>
               올리기
