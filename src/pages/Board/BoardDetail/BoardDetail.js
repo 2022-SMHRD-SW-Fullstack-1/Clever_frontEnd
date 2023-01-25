@@ -32,7 +32,15 @@ const BoardDetail = ({ setShowDetail, detailItem, category }) => {
                 ></img>
               )}
 
-              <div>{detailItem.notice_content}</div>
+              <div className={styles.content}>{detailItem.notice_content}</div>
+              <div className={styles.replyContainer}>
+                <span>댓글 0</span>
+                <div>댓글목록</div>
+                <div>
+                  <textarea className={styles.inputReply}></textarea>
+                </div>
+                <button>입력</button>
+              </div>
             </div>
           </div>
           <button className={styles.backBtn} onClick={handleClose}>

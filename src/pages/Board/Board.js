@@ -42,6 +42,7 @@ const Board = () => {
       .then((res) => {
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
+        setCateName(res.data[0].cate_name);
       })
       .catch((err) => {
         console.log(err);

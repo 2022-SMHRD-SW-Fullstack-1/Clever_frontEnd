@@ -81,6 +81,15 @@
           width: 20rem;
           height: 20rem;
         }
+        .content {
+          padding: 0 50px 50px 0;
+        }
+        .replyContainer {
+          border-top: solid 1px darkgray;
+          .inputReply {
+            width: inherit;
+          }
+        }
       }
     }
   }

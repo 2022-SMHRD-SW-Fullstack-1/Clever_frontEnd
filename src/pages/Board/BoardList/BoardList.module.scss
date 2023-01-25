@@ -54,5 +54,10 @@
   }
   .settingArea {
     margin-right: 20px;
+    .menu {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
   }
 }

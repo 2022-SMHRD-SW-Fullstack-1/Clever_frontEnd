@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./BoardList.module.scss";
 import Pagination from "./Pagination";
 import BoardDetail from "../BoardDetail/BoardDetail";
+import menu from "../../../image/menu.png";
 const BoardList = ({ writerInfo, cateName }) => {
   const category = writerInfo.current.category;
   const [boardList, setBoardList] = useState([]);
@@ -81,7 +82,7 @@ const BoardList = ({ writerInfo, cateName }) => {
                 </div>
               </div>
               <div className={styles.settingArea}>
-                <button>설정</button>
+                <img src={menu} className={styles.menu} />
               </div>
             </div>
           );
