@@ -1,17 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./WriteBoard.module.scss";
 
-const ModifyBoard = ({ setShowModify, modifyItem }) => {
+const UpdateBoard = ({ setShowUpdate, updateItem }) => {
   const [inputValue, setInputValue] = useState({
-    cate_seq: modifyItem.cate_seq,
-    mem_id: modifyItem.mem_id,
-    mem_name: modifyItem.mem_name,
+    notice_seq: updateItem.notice_seq,
     notice_title: "",
     notice_content: "",
+    notice_photo: updateItem.notice_photo,
   });
   const close = () => {
-    setShowModify(false);
+    setShowUpdate(false);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +22,32 @@ const ModifyBoard = ({ setShowModify, modifyItem }) => {
   const [inputFile, setInputFile] = useState({});
   const handleChangeFile = (e) => {
     setInputFile(e.target.files);
+    console.log(inputFile);
   };
-  const handleUpdate = () => {
+  const handleDelFile = () => {
+    setInputFile(null);
+    console.log(inputFile);
+  };
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("inputFile", inputFile[0]);
+    const blob = new Blob([JSON.stringify(inputValue)], {
+      type: "application/json",
+    });
+    formData.append("inputValue", blob);
     axios
-      .post("/board/update", inputValue)
+      .post("/board/update", formData, {
+        headers: {
+          "Content-Type": `multipart/form-data; `,
+        },
+      })
       .then((res) => {
-        console.log(res.data);
+        alert("게시글 수정 완료!");
+        close();
       })
       .catch((err) => {
+        alert("등록 실패");
         console.log(err);
       });
   };
@@ -48,20 +65,28 @@ const ModifyBoard = ({ setShowModify, modifyItem }) => {
               className={styles.titleInput}
               // onChange={handleInput}
               name="notice_title"
-              value={modifyItem.notice_title}
+              defaultValue={updateItem.notice_title}
               onChange={handleChange}
             ></input>
             <textarea
               className={styles.contentInput}
               name="notice_content"
-              value={modifyItem.notice_content}
               onChange={handleChange}
-            ></textarea>
+            >
+              {updateItem.notice_content}
+            </textarea>
             <div className={styles.fileArea}>
               <div>
-                {modifyItem.notice_photo
-                  ? "첨부파일 :" + modifyItem.notice_photo.substring(36)
-                  : "첨부파일이 없습니다."}
+                {updateItem.notice_photo ? (
+                  <>
+                    <div>
+                      첨부파일 : {updateItem.notice_photo.substring(36)}
+                    </div>
+                    <button onClick={handleDelFile}>삭제</button>
+                  </>
+                ) : (
+                  <div>첨부파일이 없습니다.</div>
+                )}
               </div>
 
               <input
@@ -81,4 +106,4 @@ const ModifyBoard = ({ setShowModify, modifyItem }) => {
   );
 };
 
-export default ModifyBoard;
+export default UpdateBoard;
