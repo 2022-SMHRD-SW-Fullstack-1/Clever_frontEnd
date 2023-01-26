@@ -176,6 +176,7 @@ const Calendar = () => {
             att_sche_start_time: copyScheduleInfo[0][i].att_sche_start_time,
             att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
             mem_id: copyScheduleInfo[0][i].mem_id,
+            group_seq: groupSeq,
           })
         : console.log();
     }
@@ -191,6 +192,7 @@ const Calendar = () => {
           <select
             onChange={(e) => {
               copySelectedWorkerList[index].mem_name = e.target.value;
+              copySelectedWorkerList[index].group_seq = groupSeq;
             }}
             defaultValue={item.mem_name}
           >
@@ -225,7 +227,7 @@ const Calendar = () => {
 
     return result;
   };
-  console.log("test", workerInfo.current);
+
   const workerListRendering = () => {
     var result = workerInfo.current.map((item, index) => {
       return <option key={index}>{item.mem_name}</option>;
