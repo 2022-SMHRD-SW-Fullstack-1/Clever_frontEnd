@@ -1,9 +1,30 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import styles from "./BoardDetail.module.scss";
 
 const BoardDetail = ({ setShowDetail, detailItem, category }) => {
+  const [isValid, setIsValid] = useState(false);
+  const [commContent, setCommContent] = useState("");
+  const [inputValue, setInputValue] = useState({
+    mem_id: detailItem.mem_id,
+    notice_seq: detailItem.notice_seq,
+    com_content: commContent,
+  });
+
   const handleClose = () => {
     setShowDetail(false);
+  };
+  const handlePostComm = () => {
+    axios
+      .post("/board/comment/post", inputValue)
+      .then((res) => {
+        alert("댓글 작성 완료!");
+        setCommContent("");
+      })
+      .catch((err) => {
+        alert("작성 실패");
+        console.log(err);
+      });
   };
 
   return (
@@ -26,6 +47,7 @@ const BoardDetail = ({ setShowDetail, detailItem, category }) => {
               {detailItem.notice_photo !== null && (
                 <img
                   className={styles.attachImage}
+                  alt="board attach"
                   src={
                     process.env.PUBLIC_URL + "/image/" + detailItem.notice_photo
                   }
@@ -33,14 +55,32 @@ const BoardDetail = ({ setShowDetail, detailItem, category }) => {
               )}
 
               <div className={styles.content}>{detailItem.notice_content}</div>
-              <div className={styles.replyContainer}>
-                <span>댓글 0</span>
-                <div>댓글목록</div>
-                <div>
-                  <textarea className={styles.inputReply}></textarea>
-                </div>
-                <button>입력</button>
-              </div>
+            </div>
+            <div className={styles.commContainer}>
+              <div className={styles.commCount}>댓글 0</div>
+              <div>댓글목록</div>
+
+              <textarea
+                className={styles.commInput}
+                type="text"
+                placeholder="댓글을 입력하세요."
+                name="com_content"
+                value={commContent}
+                onChange={(e) => setCommContent(e.target.value)}
+                onKeyUp={(e) => {
+                  e.target.value.length > 0
+                    ? setIsValid(true)
+                    : setIsValid(false);
+                }}
+              ></textarea>
+
+              <button
+                className={styles.commPostBtn}
+                disabled={isValid ? false : true}
+                onClick={handlePostComm}
+              >
+                등록
+              </button>
             </div>
           </div>
           <button className={styles.backBtn} onClick={handleClose}>
