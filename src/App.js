@@ -18,6 +18,7 @@ import AddGroup from "./pages/Group/AddGroup";
 import ToDoEdit from "./pages/ToDoList/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
 import ToDoDetail from "./pages/ToDoList/ToDoDetail";
+import CalendarInput from "./pages/Calendar/CalendarInput";
 
 function App() {
   const [user, setUser] = useState({
@@ -58,6 +59,7 @@ function App() {
         <Route path="/todolistcreate" element={<ToDoCreate />}></Route>
         <Route path="/todolistedit" element={<ToDoEdit />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
+        <Route path="/calendarInput" element={<CalendarInput />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
         <Route
