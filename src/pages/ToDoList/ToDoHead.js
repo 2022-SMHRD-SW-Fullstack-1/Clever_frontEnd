@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ToDoToggle from "./ToDoToggle";
 
 const TodoHeadBlock = styled.div`
+  text-align: left;
   h1 {
     margin: 0;
     font-size: 36px;
@@ -100,7 +101,7 @@ const ToDoHead = () => {
       <h1>{dateString}</h1>
       <div className="day">{dayName}</div>
       <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft>
-      <div className="todoToggle">{/* <ToDoToggle /> */}</div>
+      {/* <div className="todoToggle"><ToDoToggle /></div> */}
     </TodoHeadBlock>
   );
 };

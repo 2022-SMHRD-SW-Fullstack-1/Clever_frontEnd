@@ -6,6 +6,8 @@ body {
   width: 530px;
   height: 200px;
 
+  text-align: left;
+
   margin: auto;
   margin-top: 20px;
 
@@ -28,6 +30,8 @@ body {
 .todoCate {
   width: 530px;
   height: 50px;
+
+  // align-items: flex-start;
 
   // display: table;
   display: flex;
@@ -91,12 +95,12 @@ body {
 
   align-items: center;
   // margin-top: 20px;
-  margin: auto;
+  // margin: auto;
 
   .todoTemplate {
     display: inline-block;
 
-    margin-left: 400px;
+    margin-left: 100px;
 
     // align-items: center;
     // background-color: antiquewhite;
