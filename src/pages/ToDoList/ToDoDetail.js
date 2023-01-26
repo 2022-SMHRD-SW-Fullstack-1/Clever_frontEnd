@@ -3,22 +3,23 @@ import React, { useEffect, useState } from "react";
 import "./ToDoDetail.scss";
 
 const ToDoDetail = ({ item }) => {
-  const [detailId, setDetailId] = useState("");
+  console.log("item", item);
+  const [detailId, setDetailId] = useState(item);
 
   useEffect(() => {
-    setDetailId(item);
+    // setDetailId(item);
+    axios
+      .post("/todolist/tododetail", {
+        todo_seq: detailId,
+      })
+      .then((res) => {
+        console.log("res", res.data);
+        console.log(detailId);
+      })
+      .catch((err) => {
+        console.log("실패함", err);
+      });
   });
-
-  axios
-    .post("/todolist/tododetail", {
-      todo_seq: detailId,
-    })
-    .then((res) => {
-      console.log("res", res.data);
-    })
-    .catch((err) => {
-      console.log("실패함", err);
-    });
 
   return (
     <div className="todoDetail">

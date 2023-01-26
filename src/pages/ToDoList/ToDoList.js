@@ -21,7 +21,9 @@ const Remove = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-right: 0px;
+
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
@@ -35,7 +37,9 @@ const Edit = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
 left : 500px
+
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
@@ -167,40 +171,58 @@ const ToDoList = () => {
         <img src={add} className="todoCreateImg" onClick={gotoToDoCreate}></img>
       </div>
       <div className="todo-list">
-        <TodoListBlock todos={todos}>
+        <div className="todoListBlock">
           {todos
             .filter((item, idx) => idx <= 6)
-            .map((item, idx) => (
-              <TodoItemBlock key={item + idx}>
-                <CheckCircle done={item.done} onClick={() => onToggle(item.id)}>
-                  {item.done && <MdDone />}
-                </CheckCircle>
-                <Text
-                  done={item.done}
-                  key={item + idx}
-                  onClick={(e) => {
-                    onDetail(item, e);
-                  }}
-                  value={item.text}
-                >
-                  {item.text}
-                </Text>
-                <Edit
-                  key={item.id}
-                  onClick={(e) => {
-                    onEdit(item, e);
-                  }}
-                  value={item.id}
-                >
-                  <MdEdit />
-                </Edit>
-                <Remove onClick={onRemove}>
-                  <MdDelete />
-                </Remove>
-                {/* <img src="./add.png" alt="image" className="todoComImg" /> */}
-              </TodoItemBlock>
-            ))}
-        </TodoListBlock>
+            .map(
+              (item, idx) => (
+                <div>
+                  <div
+                    className="todoItemText"
+                    onClick={(e) => {
+                      onDetail(item, e);
+                    }}
+                    value={item.text}
+                  >
+                    {item.text}
+                  </div>
+                  <div className="todoItemComplete">미완료</div>
+                </div>
+              )
+
+              // <TodoItemBlock key={item + idx}>
+              // <CheckCircle done={item.done} onClick={() => onToggle(item.id)}>
+              //   {item.done && <MdDone />}
+              // </CheckCircle>
+              // <Text
+              //   done={item.done}
+              //   key={item + idx}
+              // onClick={(e) => {
+              //   onDetail(item, e);
+              // }}
+              // value={item.text}
+              // >
+              //   {item.text}
+              // </Text>
+              // <Edit
+              //   key={item.id}
+              //   onClick={(e) => {
+              //     onEdit(item, e);
+              //   }}
+              //   value={item.id}
+              // >
+              //   <MdEdit />
+              // </Edit>
+              // <Remove onClick={onRemove}>
+              //   <MdDelete />
+              // </Remove>
+              // ({
+              /* <img src="./add.png" alt="image" className="todoComImg" /> */
+              // })
+              // </TodoItemBlock>
+            )}
+        </div>
+        {/* </TodoListBlock> */}
       </div>
 
       <div className="todo-detail">

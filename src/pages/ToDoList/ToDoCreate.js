@@ -95,7 +95,7 @@ const ToDoCreate = () => {
           ></input>
           <button className="todo-cancel">취소</button>
         </div>
-        <div className="todo-list">
+        <div className="todoCre-list">
           <div className="todoContent">
             <form>
               <table className="todo-table">

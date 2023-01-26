@@ -92,7 +92,9 @@ const Todo = () => {
               <ToDoHead />
             </ToDoTemplate>
           </div>
-          <ToDoList />
+          <div className="todoTemplate">
+            <ToDoList />
+          </div>
         </TodoProvider>
 
         <div className="todo-detail"></div>

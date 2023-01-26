@@ -13,22 +13,71 @@ body {
   // display: block;
   // display: inline-block;
 }
+
 .todo-list {
+  width: 500px;
+
+  float: left;
+
   flex: 1;
   padding: 20px 32px;
 
   overflow-y: auto;
 
-  left: 430px;
+  left: 20%;
+  top: 83%;
   margin: auto;
 
   padding-bottom: 48px;
+  // position: relative;
   position: absolute;
+
+  .todoListBlock {
+    width: 400px;
+
+    display: table;
+
+    text-align: left;
+    float: left;
+
+    flex: 1;
+    padding: 20px 32px;
+    padding-bottom: 48px;
+    overflow-y: auto;
+
+    .todoItemText {
+      width: 280px;
+      height: 50px;
+      // height: 150px;
+
+      vertical-align: middle;
+
+      float: left;
+    }
+
+    .todoItemComplete {
+      float: right;
+      // right: 0px;
+
+      left: 50%;
+      top: 50%;
+      // right: 0%;
+
+      // position: absolute;
+
+      vertical-align: middle;
+
+      width: 45px;
+      height: 45px;
+
+      border: 1px solid black;
+    }
+  }
 
   .todo-create {
     //   position: fixed;
     margin-top: 100%;
-    // float: right;
+    // float: left;
     bottom: 0;
     // width: 100%;
   }
@@ -36,13 +85,28 @@ body {
 
 .todoCreate-Img {
   position: relative;
+  // position: absolute;
+
+  width: 100%;
+  text-align: center;
+
+  margin-bottom: 0px;
 
   top: 320px;
-  // left: 20px;
+  // padding: 0px;
+  margin: 0 auto;
 
   .todoCreateImg {
     width: 80px;
     height: 80px;
+
+    position: absolute;
+    right: 100px;
+    bottom: 0px;
+
+    margin: 0 auto;
+
+    object-fit: cover;
   }
 }
 
