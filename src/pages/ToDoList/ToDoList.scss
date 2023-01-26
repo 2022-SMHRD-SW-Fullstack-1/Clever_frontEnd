@@ -4,51 +4,68 @@ body {
 
 .todoContent {
   // flex-direction: row;
+  width: 500px;
   display: flex;
   // float: left;
   align-items: center;
   justify-content: center;
   // display: block;
   // display: inline-block;
-}
 
-.todo-list {
-  flex: 1;
-  padding: 20px 32px;
-  padding-bottom: 48px;
-  overflow-y: auto;
+  .todo-list {
+    flex: 1;
+    padding: 20px 32px;
 
-  .todo-create {
-    //   position: fixed;
-    margin-top: 100%;
-    // float: right;
-    bottom: 0;
-    // width: 100%;
+    // top: 800px;
+    left: 370px;
+
+    padding-bottom: 48px;
+    position: absolute;
+
+    overflow-y: auto;
+
+    .todo-create {
+      //   position: fixed;
+      margin-top: 100%;
+      // float: right;
+      bottom: 0;
+      // width: 100%;
+    }
   }
 }
-
 .todoCreate-Img {
-  width: 100%;
-  text-align: center;
+  position: relative;
 
-  margin-bottom: 0px;
+  top: 320px;
+  // left: 20px;
 
   .todoCreateImg {
     width: 80px;
     height: 80px;
-
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-
-    margin: 0 auto;
-
-    object-fit: cover;
-  }
-  .todoComImg {
-    float: right;
   }
 }
+
+// .todoCreate-Img {
+//   position: absolute;
+
+//   // bottom: 0;
+//   margin-bottom: 0px;
+
+//   .todoCreateImg {
+//     width: 80px;
+//     height: 80px;
+
+//     right: 0px;
+//     top: 500px;
+
+//     margin: 0 auto;
+
+//     object-fit: cover;
+//   }
+//   // .todoComImg {
+//   //   float: right;
+//   // }
+// }
 
 .todo-detail {
   // float: right;
@@ -56,19 +73,21 @@ body {
   // clear: both;
 
   width: 512px;
-  height: 768px;
+  height: 750px;
 
   top: 0px;
+  left: 0px;
 
   // background-color: aqua;
   // background: white;
   border-radius: 16px;
   box-shadow: 0 0 8px 0 rgb(0 0 0 / 4%);
 
-  padding: 20px;
+  padding: 10px;
+  // padding-top: 0px;
   justify-content: center;
   // display: inline-block;
-  // display: flex;
+  display: flex;
   // display: -webkit-box;
   // display: -webkit-flex;
   // display: -ms-flexbox;
@@ -81,9 +100,6 @@ body {
   position: relative;
 
   margin: 0 auto;
-  // margin-bottom: 32px;
-  // margin-left: 50px;
-  // margin-left: 1100px;
 
-  // margin-top: 20px;
+  // margin-left: 80px;
 }

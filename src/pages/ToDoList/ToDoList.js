@@ -80,8 +80,8 @@ const CheckCircle = styled.div`
   ${(props) =>
     props.done &&
     css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
+      border: 1px solid #3a4ca8;
+      color: #3a4ca8;
     `}
 `;
 
@@ -167,11 +167,11 @@ const ToDoList = () => {
 
   return (
     <div className="todoContent">
+      <div className="todoCreate-Img">
+        <img src={add} className="todoCreateImg" onClick={gotoToDoCreate}></img>
+      </div>
       <div className="todo-list">
         <TodoListBlock todos={todos}>
-          {/* {todos.map((todos) => (
-            <ToDoItem todos={todos} key={todos.id} />
-          ))} */}
           {todos
             .filter((item, idx) => idx <= 6)
             .map((item, idx) => (
@@ -205,13 +205,6 @@ const ToDoList = () => {
               </TodoItemBlock>
             ))}
         </TodoListBlock>
-        {/* <div className="todoCreate-Img">
-          <img
-            src={add}
-            className="todoCreateImg"
-            onClick={gotoToDoCreate}
-          ></img>
-        </div> */}
       </div>
 
       <div className="todo-detail">
