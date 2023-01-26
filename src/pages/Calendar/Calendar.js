@@ -186,7 +186,6 @@ const Calendar = () => {
   };
 
   const planModification = () => {
-    console.log("ㄹㄹ", copySelectedWorkerList);
     var result = copySelectedWorkerList.map((item, index) => {
       return (
         <tr key={`${item.mem_name}${index}`}>
@@ -228,7 +227,7 @@ const Calendar = () => {
 
     return result;
   };
-  console.log("test", workerInfo.current);
+
   const workerListRendering = () => {
     var result = workerInfo.current.map((item, index) => {
       return <option key={index}>{item.mem_name}</option>;
