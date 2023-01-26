@@ -128,17 +128,17 @@ const Calendar = () => {
       });
   };
 
-  const deleteSchedul = (e) => {
-    ApiService.deleteSchedul(e)
-      .then((res) => {
-        console.log("삭제 성공");
+  // const deleteSchedul = (e) => {
+  //   ApiService.deleteSchedul(e)
+  //     .then((res) => {
+  //       console.log("삭제 성공");
 
-        getSchedule(groupSeq);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
+  //       getSchedule(groupSeq);
+  //     })
+  //     .catch((err) => {
+  //       alert(err);
+  //     });
+  // };
 
   workerSchedule.current.length > 0
     ? (copyTodayWorkerList = [...workerSchedule.current])
@@ -151,6 +151,7 @@ const Calendar = () => {
   copyModificationAllInfo = [...modificationAllInfo.current];
 
   copySelectedWorkerList = [...selectedList.current];
+
   // copyWorkerInfo = [...workerInfo.current];
   // console.log("워커인포 :", copyWorkerInfo);
 
@@ -224,7 +225,7 @@ const Calendar = () => {
 
     return result;
   };
-
+  console.log("test", workerInfo.current);
   const workerListRendering = () => {
     var result = workerInfo.current.map((item, index) => {
       return <option key={index}>{item.mem_name}</option>;
@@ -267,6 +268,7 @@ const Calendar = () => {
             onChange={(e) => {
               console.log(e.target.value);
               for (var i = 0; i < workerInfo.current.length; i++) {
+                console.log("들어가냐");
                 if (e.target.value === workerInfo.current[i].mem_name) {
                   arrAddList.current[index].mem_name = e.target.value;
                   arrAddList.current[index].mem_id =
@@ -322,15 +324,25 @@ const Calendar = () => {
     for (var i = 0; i < updateInfo.length; i++) {
       updateInfo[i]["att_date"] = selectedDate;
     }
-    console.log("최종배열", updateInfo);
+
     arrAddList.current = [];
 
     if (updateInfo.length > 0) {
-      deleteSchedul(selectedDate);
       updateSchedul(updateInfo);
     } else {
-      deleteSchedul(selectedDate);
+      updateInfo = [
+        {
+          att_date: selectedDate,
+          group_seq: groupSeq,
+          mem_id: "010",
+          att_sche_start_time: "10:00",
+          att_sche_end_time: "10:00",
+        },
+      ];
+
+      updateSchedul(updateInfo);
     }
+    console.log("최종배열", updateInfo);
   };
 
   const clickDetail = () => {
