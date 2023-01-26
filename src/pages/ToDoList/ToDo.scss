@@ -3,6 +3,9 @@ body {
 }
 
 .todoNotice {
+
+  text-align: left;
+
   width: 530px;
   height: 200px;
 
@@ -93,15 +96,19 @@ body {
   display: flex;
   // width: 100%;
 
+  // left: 0%;
+  // text-align: left;
   align-items: center;
-  // margin-top: 20px;
-  // margin: auto;
+
+  // right: 20px;
+  margin-top: 20px;
+  margin: 0 auto;
 
   .todoTemplate {
-    // float: left;
-    display: inline-block;
+    // display: inline-block;
+    float: left;
 
-    margin-left: 100px;
+    margin-left: 110px;
 
     // align-items: center;
     // background-color: antiquewhite;
@@ -112,31 +119,19 @@ body {
   }
 }
 
-.todoTemplate {
-  // float: left;
-  display: inline-block;
+.toDoTemplate{
 
-  margin-left: 100px;
+  width: 512px;
+  height: 768px;
 
-  // align-items: center;
-  // background-color: antiquewhite;
-
-  // top: 0px;
-
+  // position: relative;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
   margin: 0 auto;
-}
+  margin-top: 20px;
+  margin-bottom: 32px;
+  // display: flex;
+  flex-direction: column;
 
-// .todoDetail {
-//   .todo-detail {
-//     position: relative;
-//     background: white;
-//     border-radius: 16px;
-//     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
-//     margin: 0 auto;
-//     margin-top: 20px;
-//     margin-bottom: 32px;
-//     display: flex;
-//     flex-direction: column;
-//     position: relative;
-//   }
-// }
+}

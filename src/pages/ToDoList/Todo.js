@@ -52,7 +52,7 @@ const Todo = () => {
 
   return (
     <div className="container">
-      <Header />
+      <Header  />
       <CalendarData />
       <div className="todoNotice">
         <div className="todoNotice-head">일일 특이사항</div>
@@ -86,8 +86,9 @@ const Todo = () => {
         <GlobalStyle />
       </div>
       <div className="show-todo">
-        <TodoProvider>
-          <div className="todoTemplate">
+
+        {/* <TodoProvider> */}
+          {/* <div className="todoTemplate">
             <ToDoTemplate>
               <ToDoHead />
             </ToDoTemplate>
@@ -98,6 +99,17 @@ const Todo = () => {
         </TodoProvider>
 
         <div className="todo-detail"></div>
+          <div className="todoTemplate">
+          <ToDoList />
+          </div> */}
+           <div className='toDoTemplate'>
+    {/* <ToDoHead/> */}
+    <ToDoList/>
+    
+   </div>
+        {/* </TodoProvider> */}
+
+        {/* <div className="todo-detail"></div> */}
       </div>
     </div>
   );
