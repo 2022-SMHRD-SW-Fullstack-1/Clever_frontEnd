@@ -23,14 +23,64 @@ class ApiService {
   addMember(member) {
     return axios.post("/join", member);
   }
+  saveArrScheduleInfo = async (e) => {
+    try {
+      return await await axios.post("/saveArrScheduleInfo", e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  saveArrScheduleInfo(saveArrScheduleInfo) {
-    // var arrData = { saveArrScheduleInfo: saveArrScheduleInfo };
-    return axios.post("/saveArrScheduleInfo", saveArrScheduleInfo);
-  }
+  getSchedule = async (e) => {
+    try {
+      return await await axios.get("/getSchedule/" + e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  getSchedule() {
-    return axios.get("/getSchedule");
-  }
+  deleteSchedul = async (e) => {
+    try {
+      const res = await await axios.post("/deleteSchedul" + e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  updateSchedul = async (updateInfo) => {
+    try {
+      return await await axios.post("/updateSchedul", updateInfo);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  getModification = async (e) => {
+    try {
+      return await await axios.get("/getModification/" + e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  confirmModification = async (e) => {
+    try {
+      return await await axios.post("/confirmModification", e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  rejectModification = async (e) => {
+    try {
+      return await await axios.post("/rejectModification", e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getWorkerList = async (e) => {
+    try {
+      return await await axios.get("/getWorkerList/" + e);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 export default new ApiService();

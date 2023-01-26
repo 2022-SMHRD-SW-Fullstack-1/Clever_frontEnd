@@ -1,25 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ApiService from "../../ApiService";
 
 let checkOn = [];
 const CalendarInput = () => {
+  console.log(sessionStorage.getItem("group_seq"));
+  const groupSeq = sessionStorage.getItem("group_seq");
+  const date = new Date();
+  const year = Number(
+    date.toLocaleDateString("en-US", {
+      year: "numeric",
+    })
+  );
+  const month = Number(
+    date.toLocaleDateString("en-US", {
+      month: "2-digit",
+    })
+  );
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [Worker, setWorker] = useState("선택");
-  const [PlanYear, setPlanYear] = useState(2023);
-  const [PlanMonth, setPlanMonth] = useState("02");
+  const [PlanYear, setPlanYear] = useState(year);
+  const [PlanMonth, setPlanMonth] = useState(month);
   const [Day, setDay] = useState([]);
   const [finalDate, setFinalDate] = useState([]);
-  const date = new Date();
-  var year = date.getFullYear();
-  var month = date.getMonth();
+  const workerList = useRef([]);
+  const [workerListState, setWorkerListState] = useState([]);
+  const [workerScheduleState, setWorkerScheduleState] = useState();
+
   const getDayOfWeek = (yyyy, mm, arrChoiceDay) => {
-    console.log("1번");
-    console.log("받아온것 :", arrChoiceDay);
-    // console.log("요일", [arrChoiceDay]);
-    //특정date1의 마지막날        년, monday
     let lastDate = new Date(yyyy, mm, 0).getDate();
-    //Monday monday Wednesday Thursday Friday Saturday Sunday
 
     var sunday;
     var monday;
@@ -154,7 +163,7 @@ const CalendarInput = () => {
         }
       }
     }
-    // selectedDate.sort((a, b) => b - a);
+
     setFinalDate([...selectedDate]);
 
     console.log(
@@ -162,26 +171,36 @@ const CalendarInput = () => {
       selectedDate
     );
   };
+  useEffect(() => [getWorkerList(groupSeq)], []);
+  const getWorkerList = (e) => {
+    workerList.current = [];
+    ApiService.getWorkerList(e).then((res) => {
+      console.log("인풋목록 :", res.data);
+      workerList.current = res.data;
+      setWorkerListState(res.data);
+    });
+  };
 
-  //임시용 나중에 back에서 받아올예정
-  const workerList = [
-    { 0: "박진형" },
-    { 1: "임아해" },
-    { 2: "나소연" },
-    { 3: "박형주" },
-  ];
+  const saveArrSchedule = (e) => {
+    ApiService.saveArrScheduleInfo(e)
+      .then((res) => {
+        console.log("등록성공");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setWorkerListState(0);
+  };
 
   const workerListRendering = () => {
-    console.log("2번");
-    const arrWorker = [];
-    for (let i = 0; i < workerList.length; i++) {
-      arrWorker.push(
-        <option value={Object.keys(workerList[i]).value}>
-          {workerList[i][i]}
+    var result = workerList.current.map((item, index) => {
+      return (
+        <option value={workerList.current[index].mem_name}>
+          {workerList.current[index].mem_name}
         </option>
       );
-    }
-    return arrWorker;
+    });
+    return result;
   };
 
   const planYear = (e) => {
@@ -271,8 +290,8 @@ const CalendarInput = () => {
   const selectMonth = () => {
     console.log("14번");
     const arrMonth = [];
-    for (var i = 1; i < 13; i++) {
-      i > 10 ? arrMonth.push(i) : arrMonth.push("0" + i);
+    for (var i = month; i < 13; i++) {
+      arrMonth.push(i);
     }
     let optionMonth = arrMonth.map((item, index) => {
       return (
@@ -289,36 +308,34 @@ const CalendarInput = () => {
 
   const registerSchedule = () => {
     var dateLength = [...finalDate];
-
     var saveArrScheduleInfo = [];
-
-    for (var i = 0; i < dateLength.length; i++) {
-      dateLength[i] >= 10
+    var getId;
+    for (var i = 0; i < workerList.current.length; i++) {
+      if (Worker === workerList.current[i].mem_name) {
+        getId = workerList.current[i].mem_id;
+      }
+    }
+    for (var i = 0; i < finalDate.length; i++) {
+      finalDate[i] >= 10
         ? saveArrScheduleInfo.push({
-            mem_id: String(Worker),
-            // mem_id: "01075780324",
-            att_date: `${PlanYear}-${PlanMonth}-${dateLength[i]}`,
+            mem_name: String(Worker),
+            att_date: `${PlanYear}-${PlanMonth}-${finalDate[i]}`,
             att_sche_start_time: String(startTime),
             att_sche_end_time: String(endTime),
+            group_seq: groupSeq,
+            mem_id: getId,
           })
         : saveArrScheduleInfo.push({
-            mem_id: String(Worker),
-            // mem_id: "01075780324",
-
-            att_date: `${PlanYear}-${PlanMonth}-0${dateLength[i]}`,
+            mem_name: String(Worker),
+            att_date: `${PlanYear}-${PlanMonth}-0${finalDate[i]}`,
             att_sche_start_time: String(startTime),
             att_sche_end_time: String(endTime),
+            group_seq: groupSeq,
+            mem_id: getId,
           });
     }
     console.log("보낼배열", saveArrScheduleInfo);
-
-    ApiService.saveArrScheduleInfo(saveArrScheduleInfo)
-      .then((res) => {
-        alert("등록성공");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    saveArrSchedule(saveArrScheduleInfo);
   };
 
   return (
@@ -360,7 +377,7 @@ const CalendarInput = () => {
           <br />
 
           <br />
-          {/* <p>
+          <p>
             직원: {Worker}
             <br />
             요일 : {Day}
@@ -370,16 +387,10 @@ const CalendarInput = () => {
             근무시간 : {startTime}~{endTime}
             <br />
             날짜 : {finalDate}
-          </p> */}
+          </p>
         </tr>
       </form>
-      <button
-        onClick={() => {
-          registerSchedule();
-        }}
-      >
-        등록
-      </button>
+      <button onClick={registerSchedule}>등록하기</button>
     </div>
   );
 };

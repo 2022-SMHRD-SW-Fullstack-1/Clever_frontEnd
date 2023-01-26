@@ -1,19 +1,31 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import "./App.css";
+
 import Header from "./layout/Header";
 import Group from "./pages/Group/Group";
 import ToDo from "./pages/ToDoList/Todo";
 import Calendar from "./pages/Calendar/Calendar";
 import Board from "./pages/Board/Board";
-import { useEffect, useState } from "react";
+
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
 import CalendarInput from "./pages/Calendar/CalendarInput";
 
+import ToDoEdit from "./pages/ToDoList/ToDoEdit";
+import WriteBoard from "./pages/Board/WriteBoard";
+import ToDoDetail from "./pages/ToDoList/ToDoDetail";
+import CalendarInput from "./pages/Calendar/CalendarInput";
+
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({
+    mem_id: "",
+    mem_name: "",
+  });
   const [auth, setAuth] = useState(false);
 
   const getAuth = (data) => {
@@ -25,7 +37,10 @@ function App() {
     console.log("Test111");
     sessionStorage.getItem("mem_id") !== null && setAuth(true);
     loginUser();
-    setUser(sessionStorage.getItem("mem_id"));
+    setUser({
+      mem_id: sessionStorage.getItem("mem_id"),
+      mem_name: sessionStorage.getItem("mem_name"),
+    });
   }, [auth]);
 
   const loginUser = () => {
@@ -35,6 +50,7 @@ function App() {
       return <Header />;
     }
   };
+
   return (
     <div>
       {loginUser()}
@@ -43,7 +59,9 @@ function App() {
         <Route path="/addgroup" element={<AddGroup user={user} />}></Route>
         <Route path="/todolist" element={<ToDo />}></Route>
         <Route path="/todolistcreate" element={<ToDoCreate />}></Route>
+        <Route path="/todolistedit" element={<ToDoEdit />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
+        <Route path="/calendarInput" element={<CalendarInput />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
         <Route path="/calendarInput" element={<CalendarInput />}></Route>
@@ -51,6 +69,7 @@ function App() {
           path="/"
           element={<Login getAuth={getAuth} setUser={setUser} />}
         ></Route>
+        <Route path="/writeboard" element={<WriteBoard />}></Route>
       </Routes>
     </div>
   );

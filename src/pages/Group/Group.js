@@ -9,7 +9,6 @@ import GroupEmpty from "./GroupEmpty";
 
 const Group = ({ user }) => {
   const [groupList, setGroupList] = useState([]);
-  const [id, setId] = useState(sessionStorage.getItem("mem_id"));
   // 모달 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
   const groupEmpty = groupList.length === 0;
@@ -18,19 +17,17 @@ const Group = ({ user }) => {
   const showModal = () => {
     setModalOpen(true);
   };
-  console.log("modalopen : ", modalOpen);
+
   useEffect(() => {
     axios
-      .post("/getgrouplist", id)
+      .post("/getgrouplist", { mem_id: user.mem_id })
       .then((res) => {
         setGroupList(res.data);
-        console.log(res.data);
-        console.log("그룹유저값:", id);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [groupList]);
 
   let groupCnt = groupList.length;
 
@@ -42,7 +39,11 @@ const Group = ({ user }) => {
       </div>
 
       <div className={styles.groupContainer}>
-        {groupEmpty ? <GroupEmpty /> : <GroupNotEmpty groupList={groupList} />}
+        {groupEmpty ? (
+          <GroupEmpty />
+        ) : (
+          <GroupNotEmpty groupList={groupList} user={user} />
+        )}
         <div className="groupAddBtnContainer">
           <button className={styles.addGroupBtn}>
             <div className={styles.addBtnIn} onClick={showModal}>

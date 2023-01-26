@@ -20,8 +20,12 @@ body {
     // border-bottom-color: ;
     // border-left-color: ;
   }
+  .arrow :hover {
+    cursor: pointer;
+  }
 }
 .calendar-head {
+  width: 60px;
   th {
     padding: 6px 0 0;
     font-weight: normal;
@@ -39,73 +43,47 @@ body {
 }
 
 .calendar-body {
-  position: relative;
+  // position: relative;
+  width: 60px;
 
   .todo-calendar .arrow {
     padding-left: 10px;
     padding-right: 10px;
     align-items: center;
   }
-  td {
-    height: 74px;
-    text-align: center;
-  }
-  td span {
-    font-size: 1.8rem;
-    line-height: 3.7rem;
-    color: #bbb;
-    font-family: "Gotham Bold";
-  }
-  td span {
-    font-size: 1.8rem;
-    line-height: 3.7rem;
-    color: #bbb;
-    font-family: "Gotham Bold";
-  }
-  td a {
-    position: relative;
-    display: block;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin: 0 auto;
-    line-height: 3.5rem;
-  }
-  td.showday span {
-    color: #333;
+
+  .calDate {
+    width: 60px;
     padding: 10px;
-  }
-  td.eventday span {
+    font-size: 1.8rem;
+    line-height: 3.7rem;
     color: #333;
   }
-  td.eventday a:after {
-    display: block;
-    position: absolute;
-    bottom: 11px;
-    left: 50%;
-    width: 4px;
-    height: 4px;
-    margin-left: -2px;
+
+  .calToday {
+    width: 60px;
+    padding: 10px;
+    font-size: 1.8rem;
+    line-height: 3.7rem;
+    background-color: #3a4ca8;
+    color: white;
+    // background-color: yellow;
     border-radius: 50%;
-    background: #333;
-    content: "";
-  }
-  td.today a {
-    border: 1px solid #222;
   }
 }
 
 .calendar-table .calendar-head .todo-calendar th {
+  width: 60px;
   font-weight: bold;
 }
-.calendar-body {
-  td.selected a {
-    background: #222;
-  }
-  td.selected a span {
-    color: #fff;
-  }
-  td.selected a:after {
-    background: #fff;
-  }
-}
+// .calendar-body {
+//   td.selected a {
+//     background: #222;
+//   }
+//   td.selected a span {
+//     color: #fff;
+//   }
+//   td.selected a:after {
+//     background: #fff;
+//   }
+// }

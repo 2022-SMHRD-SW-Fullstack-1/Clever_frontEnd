@@ -1,139 +1,222 @@
 import daygrid from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import React, { useState, useRef, useEffect } from "react";
-import "../../styles/calendar.css";
+// import "../../styles/calendar.css";
 import googleCalendar from "@fullcalendar/google-calendar";
 import interaction from "@fullcalendar/interaction";
 import { v4 as uuidv4 } from "uuid";
 import ApiService from "../../ApiService";
 
 const Calendar = () => {
+  var groupSeq = Number(sessionStorage.getItem("group_seq"));
+
+  var copyTodayWorkerList = [];
+  var copySelectedWorkerList = [];
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
-  const today = year + "-" + month + 1 + "-" + day;
-  const [workerName, setWorkerName] = useState("");
+  var today = String(year + "-" + month + 1 + "-" + day);
+  const [mem_name, setmem_name] = useState("");
   const apiKey = "AIzaSyAHG8iIVB4i-q5o7KRjdvKcwVc67JzZEWc";
-  const [selectedDate, setSelectecDate] = useState(today);
-  let arrAddList = useRef([]);
+  const [selectedDate, setSelectedDate] = useState(today);
+  const arrAddList = useRef([]);
   const [thisDayListState, setThisDayListState] = useState([]);
   const [arrAddListState, setArrAddListState] = useState([]);
-  const workingTime = [{ arrive: "07:00", live: "18:00" }];
-  const arrSchedule = [];
-  const scheduleList = useRef([]);
+  const [todayWorkerList, setTodayWorkerList] = useState([]);
+  const selectedList = useRef([]);
+  const workerSchedule = useRef([]);
+  const listConfirmation = useRef([]);
+  const listReject = useRef([]);
+  const rejectMemo = useRef();
+  const scheduleInfo = useRef([]);
+  var copyScheduleInfo = [];
   var copySchedule = [];
-  console.log("count0");
+  var copyModificationAllInfo = [];
+  var copyWorkerInfo = [];
+  const modificationAllInfo = useRef([]);
+  const modificaionInfo = useRef([]);
+  const workerInfo = useRef([]);
 
-  ApiService.getSchedule()
-    .then((res) => {
-      console.log("count2");
-      res.data.map((item, index) => {
-        scheduleList.current.push({
-          title: `${item.mem_name}${item.att_sche_start_time}~${item.att_sche_end_time}`,
-          date: item.att_date,
-        });
-      });
-    })
+  useEffect(() => {
+    getSchedule(groupSeq);
+  }, []);
 
-    .catch((err) => {
-      alert(err);
+  const confirmModification = (e) => {
+    ApiService.confirmModification(e).then(() => {
+      getSchedule(groupSeq);
     });
-
-  arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
-  arrSchedule.push({ title: "15:00:00~16:00:00", date: "2023-01-18" });
-
-  copySchedule = [...scheduleList.current];
-  scheduleList.current = [];
-  console.log("카피", copySchedule);
-  console.log("받아온 일정", scheduleList.current);
-  console.log("scheduleList", scheduleList[0]);
-  console.log("arrSchedule", arrSchedule);
-  console.log("비교결과 :", arrSchedule[0] === scheduleList[0]);
-
-  var workerList = [
-    { workerName: "선택", startTime: "16:10", endTime: "21:10" },
-    {
-      workerName: "박진형",
-      startTime: "16:10",
-      endTime: "21:10",
-    },
-    {
-      workerName: "박형주",
-      startTime: "09:10",
-      endTime: "16:10",
-    },
-    {
-      workerName: "나소연",
-      startTime: "21:10",
-      endTime: "04:10",
-    },
-    {
-      workerName: "임아해",
-      startTime: "04:10",
-      endTime: "09:10",
-    },
-  ];
-
-  const workerListRendering = () => {
-    var result = workerList.map((item, index) => {
-      return <option key={index}>{item.workerName}</option>;
+  };
+  const rejectModification = (e) => {
+    ApiService.rejectModification(e).then(() => {
+      getSchedule(groupSeq);
     });
-    return result;
   };
 
-  console.log(arrSchedule);
-  console.log("유저 : ", workerName);
-  var thisDayList = useRef([
-    {
-      workerName: "박진형",
-      startTime: "16:10",
-      endTime: "21:10",
-    },
-    {
-      workerName: "박형주",
-      startTime: "09:10",
-      endTime: "16:10",
-    },
-    {
-      workerName: "나소연",
-      startTime: "21:10",
-      endTime: "04:10",
-    },
-  ]);
+  const getModification = (groupSeq) => {
+    modificaionInfo.current = [];
+    ApiService.getModification(groupSeq).then((res) => {
+      res.data.map((item) => {
+        modificaionInfo.current.push({
+          title: "근무수정요청!!",
+          date: item.ch_date,
+          color: "red",
+          textColor: "yellow",
+        });
+      });
+      modificationAllInfo.current = [];
+      modificationAllInfo.current = res.data;
+    });
+    getWorkerList(groupSeq);
+  };
+
+  const getWorkerList = (e) => {
+    workerInfo.current = [];
+    ApiService.getWorkerList(e).then((res) => {
+      workerInfo.current = res.data;
+      workerInfo.current.unshift({ mem_name: "전체" });
+    });
+  };
+
+  const getSchedule = (groupSeq) => {
+    getModification(groupSeq);
+
+    ApiService.getSchedule(groupSeq)
+      .then((res) => {
+        scheduleInfo.current = [...res.data];
+
+        selectedList.current = [];
+        var result = res.data.map((item, index) => {
+          item.att_date === today
+            ? selectedList.current.push({
+                mem_name: item.mem_name,
+                mem_id: item.mem_id,
+                att_sche_start_time: item.att_sche_start_time.substring(0, 5),
+                att_sche_end_time: item.att_sche_end_time.substring(0, 5),
+                att_real_start_time: item.att_real_start_time,
+                att_real_end_time: item.att_real_end_time,
+                att_seq: item.att_seq,
+                group_seq: item.group_seq,
+              })
+            : console.log();
+
+          return {
+            title: `${item.mem_name}${item.att_sche_start_time.substring(
+              0,
+              5
+            )}~${String(item.att_sche_end_time).substring(0, 5)}`,
+            date: item.att_date,
+            color: "gray",
+          };
+        });
+
+        setTodayWorkerList(result);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  const updateSchedul = (e) => {
+    ApiService.updateSchedul(e)
+      .then(() => {
+        console.log("업데이트성공");
+        getSchedule(groupSeq);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  // const deleteSchedul = (e) => {
+  //   ApiService.deleteSchedul(e)
+  //     .then((res) => {
+  //       console.log("삭제 성공");
+
+  //       getSchedule(groupSeq);
+  //     })
+  //     .catch((err) => {
+  //       alert(err);
+  //     });
+  // };
+
+  workerSchedule.current.length > 0
+    ? (copyTodayWorkerList = [...workerSchedule.current])
+    : (copyTodayWorkerList = [...todayWorkerList]);
+
+  for (var i = 0; i < modificaionInfo.current.length; i++) {
+    copyTodayWorkerList.push(modificaionInfo.current[i]);
+  }
+
+  copyModificationAllInfo = [...modificationAllInfo.current];
+
+  copySelectedWorkerList = [...selectedList.current];
+
+  // copyWorkerInfo = [...workerInfo.current];
+  // console.log("워커인포 :", copyWorkerInfo);
+
+  copyScheduleInfo = [scheduleInfo.current];
+
+  // var workerList = copyScheduleInfo[0].filter(
+  //   (arr, index, callback) =>
+  //     index === callback.findIndex((t) => t.mem_name === arr.mem_name)
+  // );
+  // workerList.splice(0, 0, {
+  //   mem_name: "선택",
+  //   att_sche_start_time: "",
+  //   att_sche_end_time: "",
+  // });
+
+  const clickDate = (e) => {
+    selectedList.current = [];
+    for (var i = 0; i < copyScheduleInfo[0].length; i++) {
+      copyScheduleInfo[0][i].att_date === e
+        ? selectedList.current.push({
+            mem_name: copyScheduleInfo[0][i].mem_name,
+            att_sche_start_time: copyScheduleInfo[0][i].att_sche_start_time,
+            att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
+            mem_id: copyScheduleInfo[0][i].mem_id,
+            group_seq: groupSeq,
+          })
+        : console.log();
+    }
+
+    arrAddList.current = [];
+    setSelectedDate(String(e));
+  };
 
   const planModification = () => {
-    var result = thisDayList.current.map((item, index) => {
+    var result = copySelectedWorkerList.map((item, index) => {
       return (
-        <tr key={`${item.workerName}${index}`}>
+        <tr key={`${item.mem_name}${index}`}>
           <select
             onChange={(e) => {
-              thisDayList.current[index].workerName = e.target.value;
+              copySelectedWorkerList[index].mem_name = e.target.value;
+              copySelectedWorkerList[index].group_seq = groupSeq;
             }}
-            defaultValue={item.workerName}
+            defaultValue={item.mem_name}
           >
             {workerListRendering()}
           </select>
           <input
             type="time"
-            defaultValue={item.startTime}
+            defaultValue={item.att_sche_start_time}
             onChange={(e) => {
-              thisDayList.current[index].startTime = e.target.value;
+              copySelectedWorkerList[index].att_sche_start_ime = e.target.value;
             }}
           />
           ~
           <input
             type="time"
-            defaultValue={item.endTime}
+            defaultValue={item.att_sche_end_time}
             onChange={(e) => {
-              thisDayList.current[index].endTime = e.target.value;
-              console.log("투데이배열", thisDayList.current);
+              copySelectedWorkerList[index].att_sche_end_time = e.target.value;
             }}
           />
           <button
             onClick={() => {
-              thisDayList.current.splice(index, 1);
-              setThisDayListState([thisDayList.current]);
+              selectedList.current.splice(index, 1);
+              setThisDayListState([selectedList.current]);
             }}
           >
             삭제
@@ -145,31 +228,72 @@ const Calendar = () => {
     return result;
   };
 
+  const workerListRendering = () => {
+    var result = workerInfo.current.map((item, index) => {
+      return <option key={index}>{item.mem_name}</option>;
+    });
+    return result;
+  };
+  const selectWorker = () => {
+    return (
+      <select
+        onChange={(e) => {
+          workerSchedule.current = [];
+          for (var i = 0; i < copyScheduleInfo[0].length; i++) {
+            copyScheduleInfo[0][i].mem_name === e.target.value
+              ? workerSchedule.current.push({
+                  title: `${String(
+                    copyScheduleInfo[0][i].att_sche_start_time
+                  ).substring(0, 5)}-${String(
+                    copyScheduleInfo[0][i].att_sche_end_time
+                  ).substring(0, 5)}`,
+                  date: `${copyScheduleInfo[0][i].att_date}`,
+                  color: "gray",
+                })
+              : console.log();
+          }
+
+          setmem_name(e.target.value);
+        }}
+      >
+        {workerListRendering()}
+      </select>
+    );
+  };
+
   const addModification = () => {
     let result = arrAddList.current.map((item, index) => {
       return (
         <tr key={uuidv4()}>
           <select
-            defaultValue={item.workerName}
+            defaultValue={item.mem_name}
             onChange={(e) => {
-              arrAddList.current[index].workerName = e.target.value;
+              console.log(e.target.value);
+              for (var i = 0; i < workerInfo.current.length; i++) {
+                console.log("들어가냐");
+                if (e.target.value === workerInfo.current[i].mem_name) {
+                  arrAddList.current[index].mem_name = e.target.value;
+                  arrAddList.current[index].mem_id =
+                    workerInfo.current[i].mem_id;
+                }
+              }
             }}
           >
             {workerListRendering()}
           </select>
           <input
             type="time"
-            defaultValue={item.startTime}
+            defaultValue={item.att_sche_start_time}
             onChange={(e) => {
-              arrAddList.current[index].startTime = e.target.value;
+              arrAddList.current[index].att_sche_start_time = e.target.value;
             }}
           />
           ~
           <input
-            defaultValue={item.endTime}
+            defaultValue={item.att_sche_end_time}
             type="time"
             onChange={(e) => {
-              arrAddList.current[index].endTime = e.target.value;
+              arrAddList.current[index].att_sche_end_time = e.target.value;
             }}
           />
           <button
@@ -188,36 +312,200 @@ const Calendar = () => {
 
   const pushArrAddList = () => {
     arrAddList.current.push({
-      workerName: "",
-      startTime: "",
-      endTime: "",
+      mem_name: "",
+      att_sche_start_time: "",
+      att_sche_end_time: "",
+      mem_id: "",
+      group_seq: groupSeq,
     });
   };
 
   const submitModification = () => {
-    console.log("최종배열", thisDayList.current.concat(arrAddList.current));
+    var updateInfo = copySelectedWorkerList.concat(arrAddList.current);
+
+    for (var i = 0; i < updateInfo.length; i++) {
+      updateInfo[i]["att_date"] = selectedDate;
+    }
+
+    arrAddList.current = [];
+
+    if (updateInfo.length > 0) {
+      updateSchedul(updateInfo);
+    } else {
+      updateInfo = [
+        {
+          att_date: selectedDate,
+          group_seq: groupSeq,
+          mem_id: "010",
+          att_sche_start_time: "10:00",
+          att_sche_end_time: "10:00",
+        },
+      ];
+
+      updateSchedul(updateInfo);
+    }
+    console.log("최종배열", updateInfo);
   };
-  console.log("상태 :", arrAddListState);
 
   const clickDetail = () => {
-    for (var i = 0; i < arrSchedule.length; i++) {
-      console.log("date", arrSchedule[i].date);
-      console.log("selectedDate", selectedDate.replace(/-/gi, ""));
-      if (arrSchedule[i].date === selectedDate.replace(/-/gi, "")) {
-        return arrSchedule[i].title;
+    for (var i = 0; i < copySchedule.length; i++) {
+      if (copySchedule[i].date === selectedDate.replace(/-/gi, "")) {
+        return copySchedule[i].mem_name;
       }
     }
   };
+
+  const attendance = () => {
+    if (selectedDate >= today) {
+      var result = copySelectedWorkerList.map((item, index) => {
+        return (
+          <>
+            <p> 이름 출근 퇴근</p>
+            <tr key={uuidv4}>
+              {" "}
+              <td>
+                {item.mem_name} {item.att_real_start_time}{" "}
+                {item.att_real_end_time}
+              </td>
+            </tr>
+          </>
+        );
+      });
+      return result;
+    } else {
+      return;
+    }
+  };
+  const planSchedule = () => {
+    var result = copySelectedWorkerList.map((item, index) => {
+      return (
+        <>
+          <tr key={uuidv4}>
+            {" "}
+            계획{" "}
+            <td>
+              {item.mem_name} {item.att_sche_start_time.substring(0, 5)}{" "}
+              {item.att_sche_end_time.substring(0, 5)}
+            </td>
+          </tr>
+          <tr key={uuidv4}>
+            {" "}
+            실제
+            <td>
+              {item.mem_name} {item.att_real_start_time}{" "}
+              {item.att_real_end_time}
+            </td>
+          </tr>
+        </>
+      );
+    });
+
+    return result;
+  };
+  const showModificaion = () => {
+    if (selectedDate < today) return planSchedule();
+    else {
+      return planModification();
+    }
+  };
+
+  const addButton = () => {
+    if (selectedDate < today) {
+      return;
+    } else {
+      return (
+        <button
+          onClick={() => {
+            pushArrAddList();
+            setArrAddListState([arrAddList.current]);
+          }}
+        >
+          추가
+        </button>
+      );
+    }
+  };
+
+  const registerButton = () => {
+    if (selectedDate < today) {
+      return;
+    } else {
+      return (
+        <input
+          type="submit"
+          name="등록"
+          value="등록"
+          onClick={submitModification}
+        ></input>
+      );
+    }
+  };
+
+  const modificationAnser = () => {
+    listReject.current = [];
+    listConfirmation.current = [];
+    var result = copyModificationAllInfo.map((item, index) => {
+      if (selectedDate === copyModificationAllInfo[index].ch_date) {
+        return (
+          <>
+            <h3>근무변경요청</h3>
+            <tr key={uuidv4}>
+              {item.mem_name} :{item.ch_start_time.substring(0, 5)}~
+              {item.ch_end_time.substring(0, 5)}
+            </tr>
+            <tr key={uuidv4}>
+              <input
+                type="text"
+                onChange={(e) => {
+                  rejectMemo.current = e.target.value;
+                  console.log(rejectMemo.current);
+                }}
+              ></input>
+            </tr>
+            <tr>
+              <button
+                onClick={() => {
+                  listConfirmation.current.push({
+                    ch_seq: item.ch_seq,
+                    att_seq: item.att_seq,
+                    ch_approve: "Y",
+                    mem_id: item.mem_id,
+                    ch_start_time: item.ch_start_time,
+                    ch_end_time: item.ch_end_time,
+                    ch_date: item.ch_date,
+                    group_seq: item.group_seq,
+                  });
+
+                  confirmModification(listConfirmation.current);
+                }}
+              >
+                등록
+              </button>
+              <button
+                onClick={() => {
+                  listReject.current.push({
+                    ch_seq: item.ch_seq,
+                    ch_approve: "N",
+                    ch_reject_memo: rejectMemo.current,
+                  });
+                  rejectModification(listReject.current);
+                }}
+              >
+                거절
+              </button>
+            </tr>
+          </>
+        );
+      }
+    });
+    return result;
+  };
+
   return (
     <div className="container">
       <div className="calendar">
-        <select
-          onChange={(e) => {
-            setWorkerName(e.target.value);
-          }}
-        >
-          {workerListRendering()}
-        </select>
+        {selectWorker()}
+
         <FullCalendar
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
@@ -225,23 +513,34 @@ const Calendar = () => {
           locale="ko" //한글 버전
           selectable={true}
           height={700}
-          dayMaxEventRows={2}
+          dayMaxEventRows={3}
+          // timeGrid={1}
+          // views={1}
           //이벤트
           eventSources={[
             {
               googleCalendarId:
                 "ko.south_korea#holiday@group.v.calendar.google.com",
-              color: "red",
-              textColor: "yellow",
+
+              textColor: "black",
             },
           ]}
-          events={copySchedule}
+          events={copyTodayWorkerList}
+          eventRender={function (event, eventElement) {
+            if (event.imageurl) {
+              eventElement
+                .find("div.fc-content")
+                .prepend(
+                  "<img src='" + event.imageurl + "' width='16' height='16'>"
+                );
+            }
+          }}
           eventClick={function (info) {
             alert(info.date + info.event.title);
-            info.el.style.borderColor = "red";
+            info.el.style.borderColor = "yellow";
           }}
           dateClick={function (info) {
-            setSelectecDate(info.dateStr);
+            clickDate(info.dateStr);
           }}
           businessHours={[
             {
@@ -270,47 +569,24 @@ const Calendar = () => {
             </tr>
             <tr align="left">
               <h3>
-                {workerName} {clickDetail()}
+                {mem_name} {clickDetail()}
               </h3>
             </tr>
-            <button id="button1">수정하기</button>
           </table>
         </div>
         <div>
-          {planModification()}
+          {showModificaion()}
           {addModification()}
+          {addButton()}
+          {registerButton()}
 
-          <button
-            onClick={() => {
-              pushArrAddList();
-              setArrAddListState([arrAddList.current]);
-            }}
-          >
-            +추가
-          </button>
-
-          <input
-            type="submit"
-            name="등록"
-            value="등록"
-            onClick={submitModification}
-          ></input>
           <tr></tr>
         </div>
+        <div>{attendance()}</div>
 
-        <div className="special">
-          <h3>여기에 특이사항</h3>
-          <br></br>
-          <tr>
-            <td>근무수정 : </td>
-            <td> 08:00 </td>
-            <td>~</td>
-            <td>16:00</td>
-          </tr>
-        </div>
+        <div className="special">{modificationAnser()}</div>
       </div>
       <a href="/calendarInput">등록하러가기</a>
-      {console.log("count1")}
     </div>
   );
 };

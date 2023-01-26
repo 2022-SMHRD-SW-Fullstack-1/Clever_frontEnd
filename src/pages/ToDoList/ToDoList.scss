@@ -1,14 +1,121 @@
+body {
+  font-family: "Gotham Book";
+}
+
+.todoContent {
+  // flex-direction: row;
+  width: 500px;
+  display: flex;
+  // float: left;
+  align-items: center;
+  justify-content: center;
+
+  // display: block;
+  // display: inline-block;
+}
 .todo-list {
   flex: 1;
   padding: 20px 32px;
+
+  overflow-y: auto;
+
+  left: 430px;
+  margin: auto;
+
   padding-bottom: 48px;
-  //   overflow-y: auto;
+  position: absolute;
+
+  .todo-create {
+    //   position: fixed;
+    margin-top: 100%;
+    // float: right;
+    bottom: 0;
+    // width: 100%;
+  }
 }
 
-.todo-list .todo-create {
-  //   position: fixed;
-  margin-top: 100%;
-  float: right;
-  bottom: 0;
-  //   width: 100%;
+.todoCreate-Img {
+  position: relative;
+
+  top: 320px;
+  // left: 20px;
+
+  .todoCreateImg {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+// .todoCreate-Img {
+//   position: absolute;
+
+//   // bottom: 0;
+//   margin-bottom: 0px;
+
+//   .todoCreateImg {
+//     width: 80px;
+//     height: 80px;
+
+//     right: 0px;
+//     top: 500px;
+
+//     margin: 0 auto;
+
+//     object-fit: cover;
+//   }
+//   // .todoComImg {
+//   //   float: right;
+//   // }
+// }
+
+.todoDetail {
+  width: 512px;
+  height: 750px;
+
+  padding: 10px;
+
+  background: white;
+
+  float: left;
+  text-align: left;
+
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 4%);
+
+  .todo-detail {
+    // float: right;
+    // float: left;
+    // clear: both;
+
+    // width: 512px;
+    // height: 750px;
+
+    top: 0px;
+    left: 0px;
+
+    // background-color: aqua;
+
+    // border-radius: 16px;
+    // box-shadow: 0 0 8px 0 rgb(0 0 0 / 4%);
+
+    // padding: 10px;
+    // padding-top: 0px;
+    justify-content: center;
+    // display: inline-block;
+    display: flex;
+    // display: -webkit-box;
+    // display: -webkit-flex;
+    // display: -ms-flexbox;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    // -webkit-flex-direction: row;
+    // -ms-flex-direction: row;
+    // flex-direction: row;
+    position: relative;
+
+    margin: 0 auto;
+
+    // margin-left: 80px;
+  }
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../image/logo2.png";
 import styles from "./Header.module.scss";
+
 const Header = () => {
   return (
     <div className={styles.header}>
@@ -14,16 +15,13 @@ const Header = () => {
         <div className={styles.navigation}>
           <ul>
             <li>
-              <a href="/todolist">할 일</a>
+              <a href="/todolist"> 할 일</a>
             </li>
             <li>
-              <a href="/calendar">일정</a>
+              <a href="/calendar"> 일정</a>
             </li>
             <li>
-              <a href="/board">전달사항</a>
-            </li>
-            <li>
-              <a href="/group">그룹</a>
+              <a href="/group"> 그룹</a>
             </li>
             <li>
               <a href="/join">회원가입</a>
