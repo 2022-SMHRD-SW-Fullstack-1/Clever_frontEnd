@@ -13,7 +13,7 @@
 
   .modalBlock {
     width: 50rem;
-    height: 45rem;
+    height: 50rem;
     background-color: white;
     position: relative;
     box-sizing: border-box;
@@ -39,38 +39,63 @@
 
       .description {
         text-align: left;
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
         padding-left: 12px;
+        color: #3a4ca8;
       }
 
       .titleInput {
-        font-size: 20px;
+        text-align: start;
         margin-top: 30px;
         padding: 0px 12px;
-        height: 50px;
+        height: 70px;
         border: none;
         outline: none;
         border-bottom: solid 1px darkgray;
+        .title {
+          font-size: 30px;
+        }
+        .writerInfo {
+          display: flex;
+          font-size: 13px;
+          margin-top: 5px;
+          color: darkgray;
+          .writer {
+            margin-left: 3px;
+            margin-right: 10px;
+          }
+        }
       }
       .contentInput {
+        text-align: start;
         font-size: 17px;
         margin-top: 20px;
         padding: 0px 12px;
         height: 450px;
         border: none;
         outline: none;
-        overflow: auto;
-      }
-      .fileInput {
-        border-bottom: solid 1px darkgray;
-        font-size: 18px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .attachImage {
+          width: 20rem;
+          height: 20rem;
+        }
+        .content {
+          padding: 0 50px 50px 0;
+        }
+        .replyContainer {
+          border-top: solid 1px darkgray;
+          .inputReply {
+            width: inherit;
+          }
+        }
       }
     }
   }
 }
-.addBtn {
-  width: 90px;
+.backBtn {
+  width: 130px;
   height: 40px;
   border: 0;
   outline: none;

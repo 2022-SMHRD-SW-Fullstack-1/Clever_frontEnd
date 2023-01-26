@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddBoardCate from "./Category/AddBoardCate";
 import styles from "./Board.module.scss";
 import add from "../../image/add.png";
 import axios from "axios";
 import WriteBoard from "./WriteBoard";
+import BoardList from "./BoardList/BoardList";
 
 const Board = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showWriteModal, setShowWriteModal] = useState(false);
   const [groupInfo, setGroupInfo] = useState(location.state);
-  const mem_id = groupInfo.mem_id;
+
   const [category, setCategory] = useState("");
+  const [cateName, setCateName] = useState("");
   const [writerInfo, setWriterInfo] = useState({
     category: category,
-    mem_id: mem_id,
+    mem_id: groupInfo.mem_id,
+    mem_name: groupInfo.mem_name,
+    group_seq: groupInfo.group_seq,
   });
+  const infoRef = useRef({});
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [cateList, setCateList] = useState([]);
   const cateEmpty = cateList.length === 0;
@@ -36,13 +41,19 @@ const Board = () => {
       .post("/board/getcategory", groupInfo)
       .then((res) => {
         setCateList(res.data);
-        console.log(res.data);
         setCategory(res.data[0].cate_seq);
+        setCateName(res.data[0].cate_name);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  const obj = {
+    ...writerInfo,
+    category,
+  };
+  infoRef.current = obj;
 
   return (
     <div className="container">
@@ -61,7 +72,10 @@ const Board = () => {
                       : styles.categoryName
                   }
                   key={idx}
-                  onClick={() => setCategory(item.cate_seq)}
+                  onClick={() => {
+                    setCategory(item.cate_seq);
+                    setCateName(item.cate_name);
+                  }}
                 >
                   {item.cate_name}
                 </div>
@@ -80,19 +94,20 @@ const Board = () => {
         )}
       </div>
 
-      <div className={styles.boardContainer}>게시글 목록</div>
+      <div className={styles.boardContainer}>
+        <BoardList writerInfo={infoRef} cateName={cateName} />
+      </div>
       <button className={styles.writeBtn} onClick={handleWrite}>
         글 작성
       </button>
       {showWriteModal && (
         <WriteBoard
           setShowWriteModal={setShowWriteModal}
-          writerInfo={writerInfo}
+          writerInfo={infoRef}
         />
       )}
     </div>
   );
-
 };
 
 export default Board;

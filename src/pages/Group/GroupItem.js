@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Group.module.scss";
 import InviteGroup from "./InviteGroup";
-const GroupItem = ({ group_seq, group_name, id }) => {
+const GroupItem = ({ group_seq, group_name, user }) => {
   const navigate = useNavigate();
   const [groupInfo, setGroupInfo] = useState({
     group_seq: group_seq,
-    mem_id: id,
+    mem_id: user.mem_id,
+    mem_name: user.mem_name,
   });
 
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -29,6 +30,7 @@ const GroupItem = ({ group_seq, group_name, id }) => {
 
   const handleEnterGroup = () => {
     navigate("/board", { state: groupInfo });
+    sessionStorage.setItem("group_seq", groupInfo.group_seq);
   };
 
   return (

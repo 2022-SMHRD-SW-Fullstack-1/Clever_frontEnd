@@ -21,9 +21,7 @@ const Remove = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-right: 0px;
-
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
@@ -37,9 +35,7 @@ const Edit = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
 left : 500px
-
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
