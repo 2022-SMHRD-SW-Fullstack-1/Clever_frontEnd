@@ -41,7 +41,7 @@ class ApiService {
 
   deleteSchedul = async (e) => {
     try {
-      const res = await await axios.post("/deleteSchedul/" + e);
+      const res = await await axios.post("/deleteSchedul" + e);
     } catch (err) {
       console.log(err);
     }
