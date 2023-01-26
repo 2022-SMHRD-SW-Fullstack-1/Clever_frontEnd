@@ -1,13 +1,39 @@
+import axios from "axios";
 import React from "react";
 import styles from "./WriteBoard.module.scss";
 
 const ModifyBoard = ({ setShowModify, modifyItem }) => {
+  const [inputValue, setInputValue] = useState({
+    cate_seq: modifyItem.cate_seq,
+    mem_id: modifyItem.mem_id,
+    mem_name: modifyItem.mem_name,
+    notice_title: "",
+    notice_content: "",
+  });
   const close = () => {
     setShowModify(false);
   };
-  const handleChange = (e) => {};
-  const handleUpdate = () => {};
-  const handleChangeFile = () => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
+  };
+  const [inputFile, setInputFile] = useState({});
+  const handleChangeFile = (e) => {
+    setInputFile(e.target.files);
+  };
+  const handleUpdate = () => {
+    axios
+      .post("/board/update", inputValue)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
