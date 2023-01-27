@@ -12,19 +12,25 @@ import "./ToDo.scss";
 import { TbMessageReport } from "react-icons/tb";
 import axios from "axios";
 
+import add from "../../image/add.png";
+
 import styled from "styled-components";
 import ToDoDetail from "./ToDoDetail";
+import AddToDoCate from "./AddToDoCate";
+import { useLocation } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
     background: #e9ecef
   }
 `;
-// const cateCk = styled.div`
-//   // background: #3a4ca8;
-// `;
 
 const Todo = () => {
+  const user = sessionStorage.getItem("mem_id");
+  const group_seq = sessionStorage.getItem("group_seq");
+  // console.log("user", sessionStorage);
+  console.log("group_seq", group_seq);
+
   // db 에 있는 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
   const [category, setCategory] = useState("");
@@ -32,8 +38,6 @@ const Todo = () => {
     axios
       .post("/todolist/getcategory")
       .then((res) => {
-        // console.log(res.data);
-        // console.log(res.data[0].cate_seq);
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
       })
@@ -42,6 +46,30 @@ const Todo = () => {
       });
   }, []);
 
+  // 카테고리 추기하기
+  // const location = useLocation();
+  // console.log("location", location.state);
+
+  const [groupInfo, setGroupInfo] = useState();
+  const [showAddCategory, setShowAddCategory] = useState(false);
+
+  const addToDoCate = () => {
+    setShowAddCategory(true);
+  };
+
+  // 그룹 정보 가져오기
+  axios
+    .post("/todolist/getgroup", {
+      mem_id: user,
+      group_seq: group_seq,
+    })
+    .then((res) => {
+      console.log("그룹", res.data);
+    })
+    .catch((err) => {
+      console.log("그룹 실패", err);
+    });
+
   // 일일 특이사항 가져오기
   const [noticeList, setNoticeList] = useState("");
   useEffect(() => {
@@ -49,6 +77,14 @@ const Todo = () => {
       console.log("notice", res);
     });
   }, []);
+
+  // 카테고리에 해당하는 할일만 보여주기
+  const [selectCate, setSelectCate] = useState([]);
+  useEffect(() => {
+    axios.post("/todolist/selectcate").then((res) => {
+      console.log("selectCate", res.data);
+    });
+  });
 
   return (
     <div className="container">
@@ -61,11 +97,6 @@ const Todo = () => {
       </div>
       <div className="todoCate">
         <div className="todo-category">
-          {/* {cateList.map((item) => (
-            <button className="todo-cateName" onChange={cateCk}>
-              {item.cate_name}
-            </button>
-          ))} */}
           {cateList &&
             cateList.map((item, idx) => {
               return (
@@ -81,21 +112,24 @@ const Todo = () => {
               );
             })}
         </div>
+
+        <div className="todo-add" onClick={addToDoCate}>
+          <img className="todo-addCate" src={add}></img>
+        </div>
+        {showAddCategory && (
+          <AddToDoCate
+            setShowAddCategory={setShowAddCategory}
+            groupInfo={groupInfo}
+          />
+        )}
       </div>
       <div className="globalStyle">
         <GlobalStyle />
       </div>
       <div className="show-todo">
-        <TodoProvider>
-          <div className="todoTemplate">
-            <ToDoTemplate>
-              <ToDoHead />
-            </ToDoTemplate>
-          </div>
+        <div className="toDoTemplate">
           <ToDoList />
-        </TodoProvider>
-
-        <div className="todo-detail"></div>
+        </div>
       </div>
     </div>
   );

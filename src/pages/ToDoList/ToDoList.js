@@ -1,107 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTodoDispatch, useTodoState } from "./ToDoContext";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-import add from "./add.png";
+import add from "../../image/add.png";
 
 import "./ToDoList.scss";
 import axios from "axios";
-import { MdDelete, MdDone, MdEdit } from "react-icons/md";
+// import { MdDelete, MdDone, MdEdit } from "react-icons/md";
 import ToDoDetail from "./ToDoDetail";
+import ToDoItem from "./ToDoItem";
 
-const TodoListBlock = styled.div`
-  flex: 1;
-  padding: 20px 32px;
-  padding-bottom: 48px;
-  overflow-y: auto;
-`;
-
-const Remove = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0px;
-  color: #dee2e6;
-  font-size: 24px;
-  cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
+const TodoHeadBlock = styled.div`
+  h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #343a40;
   }
-  display: none;
-`;
-
-const Edit = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-left : 500px
-  color: #dee2e6;
-  font-size: 24px;
-  cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
+  .day {
+    margin-top: 4px;
+    color: #868e96;
+    font-size: 21px;
   }
-  display: none;
+  padding-top: 48px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e9ecef;
 `;
 
-const TodoItemBlock = styled.div`
-  display: flex;
-  align-items: center;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  &:hover {
-    ${Remove} {
-      display: initial;
-    }
-  }
-  &:hover {
-    ${Edit} {
-      display: initial;
-    }
-  }
-`;
-
-const CheckCircle = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  border: 1px solid #ced4da;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-  cursor: pointer;
-  ${(props) =>
-    props.done &&
-    css`
-      border: 1px solid #3a4ca8;
-      color: #3a4ca8;
-    `}
-`;
-
-const Text = styled.div`
-  flex: 1;
-  font-size: 21px;
-  color: #495057;
-  ${(props) =>
-    props.done &&
-    css`
-      color: #ced4da;
-    `}
+const TasksLeft = styled.div`
+  // color: #20c997;
+  color: #3a4ca8;
+  font-size: 18px;
+  margin-top: 40px;
+  font-weight: bold;
 `;
 
 const ToDoList = () => {
-  const todos = useTodoState();
+  // const todos = useTodoState();
+  const today = new Date();
 
-  const dispatch = useTodoDispatch();
+  const dateString = today.toLocaleString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
-  const navigate = useNavigate();
+  const dayName = today.toLocaleString("ko-KR", { weekday: "long" });
 
-  const gotoToDoCreate = () => {
-    navigate("/todolistcreate");
-  };
+  // const undoneTasks = todos.filter((todo) => !todo.done);
+
+  // const dispatch = useTodoDispatch();
+
+  // const navigate = useNavigate();
+
+  // const gotoToDoCreate = () => {
+  //   navigate("/todolistcreate");
+  // };
+
+  const [todoList, setTodoList] = useState([]);
 
   useEffect(() => {
     axios
@@ -112,101 +70,85 @@ const ToDoList = () => {
           text: i.todo_title,
           done: false,
         }));
-        dispatch({
-          type: "CREATE",
-          todo: newData,
-        });
+        // dispatch({
+        //   type: "CREATE",
+        //   todo: newData,
+        // });
+        console.log("할일 불러오기 res", res.data);
+        setTodoList(res.data);
       })
       .catch((err) => {
         console.log("실패함", err);
       });
   }, []);
 
-  const onToggle = (id) => {
-    dispatch({
-      type: "TOGGLE",
-      // id: toDoId,
-      id,
-    });
-  };
-
-  const onRemove = () => {
-    dispatch({
-      type: "REMOVE",
-      // id: toDoId,
-      id: todos.id,
-    });
-  };
-
-  // 할 일 수정 페이지로 이동
-  const [todoSelect, setTodoSelect] = useState("");
-
-  const onEdit = (item, e) => {
-    console.log("item", item);
-    setTodoSelect(item.id);
-    navigate("/todolistedit", { state: item });
-  };
-
   // 할 일 상세보기
-  const [todoDetail, setTodoDetail] = useState();
+  const [todoDetail, setTodoDetail] = useState([]);
   const [todoTitle, setTodoTitle] = useState("");
+  const [toDoDone, setToDoDone] = useState("미완료");
 
   const onDetail = (item, e) => {
-    // console.log("e", e.target.innerText);
-    setTodoTitle(e.target.innerText);
-    setTodoDetail(item.id);
-    // console.log("detail", item.id);
-    const { detailId } = item.id;
+    setTodoDetail(item);
+    const { detailId } = item.todo_seq;
+  };
+
+  const changeDone = (value) => {
+    setToDoDone(value);
   };
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
   return (
     <div className="todoContent">
-      <div className="todoCreate-Img">
-        <img src={add} className="todoCreateImg" onClick={gotoToDoCreate}></img>
-      </div>
-      <div className="todo-list">
-        <TodoListBlock todos={todos}>
-          {todos
-            .filter((item, idx) => idx <= 6)
-            .map((item, idx) => (
-              <TodoItemBlock key={item + idx}>
-                <CheckCircle done={item.done} onClick={() => onToggle(item.id)}>
-                  {item.done && <MdDone />}
-                </CheckCircle>
-                <Text
-                  done={item.done}
-                  key={item + idx}
+      <div className="todo-template">
+        <TodoHeadBlock>
+          <h1>{dateString}</h1>
+          <div className="day">{dayName}</div>
+          {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
+        </TodoHeadBlock>
+        {/* <div className="todo-list">
+          {todoList.map((item) => (
+            <div className="todo-item">
+              <div>
+                <div
+                  className="todo-title"
+                  key={item.todo_title}
                   onClick={(e) => {
                     onDetail(item, e);
                   }}
-                  value={item.text}
                 >
-                  {item.text}
-                </Text>
-                <Edit
-                  key={item.id}
+                  {item.todo_title}
+                </div>
+                <div
+                  className="todo-content"
+                  key={item.todo_content}
                   onClick={(e) => {
-                    onEdit(item, e);
+                    onDetail(item, e);
                   }}
-                  value={item.id}
                 >
-                  <MdEdit />
-                </Edit>
-                <Remove onClick={onRemove}>
-                  <MdDelete />
-                </Remove>
-                {/* <img src="./add.png" alt="image" className="todoComImg" /> */}
-              </TodoItemBlock>
-            ))}
-        </TodoListBlock>
+                  {item.todo_content}
+                </div>
+              </div>
+              <div className="todo-complete">{toDoDone}</div>
+            </div>
+          ))}
+        </div> */}
+        {/* <div className="todoCreate-Img">
+          <img
+            src={add}
+            className="todoCreateImg"
+            onClick={gotoToDoCreate}
+          ></img>
+        </div> */}
+        <ToDoItem />
       </div>
 
-      <div className="todo-detail">
-        <ToDoDetail item={todoDetail} />
-      </div>
+      {/* <div className="todo-detail">
+        <ToDoDetail item={todoDetail} changeDone={changeDone} />
+      </div> */}
+      {/* <ToDoItem /> */}
     </div>
+    // </div>
   );
 };
 
