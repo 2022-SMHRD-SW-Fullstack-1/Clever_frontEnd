@@ -1,7 +1,7 @@
 import daygrid from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import React, { useState, useRef, useEffect } from "react";
-// import "../../styles/calendar.css";
+import "./Calendar.scss";
 import googleCalendar from "@fullcalendar/google-calendar";
 import interaction from "@fullcalendar/interaction";
 import { v4 as uuidv4 } from "uuid";
@@ -57,10 +57,10 @@ const Calendar = () => {
     ApiService.getModification(groupSeq).then((res) => {
       res.data.map((item) => {
         modificaionInfo.current.push({
-          title: "근무수정요청!!",
+          title: "&nbspdddd🔴",
           date: item.ch_date,
-          color: "red",
-          textColor: "yellow",
+          color: "transparent",
+          textColor: "tramsparent",
         });
       });
       modificationAllInfo.current = [];
@@ -104,9 +104,10 @@ const Calendar = () => {
             title: `${item.mem_name}${item.att_sche_start_time.substring(
               0,
               5
-            )}~${String(item.att_sche_end_time).substring(0, 5)}`,
+            )}-${String(item.att_sche_end_time).substring(0, 5)}`,
             date: item.att_date,
-            color: "gray",
+            color: "orange",
+            textColor: "black",
           };
         });
 
@@ -165,6 +166,7 @@ const Calendar = () => {
       return (
         <tr key={`${item.mem_name}${index}`}>
           <select
+            id="select"
             onChange={(e) => {
               copySelectedWorkerList[index].mem_name = e.target.value;
               copySelectedWorkerList[index].group_seq = groupSeq;
@@ -174,14 +176,16 @@ const Calendar = () => {
             {workerListRendering()}
           </select>
           <input
+            id="inputTime"
             type="time"
             defaultValue={item.att_sche_start_time}
             onChange={(e) => {
               copySelectedWorkerList[index].att_sche_start_ime = e.target.value;
             }}
           />
-          ~
+          -
           <input
+            id="inputTime"
             type="time"
             defaultValue={item.att_sche_end_time}
             onChange={(e) => {
@@ -212,6 +216,7 @@ const Calendar = () => {
   const selectWorker = () => {
     return (
       <select
+        id="select"
         onChange={(e) => {
           workerSchedule.current = [];
           for (var i = 0; i < copyScheduleInfo[0].length; i++) {
@@ -330,48 +335,46 @@ const Calendar = () => {
     }
   };
 
-  const attendance = () => {
-    if (selectedDate >= today) {
-      var result = copySelectedWorkerList.map((item, index) => {
-        return (
-          <>
-            <p> 이름 출근 퇴근</p>
-            <tr key={uuidv4}>
-              {" "}
-              <td>
-                {item.mem_name} {item.att_real_start_time}{" "}
-                {item.att_real_end_time}
-              </td>
-            </tr>
-          </>
-        );
-      });
-      return result;
-    } else {
-      return;
-    }
-  };
+  // const attendance = () => {
+  //   if (selectedDate >= today) {
+  //     var result = copySelectedWorkerList.map((item, index) => {
+  //       return (
+  //         <>
+  //           <table width="100%">
+  //             <tr>
+  //               <th>이름</th>
+  //               <th colspan="5">출근시간</th>
+  //               <th>퇴근시간</th>
+  //             </tr>
+  //           </table>
+  //           <tr key={uuidv4}>
+  //             <th>{item.mem_name}</th> <th>{item.att_real_start_time} </th>
+  //             <th>{item.att_real_end_time}</th>
+  //           </tr>
+  //         </>
+  //       );
+  //     });
+  //     return result;
+  //   } else {
+  //     return;
+  //   }
+  // };
   const planSchedule = () => {
     var result = copySelectedWorkerList.map((item, index) => {
       return (
-        <>
+        <table width="100%">
           <tr key={uuidv4}>
-            {" "}
-            계획{" "}
-            <td>
-              {item.mem_name} {item.att_sche_start_time.substring(0, 5)}{" "}
-              {item.att_sche_end_time.substring(0, 5)}
-            </td>
+            <th> 계획</th>
+            <th>{item.mem_name}</th>
+            <th>{item.att_sche_start_time.substring(0, 5)}</th>
+            <th>{item.att_sche_end_time.substring(0, 5)}</th>
           </tr>
           <tr key={uuidv4}>
-            {" "}
-            실제
-            <td>
-              {item.mem_name} {item.att_real_start_time}{" "}
-              {item.att_real_end_time}
-            </td>
+            <th> 실제 </th>
+            <th>{item.mem_name}</th> <th>{item.att_real_start_time}</th>
+            <th>{item.att_real_end_time}</th>
           </tr>
-        </>
+        </table>
       );
     });
 
@@ -407,6 +410,7 @@ const Calendar = () => {
     } else {
       return (
         <input
+          id="submit"
           type="submit"
           name="등록"
           value="등록"
@@ -422,20 +426,28 @@ const Calendar = () => {
     var result = copyModificationAllInfo.map((item, index) => {
       if (selectedDate === copyModificationAllInfo[index].ch_date) {
         return (
-          <>
-            <h3>근무변경요청</h3>
-            <tr key={uuidv4}>
-              {item.mem_name} :{item.ch_start_time.substring(0, 5)}~
-              {item.ch_end_time.substring(0, 5)}
+          <table width="100%">
+            <h3 color="red">근무변경요청</h3>
+            <tr key={uuidv4} width="100%">
+              <th>
+                {" "}
+                {item.mem_name} :{item.ch_start_time.substring(0, 5)}-
+                {item.ch_end_time.substring(0, 5)}
+              </th>
             </tr>
-            <tr key={uuidv4}>
-              <input
-                type="text"
-                onChange={(e) => {
-                  rejectMemo.current = e.target.value;
-                  console.log(rejectMemo.current);
-                }}
-              ></input>
+            <tr key={uuidv4} width="100%">
+              <th>
+                <input
+                  id="inputText"
+                  width="100%"
+                  type="text"
+                  placeholder="거절시 사유를 적어주세요."
+                  onChange={(e) => {
+                    rejectMemo.current = e.target.value;
+                    console.log(rejectMemo.current);
+                  }}
+                ></input>
+              </th>
             </tr>
             <tr>
               <button
@@ -454,7 +466,7 @@ const Calendar = () => {
                   confirmModification(listConfirmation.current);
                 }}
               >
-                등록
+                승락
               </button>
               <button
                 onClick={() => {
@@ -469,7 +481,7 @@ const Calendar = () => {
                 거절
               </button>
             </tr>
-          </>
+          </table>
         );
       }
     });
@@ -478,9 +490,8 @@ const Calendar = () => {
 
   return (
     <div className="container">
-      <div className="calendar">
-        {selectWorker()}
-
+      <div className="fullcalendarContainer">
+        {selectWorker()} <a href="/calendarInput">일정등록</a>
         <FullCalendar
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
@@ -493,12 +504,21 @@ const Calendar = () => {
           // timeGrid={1}
           // views={1}
           //이벤트
+          // header={[
+          //   {
+          //     left: "prev",
+          //     center: "title, month",
+          //     right: "next",
+          //   },
+          // ]}
           eventSources={[
             {
               googleCalendarId:
                 "ko.south_korea#holiday@group.v.calendar.google.com",
 
-              textColor: "black",
+              color: "orange",
+
+              textColor: "red",
             },
           ]}
           events={copyTodayWorkerList}
@@ -527,8 +547,8 @@ const Calendar = () => {
           }}
         />
       </div>
-      <div className="calendarDetail">
-        <div className="table">
+      <div className="calendarDetailContainer">
+        <div className="modification">
           <table>
             <tr align="center">
               <h1>{selectedDate}</h1>
@@ -540,7 +560,7 @@ const Calendar = () => {
             </tr>
           </table>
         </div>
-        <div>
+        <div className="scheduleModification">
           {showModificaion()}
           {addModification()}
           {addButton()}
@@ -548,11 +568,10 @@ const Calendar = () => {
 
           <tr></tr>
         </div>
-        <div>{attendance()}</div>
+        {/* <div>{attendance()}</div> */}
 
         <div className="special">{modificationAnser()}</div>
       </div>
-      <a href="/calendarInput">등록하러가기</a>
     </div>
   );
 };
