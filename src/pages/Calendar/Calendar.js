@@ -57,7 +57,7 @@ const Calendar = () => {
     ApiService.getModification(groupSeq).then((res) => {
       res.data.map((item) => {
         modificaionInfo.current.push({
-          title: "&nbspdddd🔴",
+          title: "&nbspd🔴",
           date: item.ch_date,
           color: "transparent",
           textColor: "tramsparent",
@@ -106,8 +106,9 @@ const Calendar = () => {
               5
             )}-${String(item.att_sche_end_time).substring(0, 5)}`,
             date: item.att_date,
-            color: "orange",
+            color: "whitesmoke",
             textColor: "black",
+            beforeAll: "false",
           };
         });
 
@@ -491,7 +492,14 @@ const Calendar = () => {
   return (
     <div className="container">
       <div className="fullcalendarContainer">
-        {selectWorker()} <a href="/calendarInput">일정등록</a>
+        <div id="workerList">{selectWorker()}</div>{" "}
+        <div id="scheduleInput">
+          <button>
+            <a id="move" href="/calendarInput">
+              일정등록
+            </a>
+          </button>
+        </div>
         <FullCalendar
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
@@ -519,18 +527,13 @@ const Calendar = () => {
               color: "orange",
 
               textColor: "red",
+
+              defaultAllDay: true,
             },
           ]}
           events={copyTodayWorkerList}
-          eventRender={function (event, eventElement) {
-            if (event.imageurl) {
-              eventElement
-                .find("div.fc-content")
-                .prepend(
-                  "<img src='" + event.imageurl + "' width='16' height='16'>"
-                );
-            }
-          }}
+          eventOrderStrict={false}
+          // eventOrder={"red,start"}
           eventClick={function (info) {
             alert(info.date + info.event.title);
             info.el.style.borderColor = "yellow";
@@ -547,6 +550,7 @@ const Calendar = () => {
           }}
         />
       </div>
+
       <div className="calendarDetailContainer">
         <div className="modification">
           <table>

@@ -9,6 +9,9 @@
 .fc-day-sat a {
   color: blue;
 }
+.fc-daygrid-more-link.fc-more-link {
+  color: #3a4ca8;
+}
 .fc-today-button.fc-button.fc-button-primary {
   background-color: #17028b;
   filter: contrast(200%);
@@ -32,16 +35,58 @@
 .fc-today-button fc-button fc-button-primary {
   background-color: #3a4ca8;
 }
+.fullcalendarContainer select {
+  width: 150px;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+}
+.fullcalendarContainer #scheduleInput button {
+  width: 70px;
+  height: 40px;
+  background-color: #3a4ca8;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.fullcalendarContainer #workerList {
+  position: relative;
+  top: 80px;
+  left: 0px;
+  bottom: 0px;
+}
+.fullcalendarContainer #scheduleInput {
+  position: relative;
+  top: 40px;
+  left: 200px;
+  bottom: 0px;
+}
+.fullcalendarContainer #scheduleInput #move {
+  color: white;
+  font-size: 14px;
+}
 .calendarDetailContainer {
   display: block;
   flex-direction: row;
   position: relative;
-  margin-top: 85px;
+  margin-top: 144px;
   float: left;
   width: 29%;
   border: 0.1px solid silver;
   display: block;
-  height: 635px;
+  height: 632px;
 }
 .calendarDetailContainer select {
   width: 80px;
@@ -103,6 +148,7 @@
   font-size: 12px;
   line-height: 16px;
 }
+
 .calendarDetailContainer #submit {
   width: 40px;
   background-color: #3a4ca8;
