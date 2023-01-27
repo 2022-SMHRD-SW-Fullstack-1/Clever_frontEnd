@@ -88,36 +88,7 @@
     }
   }
 }
-.commContainer {
-  border-top: solid 1px darkgray;
-  text-align: left;
-  .commCount {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-  .commInput {
-    border: 1px solid darkgray;
-    width: 500px;
-    height: 70px;
-    font-size: 15px;
-    margin-right: 10px;
-  }
-  .commPostBtn {
-    background: #3a4ca8;
-    color: white;
-    cursor: pointer;
-    width: 50px;
-    height: 40px;
-    outline: none;
-    border: 0;
-    border-radius: 10px;
-  }
-  .commPostBtn:disabled {
-    background-color: darkgray;
-    color: white;
-    cursor: default;
-  }
-}
+
 .backBtn {
   width: 130px;
   height: 40px;

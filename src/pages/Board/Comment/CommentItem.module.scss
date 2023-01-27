@@ -1,0 +1,18 @@
+.commItemContainer {
+  padding: 15px;
+  background-color: rgba(219, 219, 219, 0.266);
+  margin-bottom: 8px;
+  .commTop {
+    display: flex;
+    margin-bottom: 8px;
+    .commWriter {
+      font-size: 17px;
+      margin-right: 20px;
+    }
+  }
+  .commTime {
+    font-size: 14px;
+    color: darkgray;
+    vertical-align: bottom;
+  }
+}

@@ -1,0 +1,44 @@
+.commContainer {
+  border-top: solid 1px darkgray;
+  text-align: left;
+  .commCount {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 8px;
+    font-size: 18px;
+    .count {
+      color: #3a4ca8;
+      font-weight: bold;
+    }
+  }
+  .commInputArea {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    .commInput {
+      border: 1px solid darkgray;
+      width: 630px;
+      height: 70px;
+      font-size: 15px;
+      margin-right: 10px;
+    }
+
+    .commPostBtn {
+      font-size: 15px;
+      margin-top: 13px;
+      background: #3a4ca8;
+      color: white;
+      cursor: pointer;
+      width: 70px;
+      height: 50px;
+      outline: none;
+      border: 0;
+      border-radius: 10px;
+    }
+    .commPostBtn:disabled {
+      background-color: darkgray;
+      color: white;
+      cursor: default;
+    }
+  }
+}
