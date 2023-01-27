@@ -4,7 +4,7 @@ import styles from "./BoardList.module.scss";
 import Pagination from "./Pagination";
 import BoardDetail from "../BoardDetail/BoardDetail";
 import menu from "../../../image/menu.png";
-import ModifyBoard from "../ModifyBoard";
+import UpdateBoard from "../UpdateBoard";
 const BoardList = ({ writerInfo, cateName }) => {
   const category = writerInfo.current.category;
   const [boardList, setBoardList] = useState([]);
@@ -16,17 +16,17 @@ const BoardList = ({ writerInfo, cateName }) => {
   const [showDetail, setShowDetail] = useState(false);
   const [detailItem, setDetailItem] = useState({});
   const [setMenu, setSetMenu] = useState(false);
-  const [showModify, setShowModify] = useState(false);
-  const [modifyItem, setModifyItem] = useState({});
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [updateItem, setUpdateItem] = useState({});
 
   const handleDetail = (item) => {
     setDetailItem(item.item);
     setShowDetail(true);
   };
 
-  const handleModify = (item) => {
-    setModifyItem(item.item);
-    setShowModify(true);
+  const handleUpdate = (item) => {
+    setUpdateItem(item.item);
+    setShowUpdate(true);
   };
   const handleDelete = (notice_seq) => {
     axios
@@ -62,8 +62,8 @@ const BoardList = ({ writerInfo, cateName }) => {
           category={cateName}
         />
       )}
-      {showModify && (
-        <ModifyBoard setShowModify={setShowModify} modifyItem={modifyItem} />
+      {showUpdate && (
+        <UpdateBoard setShowUpdate={setShowUpdate} updateItem={updateItem} />
       )}
       {listEmpty ? (
         <div className={styles.emptyList}>게시물이 없습니다.</div>
@@ -113,7 +113,7 @@ const BoardList = ({ writerInfo, cateName }) => {
                 {setMenu && (
                   <div className={styles.setMenu}>
                     <ul className={styles.setContent}>
-                      <li onClick={() => handleModify({ item })}>수정</li>
+                      <li onClick={() => handleUpdate({ item })}>수정</li>
                       <li onClick={() => handleDelete(item.notice_seq)}>
                         삭제
                       </li>

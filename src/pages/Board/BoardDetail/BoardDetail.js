@@ -1,4 +1,5 @@
 import React from "react";
+import Comment from "../Comment/Comment";
 import styles from "./BoardDetail.module.scss";
 
 const BoardDetail = ({ setShowDetail, detailItem, category }) => {
@@ -26,6 +27,7 @@ const BoardDetail = ({ setShowDetail, detailItem, category }) => {
               {detailItem.notice_photo !== null && (
                 <img
                   className={styles.attachImage}
+                  alt="board attach"
                   src={
                     process.env.PUBLIC_URL + "/image/" + detailItem.notice_photo
                   }
@@ -33,15 +35,8 @@ const BoardDetail = ({ setShowDetail, detailItem, category }) => {
               )}
 
               <div className={styles.content}>{detailItem.notice_content}</div>
-              <div className={styles.replyContainer}>
-                <span>댓글 0</span>
-                <div>댓글목록</div>
-                <div>
-                  <textarea className={styles.inputReply}></textarea>
-                </div>
-                <button>입력</button>
-              </div>
             </div>
+            <Comment detailItem={detailItem} />
           </div>
           <button className={styles.backBtn} onClick={handleClose}>
             목록으로 돌아가기

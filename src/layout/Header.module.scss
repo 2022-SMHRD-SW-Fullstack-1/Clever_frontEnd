@@ -1,7 +1,7 @@
 .header {
   height: 60px;
   width: 100%;
-  border-bottom: solid 0.5px darkgray;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
   background-color: white;
   position: fixed;
   top: 0;
@@ -9,6 +9,7 @@
   right: 0;
   .logo {
     width: 150px;
+    margin-left: 10px;
   }
 }
 .contents {
@@ -18,12 +19,28 @@
   justify-content: space-between;
 }
 .navigation {
-  ul {
-    display: flex;
-    list-style: none;
-
-    li + li {
-      margin-left: 30px;
+  display: flex;
+  justify-content: space-around;
+  width: 500px;
+  .content {
+    font-size: 20px;
+    display: table-cell;
+    text-align: center;
+    line-height: 60px;
+    width: 80px;
+    height: 60px;
+    a {
+      color: black;
+      text-decoration-line: none;
     }
+  }
+}
+.otherContainer {
+  width: 200px;
+  text-align: right;
+  .icon {
+    margin-right: 30px;
+    width: 30px;
+    height: 30px;
   }
 }

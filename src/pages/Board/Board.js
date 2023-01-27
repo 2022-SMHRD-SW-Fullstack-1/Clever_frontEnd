@@ -7,7 +7,7 @@ import axios from "axios";
 import WriteBoard from "./WriteBoard";
 import BoardList from "./BoardList/BoardList";
 
-const Board = () => {
+const Board = ({ user }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showWriteModal, setShowWriteModal] = useState(false);
