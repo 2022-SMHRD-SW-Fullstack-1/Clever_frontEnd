@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTodoState } from "./ToDoContext";
 import styled from "styled-components";
-import ToDoToggle from "./ToDoToggle";
 
 const TodoHeadBlock = styled.div`
   text-align: left;
@@ -85,16 +84,6 @@ const ToDoHead = () => {
   const dayName = today.toLocaleString("ko-KR", { weekday: "long" });
   const todos = useTodoState();
   const undoneTasks = todos.filter((todo) => !todo.done);
-
-  // // 토글
-  // const [isOn, setIsOn] = useState(false);
-
-  // const toggleHandler = () => {
-  //   //isOn의 상태를 변경하는 메소드
-  //   setIsOn(!isOn);
-  // };
-
-  // console.log("토글", isOn);
 
   return (
     <TodoHeadBlock>

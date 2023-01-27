@@ -95,7 +95,7 @@ const ToDoCreate = () => {
           ></input>
           <button className="todo-cancel">취소</button>
         </div>
-        <div className="todo-list">
+        <div className="todoCre-list">
           <div className="todoContent">
             <form>
               <table className="todo-table">
@@ -197,7 +197,7 @@ const ToDoCreate = () => {
               <td className="todo-head">담당자</td>
 
               <select name="todoMem" ref={todoMemRef}>
-                <option value="null">------</option>
+                <option value={null}>------</option>
                 {memList.map((item) => (
                   <option key={item.mem_id} value={item.mem_id}>
                     {item.mem_name}

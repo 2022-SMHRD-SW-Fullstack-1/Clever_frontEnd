@@ -1,167 +1,139 @@
-import React, { useContext, useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { MdDone, MdDelete, MdEdit } from "react-icons/md";
-import { useTodoDispatch } from "./ToDoContext";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import add from "../../image/add.png";
+import "./ToDoDetail.scss";
+import "./ToDoList.scss";
 
-const Remove = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dee2e6;
-  font-size: 24px;
-  cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
-  }
-  display: none;
-`;
-
-const Edit = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dee2e6;
-  font-size: 24px;
-  cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
-  }
-  display: none;
-`;
-
-const TodoItemBlock = styled.div`
-  display: flex;
-  align-items: center;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  &:hover {
-    ${Remove} {
-      display: initial;
-    }
-  }
-`;
-
-const CheckCircle = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  border: 1px solid #ced4da;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-  cursor: pointer;
-  ${(props) =>
-    props.done &&
-    css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
-    `}
-`;
-
-const Text = styled.div`
-  flex: 1;
-  font-size: 21px;
-  color: #495057;
-  ${(props) =>
-    props.done &&
-    css`
-      color: #ced4da;
-    `}
-`;
-
-// 할일 목록
-const ToDoItem = ({ todos }) => {
-  // console.log("done", done);
-
-  const toDoId = [];
+const ToDoItem = () => {
+  const [todoList, setTodoList] = useState([]);
 
   const navigate = useNavigate();
 
-  const dispatch = useTodoDispatch();
-
-  const onToggle = () => {
-    dispatch({
-      type: "TOGGLE",
-      // id: toDoId,
-      id: todos.id,
-    });
+  const gotoToDoCreate = () => {
+    navigate("/todolistcreate");
   };
 
-  const onRemove = () => {
-    dispatch({
-      type: "REMOVE",
-      // id: toDoId,
-      id: todos.id,
-    });
+  // 할 일 리스트 불러오기
+  useEffect(() => {
+    axios
+      .post("/todolist/todolist")
+      .then((res) => {
+        // const newData = res.data.map((i) => ({
+        //   id: i.todo_seq,
+        //   text: i.todo_title,
+        //   done: false,
+        // }));
+        // dispatch({
+        //   type: "CREATE",
+        //   todo: newData,
+        // });
+        console.log("res", res.data);
+        setTodoList(res.data);
+      })
+      .catch((err) => {
+        console.log("리스트 실패함", err);
+      });
+  }, []);
+
+  // 할 일 상세보기
+  const [todoDetail, setTodoDetail] = useState([]);
+  // const [todoTitle, setTodoTitle] = useState("");
+  // const [toDoDone, setToDoDone] = useState("미완료");
+
+  const onDetail = (item, e) => {
+    console.log("item", item);
+    // setTodoDetail(item);
+    const { detailId } = item.todo_seq;
   };
 
-  const [todoSelect, setTodoSelect] = useState("");
+  // const changeDone = (value) => {
+  //   setToDoDone(value);
+  // };
 
-  // 할 일 수정 페이지로 이동
-  const onEdit = (item, e) => {
-    setTodoSelect(item.todo_seq);
-    navigate("/todolistedit", { state: todoSelect });
-  };
+  // 완료된 할 일 불러오기
+  const today = new Date();
 
-  // DB 할 일 가져오기
-  // const [todoList, setTodoList] = useState([]);
+  const [detailId, setDetailId] = useState([]);
+  const [toDoDone, setToDoDone] = useState();
+  const [doneMem, setDoneMem] = useState();
+  const [doneDate, setDoneDate] = useState();
 
-  // useEffect(() => {
-  //   axios
-  //     .post("/todolist/todolist")
-  //     .then((res) => {
-  //       // dispatch({
-  //       //   type: "CREATE"
-  //       // });
-  //       // console.log("asdf", res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("실패함", err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    // setDetailId(item.todo_seq);
 
-  // todoList.map((item) => toDoId.push(item.todo_seq));
-  // console.log("id", toDoId);
-  // console.log("state : ", todoSelect);
+    axios
+      .post("/todolist/tododetail", {
+        todo_seq: detailId,
+      })
+      .then((res) => {
+        console.log("완료", res.data);
+        // if (res.data.length >= 1) {
+        //   // console.log("detailId", detailId);
+        //   setDoneMem(item.mem_id);
+        //   setDoneDate(item.todo_dt);
+        //   // changeDone("완료");
+        //   // console.log(detailId);
+        // } else if (res.data.length === 0) {
+        //   alert("미완료된 할 일 입니다.");
+        // }
+      })
+      .catch((err) => {
+        console.log("실패함11", err);
+      });
+  });
 
   return (
-    // <TodoItemBlock>
-    //   <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
-    //   <Text done={done}>{text}</Text>
-    //   <Remove>
-    //     <MdDelete />
-    //   </Remove>
-    // </TodoItemBlock>
-
     <div>
-      {/* {todos
-        .filter((item, idx) => idx <= 6)
-        .map((item, idx) => (
-          <TodoItemBlock key={item + idx}>
-            <CheckCircle done={todos.done} onClick={onToggle}>
-              {todos.done && <MdDone />}
-            </CheckCircle>
-            <Text done={todos.done}>{item.todo_title}</Text>
-            <Remove
-              key={item.todo_seq}
-              onClick={(e) => {
-                onEdit(item, e);
-              }}
-              value={item.todo_seq}
-            >
-              <MdEdit />
-            </Remove>
-            <Remove onClick={onRemove}>
-              <MdDelete />
-            </Remove>
-          </TodoItemBlock>
-        ))} */}
+      <div>
+        <div className="todo-list">
+          {todoList
+            .filter((item, idx) => idx <= 6)
+            .map((item) => (
+              <div className="todo-item">
+                <div>
+                  <div
+                    className="todo-title"
+                    key={item.todo_title}
+                    onClick={(e) => {
+                      onDetail(item, e);
+                    }}
+                  >
+                    {item.todo_title}
+                  </div>
+                  <div
+                    className="todo-content"
+                    key={item.todo_content}
+                    onClick={(e) => {
+                      onDetail(item, e);
+                    }}
+                  >
+                    {item.todo_content}
+                  </div>
+                </div>
+                <div className="todo-complete">{toDoDone}</div>
+              </div>
+            ))}
+        </div>
+        <div className="todoCreate-Img">
+          <img
+            src={add}
+            className="todoCreateImg"
+            onClick={gotoToDoCreate}
+          ></img>
+        </div>
+      </div>
+
+      <div>
+        <div className="todoDetail">
+          <div className="todoCom-mem">{doneMem} 완료</div>
+          <div className="todoCom-img">{detailId}</div>
+          <div className="todoCom-time">완료 : {doneDate}</div>
+          <div className="todoCom-memo"> 메모</div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default React.memo(ToDoItem);
+export default ToDoItem;
