@@ -4,6 +4,7 @@ import styles from "./BoardList.module.scss";
 import Pagination from "./Pagination";
 import BoardDetail from "../BoardDetail/BoardDetail";
 import menu from "../../../image/menu.png";
+import UpdateBoard from "../UpdateBoard";
 const BoardList = ({ writerInfo, cateName }) => {
   const category = writerInfo.current.category;
   const [boardList, setBoardList] = useState([]);
@@ -13,15 +14,34 @@ const BoardList = ({ writerInfo, cateName }) => {
   const [total, setTotal] = useState(boardList.length);
   const listEmpty = boardList.length === 0;
   const [showDetail, setShowDetail] = useState(false);
-
   const [detailItem, setDetailItem] = useState({});
+  const [setMenu, setSetMenu] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [updateItem, setUpdateItem] = useState({});
+
   const handleDetail = (item) => {
     setDetailItem(item.item);
     setShowDetail(true);
   };
+
+  const handleUpdate = (item) => {
+    setUpdateItem(item.item);
+    setShowUpdate(true);
+  };
+  const handleDelete = (notice_seq) => {
+    axios
+      .post("/board/delete", { notice_seq: notice_seq })
+      .then((res) => {
+        alert("삭제 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     axios
-      .post("board/list", { cate_seq: category })
+      .post("/board/list", { cate_seq: category })
       .then((res) => {
         setBoardList(res.data);
         setTotal(res.data.length);
@@ -42,6 +62,9 @@ const BoardList = ({ writerInfo, cateName }) => {
           category={cateName}
         />
       )}
+      {showUpdate && (
+        <UpdateBoard setShowUpdate={setShowUpdate} updateItem={updateItem} />
+      )}
       {listEmpty ? (
         <div className={styles.emptyList}>게시물이 없습니다.</div>
       ) : (
@@ -49,7 +72,7 @@ const BoardList = ({ writerInfo, cateName }) => {
         boardList.slice(offset, offset + limit).map((item, idx) => {
           return (
             <div key={idx} className={styles.listItemContainer}>
-              <div className={styles.itemSeq}>{item.notice_seq}</div>
+              {/* <div className={styles.itemSeq}>{item.notice_seq}</div> */}
               <div className={styles.contentArea}>
                 <div
                   className={styles.title}
@@ -82,7 +105,21 @@ const BoardList = ({ writerInfo, cateName }) => {
                 </div>
               </div>
               <div className={styles.settingArea}>
-                <img src={menu} className={styles.menu} />
+                <img
+                  src={menu}
+                  className={styles.menu}
+                  onClick={() => setSetMenu(!setMenu)}
+                />
+                {setMenu && (
+                  <div className={styles.setMenu}>
+                    <ul className={styles.setContent}>
+                      <li onClick={() => handleUpdate({ item })}>수정</li>
+                      <li onClick={() => handleDelete(item.notice_seq)}>
+                        삭제
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           );
