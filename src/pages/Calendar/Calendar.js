@@ -33,7 +33,6 @@ const Calendar = () => {
   var copyScheduleInfo = [];
   var copySchedule = [];
   var copyModificationAllInfo = [];
-  var copyWorkerInfo = [];
   const modificationAllInfo = useRef([]);
   const modificaionInfo = useRef([]);
   const workerInfo = useRef([]);
@@ -80,6 +79,7 @@ const Calendar = () => {
 
   const getSchedule = (groupSeq) => {
     getModification(groupSeq);
+    setSelectedDate(today);
 
     ApiService.getSchedule(groupSeq)
       .then((res) => {
@@ -128,18 +128,6 @@ const Calendar = () => {
       });
   };
 
-  // const deleteSchedul = (e) => {
-  //   ApiService.deleteSchedul(e)
-  //     .then((res) => {
-  //       console.log("삭제 성공");
-
-  //       getSchedule(groupSeq);
-  //     })
-  //     .catch((err) => {
-  //       alert(err);
-  //     });
-  // };
-
   workerSchedule.current.length > 0
     ? (copyTodayWorkerList = [...workerSchedule.current])
     : (copyTodayWorkerList = [...todayWorkerList]);
@@ -152,20 +140,7 @@ const Calendar = () => {
 
   copySelectedWorkerList = [...selectedList.current];
 
-  // copyWorkerInfo = [...workerInfo.current];
-  // console.log("워커인포 :", copyWorkerInfo);
-
   copyScheduleInfo = [scheduleInfo.current];
-
-  // var workerList = copyScheduleInfo[0].filter(
-  //   (arr, index, callback) =>
-  //     index === callback.findIndex((t) => t.mem_name === arr.mem_name)
-  // );
-  // workerList.splice(0, 0, {
-  //   mem_name: "선택",
-  //   att_sche_start_time: "",
-  //   att_sche_end_time: "",
-  // });
 
   const clickDate = (e) => {
     selectedList.current = [];
@@ -510,10 +485,11 @@ const Calendar = () => {
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
           googleCalendarApiKey={apiKey} // apiKey
-          locale="ko" //한글 버전
+          locale=""
           selectable={true}
           height={700}
           dayMaxEventRows={3}
+          fixedWeekCount={false}
           // timeGrid={1}
           // views={1}
           //이벤트
@@ -542,23 +518,13 @@ const Calendar = () => {
           dateClick={function (info) {
             clickDate(info.dateStr);
           }}
-          businessHours={[
-            {
-              daysOfWeek: [1, 2, 3],
-            },
-            {
-              daysOfWeek: [4, 5], // Thursday, Friday
-            },
-          ]}
-          titleFormat={[
-            {
-              // will produce something like "Tuesday, September 18, 2018"
-              month: "long",
-              year: "numeric",
-              day: "numeric",
-              weekday: "long",
-            },
-          ]}
+          dayHeaderContent={function (date) {
+            let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+            return weekList[date.dow];
+          }}
+          titleFormat={function (date) {
+            return `${date.date.year}년 ${date.date.month + 1}월`;
+          }}
         />
       </div>
       <div className="calendarDetail">

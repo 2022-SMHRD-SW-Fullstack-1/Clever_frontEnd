@@ -19,7 +19,6 @@ import CalendarInput from "./pages/Calendar/CalendarInput";
 import ToDoEdit from "./pages/ToDoList/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
 import ToDoDetail from "./pages/ToDoList/ToDoDetail";
-import CalendarInput from "./pages/Calendar/CalendarInput";
 
 function App() {
   const [user, setUser] = useState({
