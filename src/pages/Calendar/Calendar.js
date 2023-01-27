@@ -57,7 +57,7 @@ const Calendar = () => {
     ApiService.getModification(groupSeq).then((res) => {
       res.data.map((item) => {
         modificaionInfo.current.push({
-          title: "&nbspd🔴",
+          title: "🔴",
           date: item.ch_date,
           color: "transparent",
           textColor: "tramsparent",
@@ -229,7 +229,8 @@ const Calendar = () => {
                     copyScheduleInfo[0][i].att_sche_end_time
                   ).substring(0, 5)}`,
                   date: `${copyScheduleInfo[0][i].att_date}`,
-                  color: "gray",
+                  color: "whitesmoke",
+                  textColor: "black",
                 })
               : console.log();
           }
@@ -251,7 +252,6 @@ const Calendar = () => {
             onChange={(e) => {
               console.log(e.target.value);
               for (var i = 0; i < workerInfo.current.length; i++) {
-                console.log("들어가냐");
                 if (e.target.value === workerInfo.current[i].mem_name) {
                   arrAddList.current[index].mem_name = e.target.value;
                   arrAddList.current[index].mem_id =
@@ -492,14 +492,14 @@ const Calendar = () => {
   return (
     <div className="container">
       <div className="fullcalendarContainer">
-        <div id="workerList">{selectWorker()}</div>{" "}
-        <div id="scheduleInput">
-          <button>
-            <a id="move" href="/calendarInput">
-              일정등록
-            </a>
-          </button>
-        </div>
+        {selectWorker()}
+
+        <button id="moveButton">
+          <a id="move" href="/calendarInput">
+            일정등록
+          </a>
+        </button>
+
         <FullCalendar
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
@@ -526,7 +526,7 @@ const Calendar = () => {
 
               color: "orange",
 
-              textColor: "red",
+              textColor: "white",
 
               defaultAllDay: true,
             },
@@ -553,8 +553,8 @@ const Calendar = () => {
 
       <div className="calendarDetailContainer">
         <div className="modification">
-          <table>
-            <tr align="center">
+          <table style={{ width: "100%" }}>
+            <tr>
               <h1>{selectedDate}</h1>
             </tr>
             <tr align="left">
