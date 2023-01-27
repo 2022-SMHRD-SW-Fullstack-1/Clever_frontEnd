@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
-import { TodoProvider } from "./ToDoContext";
-import ToDoHead from "./ToDoHead";
-import ToDoList from "./ToDoList";
-import ToDoTemplate from "./ToDoTemplate";
+import { TodoProvider } from "./ToDoItem/ToDoContext";
+import ToDoList from "./ToDoItem/ToDoList";
+// import ToDoTemplate from "./ToDoTemplate";
 
-import CalendarData from "./CalendarData";
+import CalendarData from "./ToDoCal/CalendarData";
 import Header from "../../layout/Header";
 import "./ToDo.scss";
 import { TbMessageReport } from "react-icons/tb";
@@ -14,10 +13,9 @@ import axios from "axios";
 
 import add from "../../image/add.png";
 
-import styled from "styled-components";
-import ToDoDetail from "./ToDoDetail";
-import AddToDoCate from "./AddToDoCate";
-import { useLocation } from "react-router-dom";
+import "./ToDoDetail/ToDoDetail.scss";
+import AddToDoCate from "./ToDoCategory/AddToDoCate";
+import ToDoItem from "./ToDoItem/ToDoItem";
 
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
@@ -27,16 +25,14 @@ const GlobalStyle = createGlobalStyle`
 
 const Todo = () => {
   const user = sessionStorage.getItem("mem_id");
-  const group_seq = sessionStorage.getItem("group_seq");
-  // console.log("user", sessionStorage);
-  console.log("group_seq", group_seq);
+  const userGroup = sessionStorage.getItem("group_seq");
 
   // db 에 있는 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
   const [category, setCategory] = useState("");
   useEffect(() => {
     axios
-      .post("/todolist/getcategory")
+      .post("/todolist/getcategory", { group_seq: userGroup })
       .then((res) => {
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
@@ -45,8 +41,9 @@ const Todo = () => {
         console.log("실패함", err);
       });
   }, []);
+  console.log("groupInfo", userGroup);
 
-  // 카테고리 추기하기
+  // 카테고리 추가하기
   // const location = useLocation();
   // console.log("location", location.state);
 
@@ -58,18 +55,20 @@ const Todo = () => {
   };
 
   // 그룹 정보 가져오기
-  axios
-    .post("/todolist/getgroup", {
-      mem_id: user,
-      group_seq: group_seq,
-    })
-    .then((res) => {
-      console.log("그룹", res.data);
-    })
-    .catch((err) => {
-      console.log("그룹 실패", err);
-    });
-
+  const [groupList, setGroupList] = useState([]);
+  useEffect(() => {
+    axios
+      .post("/todolist/getgroup", {
+        mem_id: user,
+        group_seq: userGroup,
+      })
+      .then((res) => {
+        console.log("그룹", res.data);
+      })
+      .catch((err) => {
+        console.log("그룹 실패", err);
+      });
+  });
   // 일일 특이사항 가져오기
   const [noticeList, setNoticeList] = useState("");
   useEffect(() => {

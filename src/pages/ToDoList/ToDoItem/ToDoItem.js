@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import add from "../../image/add.png";
-import "./ToDoDetail.scss";
-import "./ToDoList.scss";
+import add from "../../../image/add.png";
+import "../ToDoDetail/ToDoDetail.scss";
+import "../ToDoItem/ToDoList.scss";
+import Pagination from "../Pagination";
 
 const ToDoItem = () => {
   const [todoList, setTodoList] = useState([]);
@@ -36,14 +37,18 @@ const ToDoItem = () => {
       });
   }, []);
 
+  // 할일 페이지네이션
+  const [limit, setLimit] = useState(7);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+  const [total, setTotal] = useState(todoList.length);
+
   // 할 일 상세보기
   const [todoDetail, setTodoDetail] = useState([]);
-  // const [todoTitle, setTodoTitle] = useState("");
-  // const [toDoDone, setToDoDone] = useState("미완료");
 
   const onDetail = (item, e) => {
     console.log("item", item);
-    // setTodoDetail(item);
+    setTodoDetail(item);
     const { detailId } = item.todo_seq;
   };
 
@@ -60,26 +65,16 @@ const ToDoItem = () => {
   const [doneDate, setDoneDate] = useState();
 
   useEffect(() => {
-    // setDetailId(item.todo_seq);
-
     axios
       .post("/todolist/tododetail", {
         todo_seq: detailId,
       })
       .then((res) => {
         console.log("완료", res.data);
-        // if (res.data.length >= 1) {
-        //   // console.log("detailId", detailId);
-        //   setDoneMem(item.mem_id);
-        //   setDoneDate(item.todo_dt);
-        //   // changeDone("완료");
-        //   // console.log(detailId);
-        // } else if (res.data.length === 0) {
-        //   alert("미완료된 할 일 입니다.");
-        // }
+        setDetailId();
       })
       .catch((err) => {
-        console.log("실패함11", err);
+        // console.log("실패함11", err);
       });
   });
 
@@ -88,7 +83,8 @@ const ToDoItem = () => {
       <div>
         <div className="todo-list">
           {todoList
-            .filter((item, idx) => idx <= 6)
+            // .filter((item, idx) => idx <= 6)
+            .slice(offset, offset + limit)
             .map((item) => (
               <div className="todo-item">
                 <div>
@@ -114,6 +110,12 @@ const ToDoItem = () => {
                 <div className="todo-complete">{toDoDone}</div>
               </div>
             ))}
+          <Pagination
+            total={total}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
         </div>
         <div className="todoCreate-Img">
           <img

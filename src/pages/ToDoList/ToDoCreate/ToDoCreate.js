@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../layout/Header";
+import Header from "../../../layout/Header";
 import "./ToDoCreate.scss";
 
 const ToDoCreate = () => {
   let user = sessionStorage.getItem("mem_id");
+  let group_seq = sessionStorage.getItem("group_seq");
   // console.log("로그인", user);
 
   const todoTitleRef = useRef();
@@ -72,7 +73,7 @@ const ToDoCreate = () => {
 
   useEffect(() => {
     axios
-      .post("/todolist/getmember")
+      .post("/todolist/getmember", { group_seq: group_seq })
       .then((res) => {
         console.log("mem", res.data);
         setMemList(res.data);
