@@ -7,7 +7,6 @@ body {
   width: 500px;
   height: 700px;
 
-
   // position: absolute;
   // display: flex;
   // float: left;
@@ -18,114 +17,106 @@ body {
   // display: block;
   // display: inline-block;
 
-  .todo-template{
-
-
+  .todo-template {
     .todo-list {
-
       width: 450px;
       height: 450px;
       flex: 1;
       padding: 20px 32px;
       padding-bottom: 48px;
       // overflow-y: auto;
-  
+
       // padding: 20px;
-  
+
       float: left;
-  
-      .todo-item{
-  
+
+      .todo-item {
+        // left: 0px;
+
         width: 400px;
-  
-        .todo-title{
-  
-          width: 200px;
-          height: 50px;
-    
+        display: flex;
+        justify-content: space-between;
+        // top: 0px;
+
+        .todo-title {
+          // width: 200px;
+          height: 30px;
+
           font-weight: bold;
           font-size: 21px;
+        }
+        .todo-content {
+          // width: 200px;
+          height: 30px;
+
+          font-size: 16px;
+          padding-bottom: 10px;
+        }
+
+        .todo-complete {
+          float: right;
+
+          // left: 50%;
+          top: 0px;
+          // top: 50%;
+
+          // vertical-align: middle;
+          width: 45px;
+          height: 45px;
+
+          padding: 5px;
+
+          border: 1px solid black;
+          border-radius: 16px;
+        }
       }
-      .todo-content{
-    
-        width: 200px;
-        height: 50px;
-    
-        font-size: 16px;
-        padding-bottom: 10px;
-    
-    }
-    
-    .todo-complete{
-      float: right;
-    
-      left: 50%;
-      top: 0px;
-      // top: 50%;
-    
-      // vertical-align: middle;
-    
-      width: 45px;
-      height: 45px;
-    
-      padding: 5px;
-
-      border: 1px solid black;
-      border-radius: 16px;
     }
 
-  }
-
-
-    }
-  
     // .todo-create {
-      //   position: fixed;
-      // margin-top: 100%;
-      // float: right;
-      // bottom: 0;
-      // width: 100%;
+    //   position: fixed;
+    // margin-top: 100%;
+    // float: right;
+    // bottom: 0;
+    // width: 100%;
     // }
   }
-  
+
   .todoCreate-Img {
     width: 100%;
     text-align: right;
 
     // bottom: 0px;
     margin-bottom: 0px;
-  
+
     .todoCreateImg {
       width: 80px;
       height: 80px;
-  
+
       // position: absolute;
       right: 0px;
       // bottom: 0px;
-  
+
       margin: 0 auto;
-  
+
       object-fit: cover;
     }
     .todoComImg {
       float: right;
     }
   }
-
-
 }
 .todo-detail {
-// float: right;
-// float: left;
-// clear: both;
+  // float: right;
+  // float: left;
+  // clear: both;
 
-// border: 1px solid black;
+  // border: 1px solid black;
 
-width: 512px;
-height: 745px;
+  width: 512px;
+  height: 745px;
 
-left: 550px;
-bottom: 750px;
+  left: 550px;
+  bottom: 750px;
 
   // top: 0px;
 

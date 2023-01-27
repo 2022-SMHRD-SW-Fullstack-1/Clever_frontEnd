@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useTodoDispatch, useTodoState } from "./ToDoContext";
 import styled from "styled-components";
 
-import add from "./add.png";
+import add from "../../image/add.png";
 
 import "./ToDoList.scss";
 import axios from "axios";
 // import { MdDelete, MdDone, MdEdit } from "react-icons/md";
 import ToDoDetail from "./ToDoDetail";
+import ToDoItem from "./ToDoItem";
 
 const TodoHeadBlock = styled.div`
   h1 {
@@ -49,17 +50,17 @@ const ToDoList = () => {
   const dayName = today.toLocaleString("ko-KR", { weekday: "long" });
 
   // const undoneTasks = todos.filter((todo) => !todo.done);
-  
+
   // const dispatch = useTodoDispatch();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const gotoToDoCreate = () => {
-    navigate("/todolistcreate");
-  };
+  // const gotoToDoCreate = () => {
+  //   navigate("/todolistcreate");
+  // };
 
-  const[todoList, setTodoList]=useState([])
-  
+  const [todoList, setTodoList] = useState([]);
+
   useEffect(() => {
     axios
       .post("/todolist/todolist")
@@ -73,71 +74,81 @@ const ToDoList = () => {
         //   type: "CREATE",
         //   todo: newData,
         // });
-        console.log("res", res.data);
-            setTodoList(res.data)
+        console.log("할일 불러오기 res", res.data);
+        setTodoList(res.data);
       })
       .catch((err) => {
         console.log("실패함", err);
       });
   }, []);
 
-  
-
   // 할 일 상세보기
-  const [todoDetail, setTodoDetail] = useState();
+  const [todoDetail, setTodoDetail] = useState([]);
   const [todoTitle, setTodoTitle] = useState("");
+  const [toDoDone, setToDoDone] = useState("미완료");
 
   const onDetail = (item, e) => {
-    // console.log("e", e.target.innerText);
-    setTodoTitle(e.target.innerText);
-    setTodoDetail(item.todo_seq);
-    // console.log("detail", item.id);
+    setTodoDetail(item);
     const { detailId } = item.todo_seq;
+  };
+
+  const changeDone = (value) => {
+    setToDoDone(value);
   };
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
   return (
-    <div className='todoContent'>
-
-<div className='todo-template'>
+    <div className="todoContent">
+      <div className="todo-template">
         <TodoHeadBlock>
-      <h1>{dateString}</h1>
-      <div className="day">{dayName}</div>
-      {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
-    </TodoHeadBlock>
-        <div className='todo-list'>
-      {todoList
-        .map((item)=>(
-        <div className="todo-item">
-            <div className='todo-title' key={item.todo_title} onClick={(e) => {
+          <h1>{dateString}</h1>
+          <div className="day">{dayName}</div>
+          {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
+        </TodoHeadBlock>
+        {/* <div className="todo-list">
+          {todoList.map((item) => (
+            <div className="todo-item">
+              <div>
+                <div
+                  className="todo-title"
+                  key={item.todo_title}
+                  onClick={(e) => {
                     onDetail(item, e);
-                  }}>{item.todo_title}</div>
-            <div className='todo-content' key={item.todo_content} onClick={(e) => {
+                  }}
+                >
+                  {item.todo_title}
+                </div>
+                <div
+                  className="todo-content"
+                  key={item.todo_content}
+                  onClick={(e) => {
                     onDetail(item, e);
-                  }}>{item.todo_content}</div>
-                  <div className="todo-complete">미완료</div>
-       </div>
-    ))}
-    
-    </div>
-    <div className="todoCreate-Img">
+                  }}
+                >
+                  {item.todo_content}
+                </div>
+              </div>
+              <div className="todo-complete">{toDoDone}</div>
+            </div>
+          ))}
+        </div> */}
+        {/* <div className="todoCreate-Img">
           <img
             src={add}
             className="todoCreateImg"
             onClick={gotoToDoCreate}
           ></img>
-        </div>
+        </div> */}
+        <ToDoItem />
+      </div>
 
-  
-  </div>
-
-<div className="todo-detail">
-<ToDoDetail item={todoDetail} />
-</div>
-
-
-   </div>
+      {/* <div className="todo-detail">
+        <ToDoDetail item={todoDetail} changeDone={changeDone} />
+      </div> */}
+      {/* <ToDoItem /> */}
+    </div>
+    // </div>
   );
 };
 
