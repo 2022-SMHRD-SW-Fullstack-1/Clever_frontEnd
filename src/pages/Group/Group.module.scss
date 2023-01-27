@@ -87,21 +87,24 @@
 
     .addBtnIn {
       display: flex;
-      background-color: antiquewhite;
+      align-items: center;
+      justify-content: center;
+
+      // background-color: antiquewhite;
 
       .addIcon {
         width: 30px;
         height: 30px;
 
-        background-color: aqua;
+        // background-color: aqua;
       }
 
       .btnDecsriptionArea {
         // padding-top: 20px;
 
-        margin: 0 auto;
+        // margin: 0 auto;
         padding: 10px;
-        background-color: blue;
+        // background-color: blue;
         .btnDecsription {
           font-size: 18px;
           font-weight: bold;
