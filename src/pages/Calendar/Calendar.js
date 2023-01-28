@@ -38,7 +38,6 @@ const Calendar = () => {
   const modificaionInfo = useRef([]);
   const workerInfo = useRef([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const selectedWorkerDatail = useRef([]);
 
   useEffect(() => {
     getSchedule(groupSeq);
@@ -77,8 +76,6 @@ const Calendar = () => {
     ApiService.getWorkerList(e).then((res) => {
       workerInfo.current = res.data;
       workerInfo.current.unshift({ mem_name: "전체" });
-
-      // res.data.map((item) => <CalendarInput key={uuidv4} item={item} />);
 
       console.log(workerInfo.current);
     });
@@ -146,9 +143,8 @@ const Calendar = () => {
     copyTodayWorkerList.push(modificaionInfo.current[i]);
   }
 
-  // copyModificationAllInfo = [...modificationAllInfo.current];
-  // selectedWorkerDatail.current.length > 0
-  // ? (copySelectedWorkerList = [...selectedWorkerDatail.current])
+  copyModificationAllInfo = [...modificationAllInfo.current];
+
   copySelectedWorkerList = [...selectedList.current];
 
   copyScheduleInfo = [scheduleInfo.current];
@@ -288,28 +284,6 @@ const Calendar = () => {
                 : console.log();
             }
           }
-
-          // for (var i = 0; copySelectedWorkerList.length; i++) {
-          //   copySelectedWorkerList[i].mem_name === e.target.value
-          //     ? selectedWorkerDatail.current.push({
-          //         mem_name: copySelectedWorkerList[i].mem_name,
-          //         mem_id: copySelectedWorkerList[i].mem_id,
-          //         att_sche_start_time: copySelectedWorkerList[
-          //           i
-          //         ].att_sche_start_time.substring(0, 5),
-          //         att_sche_end_time: copySelectedWorkerList[
-          //           i
-          //         ].att_sche_end_time.substring(0, 5),
-          //         att_real_start_time:
-          //           copySelectedWorkerList[i].att_real_start_time,
-          //         att_real_end_time:
-          //           copySelectedWorkerList[i].att_real_end_time,
-          //         att_seq: copySelectedWorkerList[i].att_seq,
-          //         group_seq: copySelectedWorkerList[i].group_seq,
-          //       })
-          //     : console.log();
-          // }
-          // console.log("셀렉티드", copySelectedWorkerList);
 
           setmem_name(e.target.value);
         }}
@@ -600,7 +574,8 @@ const Calendar = () => {
             </tr>
             <tr align="left">
               <h3>
-                {mem_name} {clickDetail()}
+                {/* {mem_name} */}
+                {clickDetail()}
               </h3>
             </tr>
           </table>

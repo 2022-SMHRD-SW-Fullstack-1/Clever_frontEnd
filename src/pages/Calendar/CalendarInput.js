@@ -255,9 +255,10 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
     let arrDays = arrDay.map((item, index) => {
       return (
         <td>
-          <tr>{item}</tr>
+          <tr id="checkBoxTr">{item}</tr>
           <tr>
             <input
+              id="checkbox"
               key={index}
               onChange={day}
               type="checkbox"
@@ -352,10 +353,10 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
       <button className="close" onClick={closeModal}>
         X
       </button>
-      <tr>{checkBoxDay()}</tr>
+      <tr className="checkBox"> 요일선택 : {checkBoxDay()}</tr>
       <br />
       <tr>
-        <br />
+        일정일자 :
         <select onChange={planYear} value={PlanYear}>
           {selectYear()}
         </select>
@@ -368,7 +369,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
       <tr>
         <td>
           근무자 :{" "}
-          <select onChange={worker} value={Worker}>
+          <select id="selectWorker" onChange={worker} value={Worker}>
             <option name="선택" value="미선택">
               선택
             </option>
@@ -381,12 +382,28 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
         <td>
           {" "}
           근무시간 :{" "}
-          <input type="time" name="startTime" onChange={saveStartTime} />~
-          <input type="time" name="endTime" onChange={saveEndTime} />
+          <input
+            id="selectTime"
+            type="time"
+            name="startTime"
+            onChange={saveStartTime}
+          />
+          ~
+          <input
+            id="selectTime"
+            type="time"
+            name="endTime"
+            onChange={saveEndTime}
+          />
         </td>
       </tr>
-
-      <button onClick={registerSchedule}>등록하기</button>
+      <br />
+      <br />
+      <tr>
+        <button id="registerButton" onClick={registerSchedule}>
+          등록하기
+        </button>
+      </tr>
     </div>
   );
 };
