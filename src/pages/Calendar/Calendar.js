@@ -6,6 +6,7 @@ import googleCalendar from "@fullcalendar/google-calendar";
 import interaction from "@fullcalendar/interaction";
 import { v4 as uuidv4 } from "uuid";
 import ApiService from "../../ApiService";
+import CalendarInput from "./CalendarInput";
 
 const Calendar = () => {
   var groupSeq = Number(sessionStorage.getItem("group_seq"));
@@ -36,6 +37,7 @@ const Calendar = () => {
   const modificationAllInfo = useRef([]);
   const modificaionInfo = useRef([]);
   const workerInfo = useRef([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     getSchedule(groupSeq);
@@ -74,6 +76,10 @@ const Calendar = () => {
     ApiService.getWorkerList(e).then((res) => {
       workerInfo.current = res.data;
       workerInfo.current.unshift({ mem_name: "전체" });
+
+      // res.data.map((item) => <CalendarInput key={uuidv4} item={item} />);
+
+      console.log(workerInfo.current);
     });
   };
 
@@ -336,30 +342,6 @@ const Calendar = () => {
     }
   };
 
-  // const attendance = () => {
-  //   if (selectedDate >= today) {
-  //     var result = copySelectedWorkerList.map((item, index) => {
-  //       return (
-  //         <>
-  //           <table width="100%">
-  //             <tr>
-  //               <th>이름</th>
-  //               <th colspan="5">출근시간</th>
-  //               <th>퇴근시간</th>
-  //             </tr>
-  //           </table>
-  //           <tr key={uuidv4}>
-  //             <th>{item.mem_name}</th> <th>{item.att_real_start_time} </th>
-  //             <th>{item.att_real_end_time}</th>
-  //           </tr>
-  //         </>
-  //       );
-  //     });
-  //     return result;
-  //   } else {
-  //     return;
-  //   }
-  // };
   const planSchedule = () => {
     var result = copySelectedWorkerList.map((item, index) => {
       return (
@@ -428,7 +410,7 @@ const Calendar = () => {
       if (selectedDate === copyModificationAllInfo[index].ch_date) {
         return (
           <table width="100%">
-            <h3 color="red">근무변경요청</h3>
+            <h3 style={{ color: "red" }}>근무변경요청</h3>
             <tr key={uuidv4} width="100%">
               <th>
                 {" "}
@@ -441,7 +423,7 @@ const Calendar = () => {
                 <input
                   id="inputText"
                   width="100%"
-                  type="text"
+                  type="textArea"
                   placeholder="거절시 사유를 적어주세요."
                   onChange={(e) => {
                     rejectMemo.current = e.target.value;
@@ -489,17 +471,25 @@ const Calendar = () => {
     return result;
   };
 
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className="container">
       <div className="fullcalendarContainer">
         {selectWorker()}
-
-        <button id="moveButton">
-          <a id="move" href="/calendarInput">
-            일정등록
-          </a>
+        <button id="moveButton" onClick={showModal}>
+          {/* <a id="move" href="/calendarInput"> */}
+          일정등록
+          {/* </a> */}
         </button>
-
+        {modalOpen && (
+          <CalendarInput
+            setModalOpen={setModalOpen}
+            getWorkerList={workerInfo.current}
+          />
+        )}
         <FullCalendar
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
@@ -509,35 +499,17 @@ const Calendar = () => {
           height={700}
           dayMaxEventRows={3}
           fixedWeekCount={false}
-          // timeGrid={1}
-          // views={1}
-          //이벤트
-          // header={[
-          //   {
-          //     left: "prev",
-          //     center: "title, month",
-          //     right: "next",
-          //   },
-          // ]}
           eventSources={[
             {
               googleCalendarId:
                 "ko.south_korea#holiday@group.v.calendar.google.com",
-
               color: "orange",
-
               textColor: "white",
-
               defaultAllDay: true,
             },
           ]}
           events={copyTodayWorkerList}
           eventOrderStrict={false}
-          // eventOrder={"red,start"}
-          eventClick={function (info) {
-            alert(info.date + info.event.title);
-            info.el.style.borderColor = "yellow";
-          }}
           dateClick={function (info) {
             clickDate(info.dateStr);
           }}
@@ -569,11 +541,8 @@ const Calendar = () => {
           {addModification()}
           {addButton()}
           {registerButton()}
-
           <tr></tr>
         </div>
-        {/* <div>{attendance()}</div> */}
-
         <div className="special">{modificationAnser()}</div>
       </div>
     </div>
