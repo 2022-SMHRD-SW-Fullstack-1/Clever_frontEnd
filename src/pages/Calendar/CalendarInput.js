@@ -4,7 +4,7 @@ import ApiService from "../../ApiService";
 import "./CalendarInput.scss";
 
 let checkOn = [];
-const CalendarInput = ({ getWorkerList, setModalOpen }) => {
+const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   console.log(sessionStorage.getItem("group_seq"));
   const groupSeq = sessionStorage.getItem("group_seq");
   const date = new Date();
@@ -344,7 +344,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen }) => {
   // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
   const closeModal = () => {
     setModalOpen(false);
-    Calendar.getSchedule(groupSeq);
+    getSchedule(groupSeq);
   };
 
   return (

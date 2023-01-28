@@ -1,6 +1,6 @@
 .fullcalendarContainer {
   float: left;
-  width: 70%;
+  width: 79%;
   display: block;
 }
 .fc-day-sun a {
@@ -54,10 +54,11 @@
 .fullcalendarContainer #moveButton {
   position: relative;
   top: 40px;
-  left: 130px;
+  left: 20%;
   bottom: 0px;
   width: 70px;
   height: 40px;
+  color: white;
   background-color: #3a4ca8;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
@@ -65,21 +66,18 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
+  border-radius: 5px;
 }
 
-.fullcalendarContainer #move {
-  color: white;
-  font-size: 14px;
-}
 .calendarDetailContainer {
   display: block;
   flex-direction: row;
   position: relative;
-  margin-top: 125px;
+  margin-top: 105px;
   float: left;
-  width: 29%;
+  width: 20%;
   border: 0.1px solid silver;
   display: block;
   height: 633px;
@@ -119,7 +117,7 @@
 }
 
 .calendarDetailContainer #inputText {
-  width: 300px;
+  width: 90%;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 10px;

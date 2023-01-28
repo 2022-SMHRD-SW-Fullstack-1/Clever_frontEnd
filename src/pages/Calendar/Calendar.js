@@ -38,6 +38,7 @@ const Calendar = () => {
   const modificaionInfo = useRef([]);
   const workerInfo = useRef([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const selectedWorkerDatail = useRef([]);
 
   useEffect(() => {
     getSchedule(groupSeq);
@@ -83,9 +84,10 @@ const Calendar = () => {
     });
   };
 
-  const getSchedule = (groupSeq) => {
-    getModification(groupSeq);
+  const getSchedule = (e) => {
+    getModification(e);
     setSelectedDate(today);
+    console.log("겟쉐줄");
 
     ApiService.getSchedule(groupSeq)
       .then((res) => {
@@ -144,24 +146,40 @@ const Calendar = () => {
     copyTodayWorkerList.push(modificaionInfo.current[i]);
   }
 
-  copyModificationAllInfo = [...modificationAllInfo.current];
-
+  // copyModificationAllInfo = [...modificationAllInfo.current];
+  // selectedWorkerDatail.current.length > 0
+  // ? (copySelectedWorkerList = [...selectedWorkerDatail.current])
   copySelectedWorkerList = [...selectedList.current];
 
   copyScheduleInfo = [scheduleInfo.current];
 
   const clickDate = (e) => {
     selectedList.current = [];
-    for (var i = 0; i < copyScheduleInfo[0].length; i++) {
-      copyScheduleInfo[0][i].att_date === e
-        ? selectedList.current.push({
-            mem_name: copyScheduleInfo[0][i].mem_name,
-            att_sche_start_time: copyScheduleInfo[0][i].att_sche_start_time,
-            att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
-            mem_id: copyScheduleInfo[0][i].mem_id,
-            group_seq: groupSeq,
-          })
-        : console.log();
+    if (mem_name === "전체" || mem_name === "") {
+      for (var i = 0; i < copyScheduleInfo[0].length; i++) {
+        copyScheduleInfo[0][i].att_date === e
+          ? selectedList.current.push({
+              mem_name: copyScheduleInfo[0][i].mem_name,
+              att_sche_start_time: copyScheduleInfo[0][i].att_sche_start_time,
+              att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
+              mem_id: copyScheduleInfo[0][i].mem_id,
+              group_seq: groupSeq,
+            })
+          : console.log();
+      }
+    } else {
+      for (var i = 0; i < copyScheduleInfo[0].length; i++) {
+        copyScheduleInfo[0][i].att_date === e &&
+        copyScheduleInfo[0][i].mem_name === mem_name
+          ? selectedList.current.push({
+              mem_name: copyScheduleInfo[0][i].mem_name,
+              att_sche_start_time: copyScheduleInfo[0][i].att_sche_start_time,
+              att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
+              mem_id: copyScheduleInfo[0][i].mem_id,
+              group_seq: groupSeq,
+            })
+          : console.log();
+      }
     }
 
     arrAddList.current = [];
@@ -226,6 +244,7 @@ const Calendar = () => {
         id="select"
         onChange={(e) => {
           workerSchedule.current = [];
+          // selectedList.current = [];
           for (var i = 0; i < copyScheduleInfo[0].length; i++) {
             copyScheduleInfo[0][i].mem_name === e.target.value
               ? workerSchedule.current.push({
@@ -240,6 +259,57 @@ const Calendar = () => {
                 })
               : console.log();
           }
+          selectedList.current = [];
+          if (e.target.value === "전체") {
+            for (var i = 0; i < copyScheduleInfo[0].length; i++) {
+              copyScheduleInfo[0][i].att_date === selectedDate
+                ? selectedList.current.push({
+                    mem_name: copyScheduleInfo[0][i].mem_name,
+                    att_sche_start_time:
+                      copyScheduleInfo[0][i].att_sche_start_time,
+                    att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
+                    mem_id: copyScheduleInfo[0][i].mem_id,
+                    group_seq: groupSeq,
+                  })
+                : console.log();
+            }
+          } else {
+            for (var i = 0; i < copyScheduleInfo[0].length; i++) {
+              copyScheduleInfo[0][i].att_date === selectedDate &&
+              copyScheduleInfo[0][i].mem_name === e.target.value
+                ? selectedList.current.push({
+                    mem_name: copyScheduleInfo[0][i].mem_name,
+                    att_sche_start_time:
+                      copyScheduleInfo[0][i].att_sche_start_time,
+                    att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
+                    mem_id: copyScheduleInfo[0][i].mem_id,
+                    group_seq: groupSeq,
+                  })
+                : console.log();
+            }
+          }
+
+          // for (var i = 0; copySelectedWorkerList.length; i++) {
+          //   copySelectedWorkerList[i].mem_name === e.target.value
+          //     ? selectedWorkerDatail.current.push({
+          //         mem_name: copySelectedWorkerList[i].mem_name,
+          //         mem_id: copySelectedWorkerList[i].mem_id,
+          //         att_sche_start_time: copySelectedWorkerList[
+          //           i
+          //         ].att_sche_start_time.substring(0, 5),
+          //         att_sche_end_time: copySelectedWorkerList[
+          //           i
+          //         ].att_sche_end_time.substring(0, 5),
+          //         att_real_start_time:
+          //           copySelectedWorkerList[i].att_real_start_time,
+          //         att_real_end_time:
+          //           copySelectedWorkerList[i].att_real_end_time,
+          //         att_seq: copySelectedWorkerList[i].att_seq,
+          //         group_seq: copySelectedWorkerList[i].group_seq,
+          //       })
+          //     : console.log();
+          // }
+          // console.log("셀렉티드", copySelectedWorkerList);
 
           setmem_name(e.target.value);
         }}
@@ -480,14 +550,13 @@ const Calendar = () => {
       <div className="fullcalendarContainer">
         {selectWorker()}
         <button id="moveButton" onClick={showModal}>
-          {/* <a id="move" href="/calendarInput"> */}
           일정등록
-          {/* </a> */}
         </button>
         {modalOpen && (
           <CalendarInput
             setModalOpen={setModalOpen}
             getWorkerList={workerInfo.current}
+            getSchedule={getSchedule}
           />
         )}
         <FullCalendar
