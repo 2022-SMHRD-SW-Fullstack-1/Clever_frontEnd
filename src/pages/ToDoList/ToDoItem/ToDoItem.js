@@ -6,7 +6,9 @@ import "../ToDoDetail/ToDoDetail.scss";
 import "../ToDoItem/ToDoList.scss";
 import Pagination from "../Pagination";
 
-const ToDoItem = () => {
+const ToDoItem = ({ category, cateName }) => {
+  console.log("cate-seq", category);
+
   const [todoList, setTodoList] = useState([]);
 
   const navigate = useNavigate();
@@ -18,24 +20,16 @@ const ToDoItem = () => {
   // 할 일 리스트 불러오기
   useEffect(() => {
     axios
-      .post("/todolist/todolist")
+      .post("/todolist/todolist", { cate_seq: category })
       .then((res) => {
-        // const newData = res.data.map((i) => ({
-        //   id: i.todo_seq,
-        //   text: i.todo_title,
-        //   done: false,
-        // }));
-        // dispatch({
-        //   type: "CREATE",
-        //   todo: newData,
-        // });
         console.log("res", res.data);
         setTodoList(res.data);
+        setTotal(res.data.length);
       })
       .catch((err) => {
         console.log("리스트 실패함", err);
       });
-  }, []);
+  }, [category, todoList]);
 
   // 할일 페이지네이션
   const [limit, setLimit] = useState(7);
@@ -126,13 +120,11 @@ const ToDoItem = () => {
         </div>
       </div>
 
-      <div>
-        <div className="todoDetail">
-          <div className="todoCom-mem">{doneMem} 완료</div>
-          <div className="todoCom-img">{detailId}</div>
-          <div className="todoCom-time">완료 : {doneDate}</div>
-          <div className="todoCom-memo"> 메모</div>
-        </div>
+      <div className="todoDetail">
+        <div className="todoCom-mem">{doneMem} 완료</div>
+        <div className="todoCom-img">{detailId}</div>
+        <div className="todoCom-time">완료 : {doneDate}</div>
+        <div className="todoCom-memo"> 메모</div>
       </div>
     </div>
   );

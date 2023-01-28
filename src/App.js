@@ -17,7 +17,7 @@ import AddGroup from "./pages/Group/AddGroup";
 
 import ToDoEdit from "./pages/ToDoList/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
-import ToDoDetail from "./pages/ToDoList/ToDoDetail";
+
 import CalendarInput from "./pages/Calendar/CalendarInput";
 
 function App() {

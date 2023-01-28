@@ -37,7 +37,7 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-const ToDoList = () => {
+const ToDoList = ({ cateName, category }) => {
   // const todos = useTodoState();
   const today = new Date();
 
@@ -140,7 +140,7 @@ const ToDoList = () => {
             onClick={gotoToDoCreate}
           ></img>
         </div> */}
-        <ToDoItem />
+        <ToDoItem cateName={cateName} category={category} />
       </div>
 
       {/* <div className="todo-detail">
