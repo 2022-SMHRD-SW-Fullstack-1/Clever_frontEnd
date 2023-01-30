@@ -83,15 +83,17 @@
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     text-align: center;
-
-    .p {
+    .welcome {
+      font-size: 13px;
+    }
+    .logout {
       cursor: pointer;
       padding: 2px;
       margin: 2px;
     }
 
-    .p:hover {
-      background: #695cfe;
+    .logout:hover {
+      background: rgb(205, 205, 205);
       border-radius: 4px;
     }
   }

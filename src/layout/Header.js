@@ -7,7 +7,11 @@ import my from "../image/my.png";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div className={styles.header}>
       <div className={styles.contents}>
@@ -26,7 +30,9 @@ const Header = () => {
           <div className={styles.content}>
             <Link to="/board">전달사항</Link>
           </div>
-          <div className={styles.content}>멤버</div>
+          <div className={styles.content}>
+            <Link to="/member">멤버관리</Link>
+          </div>
         </div>
         <div className={styles.otherContainer}>
           <div>
@@ -37,8 +43,10 @@ const Header = () => {
               <img src={my} alt="my page" className={styles.icon} />
             </button>
             <div className={styles.dropdownMenu}>
-              <p className={styles.p}>마이프로필</p>
-              <p className={styles.p}>로그아웃</p>
+              <p className={styles.welcome}>환영합니다</p>
+              <p className={styles.logout} onMouseDown={handleLogout}>
+                로그아웃
+              </p>
             </div>
           </div>
         </div>
