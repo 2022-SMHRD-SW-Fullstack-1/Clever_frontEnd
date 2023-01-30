@@ -29,7 +29,8 @@ const GroupItem = ({ group_seq, group_name, user }) => {
   };
 
   const handleEnterGroup = () => {
-    navigate("/board", { state: groupInfo });
+    // navigate("/board", { state: groupInfo });
+    navigate("/todolist");
     sessionStorage.setItem("group_seq", groupInfo.group_seq);
   };
 

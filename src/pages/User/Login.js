@@ -21,7 +21,7 @@ const Login = ({ getAuth }) => {
   };
   const login = () => {
     axios
-      .post("/login", inputValue)
+      .post("/member/login", inputValue)
       .then((res) => {
         const mem_info = res.data;
         if (
