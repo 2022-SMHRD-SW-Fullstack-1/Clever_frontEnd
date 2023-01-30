@@ -7,6 +7,7 @@ import interaction from "@fullcalendar/interaction";
 import { v4 as uuidv4 } from "uuid";
 import ApiService from "../../ApiService";
 import CalendarInput from "./CalendarInput";
+import CalendarChart from "./CalendarChart";
 
 const Calendar = () => {
   var groupSeq = Number(sessionStorage.getItem("group_seq"));
@@ -38,6 +39,7 @@ const Calendar = () => {
   const modificaionInfo = useRef([]);
   const workerInfo = useRef([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [chartOpen, setChartOpen] = useState(false);
 
   useEffect(() => {
     getSchedule(groupSeq);
@@ -214,6 +216,7 @@ const Calendar = () => {
             }}
           />
           <button
+            id="delete"
             onClick={() => {
               selectedList.current.splice(index, 1);
               setThisDayListState([selectedList.current]);
@@ -237,7 +240,7 @@ const Calendar = () => {
   const selectWorker = () => {
     return (
       <select
-        id="select"
+        id="selectworker"
         onChange={(e) => {
           workerSchedule.current = [];
           // selectedList.current = [];
@@ -298,6 +301,7 @@ const Calendar = () => {
       return (
         <tr key={uuidv4()}>
           <select
+            id="select"
             defaultValue={item.mem_name}
             onChange={(e) => {
               console.log(e.target.value);
@@ -328,6 +332,7 @@ const Calendar = () => {
             }}
           />
           <button
+            id="delete"
             onClick={() => {
               arrAddList.current.splice(index, 1);
               setArrAddListState([arrAddList.current]);
@@ -389,24 +394,48 @@ const Calendar = () => {
   const planSchedule = () => {
     var result = copySelectedWorkerList.map((item, index) => {
       return (
-        <table width="100%">
+        <>
           <tr key={uuidv4}>
             <th> 계획</th>
             <th>{item.mem_name}</th>
             <th>{item.att_sche_start_time.substring(0, 5)}</th>
             <th>{item.att_sche_end_time.substring(0, 5)}</th>
           </tr>
+
           <tr key={uuidv4}>
             <th> 실제 </th>
             <th>{item.mem_name}</th> <th>{item.att_real_start_time}</th>
             <th>{item.att_real_end_time}</th>
           </tr>
-        </table>
+          <br></br>
+        </>
       );
     });
 
-    return result;
+    return (
+      <>
+        <table width="100%">
+          <tr>
+            <th>
+              <h2>구분</h2>
+            </th>
+            <th>
+              <h2>이름</h2>
+            </th>
+            <th>
+              <h2>출근</h2>
+            </th>
+            <th>
+              <h2>퇴근</h2>
+            </th>
+          </tr>
+
+          {result}
+        </table>
+      </>
+    );
   };
+
   const showModificaion = () => {
     if (selectedDate < today) return planSchedule();
     else {
@@ -420,6 +449,7 @@ const Calendar = () => {
     } else {
       return (
         <button
+          id="registerButton"
           onClick={() => {
             pushArrAddList();
             setArrAddListState([arrAddList.current]);
@@ -437,12 +467,12 @@ const Calendar = () => {
     } else {
       return (
         <input
-          id="submit"
+          id="registerButton"
           type="submit"
           name="등록"
           value="등록"
           onClick={submitModification}
-        ></input>
+        />
       );
     }
   };
@@ -454,7 +484,9 @@ const Calendar = () => {
       if (selectedDate === copyModificationAllInfo[index].ch_date) {
         return (
           <table width="100%">
-            <h3 style={{ color: "red" }}>근무변경요청</h3>
+            <br />
+            <br />
+            <h2 style={{ color: "red" }}>근무변경요청</h2>
             <tr key={uuidv4} width="100%">
               <th>
                 {" "}
@@ -478,6 +510,7 @@ const Calendar = () => {
             </tr>
             <tr>
               <button
+                id="registerButton"
                 onClick={() => {
                   listConfirmation.current.push({
                     ch_seq: item.ch_seq,
@@ -496,6 +529,7 @@ const Calendar = () => {
                 승락
               </button>
               <button
+                id="registerButton"
                 onClick={() => {
                   listReject.current.push({
                     ch_seq: item.ch_seq,
@@ -517,6 +551,10 @@ const Calendar = () => {
 
   const showModal = () => {
     setModalOpen(true);
+  };
+
+  const showChart = () => {
+    setChartOpen(true);
   };
 
   return (
@@ -588,6 +626,14 @@ const Calendar = () => {
           <tr></tr>
         </div>
         <div className="special">{modificationAnser()}</div>
+        <button onClick={showChart}>직원차트</button>
+      </div>
+      <div className="calendarchart">
+        <CalendarChart
+          setModalOpen={setModalOpen}
+          getWorkerList={workerInfo.current}
+          getSchedule={getSchedule}
+        />
       </div>
     </div>
   );

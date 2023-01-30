@@ -1,7 +1,9 @@
 .fullcalendarContainer {
   float: left;
-  width: 79%;
+  width: 70%;
   display: block;
+}
+.calendarchart {
 }
 .fc-day-sun a {
   color: red;
@@ -35,7 +37,7 @@
 .fc-today-button fc-button fc-button-primary {
   background-color: #3a4ca8;
 }
-.fullcalendarContainer #select {
+.fullcalendarContainer #selectworker {
   position: relative;
   top: 45px;
   left: 30px;
@@ -53,8 +55,8 @@
 }
 .fullcalendarContainer #moveButton {
   position: relative;
-  top: 40px;
-  left: 20%;
+  top: 41px;
+  left: 19%;
   bottom: 0px;
   width: 70px;
   height: 40px;
@@ -77,12 +79,13 @@
   position: relative;
   margin-top: 105px;
   float: left;
-  width: 20%;
+  width: 29%;
   border: 0.1px solid silver;
   display: block;
   height: 633px;
 }
-.calendarDetailContainer select {
+.calendarDetailContainer #select {
+  margin-left: 5px;
   width: 80px;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
@@ -104,6 +107,10 @@
 }
 
 .calendarDetailContainer input {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 3px;
+
   width: 105px;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
@@ -129,8 +136,8 @@
   line-height: 16px;
   overflow: scroll;
 }
-.calendarDetailContainer button {
-  width: 40px;
+.calendarDetailContainer #delete {
+  width: 48px;
   background-color: #3a4ca8;
   color: white;
   border: 1px solid #c4c4c4;
@@ -140,7 +147,22 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 16px;
+}
+.calendarDetailContainer #registerButton {
+  margin-top: 20px;
+  width: 80px;
+  background-color: #3a4ca8;
+  color: white;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
   line-height: 16px;
 }
 
@@ -157,4 +179,9 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
+}
+.calendarchart {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
