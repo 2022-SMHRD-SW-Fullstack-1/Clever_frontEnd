@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Group.module.scss";
 import InviteGroup from "./InviteGroup";
-const GroupItem = ({ group_seq, group_name, user }) => {
+const GroupItem = ({ item, user }) => {
   const navigate = useNavigate();
   const [groupInfo, setGroupInfo] = useState({
-    group_seq: group_seq,
+    group_seq: item.group_seq,
     mem_id: user.mem_id,
     mem_name: user.mem_name,
   });
-
+  // console.log(item);
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const inviteGroup = () => {
@@ -32,6 +32,8 @@ const GroupItem = ({ group_seq, group_name, user }) => {
     // navigate("/board", { state: groupInfo });
     navigate("/todolist");
     sessionStorage.setItem("group_seq", groupInfo.group_seq);
+    sessionStorage.setItem("group_name", item.group_name);
+    sessionStorage.setItem("group_dt", item.group_dt);
   };
 
   return (
@@ -39,7 +41,7 @@ const GroupItem = ({ group_seq, group_name, user }) => {
       <div className={styles.groupItem}>
         <div className={styles.groupNameArea}>
           <span className={styles.groupName} onClick={handleEnterGroup}>
-            {group_name}
+            {item.group_name}
           </span>
         </div>
         <div className={styles.groupBtnArea}>
@@ -50,7 +52,7 @@ const GroupItem = ({ group_seq, group_name, user }) => {
             <InviteGroup
               setShowInviteModal={setShowInviteModal}
               showInviteModal={showInviteModal}
-              group_seq={group_seq}
+              group_seq={item.group_seq}
             />
           )}
           <button className={styles.groupDelBtn} onClick={delGroup}>
