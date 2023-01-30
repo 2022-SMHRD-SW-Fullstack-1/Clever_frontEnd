@@ -76,7 +76,7 @@ const CalendarData = () => {
 
   useEffect(() => {
     setTotalDate(changeDate(month));
-    console.log("month changed-> ", changeDate(month));
+    // console.log("month changed-> ", changeDate(month));
   }, [month]);
 
   let arrIndex;
@@ -88,10 +88,10 @@ const CalendarData = () => {
       : totalDate.forEach((arr) => {
           if (arr.indexOf(nowDate) !== -1) {
             arrIndex = totalDate.indexOf(arr);
-            console.log(`arrIndex:${arrIndex}`);
+            // console.log(`arrIndex:${arrIndex}`);
 
             arrowIndex = totalDate.indexOf(arr);
-            console.log(`arrowIndex : ${arrowIndex}`);
+            // console.log(`arrowIndex : ${arrowIndex}`);
           }
         });
   }
@@ -104,7 +104,7 @@ const CalendarData = () => {
   const clickLeft = (e) => {
     arrIndex = arrIndex - 1;
 
-    console.log("click", e);
+    // console.log("click", e);
     setEventIndex(e);
 
     arrowIndex = eventIndex - 1;

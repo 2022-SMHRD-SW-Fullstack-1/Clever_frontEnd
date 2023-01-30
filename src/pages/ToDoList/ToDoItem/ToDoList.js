@@ -8,7 +8,7 @@ import add from "../../../image/add.png";
 import "./ToDoList.scss";
 import axios from "axios";
 // import { MdDelete, MdDone, MdEdit } from "react-icons/md";
-import ToDoDetail from "../ToDoDetail/ToDoDetail";
+
 import ToDoItem from "../ToDoItem/ToDoItem";
 
 const TodoHeadBlock = styled.div`
@@ -38,6 +38,8 @@ const TasksLeft = styled.div`
 `;
 
 const ToDoList = ({ cateName, category }) => {
+  const user = sessionStorage.getItem("mem_id");
+  console.log("user", user);
   // const todos = useTodoState();
   const today = new Date();
 
@@ -53,48 +55,20 @@ const ToDoList = ({ cateName, category }) => {
 
   // const dispatch = useTodoDispatch();
 
-  // const navigate = useNavigate();
+  // 완료된 할 일 불러오기
 
-  // const gotoToDoCreate = () => {
-  //   navigate("/todolistcreate");
-  // };
-
-  const [todoList, setTodoList] = useState([]);
+  const [doneList, setDoneList] = useState([]);
+  const [doneCount, setDoneCount] = useState();
 
   useEffect(() => {
-    axios
-      .post("/todolist/todolist")
-      .then((res) => {
-        const newData = res.data.map((i) => ({
-          id: i.todo_seq,
-          text: i.todo_title,
-          done: false,
-        }));
-        // dispatch({
-        //   type: "CREATE",
-        //   todo: newData,
-        // });
-        console.log("할일 불러오기 res", res.data);
-        setTodoList(res.data);
-      })
-      .catch((err) => {
-        console.log("실패함", err);
-      });
-  }, []);
+    axios.post("/todolist/todocom", { cate_seq: category }).then((res) => {
+      console.log("완료할일", res);
+      setDoneList(res.data);
+      setDoneCount(res.data.length);
+    });
+  }, [category]);
 
-  // 할 일 상세보기
-  const [todoDetail, setTodoDetail] = useState([]);
-  const [todoTitle, setTodoTitle] = useState("");
-  const [toDoDone, setToDoDone] = useState("미완료");
-
-  const onDetail = (item, e) => {
-    setTodoDetail(item);
-    const { detailId } = item.todo_seq;
-  };
-
-  const changeDone = (value) => {
-    setToDoDone(value);
-  };
+  console.log("count", doneCount);
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
@@ -106,49 +80,10 @@ const ToDoList = ({ cateName, category }) => {
           <div className="day">{dayName}</div>
           {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
         </TodoHeadBlock>
-        {/* <div className="todo-list">
-          {todoList.map((item) => (
-            <div className="todo-item">
-              <div>
-                <div
-                  className="todo-title"
-                  key={item.todo_title}
-                  onClick={(e) => {
-                    onDetail(item, e);
-                  }}
-                >
-                  {item.todo_title}
-                </div>
-                <div
-                  className="todo-content"
-                  key={item.todo_content}
-                  onClick={(e) => {
-                    onDetail(item, e);
-                  }}
-                >
-                  {item.todo_content}
-                </div>
-              </div>
-              <div className="todo-complete">{toDoDone}</div>
-            </div>
-          ))}
-        </div> */}
-        {/* <div className="todoCreate-Img">
-          <img
-            src={add}
-            className="todoCreateImg"
-            onClick={gotoToDoCreate}
-          ></img>
-        </div> */}
-        <ToDoItem cateName={cateName} category={category} />
-      </div>
 
-      {/* <div className="todo-detail">
-        <ToDoDetail item={todoDetail} changeDone={changeDone} />
-      </div> */}
-      {/* <ToDoItem /> */}
+        <ToDoItem cateName={cateName} category={category} doneList={doneList} />
+      </div>
     </div>
-    // </div>
   );
 };
 
