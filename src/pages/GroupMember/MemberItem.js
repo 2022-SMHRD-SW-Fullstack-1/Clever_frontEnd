@@ -9,7 +9,7 @@ const MemberItem = ({ item, idx, seq }) => {
 
   let timeDiff = now.getTime() - start.getTime();
   let day = Math.floor(timeDiff / (1000 * 60 * 60 * 24) + 1);
-  console.log(seq);
+
   return (
     <tr className={styles.tableBody}>
       <td>{seq + idx + 1}</td>
