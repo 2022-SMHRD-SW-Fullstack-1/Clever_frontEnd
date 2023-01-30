@@ -264,6 +264,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
               type="checkbox"
               name="days"
               value={index}
+              zoom="1.5"
             />
           </tr>
         </td>
@@ -350,60 +351,65 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
 
   return (
     <div className="calendarInputContainer">
-      <button className="close" onClick={closeModal}>
-        X
-      </button>
-      <tr className="checkBox"> 요일선택 : {checkBoxDay()}</tr>
-      <br />
-      <tr>
-        일정일자 :
-        <select onChange={planYear} value={PlanYear}>
-          {selectYear()}
-        </select>
-        <span> </span>
-        <select onChange={planMonth} value={PlanMonth}>
-          {selectMonth()}
-        </select>
-      </tr>
-      <br />
-      <tr>
-        <td>
-          근무자 :{" "}
-          <select id="selectWorker" onChange={worker} value={Worker}>
-            <option name="선택" value="미선택">
-              선택
-            </option>
-            {workerListRendering()}
-          </select>
-        </td>
-      </tr>
-      <br />
-      <tr>
-        <td>
-          {" "}
-          근무시간 :{" "}
-          <input
-            id="selectTime"
-            type="time"
-            name="startTime"
-            onChange={saveStartTime}
-          />
-          ~
-          <input
-            id="selectTime"
-            type="time"
-            name="endTime"
-            onChange={saveEndTime}
-          />
-        </td>
-      </tr>
-      <br />
-      <br />
-      <tr>
-        <button id="registerButton" onClick={registerSchedule}>
-          등록하기
+      <div className="modalblock">
+        <h2>일정등록</h2>
+        <br />
+        <button className="close" onClick={closeModal}>
+          X
         </button>
-      </tr>
+        <tr className="checkBox"> 요일선택 : {checkBoxDay()}</tr>
+        <br />
+        <tr>
+          일정일자 :
+          <select onChange={planYear} value={PlanYear}>
+            {selectYear()}
+          </select>
+          <span> </span>
+          <select onChange={planMonth} value={PlanMonth}>
+            {selectMonth()}
+          </select>
+        </tr>
+        <br />
+        <tr>
+          <td>
+            근무자 :{" "}
+            <select id="selectWorker" onChange={worker} value={Worker}>
+              <option name="선택" value="미선택">
+                선택
+              </option>
+              {workerListRendering()}
+            </select>
+          </td>
+        </tr>
+        <br />
+        <tr>
+          <td>
+            {" "}
+            근무시간 :{" "}
+            <input
+              id="selectTime"
+              type="time"
+              name="startTime"
+              onChange={saveStartTime}
+            />
+            {"  "}
+            -
+            <input
+              id="selectTime"
+              type="time"
+              name="endTime"
+              onChange={saveEndTime}
+            />
+          </td>
+        </tr>
+        <br />
+        <br />
+        <tr>
+          <button id="registerButton" onClick={registerSchedule}>
+            등록하기
+          </button>
+        </tr>
+      </div>
     </div>
   );
 };
