@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MemberItem from "./MemberItem";
 import styles from "./GroupMember.module.scss";
+import Pagination from "../Board/BoardList/Pagination";
 
 const GroupMember = () => {
   const group_seq = sessionStorage.getItem("group_seq");
@@ -14,11 +15,18 @@ const GroupMember = () => {
   let day = Math.floor(timeDiff / (1000 * 60 * 60 * 24) + 1);
 
   const [memList, setMemList] = useState([]);
+  const [limit, setLimit] = useState(6);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+  const [total, setTotal] = useState(0);
+
+  const seq = page * limit - limit;
   useEffect(() => {
     axios
       .post("/member/group/list", { group_seq: group_seq })
       .then((res) => {
         setMemList(res.data);
+        setTotal(res.data.length);
       })
       .catch((err) => {
         console.log(err);
@@ -33,9 +41,11 @@ const GroupMember = () => {
           <div className={styles.groupDt}>
             {group_dt} 생성 ({day}일)
           </div>
+          <div className={styles.groupDt}>그룹장 : 이름</div>
         </div>
-        <div className={styles.inviteBtnArea}>
-          <button className={styles.inviteBtn}>멤버 초대</button>
+        <div className={styles.countArea}>
+          <span>총 인원</span>
+          <p>{memList.length}</p>
         </div>
       </div>
       <div className={styles.listContainer}>
@@ -50,10 +60,20 @@ const GroupMember = () => {
             <th></th>
           </tr>
           {memList &&
-            memList.map((item, idx) => {
-              return <MemberItem key={idx} item={item} idx={idx} />;
+            memList.slice(offset, offset + limit).map((item, idx) => {
+              return <MemberItem key={idx} item={item} idx={idx} seq={seq} />;
             })}
         </table>
+        <div className={styles.listBottom}>
+          <div></div>
+          <Pagination
+            total={total}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
+          <button className={styles.inviteBtn}>멤버 초대하기</button>
+        </div>
       </div>
     </div>
   );
