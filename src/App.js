@@ -12,12 +12,12 @@ import Board from "./pages/Board/Board";
 
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
-import ToDoCreate from "./pages/ToDoList/ToDoCreate";
+import ToDoCreate from "./pages/ToDoList/ToDoCreate/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
 
 import ToDoEdit from "./pages/ToDoList/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
-import ToDoDetail from "./pages/ToDoList/ToDoDetail";
+
 import CalendarInput from "./pages/Calendar/CalendarInput";
 
 function App() {

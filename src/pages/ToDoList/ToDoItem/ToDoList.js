@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useTodoDispatch, useTodoState } from "./ToDoContext";
 import styled from "styled-components";
 
-import add from "../../image/add.png";
+import add from "../../../image/add.png";
 
 import "./ToDoList.scss";
 import axios from "axios";
 // import { MdDelete, MdDone, MdEdit } from "react-icons/md";
-import ToDoDetail from "./ToDoDetail";
-import ToDoItem from "./ToDoItem";
+import ToDoDetail from "../ToDoDetail/ToDoDetail";
+import ToDoItem from "../ToDoItem/ToDoItem";
 
 const TodoHeadBlock = styled.div`
   h1 {
@@ -37,7 +37,7 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-const ToDoList = () => {
+const ToDoList = ({ cateName, category }) => {
   // const todos = useTodoState();
   const today = new Date();
 
@@ -140,7 +140,7 @@ const ToDoList = () => {
             onClick={gotoToDoCreate}
           ></img>
         </div> */}
-        <ToDoItem />
+        <ToDoItem cateName={cateName} category={category} />
       </div>
 
       {/* <div className="todo-detail">

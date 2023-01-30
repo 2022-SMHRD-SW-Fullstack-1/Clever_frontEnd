@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../layout/Header";
+import Header from "../../../layout/Header";
 import "./ToDoCreate.scss";
 
 const ToDoCreate = () => {
   let user = sessionStorage.getItem("mem_id");
+  let joinGroup = sessionStorage.getItem("group_seq");
   // console.log("로그인", user);
 
   const todoTitleRef = useRef();
@@ -42,7 +43,6 @@ const ToDoCreate = () => {
       })
       .catch((err) => {
         console.log("실패함", err);
-        console.log("mem_id", todoMemRef.current.value);
       });
   };
 
@@ -58,7 +58,7 @@ const ToDoCreate = () => {
 
   useEffect(() => {
     axios
-      .post("/todolist/getcategory")
+      .post("/todolist/getcategory", { group_seq: joinGroup })
       .then((res) => {
         setCateList(res.data);
       })
@@ -72,7 +72,7 @@ const ToDoCreate = () => {
 
   useEffect(() => {
     axios
-      .post("/todolist/getmember")
+      .post("/todolist/getmember", { group_seq: joinGroup })
       .then((res) => {
         console.log("mem", res.data);
         setMemList(res.data);
