@@ -626,13 +626,12 @@ const Calendar = () => {
           <tr></tr>
         </div>
         <div className="special">{modificationAnser()}</div>
-        <button onClick={showChart}>직원차트</button>
+        {/* <button onClick={showChart}>직원차트</button> */}
       </div>
-      <div className="calendarchart">
+      <div className="calendarchartContainer">
         <CalendarChart
-          setModalOpen={setModalOpen}
           getWorkerList={workerInfo.current}
-          getSchedule={getSchedule}
+          getSchedule={[...scheduleInfo.current]}
         />
       </div>
     </div>
