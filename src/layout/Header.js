@@ -29,8 +29,18 @@ const Header = () => {
           <div className={styles.content}>멤버</div>
         </div>
         <div className={styles.otherContainer}>
-          <img src={bell} alt="alert" className={styles.icon} />
-          <img src={my} alt="my page" className={styles.icon} />
+          <div>
+            <img src={bell} alt="alert" className={styles.icon} />
+          </div>
+          <div className={styles.dropdown}>
+            <button className={styles.button}>
+              <img src={my} alt="my page" className={styles.icon} />
+            </button>
+            <div className={styles.dropdownMenu}>
+              <p className={styles.p}>마이프로필</p>
+              <p className={styles.p}>로그아웃</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
