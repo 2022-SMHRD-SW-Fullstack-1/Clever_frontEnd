@@ -13,7 +13,7 @@ import axios from "axios";
 
 import add from "../../image/add.png";
 
-import "./ToDoDetail/ToDoDetail.scss";
+import "./ToDoItem/ToDoDetail.scss";
 import AddToDoCate from "./ToDoCategory/AddToDoCate";
 import ToDoItem from "./ToDoItem/ToDoItem";
 
@@ -67,26 +67,11 @@ const Todo = () => {
     setShowAddCategory(true);
   };
 
-  // 그룹 정보 가져오기
-  // const [groupList, setGroupList] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .post("/todolist/getgroup", {
-  //       mem_id: user,
-  //       // group_seq: userGroup,
-  //     })
-  //     .then((res) => {
-  //       console.log("그룹", res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("그룹 실패", err);
-  //     });
-  // });
   // 일일 특이사항 가져오기
   const [noticeList, setNoticeList] = useState("");
   useEffect(() => {
     axios.post("/todolist/todaynotice").then((res) => {
-      console.log("notice", res);
+      // console.log("notice", res);
     });
   }, []);
 
@@ -94,7 +79,7 @@ const Todo = () => {
   const [selectCate, setSelectCate] = useState([]);
   useEffect(() => {
     axios.post("/todolist/selectcate").then((res) => {
-      console.log("selectCate", res.data);
+      // console.log("selectCate", res.data);
     });
   });
 

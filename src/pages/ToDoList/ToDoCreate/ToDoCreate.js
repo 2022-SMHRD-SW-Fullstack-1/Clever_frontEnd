@@ -42,7 +42,7 @@ const ToDoCreate = () => {
         navigate("/todolist");
       })
       .catch((err) => {
-        console.log("실패함", err);
+        console.log("등록 실패함", err);
       });
   };
 
@@ -74,7 +74,7 @@ const ToDoCreate = () => {
     axios
       .post("/todolist/getmember", { group_seq: joinGroup })
       .then((res) => {
-        console.log("mem", res.data);
+        // console.log("mem", res.data);
         setMemList(res.data);
       })
       .catch((err) => {
