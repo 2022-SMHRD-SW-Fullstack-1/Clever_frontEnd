@@ -1,15 +1,11 @@
 .calendarchart1 {
-  margin-top: 20px;
   position: relative;
   float: left;
-  left: 100px;
   width: 250px;
   height: 200px;
   margin-left: 50px;
 }
 .calendarchart2 {
-  margin-top: 20px;
-  left: 100px;
   position: relative;
   width: 250px;
   height: 200px;
@@ -18,19 +14,15 @@
 }
 
 .chartinfo {
-  margin-top: 50px;
-  left: 100px;
   position: relative;
   width: 250px;
   height: 200px;
   margin-left: 50px;
   float: left;
   font-size: 20px;
+  padding-top: 30px;
 }
-// .chartInfo th {
-//   left: 100px;
-//   font-size: 24px;
-// }
+
 .calendarchartContainer {
   position: relative;
   display: block;
@@ -41,11 +33,16 @@
   float: left;
 }
 .calendarChartTop {
-  width: 40%;
+  width: 100px;
   display: flex;
   justify-content: space-between;
   font-size: 32px;
 }
 #schedulemodification {
   margin-left: 50px;
+}
+.calendarChardContent {
+  margin-top: 120px;
+  display: flex;
+  align-items: flex-start;
 }

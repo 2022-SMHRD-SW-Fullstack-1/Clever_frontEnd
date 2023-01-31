@@ -19,6 +19,7 @@ const Calendar = () => {
   const month = date.getMonth();
   const day = date.getDate();
   var today = String(year + "-" + month + 1 + "-" + day);
+
   const [mem_name, setmem_name] = useState("");
   const apiKey = "AIzaSyAHG8iIVB4i-q5o7KRjdvKcwVc67JzZEWc";
   const [selectedDate, setSelectedDate] = useState(today);
@@ -91,6 +92,7 @@ const Calendar = () => {
     ApiService.getSchedule(groupSeq)
       .then((res) => {
         scheduleInfo.current = [...res.data];
+        console.log("data:", res.data);
 
         selectedList.current = [];
         var result = res.data.map((item, index) => {
@@ -632,6 +634,7 @@ const Calendar = () => {
         <CalendarChart
           getWorkerList={workerInfo.current}
           getSchedule={[...scheduleInfo.current]}
+          today={today}
         />
       </div>
     </div>
