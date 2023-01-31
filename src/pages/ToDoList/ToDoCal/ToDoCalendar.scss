@@ -1,0 +1,90 @@
+body {
+  font-family: "Gotham Book";
+}
+
+.calendar-table {
+
+  width: 420px;
+  margin: 0 auto;
+  margin-top: 50px;
+  //   float: right;
+  text-align: center;
+}
+
+.todo-calendar {
+  tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    // border-top-color: ;
+    // border-right-color: ;
+    // border-bottom-color: ;
+    // border-left-color: ;
+  }
+  .arrow :hover {
+    cursor: pointer;
+  }
+}
+.calendar-head {
+  width: 60px;
+  th {
+    padding: 6px 0 0;
+    font-weight: normal;
+    font-size: 1.2rem;
+    color: #999;
+    text-align: center;
+    font-family: "Gotham Book";
+  }
+  th.sat {
+    color: blue;
+  }
+  th.sun {
+    color: #f36464;
+  }
+}
+
+.calendar-body {
+  // position: relative;
+  width: 60px;
+
+  .todo-calendar .arrow {
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+  }
+
+  .calDate {
+    width: 60px;
+    padding: 10px;
+    font-size: 1.8rem;
+    line-height: 3.7rem;
+    color: #333;
+  }
+
+  .calToday {
+    width: 60px;
+    padding: 10px;
+    font-size: 1.8rem;
+    line-height: 3.7rem;
+    background-color: #3a4ca8;
+    color: white;
+    // background-color: yellow;
+    border-radius: 50%;
+  }
+}
+
+.calendar-table .calendar-head .todo-calendar th {
+  width: 60px;
+  font-weight: bold;
+}
+// .calendar-body {
+//   td.selected a {
+//     background: #222;
+//   }
+//   td.selected a span {
+//     color: #fff;
+//   }
+//   td.selected a:after {
+//     background: #fff;
+//   }
+// }

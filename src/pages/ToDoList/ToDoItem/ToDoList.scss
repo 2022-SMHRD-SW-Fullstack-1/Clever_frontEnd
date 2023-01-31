@@ -1,0 +1,161 @@
+body {
+  font-family: "Gotham Book";
+}
+
+.todoContent {
+  // flex-direction: row;
+  width: 500px;
+  height: 700px;
+
+  // position: absolute;
+  // display: flex;
+  // float: left;
+  text-align: left;
+  // align-items: center;
+  justify-content: center;
+
+  // display: block;
+  // display: inline-block;
+
+  .todo-template {
+    .todo-list {
+      width: 450px;
+      height: 450px;
+      flex: 1;
+      padding: 20px 32px;
+      padding-bottom: 48px;
+      // overflow-y: auto;
+
+      // padding: 20px;
+
+      float: left;
+
+      .todo-item {
+        // left: 0px;
+
+        width: 400px;
+        display: flex;
+        justify-content: space-between;
+        // top: 0px;
+
+        .todo-title {
+          // width: 200px;
+          height: 30px;
+
+          font-weight: bold;
+          font-size: 21px;
+        }
+        .todo-content {
+          // width: 200px;
+          height: 30px;
+
+          font-size: 16px;
+          padding-bottom: 10px;
+        }
+
+        .todo-complete {
+          float: right;
+
+          // left: 50%;
+          top: 0px;
+          // top: 50%;
+
+          // vertical-align: middle;
+          width: 45px;
+          height: 45px;
+
+          padding: 5px;
+
+          border: 1px solid black;
+          border-radius: 16px;
+        }
+      }
+    }
+
+    .todo-edit {
+      float: right;
+
+      width: 30px;
+      height: 30px;
+
+      // top: 20px;
+
+      align-items: center;
+      vertical-align: middle;
+    }
+
+    // .todo-create {
+    //   position: fixed;
+    // margin-top: 100%;
+    // float: right;
+    // bottom: 0;
+    // width: 100%;
+    // }
+  }
+
+  .todoCreate-Img {
+    width: 100%;
+    text-align: right;
+
+    // bottom: 0px;
+    margin-bottom: 0px;
+
+    .todoCreateImg {
+      width: 80px;
+      height: 80px;
+
+      // position: absolute;
+      right: 0px;
+      // bottom: 0px;
+
+      margin: 0 auto;
+
+      object-fit: cover;
+    }
+    .todoComImg {
+      float: right;
+    }
+  }
+}
+.todo-detail {
+  // float: right;
+  // float: left;
+  // clear: both;
+
+  // border: 1px solid black;
+
+  width: 512px;
+  height: 745px;
+
+  left: 550px;
+  bottom: 750px;
+
+  // top: 0px;
+
+  // background-color: aqua;
+  // background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 4%);
+
+  padding: 10px;
+  justify-content: center;
+  // display: inline-block;
+  // display: flex;
+  // display: -webkit-box;
+  // display: -webkit-flex;
+  // display: -ms-flexbox;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  // -webkit-flex-direction: row;
+  // -ms-flex-direction: row;
+  // flex-direction: row;
+  position: relative;
+
+  margin: 0 auto;
+  // margin-bottom: 32px;
+  // margin-left: 50px;
+  // margin-left: 1100px;
+
+  // margin-top: 20px;
+}

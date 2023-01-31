@@ -21,7 +21,7 @@ class ApiService {
   //   return axios.post(USER_API_BASE_URL + "/" + user.id, user);
   // }
   addMember(member) {
-    return axios.post("/member/join", member);
+    return axios.post("/join", member);
   }
   saveArrScheduleInfo = async (e) => {
     try {

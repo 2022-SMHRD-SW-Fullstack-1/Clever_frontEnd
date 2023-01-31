@@ -3,12 +3,13 @@ body {
 }
 
 .todoNotice {
-  text-align: left;
+  // text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   width: 530px;
   height: 200px;
-
-  text-align: left;
 
   margin: auto;
   margin-top: 20px;
@@ -19,13 +20,28 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
 
+  .todoMemo {
+    display: flex;
+
+    .todo-notice {
+      display: flex;
+      flex-direction: column;
+
+      .todo-memo {
+        align-self: flex-start;
+
+        padding: 5px;
+
+        font-size: 23px;
+      }
+      // float: right;
+      // text-align: center;
+    }
+  }
+
   .todoNotice-head {
     padding: 10px;
     font-weight: bold;
-  }
-
-  .todo-notice {
-    float: right;
   }
 }
 

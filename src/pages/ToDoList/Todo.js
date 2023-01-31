@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
-import { TodoProvider } from "./ToDoContext";
-import ToDoHead from "./ToDoHead";
-import ToDoList from "./ToDoList";
-import ToDoTemplate from "./ToDoTemplate";
+import { TodoProvider } from "./ToDoItem/ToDoContext";
+import ToDoList from "./ToDoItem/ToDoList";
+// import ToDoTemplate from "./ToDoTemplate";
 
-import CalendarData from "./CalendarData";
+import CalendarData from "./ToDoCal/CalendarData";
 import Header from "../../layout/Header";
 import "./ToDo.scss";
 import { TbMessageReport } from "react-icons/tb";
+import { BiCheck } from "react-icons/bi";
 import axios from "axios";
 
 import add from "../../image/add.png";
 
-import styled from "styled-components";
-import ToDoDetail from "./ToDoDetail";
-import AddToDoCate from "./AddToDoCate";
-import { useLocation } from "react-router-dom";
+import "./ToDoItem/ToDoDetail.scss";
+import AddToDoCate from "./AddToDoCategory/AddToDoCate";
+import ToDoItem from "./ToDoItem/ToDoItem";
 
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
@@ -27,26 +26,38 @@ const GlobalStyle = createGlobalStyle`
 
 const Todo = () => {
   const user = sessionStorage.getItem("mem_id");
-  const group_seq = sessionStorage.getItem("group_seq");
-  // console.log("user", sessionStorage);
-  console.log("group_seq", group_seq);
+  const userGroup = sessionStorage.getItem("group_seq");
+
+  // 그룹 정보 가져오기
+  const [joinGroup, setjoinGroup] = useState();
+  useEffect(() => {
+    axios.post("/todolist/getgroup", { mem_id: user }).then((res) => {
+      console.log(("groupInfo", res));
+    });
+  }, [joinGroup]);
 
   // db 에 있는 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
   const [category, setCategory] = useState("");
+  const [cateName, setCateName] = useState("");
+
   useEffect(() => {
     axios
-      .post("/todolist/getcategory")
+      .post("/todolist/getcategory", {
+        group_seq: userGroup,
+        // mem_id: user,
+      })
       .then((res) => {
+        // console.log("cateList", res);
         setCateList(res.data);
-        setCategory(res.data[0].cate_seq);
+        // setCategory(res.data[0].cate_seq);
       })
       .catch((err) => {
         console.log("실패함", err);
       });
   }, []);
 
-  // 카테고리 추기하기
+  // 카테고리 추가하기
   // const location = useLocation();
   // console.log("location", location.state);
 
@@ -57,24 +68,13 @@ const Todo = () => {
     setShowAddCategory(true);
   };
 
-  // 그룹 정보 가져오기
-  axios
-    .post("/todolist/getgroup", {
-      mem_id: user,
-      group_seq: group_seq,
-    })
-    .then((res) => {
-      console.log("그룹", res.data);
-    })
-    .catch((err) => {
-      console.log("그룹 실패", err);
-    });
-
   // 일일 특이사항 가져오기
-  const [noticeList, setNoticeList] = useState("");
+  const [todoMemoList, setTodoMemoList] = useState("");
+
   useEffect(() => {
-    axios.post("/todolist/todaynotice").then((res) => {
-      console.log("notice", res);
+    axios.post("/todolist/todaymemo").then((res) => {
+      // console.log("notice", res.data);
+      setTodoMemoList(res.data);
     });
   }, []);
 
@@ -82,7 +82,7 @@ const Todo = () => {
   const [selectCate, setSelectCate] = useState([]);
   useEffect(() => {
     axios.post("/todolist/selectcate").then((res) => {
-      console.log("selectCate", res.data);
+      // console.log("selectCate", res.data);
     });
   });
 
@@ -92,8 +92,17 @@ const Todo = () => {
       <CalendarData />
       <div className="todoNotice">
         <div className="todoNotice-head">일일 특이사항</div>
-        <TbMessageReport IoIosClose size="100" color="#3A4CA8" />
-        <div className="todo-notice">공지사항</div>
+        <div className="todoMemo">
+          <TbMessageReport IoIosClose size="100" color="#3A4CA8" />
+          <div className="todo-notice">
+            {/* {todoMemoList.map((item) => (
+              <div className="todo-memo">
+                <BiCheck />
+                {item.cmpl_memo}
+              </div>
+            ))} */}
+          </div>
+        </div>
       </div>
       <div className="todoCate">
         <div className="todo-category">
@@ -105,7 +114,10 @@ const Todo = () => {
                     item.cate_seq === category ? "selected" : "categoryName"
                   }
                   key={idx}
-                  onClick={() => setCategory(item.cate_seq)}
+                  onClick={() => {
+                    setCategory(item.cate_seq);
+                    setCateName(item.cate_name);
+                  }}
                 >
                   {item.cate_name}
                 </div>
@@ -128,7 +140,7 @@ const Todo = () => {
       </div>
       <div className="show-todo">
         <div className="toDoTemplate">
-          <ToDoList />
+          <ToDoList cateName={cateName} category={category} />
         </div>
       </div>
     </div>
