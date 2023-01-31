@@ -1,0 +1,138 @@
+body {
+  font-family: "Gotham Book";
+}
+
+.todoCreate {
+  width: 1200px;
+  height: 700px;
+
+  //   flex-grow: 1;
+  //   width: 2000px;
+  margin: auto; /* 페이지 중앙에 나타나도록 설정 */
+  margin-top: 30px;
+  margin-left: 20%;
+
+  //   align-items: center;
+  //   justify-content: center;
+
+  position: absolute; /* 추후 박스 하단에 추가 버튼을 위치시키기 위한 설정 */
+  border-radius: 30px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 30px;
+
+  .todoCreateBtn {
+    margin-left: 800px;
+    margin-top: 20px;
+    margin-bottom: 6px;
+    // float: right;
+
+    .todo-add {
+      margin-right: 10px;
+    }
+  }
+}
+
+.todo-list {
+  float: left;
+  flex-grow: 2;
+  align-items: center;
+
+  .todoContent {
+    height: 605px;
+    float: left;
+
+    padding-right: 15px;
+    margin-top: 13px;
+
+    border-radius: 20px;
+    box-shadow: 0 0 8px 0 grey;
+
+    .todo-table {
+      width: 250px;
+      margin: 0 auto;
+
+      .todoTitle {
+        text-align: left;
+        font-size: larger;
+        font-weight: bolder;
+
+        .todo-title {
+          width: 450px;
+          border: white;
+          margin: 5px;
+          margin-top: 8px;
+
+          padding-top: 10px;
+          padding-left: 8px;
+          padding-bottom: 20px;
+          font-size: larger;
+          font-weight: bolder;
+
+          border-bottom: 1px solid black;
+        }
+      }
+
+      .todoText {
+        .todo-content {
+          height: 400px;
+          border: 0px;
+          margin: 5px;
+          margin-top: 8px;
+
+          padding-top: 10px;
+          padding-left: 8px;
+
+          font-size: large;
+          // font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.todoOption {
+  width: 400px;
+  height: 580px;
+
+  padding-left: 15px;
+
+  // margin: 5px;
+  margin-top: 13px;
+  margin-left: 10px;
+
+  // padding: 15px;
+  padding-top: 25px;
+
+  // float: left;
+  float: right;
+  // flex-grow: 1;
+  border-radius: 20px;
+  box-shadow: 0 0 8px 0 grey;
+
+  font-size: larger;
+
+  .todo-option {
+    // padding-bottom: 10px;
+    font-weight: bolder;
+    // padding-bottom: 20px;
+
+    .todoMenu {
+      font-weight: bolder;
+      padding-bottom: 10px;
+    }
+  }
+
+  .todo-method {
+    font-weight: bold;
+    text-align: center;
+
+    .todo-head {
+      padding: 15px;
+      // font-weight: bold;
+    }
+  }
+}

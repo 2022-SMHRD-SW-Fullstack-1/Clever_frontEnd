@@ -5,6 +5,8 @@ import add from "../../../image/add.png";
 import "../ToDoItem/ToDoDetail.scss";
 import "../ToDoItem/ToDoList.scss";
 import Pagination from "../Pagination";
+import { MdEdit } from "react-icons/md";
+import ToDoEdit from "../ToDoEdit/ToDoEdit";
 
 const ToDoItem = ({ category, cateName, doneList }) => {
   console.log("category", category);
@@ -24,12 +26,18 @@ const ToDoItem = ({ category, cateName, doneList }) => {
     navigate("/todolistcreate");
   };
 
+  const gotoToDoEdit = () => {
+    navigate("/todolistedit");
+    <ToDoEdit detailId={detailId} />;
+  };
+
   // 할 일 리스트 불러오기
   useEffect(() => {
     axios
       .post("/todolist/todolist", { cate_seq: category })
       .then((res) => {
         setTodoList(res.data);
+        setToDoRep(res.data.todo_repeat);
         setTotal(res.data.length);
         setTodoCount(res.data.length);
       })
@@ -49,33 +57,33 @@ const ToDoItem = ({ category, cateName, doneList }) => {
   const [detailLIst, setDetailList] = useState([]);
   const [toDoRep, setToDoRep] = useState();
 
-  const [toDoCom, setToDoCom] = useState("미완료");
+  const [editSeq, setEditSeq] = useState([]);
+
+  const [toDoCom, setToDoCom] = useState("");
 
   const onDetail = (item, e) => {
-    console.log("item", item);
+    console.log("detail", item);
     setDetailList(item);
     setDetailId(item.todo_seq);
-    setToDoRep(item.todo_repeat);
+
+    setEditSeq(item.todo_seq);
+
+    console.log("target", e.currentTarget);
 
     {
-      doneList
-        // .find((item) => item.todo_seq === detailId)
-        .map((item, idx) => {
-          console.log("doneList", item);
-
-          if (item.todo_seq === detailId) {
-            console.log("t/f", item.todo_seq === detailId);
-            setDoneMem(item.mem_name);
-            setDoneDate(item.cmpl_time);
-            setDoneMemo(item.cmpl_memo);
-            setToDoCom("완료");
-          } else {
-            setDoneMem("미");
-            setDoneDate("");
-            setDoneMemo("");
-            setToDoCom("미완료");
-          }
-        });
+      doneList.map((item, idx) => {
+        if (item.todo_seq === detailId) {
+          setDoneMem(item.mem_name);
+          setDoneDate(item.cmpl_time);
+          setDoneMemo(item.cmpl_memo);
+          setToDoCom("완료");
+        } else {
+          setDoneMem("미");
+          setDoneDate("");
+          setDoneMemo("");
+          setToDoCom("미완료");
+        }
+      });
     }
   };
 
@@ -111,6 +119,14 @@ const ToDoItem = ({ category, cateName, doneList }) => {
                 <div>
                   <div>{toDoRep}</div>
                   <div className="todo-complete">{toDoCom}</div>
+                  <div className="todo-edit">
+                    <MdEdit
+                      item={editSeq}
+                      onClick={(e) => {
+                        gotoToDoEdit(e);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}

@@ -9,6 +9,7 @@ import CalendarData from "./ToDoCal/CalendarData";
 import Header from "../../layout/Header";
 import "./ToDo.scss";
 import { TbMessageReport } from "react-icons/tb";
+import { BiCheck } from "react-icons/bi";
 import axios from "axios";
 
 import add from "../../image/add.png";
@@ -47,7 +48,7 @@ const Todo = () => {
         // mem_id: user,
       })
       .then((res) => {
-        console.log("cateList", res);
+        // console.log("cateList", res);
         setCateList(res.data);
         // setCategory(res.data[0].cate_seq);
       })
@@ -68,10 +69,12 @@ const Todo = () => {
   };
 
   // 일일 특이사항 가져오기
-  const [noticeList, setNoticeList] = useState("");
+  const [todoMemoList, setTodoMemoList] = useState("");
+
   useEffect(() => {
-    axios.post("/todolist/todaynotice").then((res) => {
-      // console.log("notice", res);
+    axios.post("/todolist/todaymemo").then((res) => {
+      // console.log("notice", res.data);
+      setTodoMemoList(res.data);
     });
   }, []);
 
@@ -89,8 +92,17 @@ const Todo = () => {
       <CalendarData />
       <div className="todoNotice">
         <div className="todoNotice-head">일일 특이사항</div>
-        <TbMessageReport IoIosClose size="100" color="#3A4CA8" />
-        <div className="todo-notice">공지사항</div>
+        <div className="todoMemo">
+          <TbMessageReport IoIosClose size="100" color="#3A4CA8" />
+          <div className="todo-notice">
+            {/* {todoMemoList.map((item) => (
+              <div className="todo-memo">
+                <BiCheck />
+                {item.cmpl_memo}
+              </div>
+            ))} */}
+          </div>
+        </div>
       </div>
       <div className="todoCate">
         <div className="todo-category">

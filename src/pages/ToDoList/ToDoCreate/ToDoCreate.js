@@ -74,7 +74,7 @@ const ToDoCreate = () => {
     axios
       .post("/todolist/getmember", { group_seq: joinGroup })
       .then((res) => {
-        // console.log("mem", res.data);
+        console.log("mem", res.data);
         setMemList(res.data);
       })
       .catch((err) => {

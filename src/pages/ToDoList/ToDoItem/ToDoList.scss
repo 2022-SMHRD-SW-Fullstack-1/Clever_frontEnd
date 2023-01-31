@@ -72,6 +72,18 @@ body {
       }
     }
 
+    .todo-edit {
+      float: right;
+
+      width: 30px;
+      height: 30px;
+
+      // top: 20px;
+
+      align-items: center;
+      vertical-align: middle;
+    }
+
     // .todo-create {
     //   position: fixed;
     // margin-top: 100%;

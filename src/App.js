@@ -15,7 +15,7 @@ import Login from "./pages/User/Login";
 import ToDoCreate from "./pages/ToDoList/ToDoCreate/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
 
-import ToDoEdit from "./pages/ToDoList/ToDoEdit";
+import ToDoEdit from "./pages/ToDoList/ToDoEdit/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
 
 import CalendarInput from "./pages/Calendar/CalendarInput";
