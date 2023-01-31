@@ -1,8 +1,10 @@
+import { Calendar } from "@fullcalendar/core";
 import React, { useEffect, useRef, useState } from "react";
 import ApiService from "../../ApiService";
+import "./CalendarInput.scss";
 
 let checkOn = [];
-const CalendarInput = () => {
+const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   console.log(sessionStorage.getItem("group_seq"));
   const groupSeq = sessionStorage.getItem("group_seq");
   const date = new Date();
@@ -23,10 +25,10 @@ const CalendarInput = () => {
   const [PlanMonth, setPlanMonth] = useState(month);
   const [Day, setDay] = useState([]);
   const [finalDate, setFinalDate] = useState([]);
-  const workerList = useRef([]);
-  const [workerListState, setWorkerListState] = useState([]);
+  const workerList = useRef(getWorkerList);
+  const [workerListState, setWorkerListState] = useState();
   const [workerScheduleState, setWorkerScheduleState] = useState();
-
+  console.log(getWorkerList);
   const getDayOfWeek = (yyyy, mm, arrChoiceDay) => {
     let lastDate = new Date(yyyy, mm, 0).getDate();
 
@@ -171,20 +173,20 @@ const CalendarInput = () => {
       selectedDate
     );
   };
-  useEffect(() => [getWorkerList(groupSeq)], []);
-  const getWorkerList = (e) => {
-    workerList.current = [];
-    ApiService.getWorkerList(e).then((res) => {
-      console.log("인풋목록 :", res.data);
-      workerList.current = res.data;
-      setWorkerListState(res.data);
-    });
-  };
+  // useEffect(() => [getWorkerList(groupSeq)], []);
+  // const getWorkerList = (e) => {
+  //   workerList.current = [];
+  //   ApiService.getWorkerList(e).then((res) => {
+  //     console.log("인풋목록 :", res.data);
+  //     workerList.current = res.data;
+  //     setWorkerListState(res.data);
+  //   });
+  // };
 
   const saveArrSchedule = (e) => {
     ApiService.saveArrScheduleInfo(e)
       .then((res) => {
-        console.log("등록성공");
+        alert("일정이 등록되었습니다.");
       })
       .catch((err) => {
         console.log(err);
@@ -252,16 +254,20 @@ const CalendarInput = () => {
     const arrDay = ["일", "월", "화", "수", "목", "금", "토"];
     let arrDays = arrDay.map((item, index) => {
       return (
-        <>
-          {item}
-          <input
-            key={index}
-            onChange={day}
-            type="checkbox"
-            name="days"
-            value={index}
-          />
-        </>
+        <td>
+          <tr id="checkBoxTr">{item}</tr>
+          <tr>
+            <input
+              id="checkbox"
+              key={index}
+              onChange={day}
+              type="checkbox"
+              name="days"
+              value={index}
+              zoom="1.5"
+            />
+          </tr>
+        </td>
       );
     });
     return arrDays;
@@ -337,14 +343,24 @@ const CalendarInput = () => {
     console.log("보낼배열", saveArrScheduleInfo);
     saveArrSchedule(saveArrScheduleInfo);
   };
+  // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
+  const closeModal = () => {
+    setModalOpen(false);
+    getSchedule(groupSeq);
+  };
 
   return (
-    <div className="container">
-      <form>
-        {checkBoxDay()}
+    <div className="calendarInputContainer">
+      <div className="modalblock">
+        <h2>일정등록</h2>
+        <br />
+        <button className="close" onClick={closeModal}>
+          X
+        </button>
+        <tr className="checkBox"> 요일선택 : {checkBoxDay()}</tr>
         <br />
         <tr>
-          <br />
+          일정일자 :
           <select onChange={planYear} value={PlanYear}>
             {selectYear()}
           </select>
@@ -357,7 +373,7 @@ const CalendarInput = () => {
         <tr>
           <td>
             근무자 :{" "}
-            <select onChange={worker} value={Worker}>
+            <select id="selectWorker" onChange={worker} value={Worker}>
               <option name="선택" value="미선택">
                 선택
               </option>
@@ -370,27 +386,30 @@ const CalendarInput = () => {
           <td>
             {" "}
             근무시간 :{" "}
-            <input type="time" name="startTime" onChange={saveStartTime} />~
-            <input type="time" name="endTime" onChange={saveEndTime} />
+            <input
+              id="selectTime"
+              type="time"
+              name="startTime"
+              onChange={saveStartTime}
+            />
+            {"  "}
+            -
+            <input
+              id="selectTime"
+              type="time"
+              name="endTime"
+              onChange={saveEndTime}
+            />
           </td>
-          <br />
-          <br />
-
-          <br />
-          <p>
-            직원: {Worker}
-            <br />
-            요일 : {Day}
-            <br />년 : {PlanYear}
-            <br />월 : {PlanMonth}
-            <br />
-            근무시간 : {startTime}~{endTime}
-            <br />
-            날짜 : {finalDate}
-          </p>
         </tr>
-      </form>
-      <button onClick={registerSchedule}>등록하기</button>
+        <br />
+        <br />
+        <tr>
+          <button id="registerButton" onClick={registerSchedule}>
+            등록하기
+          </button>
+        </tr>
+      </div>
     </div>
   );
 };

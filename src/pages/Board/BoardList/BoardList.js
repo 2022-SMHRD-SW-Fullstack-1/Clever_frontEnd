@@ -108,7 +108,6 @@ const BoardList = ({ writerInfo, cateName }) => {
                 <img
                   src={menu}
                   className={styles.menu}
-                  alt="setting button"
                   onClick={() => setSetMenu(!setMenu)}
                 />
                 {setMenu && (

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import AddBoardCate from "./Category/AddBoardCate";
 import styles from "./Board.module.scss";
 import add from "../../image/add.png";
@@ -7,13 +7,11 @@ import axios from "axios";
 import WriteBoard from "./WriteBoard";
 import BoardList from "./BoardList/BoardList";
 
-const Board = () => {
+const Board = ({ user }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showWriteModal, setShowWriteModal] = useState(false);
-  const [groupInfo, setGroupInfo] = useState({
-    group_seq: sessionStorage.getItem("group_seq"),
-    mem_id: sessionStorage.getItem("mem_id"),
-    mem_name: sessionStorage.getItem("mem_name"),
-  });
+  const [groupInfo, setGroupInfo] = useState(location.state);
 
   const [category, setCategory] = useState("");
   const [cateName, setCateName] = useState("");
