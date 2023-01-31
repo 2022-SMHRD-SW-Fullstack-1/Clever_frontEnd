@@ -31,9 +31,7 @@ const Board = () => {
   // const handleWrite = () => {
   //   navigate("/writeboard", { state: writerInfo });
   // };
-  const handleWrite = () => {
-    setShowWriteModal(true);
-  };
+
   const openAddCategory = () => {
     setShowAddCategory(true);
   };
@@ -97,17 +95,13 @@ const Board = () => {
       </div>
 
       <div className={styles.boardContainer}>
-        <BoardList writerInfo={infoRef} cateName={cateName} />
-      </div>
-      <button className={styles.writeBtn} onClick={handleWrite}>
-        글 작성
-      </button>
-      {showWriteModal && (
-        <WriteBoard
-          setShowWriteModal={setShowWriteModal}
+        <BoardList
           writerInfo={infoRef}
+          cateName={cateName}
+          setShowWriteModal={setShowWriteModal}
+          showWriteModal={showWriteModal}
         />
-      )}
+      </div>
     </div>
   );
 };
