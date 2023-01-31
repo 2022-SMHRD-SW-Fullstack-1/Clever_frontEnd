@@ -60,6 +60,7 @@ const Calendar = () => {
   const getModification = (groupSeq) => {
     modificaionInfo.current = [];
     ApiService.getModification(groupSeq).then((res) => {
+      console.log("수정 :", res.data);
       res.data.map((item) => {
         modificaionInfo.current.push({
           title: "🔴",
@@ -87,7 +88,6 @@ const Calendar = () => {
   const getSchedule = (e) => {
     getModification(e);
     setSelectedDate(today);
-    console.log("겟쉐줄");
 
     ApiService.getSchedule(groupSeq)
       .then((res) => {
