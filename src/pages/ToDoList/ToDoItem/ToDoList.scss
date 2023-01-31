@@ -82,6 +82,30 @@ body {
 
       align-items: center;
       vertical-align: middle;
+
+      margin-right: 20px;
+
+      .todo-editMenu {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+
+      .todo-editSetMenu {
+        position: absolute;
+        box-shadow: 0 4px 5px 0 #00000026;
+        background: white;
+      }
+
+      .todo-editSetContent {
+        list-style-type: none;
+        padding: 12px;
+        margin: 0;
+        li {
+          margin: 5px 0px;
+          cursor: pointer;
+        }
+      }
     }
 
     // .todo-create {

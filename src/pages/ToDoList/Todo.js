@@ -15,7 +15,7 @@ import axios from "axios";
 import add from "../../image/add.png";
 
 import "./ToDoItem/ToDoDetail.scss";
-import AddToDoCate from "./AddToDoCategory/AddToDoCate";
+import AddToDoCate from "./ToDoCategory/AddToDoCate";
 import ToDoItem from "./ToDoItem/ToDoItem";
 
 const GlobalStyle = createGlobalStyle`
