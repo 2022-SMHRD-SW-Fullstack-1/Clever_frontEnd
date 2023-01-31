@@ -15,7 +15,7 @@ const GroupMember = () => {
   let day = Math.floor(timeDiff / (1000 * 60 * 60 * 24) + 1);
 
   const [memList, setMemList] = useState([]);
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(8);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const [total, setTotal] = useState(0);

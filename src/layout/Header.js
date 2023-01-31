@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../image/logo2.png";
 import styles from "./Header.module.scss";
@@ -13,11 +13,17 @@ const Header = () => {
     navigate("/");
     window.location.reload();
   };
+
   return (
     <div className={styles.header}>
       <div className={styles.contents}>
         <div className={styles.logoContainer}>
-          <Link to="/group">
+          <Link
+            to="/group"
+            onClick={() => {
+              sessionStorage.removeItem("group_seq");
+            }}
+          >
             <img src={logo} alt="logo image" className={styles.logo} />
           </Link>
         </div>
