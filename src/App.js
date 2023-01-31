@@ -12,7 +12,7 @@ import Board from "./pages/Board/Board";
 
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
-import ToDoCreate from "./pages/ToDoList/ToDoCreate/ToDoCreate";
+import ToDoCreate from "./pages/ToDoList/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
 import CalendarInput from "./pages/Calendar/CalendarInput";
 
@@ -34,7 +34,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("Test111");
     sessionStorage.getItem("mem_id") !== null && setAuth(true);
     loginUser();
     setUser({

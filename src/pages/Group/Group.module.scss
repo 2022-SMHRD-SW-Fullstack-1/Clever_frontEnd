@@ -2,32 +2,35 @@
   text-align: left;
   padding-left: 9rem;
   display: flex;
-  margin: 30px 0px 10px 0px;
+  margin: 50px 0px 10px 0px;
   .groupCountTitle {
+    margin-left: 8rem;
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
+    vertical-align: middle;
   }
   .groupCount {
     color: #3a4ca8;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
   }
 }
 .groupContainer {
   margin: 0 auto;
-  border: solid 1px darkgray;
+  border: solid 1px rgba(169, 169, 169, 0);
   border-radius: 30px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
-  width: 60rem;
+  width: 50rem;
   height: 100%;
 
   .groupItem {
-    border: solid 1px darkgray;
+    border: solid 1px rgba(169, 169, 169, 0);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
     border-radius: 10px;
-    width: 55rem;
+    width: 45rem;
     height: 50px;
-    margin: 25px auto;
+    margin: 20px auto;
     text-align: start;
     padding-top: 15px;
     padding-left: 30px;
@@ -42,7 +45,6 @@
     .groupBtnArea {
       margin-right: 25px;
       align-items: center;
-
       .inviteBtn {
         width: 90px;
         height: 40px;
@@ -72,7 +74,7 @@
   .addGroupBtn {
     width: 200px;
     height: 70px;
-    border: solid darkgray 1px;
+    border: none;
     font-size: 15px;
     margin: 20px;
     margin-top: 50px;

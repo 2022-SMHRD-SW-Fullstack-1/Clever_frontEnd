@@ -7,12 +7,13 @@
   margin: 0 auto;
   //   margin-left: 135px;
   margin-bottom: 10px;
-  border: solid 1px darkgray;
+  // border: solid 1px #e8e8e8;
   border-radius: 10px;
   width: 50rem;
   height: 60px;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
 
   .itemSeq {
     width: auto;
