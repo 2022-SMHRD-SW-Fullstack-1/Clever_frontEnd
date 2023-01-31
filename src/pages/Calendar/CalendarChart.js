@@ -4,6 +4,12 @@ import "./CalendarChart.scss";
 const CalendarChart = ({ getWorkerList, setModalOpen, getSchedule }) => {
   console.log("스케줄인포", getWorkerList);
   console.log("겟쉐줄", getSchedule);
+  const workerName = [];
+  for (var i = 1; i < getWorkerList.length; i++) {
+    workerName.push(getWorkerList[i].mem_name);
+  }
+
+  const workerList = () => {};
 
   return (
     <>
@@ -65,13 +71,21 @@ const CalendarChart = ({ getWorkerList, setModalOpen, getSchedule }) => {
       <div className="chartinfo">
         <table>
           <br />
-          <tr>누적근무 일 수</tr>
+          <tr>
+            <th>누적근무 일 수 :</th>
+          </tr>
           <br />
-          <tr>누적근무 시간</tr>
+          <tr>
+            <th>누적근무 시간 :</th>
+          </tr>
           <br />
-          <tr>누적지각 횟수</tr>
+          <tr>
+            <th>누적지각 횟수 :</th>
+          </tr>
           <br />
-          <tr>누적지각 시간</tr>
+          <tr>
+            <th>누적지각 시간 :</th>
+          </tr>
           <tr></tr>
         </table>
       </div>
