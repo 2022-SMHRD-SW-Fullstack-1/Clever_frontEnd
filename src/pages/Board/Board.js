@@ -62,7 +62,7 @@ const Board = () => {
       <div className={styles.categoryContainer}>
         <div className={styles.categoryItem}>
           {cateEmpty ? (
-            <div>카테고리를 생성해주세요</div>
+            <div className={styles.emptyList}>카테고리를 생성해주세요</div>
           ) : (
             cateList &&
             cateList.map((item, idx) => {
