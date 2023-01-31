@@ -41,6 +41,7 @@ const Calendar = () => {
   const workerInfo = useRef([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [chartOpen, setChartOpen] = useState(false);
+  const changeSchedul = useRef([]);
 
   useEffect(() => {
     getSchedule(groupSeq);
@@ -61,16 +62,21 @@ const Calendar = () => {
     modificaionInfo.current = [];
     ApiService.getModification(groupSeq).then((res) => {
       console.log("수정 :", res.data);
-      res.data.map((item) => {
-        modificaionInfo.current.push({
-          title: "🔴",
-          date: item.ch_date,
-          color: "transparent",
-          textColor: "tramsparent",
-        });
-      });
+      changeSchedul.current = [];
       modificationAllInfo.current = [];
-      modificationAllInfo.current = res.data;
+      res.data.map((item, index) => {
+        if (res.data[index].ch_approve === "") {
+          modificaionInfo.current.push({
+            title: "🔴",
+            date: item.ch_date,
+            color: "transparent",
+            textColor: "tramsparent",
+          });
+
+          modificationAllInfo.current.push(item);
+        }
+      });
+      changeSchedul.current = res.data;
     });
     getWorkerList(groupSeq);
   };
@@ -573,6 +579,19 @@ const Calendar = () => {
             getSchedule={getSchedule}
           />
         )}
+
+        <button id="chartButton" onClick={showChart}>
+          차트보기
+        </button>
+        {chartOpen && (
+          <CalendarChart
+            setChartOpen={setChartOpen}
+            getWorkerList={workerInfo.current}
+            getSchedule={[...scheduleInfo.current]}
+            today={today}
+            changeSchedul={[...changeSchedul.current]}
+          />
+        )}
         <FullCalendar
           dafaultView="dayGriMonth"
           plugins={[daygrid, googleCalendar, interaction]}
@@ -629,13 +648,6 @@ const Calendar = () => {
         </div>
         <div className="special">{modificationAnser()}</div>
         {/* <button onClick={showChart}>직원차트</button> */}
-      </div>
-      <div className="calendarchartContainer">
-        <CalendarChart
-          getWorkerList={workerInfo.current}
-          getSchedule={[...scheduleInfo.current]}
-          today={today}
-        />
       </div>
     </div>
   );

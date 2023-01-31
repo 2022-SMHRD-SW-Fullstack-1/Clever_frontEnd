@@ -2,7 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import "./CalendarChart.scss";
 import { v4 as uuidv4 } from "uuid";
-const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
+const CalendarChart = ({
+  getWorkerList,
+  getSchedule,
+  today,
+  setChartOpen,
+  changeSchedul,
+}) => {
   var year = today.substring(0, 4);
   var month = today.substring(5, 7);
   var date = today.substring(8, 10);
@@ -11,16 +17,20 @@ const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
   console.log("투데이", today);
   console.log("스케줄인포", getWorkerList);
   console.log("겟쉐줄", getSchedule);
+  console.log("체인지 :", changeSchedul);
   const workerName = [];
   for (var i = 1; i < getWorkerList.length; i++) {
     workerName.push(getWorkerList[i].mem_name);
   }
+
+  const group_name = sessionStorage.getItem("group_name");
 
   for (var i = 0; i < workerName.length; i++) {
     var totalWorkDay = 0;
     var totalWorkTime = 0;
     var lateTime = 0;
     var lateCount = 0;
+    var changeSchedulCount = 0;
 
     for (var j = 0; j < getSchedule.length; j++) {
       if (workerName[i] === getSchedule[j].mem_name) {
@@ -44,7 +54,13 @@ const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
           : (totalWorkTime += getSchedule[j].total_work_time);
       }
     }
+    for (var k = 0; k < changeSchedul.length; k++) {
+      if (workerName[i] === changeSchedul[k].mem_name) {
+        changeSchedulCount += 1;
+      }
+    }
     var latePercent = (lateCount * 100) / totalWorkDay;
+    var changeSchedulCountPercent = (changeSchedulCount * 100) / totalWorkDay;
     console.log(latePercent);
     chartinfo.push({
       mem_name: workerName[i],
@@ -53,8 +69,11 @@ const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
       late_time: lateTime,
       late_Count: lateCount,
       late_percent: latePercent,
+      change_schedule: changeSchedulCountPercent,
+      change_count: changeSchedulCount,
     });
   }
+
   console.log("객체", chartinfo);
 
   const workerList = () => {
@@ -97,12 +116,12 @@ const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
             <PieChart
               data={[
                 {
-                  value: 0,
+                  value: item.change_schedule.toFixed(1),
                   color: "#3a4ca8",
                   name: "name1",
                 },
               ]}
-              reveal={0} //퍼센트 치수
+              reveal={item.change_schedule} //퍼센트 치수
               lineWidth={18} //도넛 두께
               background="#f3f3f3"
               lengthAngle={360}
@@ -119,22 +138,27 @@ const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
           </div>
 
           <div className="chartinfo">
-            <table>
-              <br />
+            <table id="chartInfoTable" align="left">
               <tr>
-                <th>누적근무 일 수 : {item.total_work_day} 일</th>
+                <th>누적근무 일 : {item.total_work_day} 일</th>
               </tr>
-              <br />
+
               <tr>
-                <th>누적근무 시간 :{item.total_work_time} 분</th>
+                <th>
+                  누적근무 시간 :{(item.total_work_time / 60).toFixed(0)}시간
+                </th>
               </tr>
-              <br />
+
               <tr>
                 <th>누적지각 횟수 :{item.late_Count} 번</th>
               </tr>
-              <br />
+
               <tr>
                 <th>누적지각 시간 : {item.late_time} 분</th>
+              </tr>
+
+              <tr>
+                <th>누적근무변경 횟수 : {item.change_count} 번</th>
               </tr>
               <tr></tr>
             </table>
@@ -145,85 +169,21 @@ const CalendarChart = ({ getWorkerList, getSchedule, today }) => {
     return result;
   };
 
-  return <>{workerList()}</>;
-  // <>
-  //   <div className="calendarChartTop">
-  //     <th>이름</th>
-  //   </div>
-  //   <div className="calendarchart1">
-  //     <h1>지각</h1>
-  //     <PieChart
-  //       data={[
-  //         {
-  //           value: 15.7,
-  //           color: "#3a4ca8",
-  //           name: "name1",
-  //         },
-  //       ]}
-  //       reveal={15.7} //퍼센트 치수
-  //       lineWidth={18} //도넛 두께
-  //       background="#f3f3f3"
-  //       lengthAngle={360}
-  //       rounded
-  //       animate
-  //       label={({ dataEntry }) => dataEntry.value + "%"}
-  //       labelStyle={{
-  //         fontSize: "26px",
-  //         fill: "#33333",
-  //       }}
-  //       labelPosition={0}
-  //       id="chart"
-  //     />
-  //   </div>
+  const closeModal = () => {
+    setChartOpen(false);
+  };
 
-  //   <div className="calendarchart2">
-  //     <h1>근무수정</h1>
-  //     <PieChart
-  //       data={[
-  //         {
-  //           value: 0,
-  //           color: "#3a4ca8",
-  //           name: "name1",
-  //         },
-  //       ]}
-  //       reveal={0} //퍼센트 치수
-  //       lineWidth={18} //도넛 두께
-  //       background="#f3f3f3"
-  //       lengthAngle={360}
-  //       rounded
-  //       animate
-  //       label={({ dataEntry }) => dataEntry.value + "%"}
-  //       labelStyle={{
-  //         fontSize: "26px",
-  //         fill: "#33333",
-  //       }}
-  //       labelPosition={0}
-  //       id="chart"
-  //     />
-  //   </div>
-
-  //   <div className="chartinfo">
-  //     <table>
-  //       <br />
-  //       <tr>
-  //         <th>누적근무 일 수 :</th>
-  //       </tr>
-  //       <br />
-  //       <tr>
-  //         <th>누적근무 시간 :</th>
-  //       </tr>
-  //       <br />
-  //       <tr>
-  //         <th>누적지각 횟수 :</th>
-  //       </tr>
-  //       <br />
-  //       <tr>
-  //         <th>누적지각 시간 :</th>
-  //       </tr>
-  //       <tr></tr>
-  //     </table>
-  //   </div>
-  // </>
+  return (
+    <div className="chartModelContainer">
+      <div className="modalBox">
+        <h1>{group_name} 직원차트</h1>
+        <button className="close" onClick={closeModal}>
+          X
+        </button>
+        {workerList()}
+      </div>
+    </div>
+  );
 };
 
 export default CalendarChart;
