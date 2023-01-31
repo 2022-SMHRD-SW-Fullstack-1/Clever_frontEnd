@@ -1,0 +1,40 @@
+.fc-day-sun a {
+  color: red;
+}
+
+.fc-day-sat a {
+  color: blue;
+}
+
+.container {
+}
+.container .calendar {
+  float: left;
+  width: 70%;
+  display: block;
+}
+.container .calendarDetail {
+  flex-direction: row;
+  position: relative;
+  margin-top: 85px;
+  float: left;
+  width: 28%;
+  border: 0.2px solid black;
+  display: block;
+  height: 635px;
+}
+.container .calendarDetail .table {
+  border-bottom: 0.1px solid black;
+  display: block;
+}
+#button1 {
+  width: 100%;
+}
+.container .calendarDetail .special {
+  width: 100%;
+  position: absolute;
+
+  bottom: 0px;
+  border-top: 0.1px solid black;
+  display: block;
+}
