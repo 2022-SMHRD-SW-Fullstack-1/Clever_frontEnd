@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import MemberItem from "./MemberItem";
 import styles from "./GroupMember.module.scss";
 import Pagination from "../Board/BoardList/Pagination";
+import InviteGroup from "../Group/InviteGroup";
 
 const GroupMember = () => {
   const group_seq = sessionStorage.getItem("group_seq");
   const group_name = sessionStorage.getItem("group_name");
-
+  const admin_name = sessionStorage.getItem("mem_name");
   const group_dt = sessionStorage.getItem("group_dt").split(" ")[0];
   const now = new Date();
   let start = new Date(group_dt);
@@ -21,6 +22,11 @@ const GroupMember = () => {
   const [total, setTotal] = useState(0);
 
   const seq = page * limit - limit;
+
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const inviteGroup = () => {
+    setShowInviteModal(true);
+  };
   useEffect(() => {
     axios
       .post("/member/group/list", { group_seq: group_seq })
@@ -31,17 +37,24 @@ const GroupMember = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [memList]);
 
   return (
     <div className="container">
+      {showInviteModal && (
+        <InviteGroup
+          setShowInviteModal={setShowInviteModal}
+          showInviteModal={showInviteModal}
+          group_seq={group_seq}
+        />
+      )}
       <div className={styles.listHeader}>
         <div className={styles.groupInfoArea}>
           <div className={styles.group}>{group_name}</div>
           <div className={styles.groupDt}>
             {group_dt} 생성 ({day}일)
           </div>
-          <div className={styles.groupDt}>그룹장 : 이름</div>
+          <div className={styles.groupDt}>그룹장 : {admin_name}</div>
         </div>
         <div className={styles.countArea}>
           <span>총 인원</span>
@@ -72,7 +85,9 @@ const GroupMember = () => {
             page={page}
             setPage={setPage}
           />
-          <button className={styles.inviteBtn}>멤버 초대하기</button>
+          <button className={styles.inviteBtn} onClick={inviteGroup}>
+            멤버 초대하기
+          </button>
         </div>
       </div>
     </div>

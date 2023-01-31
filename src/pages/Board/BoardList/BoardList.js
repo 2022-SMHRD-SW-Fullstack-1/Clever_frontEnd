@@ -5,7 +5,13 @@ import Pagination from "./Pagination";
 import BoardDetail from "../BoardDetail/BoardDetail";
 import menu from "../../../image/menu.png";
 import UpdateBoard from "../UpdateBoard";
-const BoardList = ({ writerInfo, cateName }) => {
+import WriteBoard from "../WriteBoard";
+const BoardList = ({
+  writerInfo,
+  cateName,
+  setShowWriteModal,
+  showWriteModal,
+}) => {
   const category = writerInfo.current.category;
   const [boardList, setBoardList] = useState([]);
   const [limit, setLimit] = useState(7);
@@ -39,6 +45,9 @@ const BoardList = ({ writerInfo, cateName }) => {
       });
   };
 
+  const handleWrite = () => {
+    setShowWriteModal(true);
+  };
   useEffect(() => {
     axios
       .post("/board/list", { cate_seq: category })
@@ -126,7 +135,19 @@ const BoardList = ({ writerInfo, cateName }) => {
           );
         })
       )}
-      <Pagination total={total} limit={limit} page={page} setPage={setPage} />
+      <div className={styles.boardBottom}>
+        <div></div>
+        <Pagination total={total} limit={limit} page={page} setPage={setPage} />
+        <button className={styles.writeBtn} onClick={handleWrite}>
+          글 작성
+        </button>
+        {showWriteModal && (
+          <WriteBoard
+            setShowWriteModal={setShowWriteModal}
+            writerInfo={writerInfo}
+          />
+        )}
+      </div>
     </div>
   );
 };

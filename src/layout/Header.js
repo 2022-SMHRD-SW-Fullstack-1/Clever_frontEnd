@@ -13,6 +13,7 @@ const Header = () => {
     navigate("/");
     window.location.reload();
   };
+  console.log(sessionStorage.getItem("group_seq"));
 
   return (
     <div className={styles.header}>
@@ -27,7 +28,13 @@ const Header = () => {
             <img src={logo} alt="logo image" className={styles.logo} />
           </Link>
         </div>
-        <div className={styles.navigation}>
+        <div
+          className={
+            sessionStorage.getItem("group_seq") !== null
+              ? styles.navigation
+              : styles.naviHidden
+          }
+        >
           <div className={styles.content}>
             <Link to="/todolist">할 일</Link>
           </div>
