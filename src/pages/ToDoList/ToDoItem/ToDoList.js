@@ -85,7 +85,12 @@ const ToDoList = ({
           <div className="day">{dayName}</div>
           {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
         </TodoHeadBlock>
-        <ToDoItem cateName={cateName} category={category} doneList={doneList} />
+        <ToDoItem
+          cateName={cateName}
+          category={category}
+          doneList={doneList}
+          key={category}
+        />
       </div>
     </div>
   );
