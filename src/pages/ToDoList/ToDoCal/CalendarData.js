@@ -23,7 +23,7 @@ const CalendarData = () => {
     week,
   });
 
-  const onPressArrowLeft = () => {
+  const onClickArrowLeft = () => {
     let newDate = new Date(state.date.valueOf() - 86400000 * 7);
     let newWeek = makeWeekArr(newDate);
 
@@ -33,7 +33,7 @@ const CalendarData = () => {
     });
   };
 
-  const onPressArrowRight = () => {
+  const onClickArrowRight = () => {
     let newDate = new Date(state.date.valueOf() + 86400000 * 7);
     let newWeek = makeWeekArr(newDate);
     setState({
@@ -72,7 +72,7 @@ const CalendarData = () => {
       <tbody className="calendar-body">
         <tr className="todo-calendar">
           <td className="arrow">
-            <AiOutlineLeft className="WeekArrow" onClick={onPressArrowLeft} />
+            <AiOutlineLeft className="WeekArrow" onClick={onClickArrowLeft} />
           </td>
           {state.week &&
             state.week.map((item, idx) => {
@@ -80,7 +80,7 @@ const CalendarData = () => {
             })}
 
           <td className="arrow">
-            <AiOutlineRight className="WeekArrow" onClick={onPressArrowRight} />
+            <AiOutlineRight className="WeekArrow" onClick={onClickArrowRight} />
           </td>
         </tr>
       </tbody>
