@@ -24,7 +24,11 @@ const ToDoEdit = ({ detailId }) => {
 
   const todo_item = location.state;
 
-  const todo_seq = sessionStorage.getItem("");
+  const todo_seq = location.state.id;
+  console.log("seq", todo_seq);
+  const todo_title = location.state.text;
+  console.log("title", todo_title);
+
   // const todo_seq = location.state.id;
   // console.log("seq", todo_seq);
   // const todo_title = location.state.text
