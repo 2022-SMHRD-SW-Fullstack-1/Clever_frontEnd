@@ -15,10 +15,19 @@
     margin-top: 30px;
     height: 70px;
     padding-right: 50px;
-    .group {
-      font-size: 35px;
-      font-weight: bold;
+    .groupNameArea {
+      display: flex;
+      .group {
+        font-size: 35px;
+        font-weight: bold;
+      }
+      .editIcon {
+        margin-top: 20px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
     }
+
     .groupDt {
       font-size: 14px;
       color: darkgray;

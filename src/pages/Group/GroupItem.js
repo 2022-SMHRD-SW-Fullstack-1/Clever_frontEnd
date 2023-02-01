@@ -20,7 +20,7 @@ const GroupItem = ({ item, user }) => {
   const delGroup = () => {
     if (window.confirm(`'${item.group_name}' 그룹을 삭제하시겠습니까?`)) {
       axios
-        .post("/deletegroup", groupInfo)
+        .post("/group/delete", groupInfo)
         .then((res) => {
           alert("그룹이 삭제되었습니다.");
         })

@@ -4,6 +4,8 @@ import MemberItem from "./MemberItem";
 import styles from "./GroupMember.module.scss";
 import Pagination from "../Board/BoardList/Pagination";
 import InviteGroup from "../Group/InviteGroup";
+import { MdEdit } from "react-icons/md";
+import EditGroupName from "./EditGroupName";
 
 const GroupMember = () => {
   const group_seq = sessionStorage.getItem("group_seq");
@@ -24,8 +26,13 @@ const GroupMember = () => {
   const seq = page * limit - limit;
 
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const [showEditName, setShowEditName] = useState(false);
   const inviteGroup = () => {
     setShowInviteModal(true);
+  };
+
+  const handleEdit = () => {
+    setShowEditName(true);
   };
   useEffect(() => {
     axios
@@ -37,6 +44,8 @@ const GroupMember = () => {
       .catch((err) => {
         console.log(err);
       });
+
+    axios.post("/");
   }, [memList]);
 
   return (
@@ -44,13 +53,25 @@ const GroupMember = () => {
       {showInviteModal && (
         <InviteGroup
           setShowInviteModal={setShowInviteModal}
-          showInviteModal={showInviteModal}
+          group_seq={group_seq}
+        />
+      )}
+      {showEditName && (
+        <EditGroupName
+          setShowEditName={setShowEditName}
+          group_name={group_name}
           group_seq={group_seq}
         />
       )}
       <div className={styles.listHeader}>
         <div className={styles.groupInfoArea}>
-          <div className={styles.group}>{group_name}</div>
+          <div className={styles.groupNameArea}>
+            <div className={styles.group}>{group_name}</div>
+            <div className={styles.editIcon} onClick={handleEdit}>
+              <MdEdit />
+            </div>
+          </div>
+
           <div className={styles.groupDt}>
             {group_dt} 생성 ({day}일)
           </div>

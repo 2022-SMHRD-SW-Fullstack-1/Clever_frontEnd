@@ -19,7 +19,7 @@ const Group = ({ user }) => {
 
   useEffect(() => {
     axios
-      .post("/getgrouplist", { mem_id: user.mem_id })
+      .post("/group/list", { mem_id: user.mem_id })
       .then((res) => {
         setGroupList(res.data);
       })
@@ -32,9 +32,7 @@ const Group = ({ user }) => {
 
   return (
     <div className="container">
-      {modalOpen && (
-        <AddGroup setModalOpen={setModalOpen} modalOpen={modalOpen} />
-      )}
+      {modalOpen && <AddGroup setModalOpen={setModalOpen} />}
       <div className={styles.groupCountArea}>
         <span className={styles.groupCountTitle}>전체 그룹</span>
         <span className={styles.groupCount}>{groupCnt}</span>
