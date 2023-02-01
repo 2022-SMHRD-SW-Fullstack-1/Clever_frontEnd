@@ -1,23 +1,24 @@
 .calendarchart1 {
   position: relative;
   float: left;
-  width: 200px;
+  width: 210px;
   height: 170px;
   margin-left: 50px;
 }
 .calendarchart2 {
   position: relative;
-  width: 200px;
+  width: 210px;
   height: 170px;
   margin-left: 50px;
   float: left;
 }
 
 .chartinfo {
+  align-items: center;
   position: relative;
-  width: 250px;
+  width: 350px;
   height: 170px;
-  margin-left: 50px;
+  margin-left: 80px;
   float: left;
   font-size: 20px;
   padding-top: 30px;
@@ -64,10 +65,34 @@
 }
 .chartModelContainer .close {
   position: fixed;
-  background-color: transparent;
   right: 10px;
   top: 10px;
+  margin-top: 20px;
+  width: 80px;
+  background-color: #3a4ca8;
+  color: white;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
 }
-#chartInfoTable {
-  align-content: flex-start;
+
+.chartinfo th {
+  margin-top: 10px;
+  height: 45px;
+  width: 250px;
+  text-align: left;
+
+  font-size: 24px;
+}
+.chartinfo tr {
+  margin-top: 10px;
+}
+
+.chartinfo th + th {
+  text-align: left;
 }

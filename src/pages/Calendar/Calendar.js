@@ -14,10 +14,10 @@ const Calendar = () => {
 
   var copyTodayWorkerList = [];
   var copySelectedWorkerList = [];
-  var today = new Date();
-  var year = today.getFullYear();
-  var month = ("0" + (today.getMonth() + 1)).slice(-2);
-  var day = ("0" + today.getDate()).slice(-2);
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
 
   var today = year + "-" + month + "-" + day;
 

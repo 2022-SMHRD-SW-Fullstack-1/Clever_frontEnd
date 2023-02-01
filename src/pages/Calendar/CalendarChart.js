@@ -138,30 +138,29 @@ const CalendarChart = ({
           </div>
 
           <div className="chartinfo">
-            <table id="chartInfoTable" align="left">
-              <tr>
-                <th>누적근무 일 : {item.total_work_day} 일</th>
-              </tr>
+            <tr>
+              <th>누적근무 일 </th>
+              <th>{item.total_work_day} 일</th>
+            </tr>
 
-              <tr>
-                <th>
-                  누적근무 시간 :{(item.total_work_time / 60).toFixed(0)}시간
-                </th>
-              </tr>
+            <tr>
+              <th>누적근무 시간 </th>
+              <th>{(item.total_work_time / 60).toFixed(0)}시간</th>
+            </tr>
 
-              <tr>
-                <th>누적지각 횟수 :{item.late_Count} 번</th>
-              </tr>
+            <tr>
+              <th>누적지각 수 </th> <th>{item.late_Count} 번</th>
+            </tr>
 
-              <tr>
-                <th>누적지각 시간 : {item.late_time} 분</th>
-              </tr>
+            <tr>
+              <th>누적지각 시간 </th> <th>{item.late_time} 분</th>
+            </tr>
 
-              <tr>
-                <th>누적근무변경 횟수 : {item.change_count} 번</th>
-              </tr>
-              <tr></tr>
-            </table>
+            <tr>
+              <th>누적근무변경 수 </th> <th>{item.change_count} 번</th>
+            </tr>
+
+            <tr></tr>
           </div>
         </div>
       );
@@ -178,7 +177,7 @@ const CalendarChart = ({
       <div className="modalBox">
         <h1>{group_name} 직원차트</h1>
         <button className="close" onClick={closeModal}>
-          X
+          창닫기
         </button>
         {workerList()}
       </div>
