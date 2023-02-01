@@ -32,6 +32,9 @@ const Group = ({ user }) => {
 
   return (
     <div className="container">
+      {modalOpen && (
+        <AddGroup setModalOpen={setModalOpen} modalOpen={modalOpen} />
+      )}
       <div className={styles.groupCountArea}>
         <span className={styles.groupCountTitle}>전체 그룹</span>
         <span className={styles.groupCount}>{groupCnt}</span>
@@ -44,16 +47,13 @@ const Group = ({ user }) => {
           <GroupNotEmpty groupList={groupList} user={user} />
         )}
         <div className="groupAddBtnContainer">
-          <button className={styles.addGroupBtn}>
-            <div className={styles.addBtnIn} onClick={showModal}>
+          <button className={styles.addGroupBtn} onClick={showModal}>
+            <div className={styles.addBtnIn}>
               <img src={add} alt="add Button" className={styles.addIcon} />
               <div className={styles.btnDecsriptionArea}>
                 <span className={styles.btnDecsription}>그룹 만들기</span>
               </div>
             </div>
-            {modalOpen && (
-              <AddGroup setModalOpen={setModalOpen} modalOpen={modalOpen} />
-            )}
           </button>
         </div>
       </div>
