@@ -142,12 +142,6 @@ const ToDoItem = ({ category, cateName, doneList }) => {
                   <div>{toDoRep}</div>
                   <div className="todo-complete">{toDoCom}</div>
                   <div className="todo-edit">
-                    {/* <MdEdit
-                      item={editSeq}
-                      onClick={(e) => {
-                        gotoToDoEdit(e);
-                      }}
-                    /> */}
                     <img
                       src={menu}
                       className="todo-editMenu"

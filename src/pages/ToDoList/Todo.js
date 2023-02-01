@@ -16,7 +16,7 @@ import add from "../../image/add.png";
 
 import "./ToDoItem/ToDoDetail.scss";
 import AddToDoCate from "./ToDoCategory/AddToDoCate";
-import ToDoItem from "../ToDoList/ToDoItem/ToDoItem";
+import ToDoItem from "./ToDoItem/ToDoItem";
 
 const GlobalStyle = createGlobalStyle`
   body.globalStyle {
