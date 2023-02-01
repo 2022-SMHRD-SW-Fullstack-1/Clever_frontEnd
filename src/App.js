@@ -49,6 +49,7 @@ function App() {
       return <Header />;
     }
   };
+  console.log("auth join", auth);
 
   return (
     <div>

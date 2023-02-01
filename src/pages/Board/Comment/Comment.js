@@ -45,7 +45,7 @@ const Comment = ({ detailItem }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [commList]);
 
   return (
     <div className={styles.commContainer}>
