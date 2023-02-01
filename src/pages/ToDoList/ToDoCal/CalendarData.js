@@ -2,141 +2,53 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineBorder, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import "./ToDoCalendar.scss";
 
-const now = new Date();
-const isFullSize = false;
-
 const CalendarData = () => {
-  //   const week = ["일", "월", "화", "수", "목", "금", "토"];
-
+  const now = new Date();
+  const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const nowDay = now.getDay();
   const nowDate = now.getDate();
-  const nowMonth = now.getMonth();
+  const nowMonth = now.getMonth() + 1;
   const nowYear = now.getFullYear();
 
-  const [today, setToday] = useState(nowDay);
-  const [month, setMonth] = useState(nowMonth);
-  const [year, setYear] = useState(nowYear);
+  const [week, setWeek] = useState([]);
 
-  const lastDateOfThisMonth = new Date(
-    now.getFullYear(),
-    now.getMonth() + 1,
-    0
-  ).getDate();
-
-  const lastDayOfThisMonth = new Date(
-    now.getFullYear(),
-    now.getMonth() + 1,
-    0
-  ).getDay();
-
-  const lastDateOfLastMonth = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    0
-  ).getDate();
-
-  const lastDayOfLastMonth = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    0
-  ).getDay();
-
-  // 페이지에 비춰질 날짜 배열 만들기 함수
-  const changeDate = (month) => {
-    // 이번 달 모든 날짜 배열
-    let daysOfThisMonth = [];
-    daysOfThisMonth = [...Array(lastDateOfThisMonth + 1).keys()].slice(1);
-
-    // 저번 달 날짜 배열
-    let daysOfLastMonth = [];
-    if (lastDateOfLastMonth !== 6) {
-      for (let i = 0; i < lastDayOfLastMonth + 1; i++) {
-        daysOfLastMonth.unshift(lastDateOfLastMonth - i);
-      }
+  const makeWeekArr = (date) => {
+    let day = date.getDay();
+    let week = [];
+    for (let i = 0; i < 7; i++) {
+      let newDate = new Date(date.valueOf() + 86400000 * (i - day));
+      week.push([i, newDate]);
     }
-
-    // 다음 달 날짜 배열
-    let daysOfNextMonth = [];
-    for (let i = 1; i < 7 - lastDayOfThisMonth; i++) {
-      if (i === 0) {
-        return daysOfNextMonth;
-      }
-      daysOfNextMonth.push(i);
-    }
-
-    const final = daysOfLastMonth.concat(daysOfThisMonth, daysOfNextMonth);
-    const result = [];
-    for (let i = 0; i < final.length; i += 7) {
-      result.push(final.slice(i, i + 7));
-    }
-    return result;
+    setWeek(week);
   };
 
-  const [totalDate, setTotalDate] = useState(changeDate(month));
+  const onPressArrowLeft = () => {
+    let newDate = new Date(date.valueOf() - 86400000 * 7);
+    let newWeek = makeWeekArr(newDate);
+    console.log("preweek", newWeek);
+    // this.setState({
+    //   date: newDate,
+    //   week: newWeek,
+    // });
+  };
+
+  const onPressArrowRight = () => {
+    let newDate = new Date(date.valueOf() + 86400000 * 7);
+    let newWeek = makeWeekArr(newDate);
+    console.log("newWeek", newWeek);
+    // this.setState({
+    //   date: newDate,
+    //   week: newWeek,
+    // });
+  };
 
   useEffect(() => {
-    setTotalDate(changeDate(month));
-    // console.log("month changed-> ", changeDate(month));
-  }, [month]);
-
-  let arrIndex;
-  let arrowIndex;
-
-  {
-    isFullSize
-      ? totalDate.map((value, index) => <div key={index}>{value}</div>)
-      : totalDate.forEach((arr) => {
-          if (arr.indexOf(nowDate) !== -1) {
-            arrIndex = totalDate.indexOf(arr);
-            // console.log(`arrIndex:${arrIndex}`);
-
-            arrowIndex = totalDate.indexOf(arr);
-            // console.log(`arrowIndex : ${arrowIndex}`);
-          }
-        });
-  }
+    makeWeekArr(date);
+  }, []);
 
   const [leftArrow, setLeftArrow] = useState(false);
   const [RightArrow, setRightArrow] = useState(false);
   const [eventIndex, setEventIndex] = useState();
-
-  // 지난 주로 이동
-  const clickLeft = (e) => {
-    arrIndex = arrIndex - 1;
-
-    // console.log("click", e);
-    setEventIndex(e);
-
-    arrowIndex = eventIndex - 1;
-    // setArrowIndex(eventIndex - 1);
-    // console.log("A", arrowIndex);
-
-    setLeftArrow(true);
-    return arrowIndex;
-  };
-
-  if (leftArrow === true) {
-    arrIndex = arrIndex - 1;
-    arrowIndex = eventIndex - 1;
-  }
-
-  // 다음 주로 이동
-  const clickRight = (e) => {
-    arrIndex = arrIndex + 1;
-
-    setEventIndex(e);
-    arrowIndex = eventIndex + 1;
-    // console.log("R", eventIndex);
-    // console.log("arrow", arrIndex);
-    setRightArrow(true);
-
-    return arrowIndex;
-  };
-
-  if (RightArrow === true) {
-    arrIndex = arrIndex + 1;
-    arrowIndex = eventIndex + 1;
-  }
 
   // 오늘 날짜 표시
   useEffect(() => {
@@ -145,7 +57,7 @@ const CalendarData = () => {
     // console.log(dateClassName);
 
     for (let i = 0; i <= 6; i++) {
-      if (totalDate[arrowIndex][i] === nowDate) {
+      if (week[i] === nowDate) {
         dateClassName[i].classList.add("calToday");
       }
     }
@@ -169,37 +81,19 @@ const CalendarData = () => {
       <tbody className="calendar-body">
         <tr className="todo-calendar">
           <td className="arrow">
-            <AiOutlineLeft
-              className="WeekArrow"
-              onClick={(e) => clickLeft(arrowIndex)}
-            />
+            <AiOutlineLeft className="WeekArrow" onClick={onPressArrowLeft} />
           </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][0]}</span>
-          </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][1]}</span>
-          </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][2]}</span>
-          </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][3]}</span>
-          </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][4]}</span>
-          </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][5]}</span>
-          </td>
-          <td className="showday">
-            <span className="calDate">{totalDate[arrowIndex][6]}</span>
-          </td>
+          {week &&
+            week.map((item, idx) => {
+              return (
+                <td className="showday" key={idx}>
+                  <div className="calDate">{item[idx].getDate}</div>
+                </td>
+              );
+            })}
+
           <td className="arrow">
-            <AiOutlineRight
-              className="WeekArrow"
-              onClick={(e) => clickRight(arrowIndex)}
-            />
+            <AiOutlineRight className="WeekArrow" onClick={onPressArrowRight} />
           </td>
         </tr>
       </tbody>
