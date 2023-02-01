@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import EditDelMenu from "../ToDoEdit/EditDelMenu";
 import "../ToDoItem/ToDoDetail.scss";
+import menu from "../../../image/menu.png";
+import ToDoItem from "./ToDoItem";
+import ToDoNotEmpty from "./ToDoNotEmpty";
 
 const ToDoMapItem = ({
   item,
   idx,
-  menu,
-  setShowUpdate,
+  // menu,
+  // setShowUpdate,
   doneList,
-  showUpdate,
+  todoList,
+  // showUpdate,
 }) => {
-  console.log("mapItemDoneList", doneList);
-  console.log("mapItem", item);
+  const [setMenu, setSetMenu] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  // console.log("mapItemDoneList", todoList);
+  // console.log("mapItem", item);
 
   const [doneSeq, SetDoneSeq] = useState();
 
@@ -19,14 +25,13 @@ const ToDoMapItem = ({
     SetDoneSeq(doneList.todo_seq);
   });
 
-  const [setMenu, setSetMenu] = useState(false);
-  const [detailItem, setDetailItem] = useState({});
+  // const [detailItem, setDetailItem] = useState({});
 
-  const [doneMem, setDoneMem] = useState();
-  const [doneDate, setDoneDate] = useState();
-  const [doneMemo, setDoneMemo] = useState();
+  // const [doneMem, setDoneMem] = useState();
+  // const [doneDate, setDoneDate] = useState();
+  // const [doneMemo, setDoneMemo] = useState();
 
-  const [todoList, setTodoList] = useState([]);
+  // const [todoList, setTodoList] = useState([]);
 
   const [detailId, setDetailId] = useState();
   const [detailLIst, setDetailList] = useState([]);
@@ -46,6 +51,9 @@ const ToDoMapItem = ({
 
     setEditSeq(item.todo_seq);
 
+    <ToDoItem item={item} />;
+    <ToDoNotEmpty item={item} />;
+
     // {
     //   doneList.map((item, idx) => {
     //     if (item.todo_seq === doneSeq) {
@@ -64,7 +72,8 @@ const ToDoMapItem = ({
   };
 
   return (
-    <div className="todo-item">
+    // <div className="todo-list">
+    <div>
       <div>
         <div
           className="todo-title"
@@ -84,18 +93,20 @@ const ToDoMapItem = ({
         >
           {item.todo_content}
         </div>
-      </div>
-      <div>
-        <div>{toDoRep}</div>
-        <div className="todo-complete">{toDoCom}</div>
-        <div className="todo-edit">
-          <img
-            src={menu}
-            className="todo-editMenu"
-            alt="setting button"
-            onClick={() => setShowUpdate(!setMenu)}
-          />
-          {/* {setShowUpdate && <EditDelMenu item={item} />} */}
+        {/* </div> */}
+        <div>
+          <div>{toDoRep}</div>
+          <div className="todo-complete">{toDoCom}</div>
+          <div className="todo-edit">
+            <img
+              src={menu}
+              className="todo-editMenu"
+              alt="setting button"
+              onClick={() => setShowUpdate(!setMenu)}
+            />
+            {/* {setShowUpdate && <EditDelMenu item={item} />} */}
+            {setMenu && <EditDelMenu item={item} />}
+          </div>
         </div>
       </div>
     </div>
