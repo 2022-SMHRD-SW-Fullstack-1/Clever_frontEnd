@@ -8,6 +8,7 @@ import "../ToDoItem/ToDoList.scss";
 import Pagination from "../Pagination";
 import { MdEdit } from "react-icons/md";
 import ToDoEdit from "../ToDoEdit/ToDoEdit";
+import EditDelMenu from "../ToDoEdit/EditDelMenu";
 
 const ToDoItem = ({ category, cateName, doneList }) => {
   console.log("category", category);
@@ -94,13 +95,14 @@ const ToDoItem = ({ category, cateName, doneList }) => {
   const [updateItem, setUpdateItem] = useState({});
 
   const handleUpdate = (item) => {
-    console.log("menu", item.item);
+    // console.log("menu", item.item);
     setUpdateItem(item.item);
     setShowUpdate(true);
   };
-  const handleDelete = (notice_seq) => {
+
+  const handleDelete = (todo_seq) => {
     axios
-      .post("/todolist/delete", { todo_sew: detailId })
+      .post("/todolist/delete", { todo_seq: detailId })
       .then((res) => {
         alert("삭제 완료");
       })
@@ -145,9 +147,10 @@ const ToDoItem = ({ category, cateName, doneList }) => {
                     <img
                       src={menu}
                       className="todo-editMenu"
-                      onClick={() => setSetMenu(!setMenu)}
+                      alt="setting button"
+                      onClick={() => setShowUpdate(!setMenu)}
                     />
-                    {setMenu && (
+                    {/* {showUpdate && (
                       <div className="todo-editSetMenu">
                         <ul className="todo-editSetContent">
                           <li onClick={() => handleUpdate({ item })}>수정</li>
@@ -156,7 +159,8 @@ const ToDoItem = ({ category, cateName, doneList }) => {
                           </li>
                         </ul>
                       </div>
-                    )}
+                    )} */}
+                    {setMenu && <EditDelMenu item={item} />}
                   </div>
                 </div>
               </div>
