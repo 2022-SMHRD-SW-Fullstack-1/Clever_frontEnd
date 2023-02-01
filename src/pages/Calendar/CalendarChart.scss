@@ -1,19 +1,21 @@
 .calendarchart1 {
   position: relative;
   float: left;
-  width: 210px;
-  height: 170px;
+  width: 220px;
+  height: 150px;
   margin-left: 50px;
 }
 .calendarchart2 {
   position: relative;
-  width: 210px;
-  height: 170px;
+  width: 220px;
+  height: 150px;
   margin-left: 50px;
   float: left;
 }
 
 .chartinfo {
+  left: 0px;
+  display: block;
   align-items: center;
   position: relative;
   width: 400px;
@@ -28,42 +30,44 @@
   width: 100px;
   display: flex;
   justify-content: space-between;
-  font-size: 32px;
+  font-size: 30px;
 }
 
 .calendarChardContent {
-  margin-top: 120px;
+  height: 270px;
+  padding: 20px;
   display: flex;
   align-items: flex-start;
+  border: 1px solid #c4c4c4;
+  border-radius: 30px;
+  margin-bottom: 5px;
 }
 
-.chartModelContainer {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  top: 50px;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-
-  // justify-content: center;
-  // align-items: center;
-  background-color: rgb(0, 0, 0, 0.6);
-}
+// .chartModelContainer {
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 100;
+//   top: 50px;
+//   left: 0;
+//   display: flex;
+//   flex-direction: column;
+//   overflow: auto;
+//   background-color: rgb(0, 0, 0, 0.6);
+// }
 .chartModelContainer .modalBox {
+  margin-top: 23px; //
   padding-left: 20px;
-  width: 85%;
+  width: 1300px; //85
   height: 800px;
   z-index: 999;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
-  border: 1px solid black;
-  overflow: scroll;
+  background-color: #fff; //#fff
+  // border: 1px solid black;
+  // overflow: scroll;
 }
 
 .chartModelContainer .close {
@@ -85,12 +89,12 @@
 }
 
 .chartinfo th {
-  margin-top: 10px;
-  height: 45px;
+  margin-top: 5px;
+  height: 32px;
   width: 250px;
   text-align: left;
 
-  font-size: 24px;
+  font-size: 18px;
 }
 .chartinfo tr {
   margin-top: 10px;
@@ -106,5 +110,5 @@
   background-color: transparent;
 }
 #title {
-  font-size: 64px;
+  font-size: 42px;
 }

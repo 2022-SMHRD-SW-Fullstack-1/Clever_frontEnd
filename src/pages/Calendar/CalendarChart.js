@@ -102,7 +102,7 @@ const CalendarChart = ({
             <th>{item.mem_name}</th>
           </div>
           <div className="calendarchart1">
-            <h1>지각</h1>
+            <h2>지각</h2>
             <PieChart
               data={[
                 {
@@ -128,7 +128,7 @@ const CalendarChart = ({
           </div>
 
           <div className="calendarchart2">
-            <h1>근무수정</h1>
+            <h2>근무수정</h2>
             <PieChart
               data={[
                 {
@@ -165,7 +165,7 @@ const CalendarChart = ({
             </tr>
 
             <tr>
-              <th>누적지각 수 </th> <th>{item.late_Count} 번</th>
+              <th>누적지각 </th> <th>{item.late_Count} 번</th>
             </tr>
 
             <tr>
@@ -173,7 +173,7 @@ const CalendarChart = ({
             </tr>
 
             <tr>
-              <th>누적근무변경 수 </th> <th>{item.change_count} 번</th>
+              <th>누적근무변경 </th> <th>{item.change_count} 번</th>
             </tr>
             <tr>
               <th>이번달 누적 </th>{" "}
@@ -182,11 +182,11 @@ const CalendarChart = ({
           </div>
           <div className="chartCalculatorContainer">
             {/* <h1>급여 예측</h1> */}
-            <h4>
-              ※{item.mem_name}님의 이번달 누적근무시간을 통해
+            <h3>
+              {item.mem_name}님의 급여예측
               <br />
-              급여를 예측 해 보세요.
-            </h4>
+              ※2023년 최저임금은 9,620원 입니다
+            </h3>
 
             <CalendarCalculator
               thisMonthWorkTime={(item.this_month_work_time / 60).toFixed(0)}
@@ -207,7 +207,7 @@ const CalendarChart = ({
       <div className="modalBox">
         <h1 id="title">{group_name} 직원차트</h1>
         <button className="close" onClick={closeModal}>
-          창닫기
+          차트닫기
         </button>
         {workerList()}
         <div id="space">공백 </div>

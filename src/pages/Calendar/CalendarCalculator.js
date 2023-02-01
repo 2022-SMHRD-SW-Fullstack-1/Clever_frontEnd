@@ -9,6 +9,7 @@ const CalendarCalculator = ({ thisMonthWorkTime }) => {
   return (
     <div className="chartCalculator">
       <input
+        id="inputWage"
         type="number"
         placeholder="시급"
         onChange={(e) => {
@@ -18,6 +19,7 @@ const CalendarCalculator = ({ thisMonthWorkTime }) => {
       />
       <p>x</p>
       <input
+        id="inputTime"
         onChange={(e) => {
           workHr.current = e.target.value;
           setTotalPayment(payment.current * e.target.value);
@@ -26,7 +28,7 @@ const CalendarCalculator = ({ thisMonthWorkTime }) => {
         defaultValue={Number(thisMonthWorkTime)}
       />
       <p>=</p>
-      <input type="number" defaultValue={totalPayment} width="250px" />
+      <input type="number" defaultValue={totalPayment} id="calculateResult" />
     </div>
   );
 };
