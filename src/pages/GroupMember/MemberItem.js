@@ -35,7 +35,6 @@ const MemberItem = ({ item, idx, seq }) => {
     <tr className={styles.tableBody}>
       <td>{seq + idx + 1}</td>
       <td>{item.mem_name}</td>
-      {/* <td>호칭</td> */}
       <td>{join_dt}</td>
       <td>{day}일</td>
       <td>{item.mem_id}</td>

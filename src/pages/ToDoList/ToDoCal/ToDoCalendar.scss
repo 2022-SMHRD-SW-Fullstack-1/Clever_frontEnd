@@ -8,6 +8,8 @@ body {
   margin-top: 50px;
   //   float: right;
   text-align: center;
+  display: inline;
+  align-items: center;
 }
 
 .todo-calendar {
@@ -26,7 +28,6 @@ body {
 }
 .calendar-head {
   width: 60px;
-  height: 60px;
   th {
     padding: 6px 0 0;
     font-weight: normal;
@@ -48,23 +49,14 @@ body {
   width: 60px;
   height: 60px;
 
-  .todo-calendar {
-    // width: 60px;
-    // height: 60px;
-    .arrow {
-      padding-left: 10px;
-      padding-right: 10px;
-      align-items: center;
-    }
-
-    .showday {
-      width: 60px;
-    }
+  .todo-calendar .arrow {
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
   }
 
   .calDate {
     width: 60px;
-    height: 60px;
     padding: 10px;
     font-size: 1.8rem;
     line-height: 3.7rem;
@@ -72,14 +64,15 @@ body {
   }
 
   .calToday {
-    width: 60px;
+    width: 30px;
+    height: 30px;
     padding: 10px;
     font-size: 1.8rem;
-    line-height: 3.7rem;
+    line-height: 30px;
     background-color: #3a4ca8;
     color: white;
-    // background-color: yellow;
     border-radius: 50%;
+    margin: 0 auto;
   }
 }
 

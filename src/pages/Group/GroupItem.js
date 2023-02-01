@@ -18,14 +18,16 @@ const GroupItem = ({ item, user }) => {
   };
 
   const delGroup = () => {
-    axios
-      .post("/deletegroup", groupInfo)
-      .then((res) => {
-        alert("삭제 완료");
-      })
-      .catch((err) => {
-        alert("멤버 존재");
-      });
+    if (window.confirm(`'${item.group_name}' 그룹을 삭제하시겠습니까?`)) {
+      axios
+        .post("/group/delete", groupInfo)
+        .then((res) => {
+          alert("그룹이 삭제되었습니다.");
+        })
+        .catch((err) => {
+          alert("삭제 실패");
+        });
+    }
   };
 
   const handleEnterGroup = () => {
