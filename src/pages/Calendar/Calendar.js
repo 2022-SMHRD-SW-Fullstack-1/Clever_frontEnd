@@ -14,11 +14,12 @@ const Calendar = () => {
 
   var copyTodayWorkerList = [];
   var copySelectedWorkerList = [];
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-  var today = String(year + "-" + month + 1 + "-" + day);
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = ("0" + (today.getMonth() + 1)).slice(-2);
+  var day = ("0" + today.getDate()).slice(-2);
+
+  var today = year + "-" + month + "-" + day;
 
   const [mem_name, setmem_name] = useState("");
   const apiKey = "AIzaSyAHG8iIVB4i-q5o7KRjdvKcwVc67JzZEWc";
@@ -445,6 +446,9 @@ const Calendar = () => {
   };
 
   const showModificaion = () => {
+    console.log("오늘", today);
+    console.log("선택", selectedDate);
+    console.log("결과", selectedDate < today);
     if (selectedDate < today) return planSchedule();
     else {
       return planModification();
