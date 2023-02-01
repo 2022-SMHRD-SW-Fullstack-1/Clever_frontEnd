@@ -12,14 +12,13 @@ import Board from "./pages/Board/Board";
 
 import Join from "./pages/User/Join";
 import Login from "./pages/User/Login";
-import ToDoCreate from "./pages/ToDoList/ToDoCreate";
+import ToDoCreate from "./pages/ToDoList/ToDoCreate/ToDoCreate";
 import AddGroup from "./pages/Group/AddGroup";
-import CalendarInput from "./pages/Calendar/CalendarInput";
 
-import ToDoEdit from "./pages/ToDoList/ToDoEdit";
+import ToDoEdit from "./pages/ToDoList/ToDoEdit/ToDoEdit";
 import WriteBoard from "./pages/Board/WriteBoard";
-// import ToDoDetail from "./pages/ToDoList/ToDoDetail";
-import GroupMember from "./pages/GroupMember/GroupMember";
+
+import CalendarInput from "./pages/Calendar/CalendarInput";
 
 function App() {
   const [user, setUser] = useState({
@@ -63,15 +62,11 @@ function App() {
         <Route path="/calendarInput" element={<CalendarInput />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/join" element={<Join />}></Route>
-        <Route path="/calendarInput" element={<CalendarInput />}></Route>
         <Route
           path="/"
-          element={
-            auth ? <Group /> : <Login getAuth={getAuth} setUser={setUser} />
-          }
+          element={<Login getAuth={getAuth} setUser={setUser} />}
         ></Route>
         <Route path="/writeboard" element={<WriteBoard />}></Route>
-        <Route path="/member" element={<GroupMember />}></Route>
       </Routes>
     </div>
   );

@@ -12,15 +12,14 @@
   background-color: rgb(0, 0, 0, 0.6);
 
   .modalBlock {
-    width: 50rem;
-    height: 53rem;
+    width: 480px;
+    height: 320px;
     background-color: white;
     position: relative;
     box-sizing: border-box;
     margin: 50px auto;
     padding: 20px;
     background: #fff;
-    overflow: auto;
     .close {
       float: right;
       font-size: 25px;
@@ -38,38 +37,33 @@
       margin: 0 auto;
 
       .description {
-        text-align: left;
+        text-align: center;
         font-size: 30px;
         font-weight: bold;
-        padding-left: 12px;
       }
 
-      .titleInput {
+      .cateNameInput {
+        margin: 40px auto;
+        margin-bottom: 0;
+        border-radius: 2px;
+        width: 70%;
+        height: 60px;
+        border: 1px solid #e5e5e5;
+        padding: 9px 12px;
+        outline: none;
+        box-sizing: border-box;
         font-size: 20px;
-        margin-top: 30px;
-        padding: 0px 12px;
-        height: 50px;
-        border: none;
-        outline: none;
-        border-bottom: solid 1px darkgray;
+        text-align: center;
       }
-      .contentInput {
-        font-size: 17px;
-        margin-top: 20px;
-        padding: 0px 12px;
-        height: 450px;
-        border: none;
-        outline: none;
-        overflow: auto;
-      }
-      .fileInput {
-        border-bottom: solid 1px darkgray;
-        font-size: 18px;
+      .addDescription {
+        font-size: 15px;
+        width: 70%;
+        margin: 0 auto;
       }
     }
   }
 }
-.addBtn {
+.addCateBtn {
   width: 90px;
   height: 40px;
   border: 0;

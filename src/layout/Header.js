@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../image/logo2.png";
 import styles from "./Header.module.scss";
@@ -7,34 +7,16 @@ import my from "../image/my.png";
 
 const Header = () => {
   const navigate = useNavigate();
-  const userName = sessionStorage.getItem("mem_name");
-  const handleLogout = () => {
-    sessionStorage.clear();
-    navigate("/");
-    window.location.reload();
-  };
-  console.log(sessionStorage.getItem("group_seq"));
 
   return (
     <div className={styles.header}>
       <div className={styles.contents}>
         <div className={styles.logoContainer}>
-          <Link
-            to="/group"
-            onClick={() => {
-              sessionStorage.removeItem("group_seq");
-            }}
-          >
+          <Link to="/group">
             <img src={logo} alt="logo image" className={styles.logo} />
           </Link>
         </div>
-        <div
-          className={
-            sessionStorage.getItem("group_seq") !== null
-              ? styles.navigation
-              : styles.naviHidden
-          }
-        >
+        <div className={styles.navigation}>
           <div className={styles.content}>
             <Link to="/todolist">할 일</Link>
           </div>
@@ -44,9 +26,7 @@ const Header = () => {
           <div className={styles.content}>
             <Link to="/board">전달사항</Link>
           </div>
-          <div className={styles.content}>
-            <Link to="/member">멤버관리</Link>
-          </div>
+          <div className={styles.content}>멤버</div>
         </div>
         <div className={styles.otherContainer}>
           <div>
@@ -57,10 +37,8 @@ const Header = () => {
               <img src={my} alt="my page" className={styles.icon} />
             </button>
             <div className={styles.dropdownMenu}>
-              <p className={styles.welcome}>{userName}님 환영합니다</p>
-              <p className={styles.logout} onMouseDown={handleLogout}>
-                로그아웃
-              </p>
+              <p className={styles.p}>마이프로필</p>
+              <p className={styles.p}>로그아웃</p>
             </div>
           </div>
         </div>

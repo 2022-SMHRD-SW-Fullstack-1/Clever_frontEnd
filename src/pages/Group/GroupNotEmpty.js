@@ -5,8 +5,15 @@ const GroupNotEmpty = ({ groupList, user }) => {
   return (
     <>
       {groupList &&
-        groupList.map((item, idx) => {
-          return <GroupItem key={idx} user={user} item={item} />;
+        groupList.map(({ group_seq, group_name }) => {
+          return (
+            <GroupItem
+              key={group_seq}
+              group_seq={group_seq}
+              group_name={group_name}
+              user={user}
+            />
+          );
         })}
     </>
   );
