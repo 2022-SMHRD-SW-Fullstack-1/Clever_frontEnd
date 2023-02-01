@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+
 import AddBoardCate from "./Category/AddBoardCate";
 import styles from "./Board.module.scss";
 import add from "../../image/add.png";
@@ -7,11 +7,13 @@ import axios from "axios";
 import WriteBoard from "./WriteBoard";
 import BoardList from "./BoardList/BoardList";
 
-const Board = ({ user }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+const Board = () => {
   const [showWriteModal, setShowWriteModal] = useState(false);
-  const [groupInfo, setGroupInfo] = useState(location.state);
+  const [groupInfo, setGroupInfo] = useState({
+    group_seq: sessionStorage.getItem("group_seq"),
+    mem_id: sessionStorage.getItem("mem_id"),
+    mem_name: sessionStorage.getItem("mem_name"),
+  });
 
   const [category, setCategory] = useState("");
   const [cateName, setCateName] = useState("");
@@ -29,9 +31,7 @@ const Board = ({ user }) => {
   // const handleWrite = () => {
   //   navigate("/writeboard", { state: writerInfo });
   // };
-  const handleWrite = () => {
-    setShowWriteModal(true);
-  };
+
   const openAddCategory = () => {
     setShowAddCategory(true);
   };
@@ -60,7 +60,7 @@ const Board = ({ user }) => {
       <div className={styles.categoryContainer}>
         <div className={styles.categoryItem}>
           {cateEmpty ? (
-            <div>카테고리를 생성해주세요</div>
+            <div className={styles.emptyList}>카테고리를 생성해주세요</div>
           ) : (
             cateList &&
             cateList.map((item, idx) => {
@@ -95,17 +95,13 @@ const Board = ({ user }) => {
       </div>
 
       <div className={styles.boardContainer}>
-        <BoardList writerInfo={infoRef} cateName={cateName} />
-      </div>
-      <button className={styles.writeBtn} onClick={handleWrite}>
-        글 작성
-      </button>
-      {showWriteModal && (
-        <WriteBoard
-          setShowWriteModal={setShowWriteModal}
+        <BoardList
           writerInfo={infoRef}
+          cateName={cateName}
+          setShowWriteModal={setShowWriteModal}
+          showWriteModal={showWriteModal}
         />
-      )}
+      </div>
     </div>
   );
 };
