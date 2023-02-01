@@ -32,7 +32,6 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
       ...inputValue,
       [name]: value,
     });
-    console.log(inputValue);
   };
   const handleAddGroup = () => {
     axios
@@ -55,9 +54,6 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
       });
   };
 
-  useEffect(() => {
-    console.log(infoRef);
-  }, [inputValue]);
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalBlock}>
@@ -70,7 +66,7 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
           <span>그룹 만들기</span>
         </div>
         <div>
-          <form className={styles.addGroupInput}>
+          <div className={styles.addGroupInput}>
             <div className={styles.inputName}>
               <input
                 type="text"
@@ -79,7 +75,7 @@ const AddGroup = ({ setModalOpen, modalOpen }) => {
                 onChange={handleInput}
               ></input>
             </div>
-          </form>
+          </div>
         </div>
         <div>
           <button className={styles.addGroupBtn} onClick={handleAddGroup}>
