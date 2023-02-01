@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import add from "../../../image/add.png";
+import menu from "../../../image/menu.png";
 import "../ToDoItem/ToDoDetail.scss";
 import "../ToDoItem/ToDoList.scss";
 import Pagination from "../Pagination";
@@ -87,6 +88,27 @@ const ToDoItem = ({ category, cateName, doneList }) => {
     }
   };
 
+  // 할 일 수정 삭제
+  const [setMenu, setSetMenu] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [updateItem, setUpdateItem] = useState({});
+
+  const handleUpdate = (item) => {
+    console.log("menu", item.item);
+    setUpdateItem(item.item);
+    setShowUpdate(true);
+  };
+  const handleDelete = (notice_seq) => {
+    axios
+      .post("/todolist/delete", { todo_sew: detailId })
+      .then((res) => {
+        alert("삭제 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <div>
@@ -120,12 +142,21 @@ const ToDoItem = ({ category, cateName, doneList }) => {
                   <div>{toDoRep}</div>
                   <div className="todo-complete">{toDoCom}</div>
                   <div className="todo-edit">
-                    <MdEdit
-                      item={editSeq}
-                      onClick={(e) => {
-                        gotoToDoEdit(e);
-                      }}
+                    <img
+                      src={menu}
+                      className="todo-editMenu"
+                      onClick={() => setSetMenu(!setMenu)}
                     />
+                    {setMenu && (
+                      <div className="todo-editSetMenu">
+                        <ul className="todo-editSetContent">
+                          <li onClick={() => handleUpdate({ item })}>수정</li>
+                          <li onClick={() => handleDelete(item.notice_seq)}>
+                            삭제
+                          </li>
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
