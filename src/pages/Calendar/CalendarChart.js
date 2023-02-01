@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import "./CalendarChart.scss";
 import { v4 as uuidv4 } from "uuid";
+import CalendarCalculator from "./CalendarCalculator";
 const CalendarChart = ({
   getWorkerList,
   getSchedule,
@@ -9,6 +10,8 @@ const CalendarChart = ({
   setChartOpen,
   changeSchedul,
 }) => {
+  // const payment = useRef(0);
+  // const workHr = 0;
   var year = today.substring(0, 4);
   var month = today.substring(5, 7);
   var date = today.substring(8, 10);
@@ -38,7 +41,19 @@ const CalendarChart = ({
         var attMonth = getSchedule[j].att_date.substring(5, 7);
         var attDay = getSchedule[j].att_date.substring(8, 10);
         var attDate = Number(attYear + attMonth + attDay);
-
+        var thisMonthWorkTime = 0;
+        //이번달 누적 근무 시간
+        //이번달 누적 근무 시간
+        getSchedule[j].att_date.substring(0, 7) === today.substring(0, 7)
+          ? getSchedule[j].total_work_time < 0
+            ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
+            : (thisMonthWorkTime += getSchedule[j].total_work_time)
+          : console.log();
+        console.log("이번달", thisMonthWorkTime);
+        console.log(
+          "서브스트링",
+          today.substring(0, 7) === getSchedule[j].att_date.substring(0, 7)
+        );
         //누적근무일수
         numToday > attDate ? totalWorkDay++ : console.log();
 
@@ -71,6 +86,7 @@ const CalendarChart = ({
       late_percent: latePercent,
       change_schedule: changeSchedulCountPercent,
       change_count: changeSchedulCount,
+      this_month_work_time: thisMonthWorkTime,
     });
   }
 
@@ -159,8 +175,22 @@ const CalendarChart = ({
             <tr>
               <th>누적근무변경 수 </th> <th>{item.change_count} 번</th>
             </tr>
+            <tr>
+              <th>이번달 누적 </th>{" "}
+              <th>{(item.this_month_work_time / 60).toFixed(0)} 시간</th>
+            </tr>
+          </div>
+          <div className="chartCalculatorContainer">
+            {/* <h1>급여 예측</h1> */}
+            <h4>
+              ※{item.mem_name}님의 이번달 누적근무시간을 통해
+              <br />
+              급여를 예측 해 보세요.
+            </h4>
 
-            <tr></tr>
+            <CalendarCalculator
+              thisMonthWorkTime={(item.this_month_work_time / 60).toFixed(0)}
+            />
           </div>
         </div>
       );
@@ -175,11 +205,12 @@ const CalendarChart = ({
   return (
     <div className="chartModelContainer">
       <div className="modalBox">
-        <h1>{group_name} 직원차트</h1>
+        <h1 id="title">{group_name} 직원차트</h1>
         <button className="close" onClick={closeModal}>
           창닫기
         </button>
         {workerList()}
+        <div id="space">공백 </div>
       </div>
     </div>
   );

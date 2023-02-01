@@ -1,0 +1,41 @@
+.chartCalculatorContainer {
+  width: 20%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+}
+.chartCalculator {
+  height: 80px;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  padding-top: 60px;
+  font-size: 30px;
+}
+.chartCalculator > input {
+  width: 80px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 3px;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
