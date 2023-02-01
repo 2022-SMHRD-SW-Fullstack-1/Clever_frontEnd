@@ -9,8 +9,15 @@ import Pagination from "../Pagination";
 import { MdEdit } from "react-icons/md";
 import ToDoEdit from "../ToDoEdit/ToDoEdit";
 import EditDelMenu from "../ToDoEdit/EditDelMenu";
+import ToDoNotEmpty from "./ToDoNotEmpty";
 
-const ToDoItem = ({ category, cateName, doneList }) => {
+const ToDoItem = ({
+  category,
+  cateName,
+  doneList,
+  setShowWriteModal,
+  showWriteModal,
+}) => {
   console.log("category", category);
   // console.log("doneList", doneList);
 
@@ -29,8 +36,17 @@ const ToDoItem = ({ category, cateName, doneList }) => {
   };
 
   const gotoToDoEdit = () => {
-    navigate("/todolistedit");
-    <ToDoEdit detailId={detailId} />;
+    // navigate("/todolistedit");
+    setShowWriteModal(true);
+    {
+      showWriteModal && (
+        <ToDoEdit
+          detailId={detailId}
+          // setShowWriteModal={setShowWriteModal}
+          // showWriteModal={showWriteModal}
+        />
+      );
+    }
   };
 
   // 할 일 리스트 불러오기
@@ -63,31 +79,29 @@ const ToDoItem = ({ category, cateName, doneList }) => {
 
   const [toDoCom, setToDoCom] = useState("");
 
-  const onDetail = (item, e) => {
-    console.log("detail", item);
-    setDetailList(item);
-    setDetailId(item.todo_seq);
+  // const onDetail = (item, e) => {
+  //   console.log("detailedItem", item);
+  //   setDetailList(item);
+  //   setDetailId(item.todo_seq);
 
-    setEditSeq(item.todo_seq);
+  //   setEditSeq(item.todo_seq);
 
-    console.log("target", e.currentTarget);
-
-    {
-      doneList.map((item, idx) => {
-        if (item.todo_seq === detailId) {
-          setDoneMem(item.mem_name);
-          setDoneDate(item.cmpl_time);
-          setDoneMemo(item.cmpl_memo);
-          setToDoCom("완료");
-        } else {
-          setDoneMem("미");
-          setDoneDate("");
-          setDoneMemo("");
-          setToDoCom("미완료");
-        }
-      });
-    }
-  };
+  //   {
+  //     doneList.map((item, idx) => {
+  //       if (item.todo_seq === detailId) {
+  //         setDoneMem(item.mem_name);
+  //         setDoneDate(item.cmpl_time);
+  //         setDoneMemo(item.cmpl_memo);
+  //         // setToDoCom(item.filter((item) => item.todo_seq === detailId));
+  //       } else {
+  //         setDoneMem("미");
+  //         setDoneDate("");
+  //         setDoneMemo("");
+  //         // setToDoCom("미완료");
+  //       }
+  //     });
+  //   }
+  // };
 
   // 할 일 수정 삭제
   const [setMenu, setSetMenu] = useState(false);
@@ -115,56 +129,20 @@ const ToDoItem = ({ category, cateName, doneList }) => {
     <div>
       <div>
         <div className="todo-list">
-          {todoList
-            // .filter((item, idx) => idx <= 6)
-            .slice(offset, offset + limit)
-            .map((item, idx) => (
-              <div className="todo-item">
-                <div>
-                  <div
-                    className="todo-title"
-                    key={idx}
-                    onClick={(e) => {
-                      onDetail(item, e);
-                    }}
-                  >
-                    {item.todo_title}
-                  </div>
-                  <div
-                    className="todo-content"
-                    key={idx}
-                    onClick={(e) => {
-                      onDetail(item, e);
-                    }}
-                  >
-                    {item.todo_content}
-                  </div>
-                </div>
-                <div>
-                  <div>{toDoRep}</div>
-                  <div className="todo-complete">{toDoCom}</div>
-                  <div className="todo-edit">
-                    <img
-                      src={menu}
-                      className="todo-editMenu"
-                      alt="setting button"
-                      onClick={() => setShowUpdate(!setMenu)}
-                    />
-                    {/* {showUpdate && (
-                      <div className="todo-editSetMenu">
-                        <ul className="todo-editSetContent">
-                          <li onClick={() => handleUpdate({ item })}>수정</li>
-                          <li onClick={() => handleDelete(item.notice_seq)}>
-                            삭제
-                          </li>
-                        </ul>
-                      </div>
-                    )} */}
-                    {setMenu && <EditDelMenu item={item} />}
-                  </div>
-                </div>
-              </div>
-            ))}
+          <ToDoNotEmpty
+            todoList={todoList}
+            doneList={doneList}
+            offset={offset}
+            limit={limit}
+            toDoCom={toDoCom}
+            menu={menu}
+            setShowUpdate={setShowUpdate}
+            setMenu={setMenu}
+            showUpdate={showUpdate}
+            key={todoList.todo_seq}
+            // onDetail={onDetail}
+          />
+
           <Pagination
             total={total}
             limit={limit}
@@ -181,14 +159,14 @@ const ToDoItem = ({ category, cateName, doneList }) => {
         </div>
       </div>
 
-      <div className="todoDetail">
+      {/* <div className="todoDetail">
         <div>
           <div className="todoCom-mem">{doneMem} 완료</div>
           <div className="todoCom-img">{detailId}</div>
           <div className="todoCom-time">완료 : {doneDate}</div>
           <div className="todoCom-memo">메모 {doneMemo}</div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

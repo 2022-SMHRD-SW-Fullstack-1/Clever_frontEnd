@@ -6,18 +6,18 @@ const EditDelMenu = ({ item }) => {
   const [showUpdate, setShowUpdate] = useState(false);
   const [updateItem, setUpdateItem] = useState({});
 
+  const [detailSeq, setDetailSeq] = useState();
+
   const handleUpdate = (item) => {
-    console.log("edmenu", item);
     setUpdateItem(item.item);
     setShowUpdate(true);
+
+    setDetailSeq(item.item.todo_seq);
   };
 
-  const handleDelete = (todo_seq) => {
+  const handleDelete = (detailSeq) => {
     axios
-      .post(
-        "/todolist/delete"
-        //   { todo_seq: detailId }
-      )
+      .post("/todolist/delete", { todo_seq: detailSeq })
       .then((res) => {
         alert("삭제 완료");
       })

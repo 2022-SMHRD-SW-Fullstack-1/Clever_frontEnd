@@ -88,10 +88,10 @@ const CalendarData = () => {
       : totalDate.forEach((arr) => {
           if (arr.indexOf(nowDate) !== -1) {
             arrIndex = totalDate.indexOf(arr);
-            console.log(`arrIndex:${arrIndex}`);
+            // console.log(`arrIndex:${arrIndex}`);
 
             arrowIndex = totalDate.indexOf(arr);
-            console.log(`arrowIndex : ${arrowIndex}`);
+            // console.log(`arrowIndex : ${arrowIndex}`);
           }
         });
   }
@@ -109,7 +109,7 @@ const CalendarData = () => {
 
     arrowIndex = eventIndex - 1;
     // setArrowIndex(eventIndex - 1);
-    console.log("A", arrowIndex);
+    // console.log("A", arrowIndex);
 
     setLeftArrow(true);
     return arrowIndex;

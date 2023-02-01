@@ -37,7 +37,12 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-const ToDoList = ({ cateName, category }) => {
+const ToDoList = ({
+  cateName,
+  category,
+  setShowWriteModal,
+  showWriteModal,
+}) => {
   const user = sessionStorage.getItem("mem_id");
   console.log("user", user);
   // const todos = useTodoState();
@@ -62,13 +67,13 @@ const ToDoList = ({ cateName, category }) => {
 
   useEffect(() => {
     axios.post("/todolist/todocom", { cate_seq: category }).then((res) => {
-      console.log("완료할일", res);
+      // console.log("완료할일", res);
       setDoneList(res.data);
       setDoneCount(res.data.length);
     });
   }, [category]);
 
-  console.log("count", doneCount);
+  // console.log("count", doneCount);
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
@@ -80,7 +85,6 @@ const ToDoList = ({ cateName, category }) => {
           <div className="day">{dayName}</div>
           {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
         </TodoHeadBlock>
-
         <ToDoItem cateName={cateName} category={category} doneList={doneList} />
       </div>
     </div>

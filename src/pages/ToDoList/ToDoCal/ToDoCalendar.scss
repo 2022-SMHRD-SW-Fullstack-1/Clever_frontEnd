@@ -3,7 +3,6 @@ body {
 }
 
 .calendar-table {
-
   width: 420px;
   margin: 0 auto;
   margin-top: 50px;
@@ -27,6 +26,7 @@ body {
 }
 .calendar-head {
   width: 60px;
+  height: 60px;
   th {
     padding: 6px 0 0;
     font-weight: normal;
@@ -46,15 +46,25 @@ body {
 .calendar-body {
   // position: relative;
   width: 60px;
+  height: 60px;
 
-  .todo-calendar .arrow {
-    padding-left: 10px;
-    padding-right: 10px;
-    align-items: center;
+  .todo-calendar {
+    // width: 60px;
+    // height: 60px;
+    .arrow {
+      padding-left: 10px;
+      padding-right: 10px;
+      align-items: center;
+    }
+
+    .showday {
+      width: 60px;
+    }
   }
 
   .calDate {
     width: 60px;
+    height: 60px;
     padding: 10px;
     font-size: 1.8rem;
     line-height: 3.7rem;
