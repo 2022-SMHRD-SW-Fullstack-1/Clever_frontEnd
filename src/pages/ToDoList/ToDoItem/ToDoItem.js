@@ -79,30 +79,29 @@ const ToDoItem = ({
 
   const [toDoCom, setToDoCom] = useState("");
 
-  // const onDetail = (item, e) => {
-  //   console.log("detailedItem", item);
-  //   setDetailList(item);
-  //   setDetailId(item.todo_seq);
+  const onDetail = (item, e) => {
+    console.log("detailedItem", item);
+    setDetailList(item);
+    setDetailId(item.todo_seq);
 
-  //   setEditSeq(item.todo_seq);
+    setEditSeq(item.todo_seq);
 
-  //   {
-  //     doneList.map((item, idx) => {
-  //       if (item.todo_seq === detailId) {
-  //         setDoneMem(item.mem_name);
-  //         setDoneDate(item.cmpl_time);
-  //         setDoneMemo(item.cmpl_memo);
-  //         // setToDoCom(item.filter((item) => item.todo_seq === detailId));
-  //       } else {
-  //         setDoneMem("미");
-  //         setDoneDate("");
-  //         setDoneMemo("");
-  //         // setToDoCom("미완료");
-  //       }
-  //     });
-  //   }
-  // };
-
+    {
+      doneList.map((item, idx) => {
+        if (item.todo_seq === detailId) {
+          setDoneMem(item.mem_name);
+          setDoneDate(item.cmpl_time);
+          setDoneMemo(item.cmpl_memo);
+          // setToDoCom(item.filter((item) => item.todo_seq === detailId));
+        } else {
+          setDoneMem("미");
+          setDoneDate("");
+          setDoneMemo("");
+          // setToDoCom("미완료");
+        }
+      });
+    }
+  };
   // 할 일 수정 삭제
   const [setMenu, setSetMenu] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
@@ -127,7 +126,7 @@ const ToDoItem = ({
 
   return (
     <div>
-      <div>
+      {/* <div>
         <div className="todo-list">
           <ToDoNotEmpty
             todoList={todoList}
@@ -157,7 +156,7 @@ const ToDoItem = ({
             onClick={gotoToDoCreate}
           ></img>
         </div>
-      </div>
+      </div> */}
 
       {/* <div className="todoDetail">
         <div>
@@ -167,6 +166,52 @@ const ToDoItem = ({
           <div className="todoCom-memo">메모 {doneMemo}</div>
         </div>
       </div> */}
+      <div>
+        <div className="todo-list">
+          {todoList.slice(offset, offset + limit).map((item, idx) => (
+            <div className="todo-item">
+              <div>
+                <div
+                  className="todo-title"
+                  key={idx}
+                  onClick={(e) => {
+                    onDetail(item, e);
+                  }}
+                >
+                  {item.todo_title}
+                </div>
+                <div
+                  className="todo-content"
+                  key={idx}
+                  onClick={(e) => {
+                    onDetail(item, e);
+                  }}
+                >
+                  {item.todo_content}
+                </div>
+              </div>
+              <div>{toDoRep}</div>
+              <div className="todo-complete">{toDoCom}</div>
+              <div className="todo-edit">
+                <MdEdit
+                  onClick={(e) => {
+                    gotoToDoEdit(e);
+                  }}
+                />{" "}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="todoDetail">
+        <div>
+          <div className="todoCom-mem">{doneMem} 완료</div>
+          <div className="todoCom-img">{detailId}</div>
+          <div className="todoCom-time">완료 : {doneDate}</div>
+          <div className="todoCom-memo">메모 {doneMemo}</div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -69,8 +69,8 @@ const ToDoMapItem = ({
         <div
           className="todo-title"
           key={idx}
-          onClick={(e) => {
-            onDetail(item, e);
+          onClick={(e, idx) => {
+            onDetail(item, e, idx);
           }}
         >
           {item.todo_title}
