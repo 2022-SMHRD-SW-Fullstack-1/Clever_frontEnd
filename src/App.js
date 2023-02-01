@@ -49,7 +49,6 @@ function App() {
       return <Header />;
     }
   };
-
   return (
     <div>
       {loginUser()}

@@ -38,7 +38,7 @@ const Board = () => {
 
   useEffect(() => {
     axios
-      .post("/board/getcategory", groupInfo)
+      .post("/board/category/list", groupInfo)
       .then((res) => {
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
