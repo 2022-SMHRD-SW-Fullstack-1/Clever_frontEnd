@@ -44,8 +44,6 @@ const GroupMember = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    axios.post("/");
   }, [memList]);
 
   return (
@@ -87,7 +85,6 @@ const GroupMember = () => {
           <tr className={styles.tableHead}>
             <th>번호</th>
             <th>이름</th>
-            {/* <th>호칭</th> */}
             <th>합류 날짜</th>
             <th>합류 기간</th>
             <th>연락처</th>
