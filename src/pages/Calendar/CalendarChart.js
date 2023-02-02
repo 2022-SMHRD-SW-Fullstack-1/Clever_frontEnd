@@ -34,14 +34,14 @@ const CalendarChart = ({
     var lateTime = 0;
     var lateCount = 0;
     var changeSchedulCount = 0;
-
+    var thisMonthWorkTime = 0;
     for (var j = 0; j < getSchedule.length; j++) {
       if (workerName[i] === getSchedule[j].mem_name) {
         var attYear = getSchedule[j].att_date.substring(0, 4);
         var attMonth = getSchedule[j].att_date.substring(5, 7);
         var attDay = getSchedule[j].att_date.substring(8, 10);
         var attDate = Number(attYear + attMonth + attDay);
-        var thisMonthWorkTime = 0;
+
         //이번달 누적 근무 시간
         //이번달 누적 근무 시간
         getSchedule[j].att_date.substring(0, 7) === today.substring(0, 7)

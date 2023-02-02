@@ -88,8 +88,6 @@ const Calendar = () => {
     ApiService.getWorkerList(e).then((res) => {
       workerInfo.current = res.data;
       workerInfo.current.unshift({ mem_name: "전체" });
-
-      console.log(workerInfo.current);
     });
   };
 
@@ -173,6 +171,9 @@ const Calendar = () => {
               att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
               mem_id: copyScheduleInfo[0][i].mem_id,
               group_seq: groupSeq,
+              att_real_start_time: copyScheduleInfo[0][i].att_real_start_time,
+              att_real_end_time: copyScheduleInfo[0][i].att_real_end_time,
+              att_seq: copyScheduleInfo[0][i].att_seq,
             })
           : console.log();
       }
@@ -186,6 +187,9 @@ const Calendar = () => {
               att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
               mem_id: copyScheduleInfo[0][i].mem_id,
               group_seq: groupSeq,
+              att_real_start_time: copyScheduleInfo[0][i].att_real_start_time,
+              att_real_end_time: copyScheduleInfo[0][i].att_real_end_time,
+              att_seq: copyScheduleInfo[0][i].att_seq,
             })
           : console.log();
       }
@@ -280,6 +284,10 @@ const Calendar = () => {
                     att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
                     mem_id: copyScheduleInfo[0][i].mem_id,
                     group_seq: groupSeq,
+                    att_real_start_time:
+                      copyScheduleInfo[0][i].att_real_start_time,
+                    att_real_end_time: copyScheduleInfo[0][i].att_real_end_time,
+                    att_seq: copyScheduleInfo[0][i].att_seq,
                   })
                 : console.log();
             }
@@ -294,6 +302,10 @@ const Calendar = () => {
                     att_sche_end_time: copyScheduleInfo[0][i].att_sche_end_time,
                     mem_id: copyScheduleInfo[0][i].mem_id,
                     group_seq: groupSeq,
+                    att_real_start_time:
+                      copyScheduleInfo[0][i].att_real_start_time,
+                    att_real_end_time: copyScheduleInfo[0][i].att_real_end_time,
+                    att_seq: copyScheduleInfo[0][i].att_seq,
                   })
                 : console.log();
             }

@@ -38,7 +38,7 @@ const CalendarDetail = ({
   copyModificationAllInfo = [...modificationAllInfo];
   copySelectedWorkerList = [...selectedList];
   renderObject.current = [...selectedList];
-
+  const copyArrAddList = useRef([]);
   console.log("카피셀렉티드", copySelectedWorkerList);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const CalendarDetail = ({
         console.log("업데이트성공");
         getSchedule(groupSeq);
         planModification();
-        render();
+        setRendering(0);
       })
       .catch((err) => {
         alert(err);
@@ -66,13 +66,13 @@ const CalendarDetail = ({
   };
 
   const submitModification = () => {
-    var updateInfo = selectedList.concat(arrAddList);
+    var updateInfo = selectedList.concat(copyArrAddList.current);
 
     for (var i = 0; i < updateInfo.length; i++) {
       updateInfo[i]["att_date"] = selectedDate;
     }
 
-    arrAddList = [];
+    copyArrAddList.current = [];
 
     if (updateInfo.length > 0) {
       updateSchedul(updateInfo);
@@ -293,7 +293,8 @@ const CalendarDetail = ({
     }
   };
   const addModification = () => {
-    let result = arrAddList.map((item, index) => {
+    console.log("에드", renderObject.current);
+    let result = copyArrAddList.current.map((item, index) => {
       return (
         <tr key={uuidv4()}>
           <select
@@ -303,8 +304,8 @@ const CalendarDetail = ({
               console.log(e.target.value);
               for (var i = 0; i < workerInfo.length; i++) {
                 if (e.target.value === workerInfo[i].mem_name) {
-                  arrAddList[index].mem_name = e.target.value;
-                  arrAddList[index].mem_id = workerInfo[i].mem_id;
+                  copyArrAddList.current[index].mem_name = e.target.value;
+                  copyArrAddList.current[index].mem_id = workerInfo[i].mem_id;
                 }
               }
             }}
@@ -315,7 +316,8 @@ const CalendarDetail = ({
             type="time"
             defaultValue={item.att_sche_start_time}
             onChange={(e) => {
-              arrAddList[index].att_sche_start_time = e.target.value;
+              copyArrAddList.current[index].att_sche_start_time =
+                e.target.value;
             }}
           />
           ~
@@ -323,14 +325,14 @@ const CalendarDetail = ({
             defaultValue={item.att_sche_end_time}
             type="time"
             onChange={(e) => {
-              arrAddList[index].att_sche_end_time = e.target.value;
+              copyArrAddList.current[index].att_sche_end_time = e.target.value;
             }}
           />
           <button
             id="delete"
             onClick={() => {
-              arrAddList.splice(index, 1);
-              setArrAddListState([arrAddList]);
+              copyArrAddList.current.splice(index, 1);
+              setArrAddListState([copyArrAddList.current]);
             }}
           >
             삭제
@@ -341,7 +343,7 @@ const CalendarDetail = ({
     return result;
   };
   const pushArrAddList = () => {
-    arrAddList.push({
+    copyArrAddList.current.push({
       mem_name: "",
       att_sche_start_time: "",
       att_sche_end_time: "",
@@ -365,7 +367,7 @@ const CalendarDetail = ({
           id="registerButton"
           onClick={() => {
             pushArrAddList();
-            setArrAddListState([arrAddList]);
+            setArrAddListState([copyArrAddList.current]);
           }}
         >
           추가
