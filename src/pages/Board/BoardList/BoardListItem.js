@@ -14,13 +14,13 @@ const BoardListItem = ({ item, idx, cateName }) => {
 
   return (
     <div key={idx} className={styles.listItemContainer}>
-      {/* {showDetail && (
+      {showDetail && (
         <BoardDetail
           setShowDetail={setShowDetail}
           detailItem={detailItem}
           category={cateName}
         />
-      )} */}
+      )}
       <div className={styles.contentArea}>
         <div className={styles.title} onClick={() => handleDetail({ item })}>
           <span className={styles.itemTitle}>{item.notice_title}</span>
