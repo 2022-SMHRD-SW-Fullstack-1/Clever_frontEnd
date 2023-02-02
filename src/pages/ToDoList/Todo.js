@@ -85,7 +85,7 @@ const Todo = () => {
     axios.post("/todolist/selectcate").then((res) => {
       // console.log("selectCate", res.data);
     });
-  });
+  }, []);
 
   return (
     <div className="container">
@@ -100,8 +100,8 @@ const Todo = () => {
               <div className="todo-memo">
                 <BiCheck />
                 {item.cmpl_memo}
-              </div>
-            ))} */}
+              </div> */}
+            {/* ))} */}
           </div>
         </div>
       </div>
@@ -126,7 +126,7 @@ const Todo = () => {
             })}
         </div>
 
-        <div className="todo-add" onClick={addToDoCate}>
+        <div className="todoCateadd" onClick={() => addToDoCate()}>
           <img className="todo-addCate" src={add}></img>
         </div>
         {showAddCategory && (
