@@ -90,6 +90,37 @@
 .chartModelContainer .modalBox > p {
   text-align: right;
   padding-right: 50px;
+  width: auto;
+}
+.chartModelContainer select {
+  margin-left: 10px;
+  align-items: flex-start;
+  width: 130px;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+}
+.chartModelContainer .modalBox .searchButton {
+  margin-left: 10px;
+  width: 60px;
+  height: 40px;
+  color: white;
+  background-color: #3a4ca8;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  padding: 7px 7px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 5px;
 }
 
 .chartinfo th {

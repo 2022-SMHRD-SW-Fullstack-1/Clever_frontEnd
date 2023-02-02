@@ -15,6 +15,7 @@ const CalendarChart = ({
   var year = today.substring(0, 4);
   var month = today.substring(5, 7);
   var date = today.substring(8, 10);
+
   var numToday = Number(year + month + date);
   const chartinfo = [];
   console.log("투데이", today);
@@ -22,6 +23,22 @@ const CalendarChart = ({
   console.log("겟쉐줄", getSchedule);
   console.log("체인지 :", changeSchedul);
   const workerName = [];
+  const dateData = new Date();
+  const yearData = Number(
+    dateData.toLocaleDateString("en-US", {
+      year: "numeric",
+    })
+  );
+
+  const monthData = Number(
+    dateData.toLocaleDateString("en-US", {
+      month: "2-digit",
+    })
+  );
+  const [selectedMonth, setSelectedMonth] = useState();
+  const [selectedYear, setSelectedYear] = useState();
+  const [selectedWorker, setSelectedWorker] = useState();
+
   for (var i = 1; i < getWorkerList.length; i++) {
     workerName.push(getWorkerList[i].mem_name);
   }
@@ -49,12 +66,7 @@ const CalendarChart = ({
             ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
             : (thisMonthWorkTime += getSchedule[j].total_work_time)
           : console.log();
-        console.log("이번달", thisMonthWorkTime);
-        console.log(
-          "서브스트링",
-          today.substring(0, 7) === getSchedule[j].att_date.substring(0, 7)
-        );
-        //누적근무일수
+
         numToday > attDate ? totalWorkDay++ : console.log();
 
         //누적 지각시간
@@ -200,11 +212,72 @@ const CalendarChart = ({
   const closeModal = () => {
     setChartOpen(false);
   };
+  const workerListRendering = () => {
+    var result = getWorkerList.map((item, index) => {
+      return <option key={index}>{item.mem_name}</option>;
+    });
+    return result;
+  };
+  const selectYear = () => {
+    const arrYear = [];
+    for (var i = 0; i < 11; i++) {
+      arrYear.push(yearData - i);
+    }
+    let arrYears = arrYear.map((item, index) => {
+      return (
+        <>
+          {item}
+          <option key={index} value={item}>
+            {item}년
+          </option>
+        </>
+      );
+    });
+
+    return arrYears;
+  };
+  const selectMonth = () => {
+    const arrMonth = [];
+    for (var i = monthData; i < 13; i++) {
+      arrMonth.push(i);
+    }
+    let optionMonth = arrMonth.map((item, index) => {
+      return (
+        <>
+          {item}
+          <option key={index} value={item}>
+            {item}월
+          </option>
+        </>
+      );
+    });
+    return optionMonth;
+  };
+  const chooseYear = (e) => {
+    setSelectedYear(e.target.value);
+  };
+  const chooseMonth = (e) => {
+    setSelectedMonth(e.target.value);
+  };
+  const searchData = (e) => {
+    setSelectedWorker(e.target.value);
+  };
 
   return (
     <div className="chartModelContainer">
       <div className="modalBox">
         <h1 id="title">{group_name} 직원차트</h1>
+        <select onChange={chooseYear} value={selectedYear}>
+          {selectYear()}
+        </select>
+        <span> </span>
+        <select onChange={chooseMonth} value={selectedMonth}>
+          {selectMonth()}
+        </select>
+        <select onChange={selectedWorker}>{workerListRendering()}</select>
+        <button className="searchButton" onClick={searchData}>
+          검색
+        </button>
         <p>※2023년 최저임금은 9,620원 입니다</p>
         <button className="close" onClick={closeModal}>
           차트닫기
