@@ -51,12 +51,16 @@ const Login = ({ getAuth }) => {
       [name]: value,
     });
   };
+
+  const handleEnter = (e) => {
+    e.key === "Enter" && login();
+  };
   return (
     <div className="container">
       <div className={styles.loginContainer}>
         <img src={logo} alt="logo title"></img>
         <div className={styles.inputArea}>
-          <form className={styles.inputLine}>
+          <div className={styles.inputLine}>
             <span className={styles.userInputLine}>휴대폰번호</span>
             <input
               className={styles.userInput}
@@ -64,16 +68,17 @@ const Login = ({ getAuth }) => {
               name="mem_id"
               onChange={handleInput}
             ></input>
-          </form>
-          <form className={styles.inputLine}>
+          </div>
+          <div className={styles.inputLine}>
             <span className={styles.userInputLine}>비밀번호</span>
             <input
               className={styles.userInput}
               type="password"
               name="mem_pw"
               onChange={handleInput}
+              onKeyDown={handleEnter}
             ></input>
-          </form>
+          </div>
         </div>
         <button className={styles.joinBtn} onClick={goToMain}>
           로그인
