@@ -6,7 +6,7 @@ import menu from "../../../image/menu.png";
 import "../ToDoItem/ToDoDetail.scss";
 import "../ToDoItem/ToDoList.scss";
 import Pagination from "../Pagination";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdDelete } from "react-icons/md";
 import ToDoEdit from "../ToDoEdit/ToDoEdit";
 import EditDelMenu from "../ToDoEdit/EditDelMenu";
 import ToDoNotEmpty from "./ToDoNotEmpty";
@@ -91,14 +91,17 @@ const ToDoItem = ({
     {
       doneList.map((item, idx) => {
         if (item.todo_seq === detailId) {
+          console.log("doneList T/F", item.todo_seq === detailId);
           setDoneMem(item.mem_name);
           setDoneDate(item.cmpl_time);
           setDoneMemo(item.cmpl_memo);
+          setToDoCom("완료");
           // setToDoCom(item.filter((item) => item.todo_seq === detailId));
         } else {
           setDoneMem("미");
           setDoneDate("");
           setDoneMemo("");
+          setToDoCom("미완료");
         }
       });
     }
@@ -123,15 +126,25 @@ const ToDoItem = ({
 
   const [detailSeq, setDetailSeq] = useState();
 
-  const handleDelete = ({ todo_seq }) => {
+  const handleDelete = ({ item }) => {
     axios
-      .post("/todolist/delete", { todo_seq: detailId })
+      .post("/todolist/delete", { todo_seq: item.todo_seq })
       .then((res) => {
         alert("삭제 완료");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleCom = ({ item }) => {
+    console.log("comItem", item.todo_seq);
+    if (doneList.todo_seq === item.todo_seq) {
+      setToDoCom("완료");
+    } else {
+      setToDoCom("미완료");
+    }
   };
 
   return (
@@ -169,12 +182,23 @@ const ToDoItem = ({
               </div>
               <div>{item.todo_repeat}</div>
               {doneList.todo_seq === todoList.todo_seq ? (
-                <div className="todo-complete">완료</div>
+                <div
+                  className="todo-complete"
+                  onClick={() => handleCom({ item })}
+                >
+                  완료
+                </div>
               ) : (
-                <div className="todo-complete">미완료</div>
+                <div
+                  className="todo-complete"
+                  onClick={() => handleCom({ item })}
+                >
+                  미완료
+                </div>
               )}
               <div className="todo-edit">
                 <MdEdit item={item} onClick={() => showModal({ item })} />
+                <MdDelete item={item} onClick={() => handleDelete({ item })} />
               </div>
             </div>
           ))}
