@@ -8,6 +8,10 @@ import my from "../image/my.png";
 const Header = () => {
   const navigate = useNavigate();
 
+  const click = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.contents}>
@@ -38,7 +42,9 @@ const Header = () => {
             </button>
             <div className={styles.dropdownMenu}>
               <p className={styles.p}>마이프로필</p>
-              <p className={styles.p}>로그아웃</p>
+              <p className={styles.p} onMouseDown={click}>
+                로그아웃
+              </p>
             </div>
           </div>
         </div>
