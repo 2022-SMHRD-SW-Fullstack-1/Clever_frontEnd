@@ -5,25 +5,15 @@ import "./CalendarDetail.scss";
 
 const CalendarDetail = ({
   today,
-  modificationInfo,
+
   selectedList,
   getSchedule,
   groupSeq,
   modificationAllInfo,
-  arrAddList,
   selectedDate,
   workerListRendering,
   workerInfo,
 }) => {
-  //   console.log("today", today);
-  console.log("selectedList", selectedList);
-  //   console.log("groupSeq", groupSeq);
-  //   console.log("modificationAllInfo", modificationAllInfo);
-  //   console.log("arrAddList", arrAddList);
-  //   console.log("selectedDate", selectedDate);
-  //   console.log("workerListRendering", workerListRendering);
-  //   console.log("workerInfo", workerInfo);
-
   var copySchedule = [];
   const renderObject = useRef([]);
   const listConfirmation = useRef([]);
@@ -39,10 +29,8 @@ const CalendarDetail = ({
   copySelectedWorkerList = [...selectedList];
   renderObject.current = [...selectedList];
   const copyArrAddList = useRef([]);
-  console.log("카피셀렉티드", copySelectedWorkerList);
 
   useEffect(() => {
-    console.log("유스이펙트", selectedList);
     planModification();
     setRendering(0);
   }, [selectedList]);
@@ -50,7 +38,6 @@ const CalendarDetail = ({
   const updateSchedul = (e) => {
     ApiService.updateSchedul(e)
       .then(() => {
-        console.log("업데이트성공");
         getSchedule(groupSeq);
         planModification();
         setRendering(0);
@@ -61,7 +48,6 @@ const CalendarDetail = ({
   };
 
   const render = () => {
-    console.log("렌더링");
     setRendering(0);
   };
 
@@ -89,7 +75,7 @@ const CalendarDetail = ({
 
       updateSchedul(updateInfo);
     }
-    console.log("최종배열", updateInfo);
+    console.log("최종", updateInfo);
   };
 
   const confirmModification = (e) => {
@@ -144,7 +130,6 @@ const CalendarDetail = ({
                   placeholder="거절시 사유를 적어주세요."
                   onChange={(e) => {
                     rejectMemo.current = e.target.value;
-                    console.log(rejectMemo.current);
                   }}
                 ></input>
               </th>
@@ -190,8 +175,6 @@ const CalendarDetail = ({
     return result;
   };
   const planModification = () => {
-    console.log("플랜", renderObject.current);
-
     var result = renderObject.current.map((item, index) => {
       return (
         <tr
@@ -284,16 +267,12 @@ const CalendarDetail = ({
     );
   };
   const showModificaion = () => {
-    console.log("오늘", today);
-    console.log("선택", selectedDate);
-    console.log("결과", selectedDate < today);
     if (selectedDate < today) return planSchedule();
     else {
       return planModification();
     }
   };
   const addModification = () => {
-    console.log("에드", renderObject.current);
     let result = copyArrAddList.current.map((item, index) => {
       return (
         <tr key={uuidv4()}>
@@ -301,7 +280,6 @@ const CalendarDetail = ({
             id="select"
             defaultValue={item.mem_name}
             onChange={(e) => {
-              console.log(e.target.value);
               for (var i = 0; i < workerInfo.length; i++) {
                 if (e.target.value === workerInfo[i].mem_name) {
                   copyArrAddList.current[index].mem_name = e.target.value;
@@ -383,10 +361,7 @@ const CalendarDetail = ({
             <h1>{selectedDate}</h1>
           </tr>
           <tr align="left">
-            <h3>
-              {/* {mem_name} */}
-              {clickDetail()}
-            </h3>
+            <h3>{clickDetail()}</h3>
           </tr>
         </table>
       </div>
@@ -395,7 +370,7 @@ const CalendarDetail = ({
         {showModificaion()}
         {addModification()}
 
-        {registerButton()}
+        <div> {registerButton()}</div>
 
         <tr></tr>
       </div>

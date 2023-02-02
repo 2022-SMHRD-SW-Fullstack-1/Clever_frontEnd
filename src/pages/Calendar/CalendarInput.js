@@ -1,11 +1,9 @@
-import { Calendar } from "@fullcalendar/core";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ApiService from "../../ApiService";
 import "./CalendarInput.scss";
 
 let checkOn = [];
 const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
-  console.log(sessionStorage.getItem("group_seq"));
   const groupSeq = sessionStorage.getItem("group_seq");
   const date = new Date();
   const year = Number(
@@ -27,8 +25,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   const [finalDate, setFinalDate] = useState([]);
   const workerList = useRef(getWorkerList);
   const [workerListState, setWorkerListState] = useState();
-  const [workerScheduleState, setWorkerScheduleState] = useState();
-  console.log(getWorkerList);
+
   const getDayOfWeek = (yyyy, mm, arrChoiceDay) => {
     let lastDate = new Date(yyyy, mm, 0).getDate();
 
@@ -167,21 +164,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
     }
 
     setFinalDate([...selectedDate]);
-
-    console.log(
-      yyyy + "년 " + mm + "월에 선택한 요일이 있는날짜",
-      selectedDate
-    );
   };
-  // useEffect(() => [getWorkerList(groupSeq)], []);
-  // const getWorkerList = (e) => {
-  //   workerList.current = [];
-  //   ApiService.getWorkerList(e).then((res) => {
-  //     console.log("인풋목록 :", res.data);
-  //     workerList.current = res.data;
-  //     setWorkerListState(res.data);
-  //   });
-  // };
 
   const saveArrSchedule = (e) => {
     ApiService.saveArrScheduleInfo(e)
@@ -206,34 +189,27 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   };
 
   const planYear = (e) => {
-    console.log("5번");
     getDayOfWeek(e.target.value, PlanMonth, checkOn);
     setPlanYear(e.target.value);
   };
   const planMonth = (e) => {
-    console.log("6번");
     getDayOfWeek(PlanYear, e.target.value, checkOn);
     setPlanMonth(e.target.value);
   };
 
   const saveStartTime = (e) => {
-    console.log("7번");
     setStartTime(e.target.value);
   };
 
   const saveEndTime = (e) => {
-    console.log("9번");
     setEndTime(e.target.value);
   };
 
   const worker = (e) => {
-    console.log("11번");
     setWorker(e.target.value);
   };
 
-  // 선택한 요일값 setDay하기
   const day = (e) => {
-    console.log("11번");
     if (e.target.checked && !checkOn.includes(e.target.value)) {
       checkOn.push(e.target.value);
     } else if (!e.target.checked && checkOn.includes(e.target.value)) {
@@ -245,12 +221,11 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
       }
     }
     setDay([...checkOn]);
-    console.log(" 체크온 :", checkOn);
+
     getDayOfWeek(PlanYear, PlanMonth, checkOn);
   };
 
   const checkBoxDay = () => {
-    console.log("12번");
     const arrDay = ["일", "월", "화", "수", "목", "금", "토"];
     let arrDays = arrDay.map((item, index) => {
       return (
@@ -274,7 +249,6 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   };
 
   const selectYear = () => {
-    console.log("13번");
     const arrYear = [];
     for (var i = 0; i < 11; i++) {
       arrYear.push(year + i);
@@ -294,7 +268,6 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   };
 
   const selectMonth = () => {
-    console.log("14번");
     const arrMonth = [];
     for (var i = month; i < 13; i++) {
       arrMonth.push(i);
@@ -340,7 +313,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
             mem_id: getId,
           });
     }
-    console.log("보낼배열", saveArrScheduleInfo);
+    console.log("일정등록 :", saveArrScheduleInfo);
     saveArrSchedule(saveArrScheduleInfo);
   };
   // 모달 끄기 (X버튼 onClick 이벤트 핸들러)

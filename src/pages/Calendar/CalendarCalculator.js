@@ -1,4 +1,3 @@
-import { set } from "immutable";
 import React, { useEffect, useRef, useState } from "react";
 import "./CalendarCalculator.scss";
 
@@ -12,7 +11,6 @@ const CalendarCalculator = ({ thisMonthWorkTime, workerName }) => {
   var copyDefault = copyThisMonthWorkTime.current;
 
   useEffect(() => {
-    console.log("네임", workerName);
     setPayment("");
     setTotalPayment(0);
   }, [workerName]);

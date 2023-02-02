@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import "./CalendarChart.scss";
 import { v4 as uuidv4 } from "uuid";
 import CalendarCalculator from "./CalendarCalculator";
-import { emptyObject } from "@jest/expect-utils";
+
 const CalendarChart = ({
   getWorkerList,
   getSchedule,
@@ -11,18 +11,13 @@ const CalendarChart = ({
   setChartOpen,
   changeSchedul,
 }) => {
-  // const payment = useRef(0);
-  // const workHr = 0;
   var year = today.substring(0, 4);
   var month = today.substring(5, 7);
   var date = today.substring(8, 10);
 
   var numToday = Number(year + month + date);
   const chartinfo = [];
-  console.log("투데이", today);
-  console.log("스케줄인포", getWorkerList);
-  console.log("겟쉐줄", getSchedule);
-  console.log("체인지 :", changeSchedul);
+
   const workerName = [];
   const dateData = new Date();
   const yearData = Number(
@@ -47,7 +42,6 @@ const CalendarChart = ({
 
   const group_name = sessionStorage.getItem("group_name");
 
-  ////////////////////////////////////////////////////////////////////////////
   if (selectedWorker === undefined || selectedWorker === "전체") {
     for (var i = 1; i < getWorkerList.length; i++) {
       workerName.push(getWorkerList[i].mem_name);
@@ -64,7 +58,7 @@ const CalendarChart = ({
     var changeSchedulCount = 0;
     var thisMonthWorkTime = 0;
     var yearMonth = String(copyYear + "-" + copyMonth);
-    console.log("통합", yearMonth);
+
     for (var j = 0; j < getSchedule.length; j++) {
       if (
         workerName[i] === getSchedule[j].mem_name &&
@@ -77,11 +71,6 @@ const CalendarChart = ({
 
         //이번달 누적 근무 시간
 
-        // getSchedule[j].att_date.substring(0, 7) === yearMonth
-        //   ? getSchedule[j].total_work_time < 0
-        //     ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
-        //     : (thisMonthWorkTime += getSchedule[j].total_work_time)
-        //   : console.log();
         getSchedule[j].total_work_time < 0
           ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
           : (thisMonthWorkTime += getSchedule[j].total_work_time);
@@ -108,17 +97,17 @@ const CalendarChart = ({
         changeSchedul[k].ch_date.substring(0, 7) === yearMonth
       ) {
         changeSchedulCount += 1;
-        console.log("씨에이치 :", changeSchedul[k].ch_date.substring(0, 7));
       }
     }
-    console.log("근무변경", changeSchedulCount);
 
     var latePercent = (lateCount * 100) / totalWorkDay;
     var changeSchedulCountPercent = (changeSchedulCount * 100) / totalWorkDay;
-    console.log("레이트", typeof latePercent + latePercent);
-    console.log("영으으으으으응", (0).toFixed(1));
+
     lateCount === 0 ? (latePercent = 0) : console.log();
     changeSchedulCount === 0 ? (changeSchedulCountPercent = 0) : console.log();
+
+    totalWorkDay < 1 ? (changeSchedulCountPercent = 0) : console.log();
+
     chartinfo.push({
       mem_name: workerName[i],
       total_work_day: totalWorkDay,
@@ -132,12 +121,8 @@ const CalendarChart = ({
     });
   }
 
-  console.log("객체", chartinfo);
-
   const workerList = () => {
     var result = chartinfo.map((item, index) => {
-      console.log("아이템", item);
-
       return (
         <div className="calendarChardContent">
           <div className="calendarChartTop" key={uuidv4}>
@@ -223,7 +208,6 @@ const CalendarChart = ({
             </tr>
           </div>
           <div className="chartCalculatorContainer">
-            {/* <h1>급여 예측</h1> */}
             <h3>
               {item.mem_name}님의 급여예측
               <br />
