@@ -18,11 +18,14 @@ body {
   // display: inline-block;
 
   .todo-template {
+    right: 0px;
+
     .todo-list {
-      width: 450px;
+      width: 410px;
       height: 450px;
       flex: 1;
-      padding: 20px 32px;
+      padding: 20px 10px;
+      padding-left: 20px;
       padding-bottom: 48px;
       // overflow-y: auto;
 
@@ -31,27 +34,25 @@ body {
       float: left;
 
       .todo-item {
-        // left: 0px;
-
-        width: 400px;
+        width: 485px;
         display: flex;
         justify-content: space-between;
         // top: 0px;
 
-        .todo-title {
-          // width: 200px;
-          height: 30px;
+        // .todo-title {
+        //   width: 150px;
+        //   height: 50px;
 
-          font-weight: bold;
-          font-size: 21px;
-        }
-        .todo-content {
-          // width: 200px;
-          height: 30px;
+        //   font-weight: bold;
+        //   font-size: 21px;
+        // }
+        // .todo-content {
+        //   // width: 200px;
+        //   height: 30px;
 
-          font-size: 16px;
-          padding-bottom: 10px;
-        }
+        //   font-size: 16px;
+        //   padding-bottom: 10px;
+        // }
 
         .todo-complete {
           float: right;
@@ -72,18 +73,37 @@ body {
       }
     }
 
+    .todo-title {
+      position: flex;
+
+      width: 150px;
+      height: 30px;
+
+      font-weight: bold;
+      font-size: 21px;
+    }
+    .todo-content {
+      // width: 200px;
+      height: 30px;
+
+      font-size: 16px;
+      padding-bottom: 10px;
+    }
+
     .todo-edit {
       float: right;
 
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
+
+      // top: 5px;
 
       // top: 20px;
 
       align-items: center;
       vertical-align: middle;
 
-      margin-right: 20px;
+      margin-right: 10px;
 
       .todo-editMenu {
         width: 30px;

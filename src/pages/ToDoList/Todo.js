@@ -27,6 +27,8 @@ const Todo = () => {
   const user = sessionStorage.getItem("mem_id");
   const userGroup = sessionStorage.getItem("group_seq");
 
+  const [showWriteModal, setShowWriteModal] = useState(false);
+
   // 그룹 정보 가져오기
   const [joinGroup, setjoinGroup] = useState();
   useEffect(() => {
@@ -139,7 +141,12 @@ const Todo = () => {
       </div>
       <div className="show-todo">
         <div className="toDoTemplate">
-          <ToDoList cateName={cateName} category={category} />
+          <ToDoList
+            cateName={cateName}
+            category={category}
+            setShowWriteModal={setShowWriteModal}
+            showWriteModal={showWriteModal}
+          />
         </div>
       </div>
     </div>
