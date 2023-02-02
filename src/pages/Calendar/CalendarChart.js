@@ -39,7 +39,14 @@ const CalendarChart = ({
   const [selectedMonth, setSelectedMonth] = useState(monthData);
   const [selectedYear, setSelectedYear] = useState(yearData);
   const [selectedWorker, setSelectedWorker] = useState();
+  var copyYear = selectedYear;
+  var copyMonth;
+  Number(selectedMonth) < 10
+    ? (copyMonth = `0${String(selectedMonth)}`)
+    : (copyMonth = selectedMonth);
+
   const group_name = sessionStorage.getItem("group_name");
+
   ////////////////////////////////////////////////////////////////////////////
   if (selectedWorker === undefined || selectedWorker === "전체") {
     for (var i = 1; i < getWorkerList.length; i++) {
@@ -56,28 +63,37 @@ const CalendarChart = ({
     var lateCount = 0;
     var changeSchedulCount = 0;
     var thisMonthWorkTime = 0;
+    var yearMonth = String(copyYear + "-" + copyMonth);
+    console.log("통합", yearMonth);
     for (var j = 0; j < getSchedule.length; j++) {
-      if (workerName[i] === getSchedule[j].mem_name) {
+      if (
+        workerName[i] === getSchedule[j].mem_name &&
+        getSchedule[j].att_date.substring(0, 7) === yearMonth
+      ) {
         var attYear = getSchedule[j].att_date.substring(0, 4);
         var attMonth = getSchedule[j].att_date.substring(5, 7);
         var attDay = getSchedule[j].att_date.substring(8, 10);
         var attDate = Number(attYear + attMonth + attDay);
 
         //이번달 누적 근무 시간
-        //이번달 누적 근무 시간
-        getSchedule[j].att_date.substring(0, 7) === today.substring(0, 7)
-          ? getSchedule[j].total_work_time < 0
-            ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
-            : (thisMonthWorkTime += getSchedule[j].total_work_time)
-          : console.log();
+
+        // getSchedule[j].att_date.substring(0, 7) === yearMonth
+        //   ? getSchedule[j].total_work_time < 0
+        //     ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
+        //     : (thisMonthWorkTime += getSchedule[j].total_work_time)
+        //   : console.log();
+        getSchedule[j].total_work_time < 0
+          ? (thisMonthWorkTime += getSchedule[j].total_work_time + 1440)
+          : (thisMonthWorkTime += getSchedule[j].total_work_time);
 
         numToday > attDate ? totalWorkDay++ : console.log();
 
-        //누적 지각시간
+        //이번달 누적 지각시간
+
         getSchedule[j].late_time > 0
           ? (lateTime += getSchedule[j].late_time)
           : console.log();
-        //누적지각횟수
+        //이번달 누적지각횟수
         getSchedule[j].late_time > 0 ? (lateCount += 1) : console.log();
         //누적근무시간
         getSchedule[j].total_work_time < 0
@@ -85,14 +101,24 @@ const CalendarChart = ({
           : (totalWorkTime += getSchedule[j].total_work_time);
       }
     }
+
     for (var k = 0; k < changeSchedul.length; k++) {
-      if (workerName[i] === changeSchedul[k].mem_name) {
+      if (
+        workerName[i] === changeSchedul[k].mem_name &&
+        changeSchedul[k].ch_date.substring(0, 7) === yearMonth
+      ) {
         changeSchedulCount += 1;
+        console.log("씨에이치 :", changeSchedul[k].ch_date.substring(0, 7));
       }
     }
+    console.log("근무변경", changeSchedulCount);
+
     var latePercent = (lateCount * 100) / totalWorkDay;
     var changeSchedulCountPercent = (changeSchedulCount * 100) / totalWorkDay;
-    console.log(latePercent);
+    console.log("레이트", typeof latePercent + latePercent);
+    console.log("영으으으으으응", (0).toFixed(1));
+    lateCount === 0 ? (latePercent = 0) : console.log();
+    changeSchedulCount === 0 ? (changeSchedulCountPercent = 0) : console.log();
     chartinfo.push({
       mem_name: workerName[i],
       total_work_day: totalWorkDay,
@@ -144,7 +170,7 @@ const CalendarChart = ({
           </div>
 
           <div className="calendarchart2">
-            <h2>근무수정</h2>
+            <h2>근무변경</h2>
             <PieChart
               data={[
                 {
@@ -171,28 +197,28 @@ const CalendarChart = ({
 
           <div className="chartinfo">
             <tr>
-              <th>누적근무 일 </th>
+              <th>근무 일 </th>
               <th>{item.total_work_day} 일</th>
             </tr>
-
+            {/* 
             <tr>
               <th>누적근무 시간 </th>
               <th>{(item.total_work_time / 60).toFixed(0)}시간</th>
+            </tr> */}
+
+            <tr>
+              <th>지각 횟수 </th> <th>{item.late_Count} 번</th>
             </tr>
 
             <tr>
-              <th>누적지각 </th> <th>{item.late_Count} 번</th>
+              <th>지각 시간 </th> <th>{item.late_time} 분</th>
             </tr>
 
             <tr>
-              <th>누적지각 시간 </th> <th>{item.late_time} 분</th>
-            </tr>
-
-            <tr>
-              <th>누적근무변경 </th> <th>{item.change_count} 번</th>
+              <th>근무변경 </th> <th>{item.change_count} 번</th>
             </tr>
             <tr>
-              <th>이번달 누적 </th>{" "}
+              <th>노동시간 </th>{" "}
               <th>{(item.this_month_work_time / 60).toFixed(0)} 시간</th>
             </tr>
           </div>
@@ -243,7 +269,7 @@ const CalendarChart = ({
   };
   const selectMonth = () => {
     const arrMonth = [];
-    for (var i = monthData; i < 13; i++) {
+    for (var i = 1; i < 13; i++) {
       arrMonth.push(i);
     }
     let optionMonth = arrMonth.map((item, index) => {
