@@ -3,6 +3,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import "./CalendarChart.scss";
 import { v4 as uuidv4 } from "uuid";
 import CalendarCalculator from "./CalendarCalculator";
+import { emptyObject } from "@jest/expect-utils";
 const CalendarChart = ({
   getWorkerList,
   getSchedule,
@@ -35,15 +36,18 @@ const CalendarChart = ({
       month: "2-digit",
     })
   );
-  const [selectedMonth, setSelectedMonth] = useState();
-  const [selectedYear, setSelectedYear] = useState();
+  const [selectedMonth, setSelectedMonth] = useState(monthData);
+  const [selectedYear, setSelectedYear] = useState(yearData);
   const [selectedWorker, setSelectedWorker] = useState();
-
-  for (var i = 1; i < getWorkerList.length; i++) {
-    workerName.push(getWorkerList[i].mem_name);
-  }
-
   const group_name = sessionStorage.getItem("group_name");
+  ////////////////////////////////////////////////////////////////////////////
+  if (selectedWorker === undefined || selectedWorker === "전체") {
+    for (var i = 1; i < getWorkerList.length; i++) {
+      workerName.push(getWorkerList[i].mem_name);
+    }
+  } else {
+    workerName.push(selectedWorker);
+  }
 
   for (var i = 0; i < workerName.length; i++) {
     var totalWorkDay = 0;
@@ -201,6 +205,7 @@ const CalendarChart = ({
 
             <CalendarCalculator
               thisMonthWorkTime={(item.this_month_work_time / 60).toFixed(0)}
+              workerName={selectedWorker}
             />
           </div>
         </div>
@@ -259,7 +264,8 @@ const CalendarChart = ({
   const chooseMonth = (e) => {
     setSelectedMonth(e.target.value);
   };
-  const searchData = (e) => {
+  const searchData = (e) => {};
+  const setdWorker = (e) => {
     setSelectedWorker(e.target.value);
   };
 
@@ -274,7 +280,7 @@ const CalendarChart = ({
         <select onChange={chooseMonth} value={selectedMonth}>
           {selectMonth()}
         </select>
-        <select onChange={selectedWorker}>{workerListRendering()}</select>
+        <select onChange={setdWorker}>{workerListRendering()}</select>
         <button className="searchButton" onClick={searchData}>
           검색
         </button>
