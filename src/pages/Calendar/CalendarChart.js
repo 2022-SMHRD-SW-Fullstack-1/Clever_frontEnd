@@ -185,7 +185,6 @@ const CalendarChart = ({
             <h3>
               {item.mem_name}님의 급여예측
               <br />
-              ※2023년 최저임금은 9,620원 입니다
             </h3>
 
             <CalendarCalculator
@@ -206,6 +205,7 @@ const CalendarChart = ({
     <div className="chartModelContainer">
       <div className="modalBox">
         <h1 id="title">{group_name} 직원차트</h1>
+        <p>※2023년 최저임금은 9,620원 입니다</p>
         <button className="close" onClick={closeModal}>
           차트닫기
         </button>

@@ -364,7 +364,7 @@ const CalendarDetail = ({
     } else {
       return (
         <button
-          id="registerButton"
+          id="addButton"
           onClick={() => {
             pushArrAddList();
             setArrAddListState([copyArrAddList.current]);
