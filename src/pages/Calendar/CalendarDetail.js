@@ -370,7 +370,7 @@ const CalendarDetail = ({
             setArrAddListState([copyArrAddList.current]);
           }}
         >
-          추가
+          +
         </button>
       );
     }
@@ -391,9 +391,10 @@ const CalendarDetail = ({
         </table>
       </div>
       <div className="scheduleModification">
+        {addButton()}
         {showModificaion()}
         {addModification()}
-        {addButton()}
+
         {registerButton()}
 
         <tr></tr>
