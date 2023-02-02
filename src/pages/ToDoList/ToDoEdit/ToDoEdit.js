@@ -5,11 +5,14 @@ import Header from "../../../layout/Header";
 import "../ToDoEdit/ToDoEdit.scss";
 import styles from "../ToDoEdit/EditToDo.module.scss";
 
-const ToDoEdit = ({ setShowUpdate, updateItem }) => {
+const ToDoEdit = ({ setShowUpdate, updateItem, setModalOpen }) => {
+  console.log("editselectItem", updateItem);
+
   const groupInfo = sessionStorage.getItem("group_seq");
 
   const [inputValue, setInputValue] = useState({
-    todo_seq: updateItem.todo_seq,
+    // todo_seq: updateItem.todo_seq,
+    todo_seq: "",
     cate_seq: updateItem.cate_seq,
     cate_name: updateItem.cate_name,
     todo_title: updateItem.todo_title,
@@ -21,7 +24,8 @@ const ToDoEdit = ({ setShowUpdate, updateItem }) => {
   });
 
   const close = () => {
-    setShowUpdate(false);
+    // setShowUpdate(false);
+    setModalOpen(false);
   };
 
   const todoTitleRef = useRef();
@@ -55,15 +59,16 @@ const ToDoEdit = ({ setShowUpdate, updateItem }) => {
     axios
       .post("/todolist/edit", {
         // todo_seq: updateItem.todo_seq,
-        // cate_seq: todoCategoryRef.current.value,
-        // cate_name: todoCategoryRef.current.value,
-        // todo_title: todoTitleRef.current.value,
-        // todo_content: todoContentRef.current.value,
-        // todo_dt: date,
-        // todo_repeat: value,
-        // mem_id: todoMemRef.current.value,
-        // todo_method: todoMethodRef.current.value,
-        inputValue,
+        todo_seq: "",
+        cate_seq: updateItem.cate_seq,
+        cate_name: updateItem.cate_name,
+        todo_title: updateItem.todo_title,
+        todo_content: updateItem.todo_content,
+        todo_dt: updateItem.todo_dt,
+        todo_repeat: updateItem.todo_repeat,
+        mem_id: updateItem.mem_id,
+        todo_method: updateItem.todo_method,
+        // inputValue,
       })
       .then((res) => {
         console.log(res.data);
@@ -122,12 +127,19 @@ const ToDoEdit = ({ setShowUpdate, updateItem }) => {
             </span>
             <div className="container">
               <div className="todoCreateBtn">
-                <input
+                {/* <input
                   type="submit"
                   className="todo-add"
                   onClick={submitCk}
                   value="수정"
-                ></input>
+                ></input> */}
+                <button
+                  type="submit"
+                  className="todo-add"
+                  onClick={(e) => submitCk(e)}
+                >
+                  수정하기
+                </button>
               </div>
               <div className="todo-list">
                 <div className="todoContent">
