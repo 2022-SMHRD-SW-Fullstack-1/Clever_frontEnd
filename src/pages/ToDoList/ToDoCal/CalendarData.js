@@ -34,51 +34,60 @@ const CalendarData = () => {
       week: newWeek,
     });
   };
-};
 
-// 오늘 날짜 표시
-useEffect(() => {
-  // const calToday = "calToday";
-  const dateClassName = document.querySelectorAll(".calDate");
+  const onClickArrowRight = () => {
+    let newDate = new Date(state.date.valueOf() + 86400000 * 7);
+    let newWeek = makeWeekArr(newDate);
+    setState({
+      date: newDate,
+      week: newWeek,
+    });
+  };
 
-  for (let i = 0; i <= 6; i++) {
-    if (state.week[i].getDate() === nowDate) {
-      dateClassName[i].classList.add("calToday");
+  // 오늘 날짜 표시
+  useEffect(() => {
+    // const calToday = "calToday";
+    const dateClassName = document.querySelectorAll(".calDate");
+
+    for (let i = 0; i <= 6; i++) {
+      if (state.week[i].getDate() === nowDate) {
+        dateClassName[i].classList.add("calToday");
+      }
     }
-  }
-}, [week]);
+  }, [week]);
 
-return (
-  <div className="calendar-table">
-    <thead className="calendar-head">
-      <tr className="todo-calendar">
-        <th>&nbsp;</th>
-        <th className="sun">일</th>
-        <th className="mon">월</th>
-        <th className="tue">화</th>
-        <th className="wed">수</th>
-        <th className="thu">목</th>
-        <th className="fri">금</th>
-        <th className="sat">토</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody className="calendar-body">
-      <tr className="todo-calendar">
-        <td className="arrow">
-          <AiOutlineLeft className="WeekArrow" onClick={onClickArrowLeft} />
-        </td>
-        {state.week &&
-          state.week.map((item, idx) => {
-            return <CalendarItem key={idx} item={item} />;
-          })}
+  return (
+    <div className="calendar-table">
+      <thead className="calendar-head">
+        <tr className="todo-calendar">
+          <th>&nbsp;</th>
+          <th className="sun">일</th>
+          <th className="mon">월</th>
+          <th className="tue">화</th>
+          <th className="wed">수</th>
+          <th className="thu">목</th>
+          <th className="fri">금</th>
+          <th className="sat">토</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody className="calendar-body">
+        <tr className="todo-calendar">
+          <td className="arrow">
+            <AiOutlineLeft className="WeekArrow" onClick={onClickArrowLeft} />
+          </td>
+          {state.week &&
+            state.week.map((item, idx) => {
+              return <CalendarItem key={idx} item={item} />;
+            })}
 
-        <td className="arrow">
-          <AiOutlineRight className="WeekArrow" onClick={onClickArrowRight} />
-        </td>
-      </tr>
-    </tbody>
-  </div>
-);
+          <td className="arrow">
+            <AiOutlineRight className="WeekArrow" onClick={onClickArrowRight} />
+          </td>
+        </tr>
+      </tbody>
+    </div>
+  );
+};
 
 export default CalendarData;
