@@ -127,6 +127,7 @@ const ToDoEdit = ({ setShowUpdate, updateItem, setModalOpen }) => {
             </span>
             <div className="container">
               <div className="todoCreateBtn">
+                {/* <span className="todo-editText">할일 수정하기</span> */}
                 {/* <input
                   type="submit"
                   className="todo-add"
@@ -152,7 +153,7 @@ const ToDoEdit = ({ setShowUpdate, updateItem, setModalOpen }) => {
                             className="todo-title"
                             ref={todoTitleRef}
                             placeholder="할 일 제목"
-                            size="40"
+                            size="50"
                             defaultValue={updateItem.todo_title}
                             // onChange={submitCk}
                           ></input>

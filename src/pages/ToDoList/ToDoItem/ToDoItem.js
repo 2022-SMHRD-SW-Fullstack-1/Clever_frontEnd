@@ -11,6 +11,8 @@ import ToDoEdit from "../ToDoEdit/ToDoEdit";
 import EditDelMenu from "../ToDoEdit/EditDelMenu";
 import ToDoNotEmpty from "./ToDoNotEmpty";
 import styled from "styled-components";
+import ToDoToggle from "../ToDoToggle";
+import Toggle from "./Toggle";
 
 const TasksLeft = styled.div`
   // color: #20c997;
@@ -138,8 +140,9 @@ const ToDoItem = ({
       });
   };
 
-  const handleCom = ({ item }) => {
+  const handleCom = ({ item, doneList }) => {
     console.log("comItem", item.todo_seq);
+    console.log("conDoneItem", doneList);
     if (doneList.todo_seq === item.todo_seq) {
       setToDoCom("완료");
     } else {
@@ -156,6 +159,7 @@ const ToDoItem = ({
           setModalOpen={setModalOpen}
         />
       )}
+      <Toggle />
       <div>
         <div className="todo-list">
           {todoList.slice(offset, offset + limit).map((item, idx) => (
@@ -184,14 +188,14 @@ const ToDoItem = ({
               {doneList.todo_seq === todoList.todo_seq ? (
                 <div
                   className="todo-complete"
-                  onClick={() => handleCom({ item })}
+                  onClick={() => handleCom({ item, doneList })}
                 >
                   완료
                 </div>
               ) : (
                 <div
                   className="todo-complete"
-                  onClick={() => handleCom({ item })}
+                  onClick={() => handleCom({ item, doneList })}
                 >
                   미완료
                 </div>
