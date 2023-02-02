@@ -29,6 +29,7 @@ const AddToDoCate = ({ setShowAddCategory }) => {
       .then((res) => {
         alert("카테고리가 추가되었습니다.");
         setShowAddCategory(false);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
