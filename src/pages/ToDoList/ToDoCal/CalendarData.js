@@ -8,8 +8,6 @@ const CalendarData = () => {
   const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const nowDate = now.getDate();
 
-  const [selected, setSelected] = useState();
-
   const makeWeekArr = (date) => {
     let day = date.getDay();
     let week = [];

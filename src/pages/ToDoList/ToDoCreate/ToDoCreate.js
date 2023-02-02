@@ -197,7 +197,7 @@ const ToDoCreate = () => {
               <td className="todo-head">담당자</td>
 
               <select name="todoMem" ref={todoMemRef}>
-                <option value={null}>------</option>
+                <option value="">------</option>
                 {memList.map((item) => (
                   <option key={item.mem_id} value={item.mem_id}>
                     {item.mem_name}
