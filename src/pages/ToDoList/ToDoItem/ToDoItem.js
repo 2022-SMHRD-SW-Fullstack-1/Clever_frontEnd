@@ -159,7 +159,7 @@ const ToDoItem = ({
           setModalOpen={setModalOpen}
         />
       )}
-      <Toggle />
+
       <div>
         <div className="todo-list">
           {todoList.slice(offset, offset + limit).map((item, idx) => (

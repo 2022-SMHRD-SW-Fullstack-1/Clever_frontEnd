@@ -24,7 +24,8 @@ const Circle = styled.div`
   transition: all 0.5s ease-in-out;
   ${(props) =>
     props.toggle &&
-    css`
+    // css`
+    `
       transform: translate(80px, 0);
       transition: all 0.5s ease-in-out;
     `}

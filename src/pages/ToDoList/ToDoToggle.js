@@ -5,8 +5,9 @@ import "./ToDoToggle.scss";
 
 const ToggleContainer = styled.div`
   position: relative;
-  //   margin-top: 8rem;
-  left: 47%;
+    margin-top: 0.5rem;
+  // left: 47%;
+  left : 40%
   cursor: pointer;
 
   > .toggle-container {
@@ -33,22 +34,27 @@ const ToggleContainer = styled.div`
     //.toggle--checked 클래스가 활성화 되었을 경우의 CSS를 구현
   }
   > .toggle--checked {
-    left: 27px;
+     left: 27px;
     transition: 0.5s;
   }
 `;
 
 const Desc = styled.div`
   //설명 부분의 CSS를 구현
-  text-align: center;
-  //   margin: 20px;
+  // float: left;
+  // text-align: left;
+  margin: 10px;
 `;
 
-const ToDoToggle = () => {
+const ToDoToggle = ({ todoList, doneList }) => {
+  console.log("toggletodo", todoList);
+  console.log("toggledone", doneList);
   const [isOn, setIsOn] = useState(false);
 
   const toggleHandler = () => {
     //isOn의 상태를 변경하는 메소드
+    console.log("isOn", isOn);
+    // false -> 미완료!
     setIsOn(!isOn);
   };
 
