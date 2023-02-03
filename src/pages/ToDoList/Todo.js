@@ -59,8 +59,6 @@ const Todo = () => {
   }, []);
 
   // 카테고리 추가하기
-  // const location = useLocation();
-  // console.log("location", location.state);
 
   const [groupInfo, setGroupInfo] = useState();
   const [showAddCategory, setShowAddCategory] = useState(false);

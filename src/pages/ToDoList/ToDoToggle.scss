@@ -1,9 +1,13 @@
 .todoToggle {
-  float: right;
+  position: flex;
+
+  margin-left: 400px;
+  // float: right;
+
   // width: 33%;
   // .todo-toggle {
-  //   .todoDone {
-  //     // float: left;
-  //   }
+  .todoDone {
+    float: right;
+  }
   // }
 }
