@@ -55,12 +55,14 @@ const ToDoCreate = () => {
 
   // DB 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
+  const [createCateList, setCreateCateList] = useState([]);
 
   useEffect(() => {
     axios
       .post("/todolist/getcategory", { group_seq: joinGroup })
       .then((res) => {
         setCateList(res.data);
+        setCreateCateList(cateList.shift());
       })
       .catch((err) => {
         console.log("실패함", err);
@@ -78,7 +80,7 @@ const ToDoCreate = () => {
     axios
       .post("/todolist/getmember", { group_seq: joinGroup })
       .then((res) => {
-        console.log("mem", res.data);
+        // console.log("mem", res.data);
         setMemList(res.data);
       })
       .catch((err) => {
@@ -145,9 +147,11 @@ const ToDoCreate = () => {
               <td className="todo-head">카테고리</td>
               <td>
                 <select name="todo-category" ref={todoCategoryRef}>
-                  {cateList.map((item) => (
-                    <option value={item.cate_seq}>{item.cate_name}</option>
-                  ))}
+                  {cateList
+                    .filter((item, idx) => idx > 0)
+                    .map((item) => (
+                      <option value={item.cate_seq}>{item.cate_name}</option>
+                    ))}
                 </select>
               </td>
             </tr>

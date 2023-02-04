@@ -30,7 +30,7 @@ const Todo = () => {
   const [showWriteModal, setShowWriteModal] = useState(false);
 
   // 그룹 정보 가져오기
-  const [joinGroup, setjoinGroup] = useState();
+  const [joinGroup, setJoinGroup] = useState();
   useEffect(() => {
     axios.post("/todolist/getgroup", { mem_id: user }).then((res) => {
       console.log(("groupInfo", res));
@@ -42,9 +42,15 @@ const Todo = () => {
   const [category, setCategory] = useState("");
   const [cateName, setCateName] = useState("");
 
+  // const cateRef = useRef({ category: null });
   const cateRef = useRef({ category: null });
   const cateObj = { category };
   cateRef.current = cateObj;
+
+  // useEffect(() => {
+  //   cateRef.current = cateObj;
+  // }, [cateObj]);
+
   useEffect(() => {
     axios
       .post("/todolist/getcategory", {
@@ -153,6 +159,7 @@ const Todo = () => {
             showWriteModal={showWriteModal}
             selectDate={selectDate}
             cateRef={cateRef.current}
+            cateObj={cateObj.category}
           />
         </div>
       </div>
