@@ -74,7 +74,6 @@ const Todo = () => {
   const [todoMemoList, setTodoMemoList] = useState("");
 
   const [selectDate, setSelectDate] = useState("");
-  console.log(selectDate);
 
   useEffect(() => {
     axios.post("/todolist/todaymemo").then((res) => {

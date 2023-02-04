@@ -58,13 +58,16 @@ const ToDoItem = ({
   // 전체 할일 리스트 불러오기
   const [allTodoList, setAllTodoList] = useState([]);
   useEffect(() => {
-    if (category === cateRef) {
+    console.log(category);
+    console.log("cate", cateRef);
+    if (category === cateRef.category) {
       axios
         .post("/todolist/alltodo", {
           group_seq: joinGroup,
           cate_seq: category,
         })
         .then((res) => {
+          console.log("tree", res.data);
           setTodoList(res.data);
           setToDoRep(res.data.todo_repeat);
           setTotal(res.data.length);
