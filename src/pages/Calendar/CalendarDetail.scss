@@ -78,6 +78,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
+  cursor: pointer;
 }
 .calendarDetailContainer #registerButton {
   margin-top: 20px;
@@ -93,22 +94,28 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
+  cursor: pointer;
+}
+.calendarDetailContainer .addButton {
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  width: 105px;
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  .add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+  }
 }
 .calendarDetailContainer #addButton {
-  width: 40px;
-  margin-left: 215px;
-  margin-bottom: 10px;
-  background-color: transparent;
-  color: black;
-  border: 1px solid #c4c4c4;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 7px 7px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 16px;
+  width: 30px;
 }
 
 .calendarDetailContainer #submit {
@@ -124,4 +131,5 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
+  cursor: pointer;
 }

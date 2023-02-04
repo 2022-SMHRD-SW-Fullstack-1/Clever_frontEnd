@@ -30,6 +30,7 @@
   background-color: transparent;
   right: 10px;
   top: 10px;
+  font-size: 25px;
 }
 
 .calendarInputContainer #form {
@@ -59,9 +60,10 @@
   position: relative;
   margin-left: 180px;
   width: 100px;
+  height: 40px;
   background-color: #3a4ca8;
   color: white;
-  border: 1px solid #c4c4c4;
+  border: none;
   box-sizing: border-box;
   border-radius: 10px;
   padding: 7px 7px;
@@ -70,6 +72,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
+  cursor: pointer;
 }
 .calendarInputContainer .checkBox {
   margin-top: 10px;
