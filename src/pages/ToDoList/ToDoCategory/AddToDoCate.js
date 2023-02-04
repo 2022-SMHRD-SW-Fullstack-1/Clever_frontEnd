@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import styles from "./AddToDoCate.module.scss";
+import styles from "../ToDoCategory/AddToDoCate.module.scss";
 
 const AddToDoCate = ({ setShowAddCategory }) => {
   const group_seq = sessionStorage.getItem("group_seq");

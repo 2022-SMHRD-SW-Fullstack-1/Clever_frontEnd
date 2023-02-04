@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./InviteGroup.module.scss";
-const InviteGroup = ({ setShowInviteModal, showInviteModal, group_seq }) => {
+const InviteGroup = ({ setShowInviteModal, group_seq }) => {
   const close = () => {
     setShowInviteModal(false);
   };
   const [inviteCode, setInviteCode] = useState("");
   useEffect(() => {
     axios
-      .post("/getinvitecode", { group_seq: group_seq })
+      .post("/group/invitecode", { group_seq: group_seq })
       .then((res) => {
         setInviteCode(res.data);
       })

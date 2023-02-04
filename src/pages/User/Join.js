@@ -70,7 +70,6 @@ const Join = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <div className={styles.loginContainer}>
           {/* <img src={logo} alt="logo title"></img> */}

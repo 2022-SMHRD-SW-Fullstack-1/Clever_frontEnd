@@ -22,7 +22,7 @@ const AddBoardCate = ({ setShowAddCategory, groupInfo }) => {
 
   const handleAddCate = () => {
     axios
-      .post("/board/countcategory", inputValue)
+      .post("/board/category/count", inputValue)
       .then((res) => {
         if (res.data < 5) {
           addCategory();
@@ -36,7 +36,7 @@ const AddBoardCate = ({ setShowAddCategory, groupInfo }) => {
   };
   const addCategory = () => {
     axios
-      .post("/board/addcategory", inputValue)
+      .post("/board/category/add", inputValue)
       .then((res) => {
         alert("카테고리가 추가되었습니다.");
         setShowAddCategory(false);
