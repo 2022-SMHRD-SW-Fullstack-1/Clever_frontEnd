@@ -37,6 +37,7 @@ body {
         width: 485px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         // top: 0px;
 
         cursor: pointer;
@@ -55,22 +56,38 @@ body {
         //   font-size: 16px;
         //   padding-bottom: 10px;
         // }
+        .todo-container {
+          display: flex;
+          // align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+
+        .todo-repeat {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 70px;
+        }
 
         .todo-complete {
-          float: right;
-
+          // float: right;
+          // justify-self: center;
+          // align-self: center;
           // left: 50%;
-          top: 0px;
+          // top: 0px;
           // top: 50%;
-
+          display: flex;
+          justify-content: center;
+          align-items: center;
           // text-align: center;
           vertical-align: middle;
-          width: 43px;
-          height: 43px;
+          width: 40px;
+          height: 40px;
 
           padding: 5px;
 
-          border: 1px solid black;
+          border: 1px solid #d2d2d2;
           border-radius: 16px;
         }
       }
@@ -80,15 +97,15 @@ body {
       position: flex;
 
       width: 150px;
-      height: 30px;
+      // height: 30px;
 
       font-weight: bold;
       font-size: 21px;
     }
     .todo-content {
       // width: 200px;
-      height: 30px;
-
+      // height: 30px;
+      margin-top: 2px;
       font-size: 16px;
       padding-bottom: 10px;
     }
@@ -96,15 +113,13 @@ body {
     .todo-edit {
       float: right;
 
-      width: 20px;
-      height: 20px;
-
       // top: 5px;
 
       // top: 20px;
+      display: inline;
 
       align-items: center;
-      vertical-align: middle;
+      // vertical-align: middle;
 
       margin-right: 10px;
 
@@ -112,22 +127,6 @@ body {
         width: 30px;
         height: 30px;
         cursor: pointer;
-      }
-
-      .todo-editSetMenu {
-        position: absolute;
-        box-shadow: 0 4px 5px 0 #00000026;
-        background: white;
-      }
-
-      .todo-editSetContent {
-        list-style-type: none;
-        padding: 12px;
-        margin: 0;
-        li {
-          margin: 5px 0px;
-          cursor: pointer;
-        }
       }
     }
 

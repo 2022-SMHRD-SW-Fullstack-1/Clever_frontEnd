@@ -5,10 +5,13 @@
   margin-top: 105px;
   float: left;
   width: 29%;
-  border: 0.1px solid silver;
+
+  border-radius: 15px;
   display: block;
   height: 633px;
   overflow: auto;
+  margin-left: 10px;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 10%);
 }
 .calendarDetailContainer #select {
   margin-left: 5px;

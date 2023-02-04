@@ -51,7 +51,7 @@ const Todo = () => {
       .then((res) => {
         // console.log("cateList", res);
         setCateList(res.data);
-        // setCategory(res.data[0].cate_seq);
+        setCategory(res.data[0].cate_seq);
       })
       .catch((err) => {
         console.log("실패함", err);
