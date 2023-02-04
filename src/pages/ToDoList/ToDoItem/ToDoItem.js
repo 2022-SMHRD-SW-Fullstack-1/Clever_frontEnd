@@ -30,6 +30,8 @@ const ToDoItem = ({
   item,
   cateRef,
   cateObj,
+  isOn,
+  setIsOn,
 }) => {
   // console.log("itemObj", cateRef);
   // console.log("cateList", cateList);
@@ -208,27 +210,8 @@ const ToDoItem = ({
                 </div>
               </div>
               <div className="todo-repeat">{item.todo_repeat}</div>
-              <div
-                className="todo-complete"
-                // onClick={() => handleCom({ item, doneList })}
-              >
-                미완료
-              </div>
-              {/* {doneList.todo_seq === todoList.todo_seq ? (
-                <div
-                  className="todo-complete"
-                  onClick={() => handleCom({ item, doneList })}
-                >
-                  {toDoCom}
-                </div>
-              ) : (
-                <div
-                  className="todo-complete"
-                  onClick={() => handleCom({ item, doneList })}
-                >
-                  미완료
-                </div>
-              )} */}
+              <div className="todo-complete">미완료</div>
+
               <div className="todo-edit">
                 <div>
                   <MdEdit item={item} onClick={() => showModal({ item })} />
@@ -242,20 +225,6 @@ const ToDoItem = ({
               </div>
             </div>
           ))}
-
-          {/* <ToDoNotEmpty
-            todoList={todoList}
-            doneList={doneList}
-            offset={offset}
-            limit={limit}
-            toDoCom={toDoCom}
-            menu={menu}
-            setShowUpdate={setShowUpdate}
-            setMenu={setMenu}
-            showUpdate={showUpdate}
-            key={todoList.todo_seq}
-            // onDetail={onDetail}
-          /> */}
 
           <Pagination
             total={total}
