@@ -3,7 +3,14 @@ import ApiService from "../../ApiService";
 import "./CalendarInput.scss";
 
 let checkOn = [];
-const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
+const CalendarInput = ({
+  todayYear,
+  todayMonth,
+  todayDay,
+  getWorkerList,
+  setModalOpen,
+  getSchedule,
+}) => {
   const groupSeq = sessionStorage.getItem("group_seq");
   const date = new Date();
   const year = Number(
@@ -26,6 +33,9 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
   const workerList = useRef(getWorkerList);
   const [workerListState, setWorkerListState] = useState();
 
+  console.log(Number(PlanYear));
+  console.log(Number(PlanMonth));
+  console.log(Number(Day));
   const getDayOfWeek = (yyyy, mm, arrChoiceDay) => {
     let lastDate = new Date(yyyy, mm, 0).getDate();
 
@@ -295,24 +305,31 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
         getId = workerList.current[i].mem_id;
       }
     }
+
     for (var i = 0; i < finalDate.length; i++) {
-      finalDate[i] >= 10
-        ? saveArrScheduleInfo.push({
-            mem_name: String(Worker),
-            att_date: `${PlanYear}-${PlanMonth}-${finalDate[i]}`,
-            att_sche_start_time: String(startTime),
-            att_sche_end_time: String(endTime),
-            group_seq: groupSeq,
-            mem_id: getId,
-          })
-        : saveArrScheduleInfo.push({
-            mem_name: String(Worker),
-            att_date: `${PlanYear}-${PlanMonth}-0${finalDate[i]}`,
-            att_sche_start_time: String(startTime),
-            att_sche_end_time: String(endTime),
-            group_seq: groupSeq,
-            mem_id: getId,
-          });
+      if (
+        PlanYear >= todayYear &&
+        PlanMonth >= todayMonth &&
+        finalDate[i] >= todayDay
+      ) {
+        finalDate[i] >= 10
+          ? saveArrScheduleInfo.push({
+              mem_name: String(Worker),
+              att_date: `${PlanYear}-${PlanMonth}-${finalDate[i]}`,
+              att_sche_start_time: String(startTime),
+              att_sche_end_time: String(endTime),
+              group_seq: groupSeq,
+              mem_id: getId,
+            })
+          : saveArrScheduleInfo.push({
+              mem_name: String(Worker),
+              att_date: `${PlanYear}-${PlanMonth}-0${finalDate[i]}`,
+              att_sche_start_time: String(startTime),
+              att_sche_end_time: String(endTime),
+              group_seq: groupSeq,
+              mem_id: getId,
+            });
+      }
     }
     console.log("일정등록 :", saveArrScheduleInfo);
     saveArrSchedule(saveArrScheduleInfo);

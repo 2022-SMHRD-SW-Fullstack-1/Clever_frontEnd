@@ -254,6 +254,9 @@ const Calendar = () => {
         </button>
         {modalOpen && (
           <CalendarInput
+            todayYear={date.getFullYear()}
+            todayMonth={date.getMonth() + 1}
+            todayDay={date.getDate()}
             setModalOpen={setModalOpen}
             getWorkerList={workerInfo.current}
             getSchedule={getSchedule}
@@ -268,7 +271,6 @@ const Calendar = () => {
             setChartOpen={setChartOpen}
             getWorkerList={workerInfo.current}
             getSchedule={[...scheduleInfo.current]}
-            today={today}
             changeSchedul={[...changeSchedul.current]}
             workerListRendering={workerListRendering}
           />
