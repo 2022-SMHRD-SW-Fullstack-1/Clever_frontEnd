@@ -30,7 +30,7 @@ const Todo = () => {
   const [showWriteModal, setShowWriteModal] = useState(false);
 
   // 그룹 정보 가져오기
-  const [joinGroup, setjoinGroup] = useState();
+  const [joinGroup, setJoinGroup] = useState();
   useEffect(() => {
     axios.post("/todolist/getgroup", { mem_id: user }).then((res) => {
       console.log(("groupInfo", res));

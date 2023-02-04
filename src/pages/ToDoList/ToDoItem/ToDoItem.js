@@ -22,17 +22,15 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-const ToDoItem = ({
-  category,
-  cateName,
-  cateList,
-  doneList,
-  item,
-  // setShowWriteModal,
-  // showWriteModal,
-}) => {
+const ToDoItem = ({ category, cateName, cateList, doneList, item }) => {
   // console.log("category", cateList);
   // console.log("doneList", doneList);
+
+  const [cateDefault, setCateDefault] = useState();
+  useEffect(() => {
+    // setCateDefault(cateList[0].cate_seq);
+  });
+
   const joinGroup = sessionStorage.getItem("group_seq");
 
   const [showWriteModal, setShowWriteModal] = useState(false);
@@ -58,7 +56,7 @@ const ToDoItem = ({
   const [allTodoList, setAllTodoList] = useState([]);
 
   useEffect(() => {
-    if (cateList[0].cate_seq === category) {
+    if (cateDefault === category) {
       axios
         .post("/todolist/alltodo", { group_seq: joinGroup, cate_seq: category })
         .then((res) => {
@@ -96,16 +94,14 @@ const ToDoItem = ({
   const [detailLIst, setDetailList] = useState([]);
   const [toDoRep, setToDoRep] = useState();
 
-  const [editSeq, setEditSeq] = useState([]);
-
   const [toDoCom, setToDoCom] = useState("");
 
-  const onDetail = ({ item, e }) => {
-    // console.log("detailedItem", item);
+  const onDetail = ({ item }) => {
+    console.log("detailedItem", item);
     // setDetailList(item);
     setDetailId(item.todo_seq);
     // console.log("detailId", detailId);
-    setEditSeq(item.todo_seq);
+    // setEditSeq(item.todo_seq);
 
     {
       doneList.map((item, idx) => {
@@ -201,12 +197,18 @@ const ToDoItem = ({
                 </div>
               </div>
               <div className="todo-repeat">{item.todo_repeat}</div>
-              {doneList.todo_seq === todoList.todo_seq ? (
+              <div
+                className="todo-complete"
+                // onClick={() => handleCom({ item, doneList })}
+              >
+                미완료
+              </div>
+              {/* {doneList.todo_seq === todoList.todo_seq ? (
                 <div
                   className="todo-complete"
                   onClick={() => handleCom({ item, doneList })}
                 >
-                  완료
+                  {toDoCom}
                 </div>
               ) : (
                 <div
@@ -215,7 +217,7 @@ const ToDoItem = ({
                 >
                   미완료
                 </div>
-              )}
+              )} */}
               <div className="todo-edit">
                 <div>
                   <MdEdit item={item} onClick={() => showModal({ item })} />
