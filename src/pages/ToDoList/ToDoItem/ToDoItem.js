@@ -25,13 +25,15 @@ const TasksLeft = styled.div`
 const ToDoItem = ({
   category,
   cateName,
+  cateList,
   doneList,
   item,
   // setShowWriteModal,
   // showWriteModal,
 }) => {
-  // console.log("category", category);
-  console.log("doneList", doneList);
+  // console.log("category", cateList);
+  // console.log("doneList", doneList);
+  const joinGroup = sessionStorage.getItem("group_seq");
 
   const [showWriteModal, setShowWriteModal] = useState(false);
 
@@ -52,20 +54,35 @@ const ToDoItem = ({
     navigate("/todolistcreate");
   };
 
-  // 할 일 리스트 불러오기
-  useEffect(() => {
-    axios
-      .post("/todolist/todolist", { cate_seq: category })
-      .then((res) => {
-        setTodoList(res.data);
+  // 전체 할일 리스트 불러오기
+  const [allTodoList, setAllTodoList] = useState([]);
 
-        setToDoRep(res.data.todo_repeat);
-        setTotal(res.data.length);
-        setTodoCount(res.data.length);
-      })
-      .catch((err) => {
-        console.log("리스트 실패함", err);
-      });
+  useEffect(() => {
+    if (cateList[0].cate_seq === category) {
+      axios
+        .post("/todolist/alltodo", { group_seq: joinGroup, cate_seq: category })
+        .then((res) => {
+          setTodoList(res.data);
+          setToDoRep(res.data.todo_repeat);
+          setTotal(res.data.length);
+          setTodoCount(res.data.length);
+        })
+        .catch((err) => {
+          console.log("리스트 실패함", err);
+        });
+    } else {
+      axios
+        .post("/todolist/todolist", { cate_seq: category })
+        .then((res) => {
+          setTodoList(res.data);
+          setToDoRep(res.data.todo_repeat);
+          setTotal(res.data.length);
+          setTodoCount(res.data.length);
+        })
+        .catch((err) => {
+          console.log("리스트 실패함", err);
+        });
+    }
   }, [category]);
 
   // 할일 페이지네이션
@@ -85,9 +102,9 @@ const ToDoItem = ({
 
   const onDetail = ({ item, e }) => {
     // console.log("detailedItem", item);
-    setDetailList(item);
+    // setDetailList(item);
     setDetailId(item.todo_seq);
-
+    // console.log("detailId", detailId);
     setEditSeq(item.todo_seq);
 
     {
@@ -98,7 +115,6 @@ const ToDoItem = ({
           setDoneDate(item.cmpl_time);
           setDoneMemo(item.cmpl_memo);
           setToDoCom("완료");
-          // setToDoCom(item.filter((item) => item.todo_seq === detailId));
         } else {
           setDoneMem("미");
           setDoneDate("");

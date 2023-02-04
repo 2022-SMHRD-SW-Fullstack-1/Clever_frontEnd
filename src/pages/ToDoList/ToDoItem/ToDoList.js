@@ -40,6 +40,7 @@ const TasksLeft = styled.div`
 const ToDoList = ({
   cateName,
   category,
+  cateList,
   setShowWriteModal,
   showWriteModal,
 }) => {
@@ -90,6 +91,7 @@ const ToDoList = ({
           category={category}
           doneList={doneList}
           key={category}
+          cateList={cateList}
         />
       </div>
     </div>
