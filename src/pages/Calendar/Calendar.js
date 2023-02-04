@@ -39,6 +39,8 @@ const Calendar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [chartOpen, setChartOpen] = useState(false);
   const changeSchedul = useRef([]);
+  const completeList = useRef({});
+  const todoInfoList = useRef({});
 
   useEffect(() => {
     getSchedule(groupSeq);
@@ -72,10 +74,23 @@ const Calendar = () => {
       workerInfo.current.unshift({ mem_name: "전체" });
     });
   };
-
+  const getTodoInfo = () => {
+    ApiService.getTodoInfo().then((res) => {
+      todoInfoList.current = res.data;
+      console.log("투두", todoInfoList.current);
+    });
+  };
+  const getComplete = () => {
+    ApiService.getComplete().then((res) => {
+      completeList.current = res.data;
+      console.log("컴플리트", completeList.current);
+    });
+  };
   const getSchedule = (e) => {
     getModification(e);
     setSelectedDate(today);
+    getTodoInfo();
+    getComplete();
 
     ApiService.getSchedule(groupSeq)
       .then((res) => {
@@ -299,6 +314,9 @@ const Calendar = () => {
             getSchedule={[...scheduleInfo.current]}
             changeSchedul={[...changeSchedul.current]}
             workerListRendering={workerListRendering}
+            today={today}
+            getComplete={completeList.current}
+            getTodoInfo={todoInfoList.current}
           />
         )}
         <FullCalendar

@@ -185,7 +185,6 @@ const CalendarInput = ({
       .catch((err) => {
         console.log(err);
       });
-    setWorkerListState(0);
   };
 
   const workerListRendering = () => {
@@ -221,6 +220,7 @@ const CalendarInput = ({
   };
 
   const day = (e) => {
+    checkOn = [];
     if (e.target.checked && !checkOn.includes(e.target.value)) {
       checkOn.push(e.target.value);
     } else if (!e.target.checked && checkOn.includes(e.target.value)) {
@@ -338,8 +338,14 @@ const CalendarInput = ({
   const closeModal = () => {
     setModalOpen(false);
     getSchedule(groupSeq);
+    // setDay([]);
   };
 
+  console.log("worker", Worker);
+  console.log("month", month);
+  console.log("startTime", startTime);
+  console.log("endTime", endTime);
+  console.log("day", Day);
   return (
     <div className="calendarInputContainer">
       <div className="modalblock">
