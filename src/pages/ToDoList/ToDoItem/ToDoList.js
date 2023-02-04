@@ -10,6 +10,7 @@ import axios from "axios";
 // import { MdDelete, MdDone, MdEdit } from "react-icons/md";
 
 import ToDoItem from "../ToDoItem/ToDoItem";
+import ToDoToggle from "../ToDoToggle";
 
 const TodoHeadBlock = styled.div`
   h1 {
@@ -82,6 +83,8 @@ const ToDoList = ({
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
 
+  const [isOn, setIsOn] = useState(false);
+
   return (
     <div className="todoContent">
       <div className="todo-template">
@@ -89,10 +92,13 @@ const ToDoList = ({
           <h1>{dateString}</h1>
           <div className="day">{dayName}</div>
           {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
+          <ToDoToggle doneList={doneList} isOn={isOn} setIsOn={setIsOn} />
         </TodoHeadBlock>
         <ToDoItem
           cateName={cateName}
           category={category}
+          isOn={isOn}
+          setIsOn={setIsOn}
           doneList={doneList}
           cateList={cateList}
           key={category}
