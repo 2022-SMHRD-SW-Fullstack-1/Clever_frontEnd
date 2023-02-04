@@ -45,9 +45,11 @@ const ToDoList = ({
   showWriteModal,
   selectDate,
   cateRef,
+  cateObj,
 }) => {
+  console.log("cateObj", cateObj);
   const user = sessionStorage.getItem("mem_id");
-
+  console.log("user", user);
   // const todos = useTodoState();
   const today = new Date();
 
@@ -108,6 +110,7 @@ const ToDoList = ({
           cateList={cateList}
           key={category}
           cateRef={cateRef}
+          cateObj={cateObj}
         />
       </div>
     </div>
