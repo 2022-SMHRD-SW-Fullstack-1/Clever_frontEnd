@@ -28,6 +28,7 @@ const ToDoItem = ({
   cateList,
   doneList,
   item,
+  cateRef,
   // setShowWriteModal,
   // showWriteModal,
 }) => {
@@ -56,11 +57,13 @@ const ToDoItem = ({
 
   // 전체 할일 리스트 불러오기
   const [allTodoList, setAllTodoList] = useState([]);
-
   useEffect(() => {
-    if (cateList[0].cate_seq === category) {
+    if (category === cateRef) {
       axios
-        .post("/todolist/alltodo", { group_seq: joinGroup, cate_seq: category })
+        .post("/todolist/alltodo", {
+          group_seq: joinGroup,
+          cate_seq: category,
+        })
         .then((res) => {
           setTodoList(res.data);
           setToDoRep(res.data.todo_repeat);

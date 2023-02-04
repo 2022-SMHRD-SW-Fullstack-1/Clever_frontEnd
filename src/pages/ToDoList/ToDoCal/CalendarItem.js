@@ -1,9 +1,9 @@
 import React from "react";
 import "./ToDoCalendar.scss";
 
-const CalendarItem = ({ item }) => {
+const CalendarItem = ({ item, setSelectDate }) => {
   const handleSelect = () => {
-    console.log("selected Item : ", item);
+    setSelectDate(item);
   };
   return (
     <td className="showday" onClick={handleSelect}>
