@@ -3,7 +3,7 @@ import { AiOutlineBorder, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import CalendarItem from "./CalendarItem";
 import "./ToDoCalendar.scss";
 
-const CalendarData = () => {
+const CalendarData = ({ setSelectDate }) => {
   const now = new Date();
   const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const nowDate = now.getDate();
@@ -76,7 +76,13 @@ const CalendarData = () => {
           </td>
           {state.week &&
             state.week.map((item, idx) => {
-              return <CalendarItem key={idx} item={item} />;
+              return (
+                <CalendarItem
+                  key={idx}
+                  item={item}
+                  setSelectDate={setSelectDate}
+                />
+              );
             })}
 
           <td className="arrow">

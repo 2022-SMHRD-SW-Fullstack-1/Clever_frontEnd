@@ -97,7 +97,7 @@ const Calendar = () => {
             : console.log();
 
           return {
-            title: `${item.mem_name}${item.att_sche_start_time.substring(
+            title: `${item.mem_name} ${item.att_sche_start_time.substring(
               0,
               5
             )}-${String(item.att_sche_end_time).substring(0, 5)}`,

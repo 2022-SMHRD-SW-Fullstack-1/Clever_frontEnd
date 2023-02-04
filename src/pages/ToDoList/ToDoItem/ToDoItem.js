@@ -22,43 +22,34 @@ const TasksLeft = styled.div`
   font-weight: bold;
 `;
 
-const ToDoItem = ({ category, cateName, cateList, doneList, item }) => {
-  // console.log("category", cateList);
-  // console.log("doneList", doneList);
+const ToDoItem = ({
+  category,
+  cateName,
+  cateList,
+  doneList,
+  item,
+  cateRef,
+  cateObj,
+}) => {
+  // console.log("itemObj", cateRef);
+  // console.log("cateList", cateList);
 
-  const [cateDefault, setCateDefault] = useState();
+  const [cateType, setCateType] = useState();
   useEffect(() => {
-    // setCateDefault(cateList[0].cate_seq);
-  });
-
-  const joinGroup = sessionStorage.getItem("group_seq");
-
-  const [showWriteModal, setShowWriteModal] = useState(false);
-
-  const [todoCount, setTodoCount] = useState();
-
-  const [doneSeq, setDoneSeq] = useState();
-  const [doneMem, setDoneMem] = useState();
-  const [doneDate, setDoneDate] = useState();
-  const [doneMemo, setDoneMemo] = useState();
-
-  const [todoList, setTodoList] = useState([]);
-
-  // 남은 할일 개수
-
-  const navigate = useNavigate();
-
-  const gotoToDoCreate = () => {
-    navigate("/todolistcreate");
-  };
-
-  // 전체 할일 리스트 불러오기
-  const [allTodoList, setAllTodoList] = useState([]);
-
-  useEffect(() => {
-    if (cateDefault === category) {
+    cateList
+      .filter((item, idx) => idx === 0)
+      .map((item) => {
+        console.log("cate", item.cate_seq);
+        setCateType(item.cate_seq);
+        console.log("cat", cateType);
+      });
+    if (cateType == category) {
       axios
-        .post("/todolist/alltodo", { group_seq: joinGroup, cate_seq: category })
+        .post("/todolist/alltodo", {
+          group_seq: joinGroup,
+          // cate_seq: category,
+          cate_seq: cateType,
+        })
         .then((res) => {
           setTodoList(res.data);
           setToDoRep(res.data.todo_repeat);
@@ -81,7 +72,30 @@ const ToDoItem = ({ category, cateName, cateList, doneList, item }) => {
           console.log("리스트 실패함", err);
         });
     }
-  }, [category]);
+  }, [cateType]);
+
+  // console.log("obj", cateObj);
+
+  const cateDefault = cateRef.category;
+
+  const joinGroup = sessionStorage.getItem("group_seq");
+
+  const [showWriteModal, setShowWriteModal] = useState(false);
+
+  const [todoCount, setTodoCount] = useState();
+
+  const [doneSeq, setDoneSeq] = useState();
+  const [doneMem, setDoneMem] = useState();
+  const [doneDate, setDoneDate] = useState();
+  const [doneMemo, setDoneMemo] = useState();
+
+  const [todoList, setTodoList] = useState([]);
+
+  const navigate = useNavigate();
+
+  const gotoToDoCreate = () => {
+    navigate("/todolistcreate");
+  };
 
   // 할일 페이지네이션
   const [limit, setLimit] = useState(7);
@@ -122,12 +136,9 @@ const ToDoItem = ({ category, cateName, cateList, doneList, item }) => {
   };
 
   // 할 일 수정 삭제
-
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = (item) => {
     setModalOpen(true);
-
-    console.log("edit", item.item);
     setUpdateItem(item.item);
     setShowWriteModal(true);
 

@@ -170,6 +170,7 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
     ApiService.saveArrScheduleInfo(e)
       .then((res) => {
         alert("일정이 등록되었습니다.");
+        closeModal();
       })
       .catch((err) => {
         console.log(err);
@@ -327,9 +328,9 @@ const CalendarInput = ({ getWorkerList, setModalOpen, getSchedule }) => {
       <div className="modalblock">
         <h2>일정등록</h2>
         <br />
-        <button className="close" onClick={closeModal}>
-          X
-        </button>
+        <span className="close" onClick={closeModal}>
+          &times;
+        </span>
         <tr className="checkBox"> 요일선택 : {checkBoxDay()}</tr>
         <br />
         <tr>

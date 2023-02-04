@@ -147,9 +147,11 @@ const ToDoCreate = () => {
               <td className="todo-head">카테고리</td>
               <td>
                 <select name="todo-category" ref={todoCategoryRef}>
-                  {cateList.map((item) => (
-                    <option value={item.cate_seq}>{item.cate_name}</option>
-                  ))}
+                  {cateList
+                    .filter((item, idx) => idx > 0)
+                    .map((item) => (
+                      <option value={item.cate_seq}>{item.cate_name}</option>
+                    ))}
                 </select>
               </td>
             </tr>

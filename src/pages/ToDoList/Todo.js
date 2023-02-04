@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 import { TodoProvider } from "./ToDoItem/ToDoContext";
@@ -42,6 +42,15 @@ const Todo = () => {
   const [category, setCategory] = useState("");
   const [cateName, setCateName] = useState("");
 
+  // const cateRef = useRef({ category: null });
+  const cateRef = useRef({ category: null });
+  const cateObj = { category };
+  cateRef.current = cateObj;
+
+  // useEffect(() => {
+  //   cateRef.current = cateObj;
+  // }, [cateObj]);
+
   useEffect(() => {
     axios
       .post("/todolist/getcategory", {
@@ -49,6 +58,7 @@ const Todo = () => {
         // mem_id: user,
       })
       .then((res) => {
+        console.log("data : ", res.data);
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
       })
@@ -69,6 +79,9 @@ const Todo = () => {
   // 일일 특이사항 가져오기
   const [todoMemoList, setTodoMemoList] = useState("");
 
+  const [selectDate, setSelectDate] = useState("");
+  console.log(selectDate);
+
   useEffect(() => {
     axios.post("/todolist/todaymemo").then((res) => {
       // console.log("notice", res.data);
@@ -87,7 +100,7 @@ const Todo = () => {
   return (
     <div className="container">
       <Header />
-      <CalendarData />
+      <CalendarData setSelectDate={setSelectDate} />
       <div className="todoNotice">
         <div className="todoNotice-head">일일 특이사항</div>
         <div className="todoMemo">
@@ -144,7 +157,9 @@ const Todo = () => {
             category={category}
             setShowWriteModal={setShowWriteModal}
             showWriteModal={showWriteModal}
-            key={category}
+            selectDate={selectDate}
+            cateRef={cateRef.current}
+            cateObj={cateObj.category}
           />
         </div>
       </div>
