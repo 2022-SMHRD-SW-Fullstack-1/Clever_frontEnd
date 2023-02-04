@@ -25,13 +25,60 @@ const TasksLeft = styled.div`
 const ToDoItem = ({
   category,
   cateName,
+  cateList,
   doneList,
   item,
-  // setShowWriteModal,
-  // showWriteModal,
+  cateRef,
+  cateObj,
 }) => {
-  // console.log("category", category);
-  console.log("doneList", doneList);
+  // console.log("itemObj", cateRef);
+  // console.log("cateList", cateList);
+
+  const [cateType, setCateType] = useState();
+  useEffect(() => {
+    cateList
+      .filter((item, idx) => idx === 0)
+      .map((item) => {
+        console.log("cate", item.cate_seq);
+        setCateType(item.cate_seq);
+        console.log("cat", cateType);
+      });
+    if (cateType == category) {
+      axios
+        .post("/todolist/alltodo", {
+          group_seq: joinGroup,
+          // cate_seq: category,
+          cate_seq: cateType,
+        })
+        .then((res) => {
+          setTodoList(res.data);
+          setToDoRep(res.data.todo_repeat);
+          setTotal(res.data.length);
+          setTodoCount(res.data.length);
+        })
+        .catch((err) => {
+          console.log("리스트 실패함", err);
+        });
+    } else {
+      axios
+        .post("/todolist/todolist", { cate_seq: category })
+        .then((res) => {
+          setTodoList(res.data);
+          setToDoRep(res.data.todo_repeat);
+          setTotal(res.data.length);
+          setTodoCount(res.data.length);
+        })
+        .catch((err) => {
+          console.log("리스트 실패함", err);
+        });
+    }
+  }, [cateType]);
+
+  // console.log("obj", cateObj);
+
+  const cateDefault = cateRef.category;
+
+  const joinGroup = sessionStorage.getItem("group_seq");
 
   const [showWriteModal, setShowWriteModal] = useState(false);
 
@@ -44,29 +91,11 @@ const ToDoItem = ({
 
   const [todoList, setTodoList] = useState([]);
 
-  // 남은 할일 개수
-
   const navigate = useNavigate();
 
   const gotoToDoCreate = () => {
     navigate("/todolistcreate");
   };
-
-  // 할 일 리스트 불러오기
-  useEffect(() => {
-    axios
-      .post("/todolist/todolist", { cate_seq: category })
-      .then((res) => {
-        setTodoList(res.data);
-
-        setToDoRep(res.data.todo_repeat);
-        setTotal(res.data.length);
-        setTodoCount(res.data.length);
-      })
-      .catch((err) => {
-        console.log("리스트 실패함", err);
-      });
-  }, [category]);
 
   // 할일 페이지네이션
   const [limit, setLimit] = useState(7);
@@ -79,16 +108,14 @@ const ToDoItem = ({
   const [detailLIst, setDetailList] = useState([]);
   const [toDoRep, setToDoRep] = useState();
 
-  const [editSeq, setEditSeq] = useState([]);
-
   const [toDoCom, setToDoCom] = useState("");
 
-  const onDetail = ({ item, e }) => {
-    // console.log("detailedItem", item);
-    setDetailList(item);
+  const onDetail = ({ item }) => {
+    console.log("detailedItem", item);
+    // setDetailList(item);
     setDetailId(item.todo_seq);
-
-    setEditSeq(item.todo_seq);
+    // console.log("detailId", detailId);
+    // setEditSeq(item.todo_seq);
 
     {
       doneList.map((item, idx) => {
@@ -98,7 +125,6 @@ const ToDoItem = ({
           setDoneDate(item.cmpl_time);
           setDoneMemo(item.cmpl_memo);
           setToDoCom("완료");
-          // setToDoCom(item.filter((item) => item.todo_seq === detailId));
         } else {
           setDoneMem("미");
           setDoneDate("");
@@ -110,12 +136,9 @@ const ToDoItem = ({
   };
 
   // 할 일 수정 삭제
-
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = (item) => {
     setModalOpen(true);
-
-    console.log("edit", item.item);
     setUpdateItem(item.item);
     setShowWriteModal(true);
 
@@ -185,12 +208,18 @@ const ToDoItem = ({
                 </div>
               </div>
               <div className="todo-repeat">{item.todo_repeat}</div>
-              {doneList.todo_seq === todoList.todo_seq ? (
+              <div
+                className="todo-complete"
+                // onClick={() => handleCom({ item, doneList })}
+              >
+                미완료
+              </div>
+              {/* {doneList.todo_seq === todoList.todo_seq ? (
                 <div
                   className="todo-complete"
                   onClick={() => handleCom({ item, doneList })}
                 >
-                  완료
+                  {toDoCom}
                 </div>
               ) : (
                 <div
@@ -199,7 +228,7 @@ const ToDoItem = ({
                 >
                   미완료
                 </div>
-              )}
+              )} */}
               <div className="todo-edit">
                 <div>
                   <MdEdit item={item} onClick={() => showModal({ item })} />
