@@ -14,11 +14,13 @@ const Join = () => {
     mem_check: "",
     mem_email: "",
   });
+  const { mem_id, mem_name, mem_pw, mem_check, mem_email } = inputValue;
+  const [checkid, setCheckId] = useState(0);
   const [idAlertSentence, setIdAlertSentence] =
     useState("휴대폰번호를 입력해주세요");
   const [pwAlertSentence, setPwAlertSentence] = useState("");
   const [emailAlertSentence, setEmailAlertSentence] = useState("");
-  const { mem_id, mem_name, mem_pw, mem_check, mem_email } = inputValue;
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -26,8 +28,7 @@ const Join = () => {
       [name]: value,
     });
   };
-
-  const handleJoin = () => {
+  const join = () => {
     ApiService.addMember(inputValue)
       .then((res) => {
         console.log("회원가입 성공!");
@@ -43,8 +44,25 @@ const Join = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log("보내는 값 :", inputValue);
   };
+
+  const handleJoin = () => {
+    axios
+      .post("/member/join/checkid", { mem_id: inputValue.mem_id })
+      .then((res) => {
+        setCheckId(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (checkid === 0) {
+      join();
+    } else if (checkid === 1) {
+      alert("아이디 존재");
+    }
+  };
+
   const handleCancel = () => {
     navigate("/");
   };
@@ -75,7 +93,7 @@ const Join = () => {
           {/* <img src={logo} alt="logo title"></img> */}
           <h3 className={styles.userTitle}>회원가입</h3>
           <div className={styles.inputArea}>
-            <form className={styles.inputLine}>
+            <div className={styles.inputLine}>
               <span className={styles.userInputLine}>휴대폰번호</span>
               <input
                 className={styles.userInput}
@@ -85,8 +103,8 @@ const Join = () => {
                 maxLength="11"
               ></input>
               {/* <div className="inputDescription">{idAlertSentence}</div> */}
-            </form>
-            <form className={styles.inputLine}>
+            </div>
+            <div className={styles.inputLine}>
               <span className={styles.userInputLine}>이름</span>
               <input
                 className={styles.userInput}
@@ -94,8 +112,8 @@ const Join = () => {
                 name="mem_name"
                 onChange={handleInput}
               ></input>
-            </form>
-            <form className={styles.inputLine}>
+            </div>
+            <div className={styles.inputLine}>
               <span className={styles.userInputLine}>비밀번호</span>
               <input
                 className={styles.userInput}
@@ -106,8 +124,8 @@ const Join = () => {
               <div className="inputDescription">
                 (영문 대소문자/숫자 4자~16자)
               </div>
-            </form>
-            <form className={styles.inputLine}>
+            </div>
+            <div className={styles.inputLine}>
               <span className={styles.userInputLine}>비밀번호 확인</span>
               <input
                 className={styles.userInput}
@@ -117,8 +135,8 @@ const Join = () => {
                 onBlur={() => pwCheck(mem_check)}
               ></input>
               <div className="inputDescription">{pwAlertSentence}</div>
-            </form>
-            <form className={styles.inputLine}>
+            </div>
+            <div className={styles.inputLine}>
               <span className={styles.userInputLine}>이메일</span>
               <input
                 className={styles.userInput}
@@ -128,17 +146,7 @@ const Join = () => {
                 onBlur={() => emailCheck(mem_email)}
               ></input>
               <div className="inputDescription">{emailAlertSentence}</div>
-            </form>
-            {/* <form className={styles.inputLine}>
-            <span className={styles.userInputLine2}>인증번호</span>
-            <input
-              className={styles.userInput}
-              type="text"
-              name="authNum"
-              onChange={handleInput}
-            ></input>
-            <button className={styles.loginBtn}>인증하기</button>
-          </form> */}
+            </div>
           </div>
 
           <button className={styles.joinBtn} onClick={handleJoin}>

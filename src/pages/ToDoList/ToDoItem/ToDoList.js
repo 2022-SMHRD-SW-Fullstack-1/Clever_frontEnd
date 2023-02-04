@@ -40,8 +40,11 @@ const TasksLeft = styled.div`
 const ToDoList = ({
   cateName,
   category,
+  cateList,
   setShowWriteModal,
   showWriteModal,
+  selectDate,
+  cateRef,
 }) => {
   const user = sessionStorage.getItem("mem_id");
   console.log("user", user);
@@ -89,7 +92,9 @@ const ToDoList = ({
           cateName={cateName}
           category={category}
           doneList={doneList}
+          cateList={cateList}
           key={category}
+          cateRef={cateRef}
         />
       </div>
     </div>

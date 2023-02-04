@@ -30,17 +30,22 @@ body {
   flex-direction: column;
 
   border-radius: 30px;
+}
 
-  .todoCreateBtn {
-    margin-left: 800px;
-    margin-top: 20px;
-    margin-bottom: 6px;
-    // float: right;
+.todo-add {
+  margin-right: 10px;
 
-    .todo-add {
-      margin-right: 10px;
-    }
-  }
+  width: 90px;
+  height: 40px;
+  border: 0;
+  outline: none;
+  font-size: 15px;
+  background: #3a4ca8;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 0;
+  margin-top: 5px;
 }
 
 .todo-list {
@@ -52,7 +57,7 @@ body {
 
   .todoContent {
     width: 500px;
-    // height: 605px;
+    height: 600px;
     float: left;
 
     padding: 5px;
@@ -64,56 +69,60 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 8px 0 grey;
 
-    .todo-table {
-      // width: 200px;
-      margin: 0 auto;
+    // .todo-table {
+    // width: 200px;
+    // margin: 0 auto;
 
-      // float: left;
+    // border: none;
 
-      .todoTitle {
-        text-align: left;
+    // float: left;
+
+    .todoTitle {
+      text-align: left;
+      font-size: larger;
+      font-weight: bolder;
+
+      .todo-title {
+        width: 450px;
+        border: white;
+        margin: 5px;
+        margin-top: 8px;
+
+        padding-top: 10px;
+        padding-left: 8px;
+        padding-bottom: 20px;
         font-size: larger;
         font-weight: bolder;
 
-        .todo-title {
-          // width: 350px;
-          border: white;
-          margin: 5px;
-          margin-top: 8px;
-
-          padding-top: 10px;
-          padding-left: 8px;
-          padding-bottom: 20px;
-          font-size: larger;
-          font-weight: bolder;
-
-          border-bottom: 1px solid black;
-        }
+        border-bottom: 1px solid black;
       }
+    }
 
-      .todoText {
-        height: 300px;
+    .todoText {
+      width: 450px;
+      height: 300px;
+      border-color: white;
+
+      // float: left;
+
+      .todo-content {
+        width: 440px;
+        height: 450px;
+        border: 0px;
         border-color: white;
+        margin: 5px;
+        margin-top: 8px;
 
-        // float: left;
+        padding-top: 10px;
+        padding-left: 8px;
 
-        .todo-content {
-          height: 500px;
-          border: 0px;
-          border-color: white;
-          margin: 5px;
-          margin-top: 8px;
-
-          padding-top: 10px;
-          padding-left: 8px;
-
-          font-size: large;
-          // font-weight: bold;
-        }
+        font-size: large;
+        // font-weight: bold;
       }
     }
   }
 }
+// }
 
 .todoOption {
   width: 400px;

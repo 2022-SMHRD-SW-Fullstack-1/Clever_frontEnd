@@ -3,7 +3,7 @@ body {
 }
 
 .todoCreate {
-  width: 1200px;
+  width: 1300px;
   height: 700px;
 
   //   flex-grow: 1;
@@ -23,23 +23,41 @@ body {
   flex-direction: column;
 
   border-radius: 30px;
+}
+.todoCreateBtn {
+  margin-left: 700px;
+  margin-top: 50px;
+  margin-bottom: 6px;
+  // float: right;
 
-  .todoCreateBtn {
-    margin-left: 800px;
-    margin-top: 20px;
-    margin-bottom: 6px;
-    // float: right;
-
-    .todo-add {
-      margin-right: 10px;
-    }
+  .todo-add {
+    margin-right: 10px;
   }
 }
 
+.todo-cancel {
+  width: 90px;
+  height: 40px;
+  border: 0;
+  outline: none;
+  font-size: 15px;
+  background: gray;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 0;
+  margin-top: 5px;
+}
+
 .todoCre-list {
-  float: left;
-  flex-grow: 2;
-  align-items: center;
+  // width: 100%;
+  // // height: 100%;
+  // float: left;
+  // flex-grow: 2;
+  // align-items: center;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 
   .todoContent {
     height: 605px;
@@ -49,7 +67,7 @@ body {
     margin-top: 13px;
 
     border-radius: 20px;
-    box-shadow: 0 0 8px 0 grey;
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 10%);
 
     .todo-table {
       width: 250px;
@@ -110,7 +128,7 @@ body {
     float: right;
     // flex-grow: 1;
     border-radius: 20px;
-    box-shadow: 0 0 8px 0 grey;
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 10%);
 
     font-size: larger;
 
@@ -132,6 +150,19 @@ body {
       .todo-head {
         padding: 15px;
         // font-weight: bold;
+      }
+      .todo-imgUpload {
+        width: 70px;
+        height: 30px;
+        border: 0;
+        outline: none;
+        font-size: 12px;
+        background: gray;
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+        margin: 0;
+        margin-top: 5px;
       }
     }
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 import { TodoProvider } from "./ToDoItem/ToDoContext";
@@ -42,6 +42,9 @@ const Todo = () => {
   const [category, setCategory] = useState("");
   const [cateName, setCateName] = useState("");
 
+  const cateRef = useRef({ category: null });
+  const cateObj = { category };
+  cateRef.current = cateObj;
   useEffect(() => {
     axios
       .post("/todolist/getcategory", {
@@ -49,9 +52,9 @@ const Todo = () => {
         // mem_id: user,
       })
       .then((res) => {
-        // console.log("cateList", res);
+        console.log("data : ", res.data);
         setCateList(res.data);
-        // setCategory(res.data[0].cate_seq);
+        setCategory(res.data[0].cate_seq);
       })
       .catch((err) => {
         console.log("실패함", err);
@@ -59,8 +62,6 @@ const Todo = () => {
   }, []);
 
   // 카테고리 추가하기
-  // const location = useLocation();
-  // console.log("location", location.state);
 
   const [groupInfo, setGroupInfo] = useState();
   const [showAddCategory, setShowAddCategory] = useState(false);
@@ -71,6 +72,9 @@ const Todo = () => {
 
   // 일일 특이사항 가져오기
   const [todoMemoList, setTodoMemoList] = useState("");
+
+  const [selectDate, setSelectDate] = useState("");
+  console.log(selectDate);
 
   useEffect(() => {
     axios.post("/todolist/todaymemo").then((res) => {
@@ -85,12 +89,12 @@ const Todo = () => {
     axios.post("/todolist/selectcate").then((res) => {
       // console.log("selectCate", res.data);
     });
-  });
+  }, []);
 
   return (
     <div className="container">
       <Header />
-      <CalendarData />
+      <CalendarData setSelectDate={setSelectDate} />
       <div className="todoNotice">
         <div className="todoNotice-head">일일 특이사항</div>
         <div className="todoMemo">
@@ -100,8 +104,8 @@ const Todo = () => {
               <div className="todo-memo">
                 <BiCheck />
                 {item.cmpl_memo}
-              </div>
-            ))} */}
+              </div> */}
+            {/* ))} */}
           </div>
         </div>
       </div>
@@ -126,7 +130,7 @@ const Todo = () => {
             })}
         </div>
 
-        <div className="todo-add" onClick={addToDoCate}>
+        <div className="todoCateadd" onClick={() => addToDoCate()}>
           <img className="todo-addCate" src={add}></img>
         </div>
         {showAddCategory && (
@@ -143,9 +147,12 @@ const Todo = () => {
         <div className="toDoTemplate">
           <ToDoList
             cateName={cateName}
+            cateList={cateList}
             category={category}
             setShowWriteModal={setShowWriteModal}
             showWriteModal={showWriteModal}
+            selectDate={selectDate}
+            cateRef={cateRef.current}
           />
         </div>
       </div>
