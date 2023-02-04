@@ -170,6 +170,7 @@ const Calendar = () => {
     });
     return result;
   };
+
   const selectWorker = () => {
     return (
       <select
@@ -178,18 +179,43 @@ const Calendar = () => {
           workerSchedule.current = [];
 
           for (var i = 0; i < copyScheduleInfo[0].length; i++) {
-            copyScheduleInfo[0][i].mem_name === e.target.value
-              ? workerSchedule.current.push({
-                  title: `${String(
-                    copyScheduleInfo[0][i].att_sche_start_time
-                  ).substring(0, 5)}-${String(
-                    copyScheduleInfo[0][i].att_sche_end_time
-                  ).substring(0, 5)}`,
-                  date: `${copyScheduleInfo[0][i].att_date}`,
-                  color: "whitesmoke",
-                  textColor: "black",
-                })
-              : console.log();
+            if (copyScheduleInfo[0][i].mem_name === e.target.value) {
+              workerSchedule.current.push({
+                title: `${String(
+                  copyScheduleInfo[0][i].att_sche_start_time
+                ).substring(0, 5)}-${String(
+                  copyScheduleInfo[0][i].att_sche_end_time
+                ).substring(0, 5)}`,
+                date: `${copyScheduleInfo[0][i].att_date}`,
+                color: "whitesmoke",
+                textColor: "black",
+              });
+            } else if (e.target.value !== "전체") {
+              workerSchedule.current.push({
+                title: "",
+                date: "",
+                color: "whitesmoke",
+                textColor: "black",
+              });
+            }
+
+            // copyScheduleInfo[0][i].mem_name === e.target.value
+            //   ? workerSchedule.current.push({
+            //       title: `${String(
+            //         copyScheduleInfo[0][i].att_sche_start_time
+            //       ).substring(0, 5)}-${String(
+            //         copyScheduleInfo[0][i].att_sche_end_time
+            //       ).substring(0, 5)}`,
+            //       date: `${copyScheduleInfo[0][i].att_date}`,
+            //       color: "whitesmoke",
+            //       textColor: "black",
+            //     })
+            //   : workerSchedule.current.push({
+            //       title: "",
+            //       date: "",
+            //       color: "whitesmoke",
+            //       textColor: "black",
+            //     });
           }
           selectedList.current = [];
           if (e.target.value === "전체") {
