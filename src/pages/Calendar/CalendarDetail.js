@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ApiService from "../../ApiService";
 import "./CalendarDetail.scss";
+import add from "../../image/add.png";
 
 const CalendarDetail = ({
   today,
@@ -341,15 +342,26 @@ const CalendarDetail = ({
       return;
     } else {
       return (
-        <button
-          id="addButton"
+        // <button
+        //   id="addButton"
+        //   onClick={() => {
+        //     pushArrAddList();
+        //     setArrAddListState([copyArrAddList.current]);
+        //   }}
+        // >
+        //   +
+        // </button>
+
+        <div
+          className="addButton"
           onClick={() => {
             pushArrAddList();
             setArrAddListState([copyArrAddList.current]);
           }}
         >
-          +
-        </button>
+          <img src={add} id="addButton" alt="add btn" />
+          <div className="add">근무자 추가</div>
+        </div>
       );
     }
   };
