@@ -46,10 +46,10 @@ const CalendarData = ({ setSelectDate }) => {
   useEffect(() => {
     // const calToday = "calToday";
     const dateClassName = document.querySelectorAll(".calDate");
-    console.log("nowDate : ", nowDate);
-    console.log("setSelectDate : ", setSelectDate);
+    // console.log("nowDate : ", nowDate);
+    // console.log("setSelectDate : ", setSelectDate);
     for (let i = 0; i <= 6; i++) {
-      console.log("state.week[i].getDate() : ", state.week[i].getDate());
+      // console.log("state.week[i].getDate() : ", state.week[i].getDate());
       if (state.week[i].getDate() === nowDate) {
         dateClassName[i].classList.add("calToday");
       } else {

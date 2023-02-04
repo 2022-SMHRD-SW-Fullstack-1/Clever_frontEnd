@@ -30,12 +30,12 @@ const Todo = () => {
   const [showWriteModal, setShowWriteModal] = useState(false);
 
   // 그룹 정보 가져오기
-  const [joinGroup, setJoinGroup] = useState();
-  useEffect(() => {
-    axios.post("/todolist/getgroup", { mem_id: user }).then((res) => {
-      console.log(("groupInfo", res));
-    });
-  }, [joinGroup]);
+  // const [joinGroup, setJoinGroup] = useState();
+  // useEffect(() => {
+  //   axios.post("/todolist/getgroup", { mem_id: user }).then((res) => {
+  //     console.log(("groupInfo", res));
+  //   });
+  // }, [joinGroup]);
 
   // db 에 있는 카테고리 가져오기
   const [cateList, setCateList] = useState([]);
@@ -46,10 +46,6 @@ const Todo = () => {
   const cateRef = useRef({ category: null });
   const cateObj = { category };
   cateRef.current = cateObj;
-
-  // useEffect(() => {
-  //   cateRef.current = cateObj;
-  // }, [cateObj]);
 
   useEffect(() => {
     axios

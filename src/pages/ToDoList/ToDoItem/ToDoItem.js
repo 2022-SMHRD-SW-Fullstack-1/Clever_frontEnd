@@ -30,6 +30,7 @@ const ToDoItem = ({
   item,
   cateRef,
   cateObj,
+  selectDate,
 }) => {
   // console.log("itemObj", cateRef);
   // console.log("cateList", cateList);
@@ -51,7 +52,6 @@ const ToDoItem = ({
           cate_seq: cateType,
         })
         .then((res) => {
-          console.log("tree", res.data);
           setTodoList(res.data);
           setToDoRep(res.data.todo_repeat);
           setTotal(res.data.length);

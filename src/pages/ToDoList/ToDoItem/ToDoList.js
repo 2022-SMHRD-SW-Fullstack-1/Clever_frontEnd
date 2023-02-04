@@ -111,6 +111,7 @@ const ToDoList = ({
           key={category}
           cateRef={cateRef}
           cateObj={cateObj}
+          selectDate={selectDate}
         />
       </div>
     </div>
