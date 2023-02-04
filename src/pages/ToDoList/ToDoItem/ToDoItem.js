@@ -164,7 +164,7 @@ const ToDoItem = ({
         <div className="todo-list">
           {todoList.slice(offset, offset + limit).map((item, idx) => (
             <div className="todo-item">
-              <div>
+              <div className="todo-container">
                 <div
                   className="todo-title"
                   key={idx}
@@ -184,7 +184,7 @@ const ToDoItem = ({
                   {item.todo_content}
                 </div>
               </div>
-              <div>{item.todo_repeat}</div>
+              <div className="todo-repeat">{item.todo_repeat}</div>
               {doneList.todo_seq === todoList.todo_seq ? (
                 <div
                   className="todo-complete"
@@ -201,8 +201,15 @@ const ToDoItem = ({
                 </div>
               )}
               <div className="todo-edit">
-                <MdEdit item={item} onClick={() => showModal({ item })} />
-                <MdDelete item={item} onClick={() => handleDelete({ item })} />
+                <div>
+                  <MdEdit item={item} onClick={() => showModal({ item })} />
+                </div>
+                <div>
+                  <MdDelete
+                    item={item}
+                    onClick={() => handleDelete({ item })}
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -241,7 +248,7 @@ const ToDoItem = ({
         <div>
           <div className="todoCom-mem">{doneMem} 완료</div>
           <div className="todoCom-img">{detailId}</div>
-          <div className="todoCom-time">완료 : {doneDate}</div>
+          <div className="todoCom-time">완료일시 : {doneDate}</div>
           <div className="todoCom-memo">메모 {doneMemo}</div>
         </div>
       </div>

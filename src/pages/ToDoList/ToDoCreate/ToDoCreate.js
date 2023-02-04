@@ -70,6 +70,10 @@ const ToDoCreate = () => {
   // 담당자 가져오기
   const [memList, setMemList] = useState([]);
 
+  const handleCancel = () => {
+    navigate("/todolist");
+  };
+
   useEffect(() => {
     axios
       .post("/todolist/getmember", { group_seq: joinGroup })
@@ -86,15 +90,6 @@ const ToDoCreate = () => {
     <div>
       <Header />
       <div className="container">
-        <div className="todoCreateBtn">
-          <input
-            type="submit"
-            className="todo-add"
-            onClick={submitCk}
-            value="추가"
-          ></input>
-          <button className="todo-cancel">취소</button>
-        </div>
         <div className="todoCre-list">
           <div className="todoContent">
             <form>
@@ -197,7 +192,7 @@ const ToDoCreate = () => {
               <td className="todo-head">담당자</td>
 
               <select name="todoMem" ref={todoMemRef}>
-                <option value="">------</option>
+                <option value="">선택안함</option>
                 {memList.map((item) => (
                   <option key={item.mem_id} value={item.mem_id}>
                     {item.mem_name}
@@ -207,9 +202,21 @@ const ToDoCreate = () => {
             </tr>
             <tr className="todo-method">
               <td className="todo-head">사진</td>
-              <input type="image" ref={todoImgRef}></input>
+              {/* <input type="image" ref={todoImgRef}></input> */}
+              <button className="todo-imgUpload">사진업로드</button>
             </tr>
           </div>
+        </div>
+        <div className="todoCreateBtn">
+          <input
+            type="submit"
+            className="todo-add"
+            onClick={submitCk}
+            value="추가"
+          ></input>
+          <button className="todo-cancel" onClick={handleCancel}>
+            취소
+          </button>
         </div>
       </div>
     </div>
