@@ -40,9 +40,11 @@ const TasksLeft = styled.div`
 const ToDoList = ({
   cateName,
   category,
+  cateList,
   setShowWriteModal,
   showWriteModal,
   selectDate,
+  cateRef,
 }) => {
   const user = sessionStorage.getItem("mem_id");
   console.log("user", user);
@@ -77,7 +79,7 @@ const ToDoList = ({
   // console.log("count", doneCount);
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
-  // console.log(selectDate);
+
   return (
     <div className="todoContent">
       <div className="todo-template">
@@ -90,7 +92,9 @@ const ToDoList = ({
           cateName={cateName}
           category={category}
           doneList={doneList}
+          cateList={cateList}
           key={category}
+          cateRef={cateRef}
         />
       </div>
     </div>

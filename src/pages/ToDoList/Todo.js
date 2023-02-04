@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 import { TodoProvider } from "./ToDoItem/ToDoContext";
@@ -42,6 +42,9 @@ const Todo = () => {
   const [category, setCategory] = useState("");
   const [cateName, setCateName] = useState("");
 
+  const cateRef = useRef({ category: null });
+  const cateObj = { category };
+  cateRef.current = cateObj;
   useEffect(() => {
     axios
       .post("/todolist/getcategory", {
@@ -49,7 +52,7 @@ const Todo = () => {
         // mem_id: user,
       })
       .then((res) => {
-        // console.log("cateList", res);
+        console.log("data : ", res.data);
         setCateList(res.data);
         setCategory(res.data[0].cate_seq);
       })
@@ -144,10 +147,12 @@ const Todo = () => {
         <div className="toDoTemplate">
           <ToDoList
             cateName={cateName}
+            cateList={cateList}
             category={category}
             setShowWriteModal={setShowWriteModal}
             showWriteModal={showWriteModal}
             selectDate={selectDate}
+            cateRef={cateRef.current}
           />
         </div>
       </div>
