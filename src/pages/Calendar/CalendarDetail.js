@@ -153,7 +153,7 @@ const CalendarDetail = ({
                   confirmModification(listConfirmation.current);
                 }}
               >
-                승락
+                승인
               </button>
               <button
                 id="registerButton"
