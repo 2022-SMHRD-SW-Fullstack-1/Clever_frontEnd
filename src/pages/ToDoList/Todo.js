@@ -70,6 +70,9 @@ const Todo = () => {
   // 일일 특이사항 가져오기
   const [todoMemoList, setTodoMemoList] = useState("");
 
+  const [selectDate, setSelectDate] = useState("");
+  console.log(selectDate);
+
   useEffect(() => {
     axios.post("/todolist/todaymemo").then((res) => {
       // console.log("notice", res.data);
@@ -88,7 +91,7 @@ const Todo = () => {
   return (
     <div className="container">
       <Header />
-      <CalendarData />
+      <CalendarData setSelectDate={setSelectDate} />
       <div className="todoNotice">
         <div className="todoNotice-head">일일 특이사항</div>
         <div className="todoMemo">
@@ -144,6 +147,7 @@ const Todo = () => {
             category={category}
             setShowWriteModal={setShowWriteModal}
             showWriteModal={showWriteModal}
+            selectDate={selectDate}
           />
         </div>
       </div>

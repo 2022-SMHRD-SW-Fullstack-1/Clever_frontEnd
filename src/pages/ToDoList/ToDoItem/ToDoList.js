@@ -42,6 +42,7 @@ const ToDoList = ({
   category,
   setShowWriteModal,
   showWriteModal,
+  selectDate,
 }) => {
   const user = sessionStorage.getItem("mem_id");
   console.log("user", user);
@@ -76,7 +77,7 @@ const ToDoList = ({
   // console.log("count", doneCount);
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
-
+  // console.log(selectDate);
   return (
     <div className="todoContent">
       <div className="todo-template">
