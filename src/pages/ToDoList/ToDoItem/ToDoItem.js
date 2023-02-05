@@ -13,6 +13,8 @@ import ToDoNotEmpty from "./ToDoNotEmpty";
 import styled from "styled-components";
 import ToDoToggle from "../ToDoToggle";
 import Toggle from "./Toggle";
+import ToDoListItem from "./ToDoListItem";
+import ToDoDoneListItem from "./ToDoDoneListItem";
 
 const TasksLeft = styled.div`
   // color: #20c997;
@@ -35,6 +37,9 @@ const ToDoItem = ({
 }) => {
   // console.log("itemObj", cateRef);
   // console.log("cateList", cateList);
+  console.log("itemToggle", isOn);
+
+  // setIsOn(false);
 
   const [cateType, setCateType] = useState();
   useEffect(() => {
@@ -187,44 +192,37 @@ const ToDoItem = ({
 
       <div>
         <div className="todo-list">
-          {todoList.slice(offset, offset + limit).map((item, idx) => (
-            <div className="todo-item">
-              <div className="todo-container">
-                <div
-                  className="todo-title"
-                  key={idx}
-                  onClick={() => {
-                    onDetail({ item });
-                  }}
-                >
-                  {item.todo_title}
-                </div>
-                <div
-                  className="todo-content"
-                  key={idx}
-                  onClick={() => {
-                    onDetail({ item });
-                  }}
-                >
-                  {item.todo_content}
-                </div>
-              </div>
-              <div className="todo-repeat">{item.todo_repeat}</div>
-              <div className="todo-complete">미완료</div>
-
-              <div className="todo-edit">
-                <div>
-                  <MdEdit item={item} onClick={() => showModal({ item })} />
-                </div>
-                <div>
-                  <MdDelete
-                    item={item}
-                    onClick={() => handleDelete({ item })}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
+          {isOn === false ? (
+            <ToDoListItem
+              todoList={todoList}
+              doneList={doneList}
+              category={category}
+              setDetailId={setDetailId}
+              detailId={detailId}
+              setDoneMem={setDoneMem}
+              setDoneDate={setDoneDate}
+              setDoneMemo={setDoneMemo}
+              setToDoCom={setToDoCom}
+              offset={offset}
+              limit={limit}
+              showModal={showModal}
+            />
+          ) : (
+            <ToDoDoneListItem
+              todoList={todoList}
+              doneList={doneList}
+              category={category}
+              detailId={detailId}
+              setDetailId={setDetailId}
+              setDoneMem={setDoneMem}
+              setDoneDate={setDoneDate}
+              setDoneMemo={setDoneMemo}
+              setToDoCom={setToDoCom}
+              offset={offset}
+              limit={limit}
+              showModal={showModal}
+            />
+          )}
 
           <Pagination
             total={total}
