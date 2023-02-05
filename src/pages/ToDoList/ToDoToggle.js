@@ -48,7 +48,7 @@ const Desc = styled.div`
 `;
 
 const ToDoToggle = ({ doneList, isOn, setIsOn }) => {
-  console.log("doneList", doneList);
+  // console.log("doneList", doneList);
 
   // console.log("doneList", doneList);
   // const [isOn, setIsOn] = useState(false);
@@ -78,11 +78,11 @@ const ToDoToggle = ({ doneList, isOn, setIsOn }) => {
       <div className="todo-toggle">
         {isOn === false ? (
           <Desc>
-            <div className="todoDone">완료</div>
+            <div className="todoDone">전체보기</div>
           </Desc>
         ) : (
           <Desc>
-            <div className="todoDone">미완료</div>
+            <div className="todoDone">미완료만 보기</div>
           </Desc>
         )}
       </div>
