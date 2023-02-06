@@ -42,9 +42,9 @@ const ToggleContainer = styled.div`
 
 const Desc = styled.div`
   //설명 부분의 CSS를 구현
-  // float: left;
-  // text-align: left;
-  margin: 10px;
+  float: left;
+
+  margin: 5px;
 `;
 
 const ToDoToggle = ({ doneList, isOn, setIsOn }) => {
@@ -82,7 +82,7 @@ const ToDoToggle = ({ doneList, isOn, setIsOn }) => {
           </Desc>
         ) : (
           <Desc>
-            <div className="todoDone">미완료만 보기</div>
+            <div className="todoDone">완료만 보기</div>
           </Desc>
         )}
       </div>
