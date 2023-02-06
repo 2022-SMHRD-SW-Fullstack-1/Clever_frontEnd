@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import "../ToDoItem/ToDoList.scss";
+import Pagination from "../Pagination";
 
 const ToDoListItem = ({
   todoList,
@@ -14,6 +15,9 @@ const ToDoListItem = ({
   setToDoCom,
   offset,
   limit,
+  total,
+  page,
+  setPage,
   showModal,
   category,
 }) => {
@@ -82,7 +86,7 @@ const ToDoListItem = ({
             </div>
           </div>
           <div className="todo-repeat">{item.todo_repeat}</div>
-          <div className="todo-complete">미완료</div>
+          {/* <div className="todo-complete">미완료</div> */}
 
           <div className="todo-edit">
             <div>
@@ -94,6 +98,7 @@ const ToDoListItem = ({
           </div>
         </div>
       ))}
+      <Pagination total={total} limit={limit} page={page} setPage={setPage} />
     </div>
   );
 };

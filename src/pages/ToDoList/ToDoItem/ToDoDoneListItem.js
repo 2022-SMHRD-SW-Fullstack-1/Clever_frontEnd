@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import "../ToDoItem/ToDoList.scss";
+import Pagination from "../Pagination";
 
 const ToDoDoneListItem = ({
   todoList,
@@ -12,8 +13,11 @@ const ToDoDoneListItem = ({
   setDoneDate,
   setDoneMemo,
   setToDoCom,
-  offset,
-  limit,
+  //   offset,
+  //   limit,
+  //   total,
+  //   page,
+  //   setPage,
   showModal,
   category,
 }) => {
@@ -21,6 +25,12 @@ const ToDoDoneListItem = ({
   //   console.log("listItemId", detailId);
 
   const [comList, setComList] = useState([]);
+
+  const [limit, setLimit] = useState(7);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+  const [total, setTotal] = useState(doneList.length);
+
   useEffect(() => {
     axios
       .post("/todolist/donelist", {
@@ -36,7 +46,7 @@ const ToDoDoneListItem = ({
       });
   }, []);
 
-  console.log("comList", comList);
+  //   console.log("comList", comList);
 
   const handleDelete = ({ item }) => {
     axios
@@ -101,7 +111,7 @@ const ToDoDoneListItem = ({
             </div>
           </div>
           <div className="todo-repeat">{item.todo_repeat}</div>
-          <div className="todo-complete">미완료</div>
+          {/* <div className="todo-complete">미완료</div> */}
 
           <div className="todo-edit">
             <div>
@@ -113,6 +123,7 @@ const ToDoDoneListItem = ({
           </div>
         </div>
       ))}
+      <Pagination total={total} limit={limit} page={page} setPage={setPage} />
     </div>
   );
 };
