@@ -170,16 +170,6 @@ const ToDoItem = ({
       });
   };
 
-  const handleCom = ({ item, doneList }) => {
-    console.log("comItem", item.todo_seq);
-    console.log("conDoneItem", doneList);
-    if (doneList.todo_seq === item.todo_seq) {
-      setToDoCom("완료");
-    } else {
-      setToDoCom("미완료");
-    }
-  };
-
   return (
     <div>
       {modalOpen && (
@@ -205,6 +195,9 @@ const ToDoItem = ({
               setToDoCom={setToDoCom}
               offset={offset}
               limit={limit}
+              total={total}
+              page={page}
+              setPage={setPage}
               showModal={showModal}
             />
           ) : (
@@ -220,16 +213,19 @@ const ToDoItem = ({
               setToDoCom={setToDoCom}
               offset={offset}
               limit={limit}
+              total={total}
+              page={page}
+              setPage={setPage}
               showModal={showModal}
             />
           )}
 
-          <Pagination
+          {/* <Pagination
             total={total}
             limit={limit}
             page={page}
             setPage={setPage}
-          />
+          /> */}
         </div>
         <div className="todoCreate-Img">
           <img

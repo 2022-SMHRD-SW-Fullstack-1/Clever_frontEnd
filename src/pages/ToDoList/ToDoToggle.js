@@ -55,7 +55,7 @@ const ToDoToggle = ({ doneList, isOn, setIsOn }) => {
 
   const toggleHandler = () => {
     //isOn의 상태를 변경하는 메소드
-    console.log("isOn", isOn);
+    // console.log("isOn", isOn);
     // false -> 미완료!
     setIsOn(!isOn);
   };
