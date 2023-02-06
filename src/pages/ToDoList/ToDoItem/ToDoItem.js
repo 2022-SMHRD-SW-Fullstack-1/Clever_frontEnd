@@ -13,6 +13,8 @@ import ToDoNotEmpty from "./ToDoNotEmpty";
 import styled from "styled-components";
 import ToDoToggle from "../ToDoToggle";
 import Toggle from "./Toggle";
+import ToDoListItem from "./ToDoListItem";
+import ToDoDoneListItem from "./ToDoDoneListItem";
 
 const TasksLeft = styled.div`
   // color: #20c997;
@@ -36,6 +38,9 @@ const ToDoItem = ({
 }) => {
   // console.log("itemObj", cateRef);
   // console.log("cateList", cateList);
+  console.log("itemToggle", isOn);
+
+  // setIsOn(false);
 
   const [cateType, setCateType] = useState();
   useEffect(() => {
@@ -166,16 +171,6 @@ const ToDoItem = ({
       });
   };
 
-  const handleCom = ({ item, doneList }) => {
-    console.log("comItem", item.todo_seq);
-    console.log("conDoneItem", doneList);
-    if (doneList.todo_seq === item.todo_seq) {
-      setToDoCom("완료");
-    } else {
-      setToDoCom("미완료");
-    }
-  };
-
   return (
     <div>
       {modalOpen && (
@@ -188,51 +183,50 @@ const ToDoItem = ({
 
       <div>
         <div className="todo-list">
-          {todoList.slice(offset, offset + limit).map((item, idx) => (
-            <div className="todo-item">
-              <div className="todo-container">
-                <div
-                  className="todo-title"
-                  key={idx}
-                  onClick={() => {
-                    onDetail({ item });
-                  }}
-                >
-                  {item.todo_title}
-                </div>
-                <div
-                  className="todo-content"
-                  key={idx}
-                  onClick={() => {
-                    onDetail({ item });
-                  }}
-                >
-                  {item.todo_content}
-                </div>
-              </div>
-              <div className="todo-repeat">{item.todo_repeat}</div>
-              <div className="todo-complete">미완료</div>
+          {isOn === false ? (
+            <ToDoListItem
+              todoList={todoList}
+              doneList={doneList}
+              category={category}
+              setDetailId={setDetailId}
+              detailId={detailId}
+              setDoneMem={setDoneMem}
+              setDoneDate={setDoneDate}
+              setDoneMemo={setDoneMemo}
+              setToDoCom={setToDoCom}
+              offset={offset}
+              limit={limit}
+              total={total}
+              page={page}
+              setPage={setPage}
+              showModal={showModal}
+            />
+          ) : (
+            <ToDoDoneListItem
+              todoList={todoList}
+              doneList={doneList}
+              category={category}
+              detailId={detailId}
+              setDetailId={setDetailId}
+              setDoneMem={setDoneMem}
+              setDoneDate={setDoneDate}
+              setDoneMemo={setDoneMemo}
+              setToDoCom={setToDoCom}
+              offset={offset}
+              limit={limit}
+              total={total}
+              page={page}
+              setPage={setPage}
+              showModal={showModal}
+            />
+          )}
 
-              <div className="todo-edit">
-                <div>
-                  <MdEdit item={item} onClick={() => showModal({ item })} />
-                </div>
-                <div>
-                  <MdDelete
-                    item={item}
-                    onClick={() => handleDelete({ item })}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-
-          <Pagination
+          {/* <Pagination
             total={total}
             limit={limit}
             page={page}
             setPage={setPage}
-          />
+          /> */}
         </div>
         <div className="todoCreate-Img">
           <img

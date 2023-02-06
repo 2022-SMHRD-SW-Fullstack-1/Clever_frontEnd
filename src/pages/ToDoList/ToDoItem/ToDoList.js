@@ -84,9 +84,9 @@ const ToDoList = ({
 
   useEffect(() => {
     axios.post("/todolist/todocom", { cate_seq: category }).then((res) => {
-      // console.log("완료할일", res);
+      // console.log("완료할일", res.data);
       setDoneList(res.data);
-      setDoneCount(res.data.length);
+      // setDoneCount(res.data.length);
     });
   }, [category]);
 

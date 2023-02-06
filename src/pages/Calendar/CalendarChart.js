@@ -244,7 +244,7 @@ const CalendarChart = ({
               <th>근무변경 </th> <th>{item.change_count} 번</th>
             </tr>
             <tr>
-              <th>노동시간 </th>{" "}
+              <th>근무시간 </th>{" "}
               <th>{(item.this_month_work_time / 60).toFixed(0)} 시간</th>
             </tr>
           </div>
