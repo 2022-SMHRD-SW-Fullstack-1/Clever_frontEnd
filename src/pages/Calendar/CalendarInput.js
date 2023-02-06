@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import ApiService from "../../ApiService";
 import "./CalendarInput.scss";
 
-let checkOn = [];
 const CalendarInput = ({
   todayYear,
   todayMonth,
@@ -12,6 +11,7 @@ const CalendarInput = ({
   getSchedule,
 }) => {
   const groupSeq = sessionStorage.getItem("group_seq");
+  const checkOn = useRef([]);
   const date = new Date();
   const year = Number(
     date.toLocaleDateString("en-US", {
@@ -23,6 +23,12 @@ const CalendarInput = ({
       month: "2-digit",
     })
   );
+  console.log("겟워커리스트", getWorkerList);
+  // for (var i = 0; i < getWorkerList.length; i++) {
+  //   if (getWorkerList[i].mem_name === "전체") {
+  //     getWorkerList[i].splice(i, 1);
+  //   }
+  // }
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [Worker, setWorker] = useState("선택");
@@ -199,11 +205,11 @@ const CalendarInput = ({
   };
 
   const planYear = (e) => {
-    getDayOfWeek(e.target.value, PlanMonth, checkOn);
+    getDayOfWeek(e.target.value, PlanMonth, checkOn.current);
     setPlanYear(e.target.value);
   };
   const planMonth = (e) => {
-    getDayOfWeek(PlanYear, e.target.value, checkOn);
+    getDayOfWeek(PlanYear, e.target.value, checkOn.current);
     setPlanMonth(e.target.value);
   };
 
@@ -220,20 +226,20 @@ const CalendarInput = ({
   };
 
   const day = (e) => {
-    checkOn = [];
-    if (e.target.checked && !checkOn.includes(e.target.value)) {
-      checkOn.push(e.target.value);
-    } else if (!e.target.checked && checkOn.includes(e.target.value)) {
-      for (let i = 0; i < checkOn.length; i++) {
-        if (checkOn[i] === e.target.value) {
-          checkOn.splice(i, 1);
+    // checkOn = [];
+    if (e.target.checked && !checkOn.current.includes(e.target.value)) {
+      checkOn.current.push(e.target.value);
+    } else if (!e.target.checked && checkOn.current.includes(e.target.value)) {
+      for (let i = 0; i < checkOn.current.length; i++) {
+        if (checkOn.current[i] === e.target.value) {
+          checkOn.current.splice(i, 1);
           i--;
         }
       }
     }
-    setDay([...checkOn]);
+    setDay([...checkOn.current]);
 
-    getDayOfWeek(PlanYear, PlanMonth, checkOn);
+    getDayOfWeek(PlanYear, PlanMonth, checkOn.current);
   };
 
   const checkBoxDay = () => {
@@ -371,9 +377,9 @@ const CalendarInput = ({
           <td>
             근무자 :{" "}
             <select id="selectWorker" onChange={worker} value={Worker}>
-              <option name="선택" value="미선택">
+              {/* <option name="선택" value="미선택">
                 선택
-              </option>
+              </option> */}
               {workerListRendering()}
             </select>
           </td>

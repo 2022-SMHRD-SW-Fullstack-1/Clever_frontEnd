@@ -197,7 +197,7 @@ const CalendarDetail = ({
             type="time"
             defaultValue={`${item.att_sche_start_time}`}
             onChange={(e) => {
-              selectedList[index].att_sche_start_ime = e.target.value;
+              selectedList[index].att_sche_start_time = e.target.value;
             }}
           />
           -
