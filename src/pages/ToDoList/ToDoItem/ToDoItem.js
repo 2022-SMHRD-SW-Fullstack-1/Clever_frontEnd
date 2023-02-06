@@ -13,6 +13,8 @@ import ToDoNotEmpty from "./ToDoNotEmpty";
 import styled from "styled-components";
 import ToDoToggle from "../ToDoToggle";
 import Toggle from "./Toggle";
+import ToDoListItem from "./ToDoListItem";
+import ToDoDoneListItem from "./ToDoDoneListItem";
 
 const TasksLeft = styled.div`
   // color: #20c997;
@@ -29,40 +31,31 @@ const ToDoItem = ({
   doneList,
   item,
   cateRef,
-  // setShowWriteModal,
-  // showWriteModal,
+  cateObj,
+  isOn,
+  setIsOn,
 }) => {
-  // console.log("category", cateList);
-  // console.log("doneList", doneList);
-  const joinGroup = sessionStorage.getItem("group_seq");
+  // console.log("itemObj", cateRef);
+  // console.log("cateList", cateList);
+  console.log("itemToggle", isOn);
 
-  const [showWriteModal, setShowWriteModal] = useState(false);
+  // setIsOn(false);
 
-  const [todoCount, setTodoCount] = useState();
-
-  const [doneSeq, setDoneSeq] = useState();
-  const [doneMem, setDoneMem] = useState();
-  const [doneDate, setDoneDate] = useState();
-  const [doneMemo, setDoneMemo] = useState();
-
-  const [todoList, setTodoList] = useState([]);
-
-  // 남은 할일 개수
-
-  const navigate = useNavigate();
-
-  const gotoToDoCreate = () => {
-    navigate("/todolistcreate");
-  };
-
-  // 전체 할일 리스트 불러오기
-  const [allTodoList, setAllTodoList] = useState([]);
+  const [cateType, setCateType] = useState();
   useEffect(() => {
-    if (category === cateRef) {
+    cateList
+      .filter((item, idx) => idx === 0)
+      .map((item) => {
+        console.log("cate", item.cate_seq);
+        setCateType(item.cate_seq);
+        console.log("cat", cateType);
+      });
+    if (cateType == category) {
       axios
         .post("/todolist/alltodo", {
           group_seq: joinGroup,
-          cate_seq: category,
+          // cate_seq: category,
+          cate_seq: cateType,
         })
         .then((res) => {
           setTodoList(res.data);
@@ -86,7 +79,30 @@ const ToDoItem = ({
           console.log("리스트 실패함", err);
         });
     }
-  }, [category]);
+  }, [cateType]);
+
+  // console.log("obj", cateObj);
+
+  const cateDefault = cateRef.category;
+
+  const joinGroup = sessionStorage.getItem("group_seq");
+
+  const [showWriteModal, setShowWriteModal] = useState(false);
+
+  const [todoCount, setTodoCount] = useState();
+
+  const [doneSeq, setDoneSeq] = useState();
+  const [doneMem, setDoneMem] = useState();
+  const [doneDate, setDoneDate] = useState();
+  const [doneMemo, setDoneMemo] = useState();
+
+  const [todoList, setTodoList] = useState([]);
+
+  const navigate = useNavigate();
+
+  const gotoToDoCreate = () => {
+    navigate("/todolistcreate");
+  };
 
   // 할일 페이지네이션
   const [limit, setLimit] = useState(7);
@@ -99,16 +115,14 @@ const ToDoItem = ({
   const [detailLIst, setDetailList] = useState([]);
   const [toDoRep, setToDoRep] = useState();
 
-  const [editSeq, setEditSeq] = useState([]);
-
   const [toDoCom, setToDoCom] = useState("");
 
-  const onDetail = ({ item, e }) => {
-    // console.log("detailedItem", item);
+  const onDetail = ({ item }) => {
+    console.log("detailedItem", item);
     // setDetailList(item);
     setDetailId(item.todo_seq);
     // console.log("detailId", detailId);
-    setEditSeq(item.todo_seq);
+    // setEditSeq(item.todo_seq);
 
     {
       doneList.map((item, idx) => {
@@ -129,12 +143,9 @@ const ToDoItem = ({
   };
 
   // 할 일 수정 삭제
-
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = (item) => {
     setModalOpen(true);
-
-    console.log("edit", item.item);
     setUpdateItem(item.item);
     setShowWriteModal(true);
 
@@ -159,16 +170,6 @@ const ToDoItem = ({
       });
   };
 
-  const handleCom = ({ item, doneList }) => {
-    console.log("comItem", item.todo_seq);
-    console.log("conDoneItem", doneList);
-    if (doneList.todo_seq === item.todo_seq) {
-      setToDoCom("완료");
-    } else {
-      setToDoCom("미완료");
-    }
-  };
-
   return (
     <div>
       {modalOpen && (
@@ -181,78 +182,50 @@ const ToDoItem = ({
 
       <div>
         <div className="todo-list">
-          {todoList.slice(offset, offset + limit).map((item, idx) => (
-            <div className="todo-item">
-              <div className="todo-container">
-                <div
-                  className="todo-title"
-                  key={idx}
-                  onClick={() => {
-                    onDetail({ item });
-                  }}
-                >
-                  {item.todo_title}
-                </div>
-                <div
-                  className="todo-content"
-                  key={idx}
-                  onClick={() => {
-                    onDetail({ item });
-                  }}
-                >
-                  {item.todo_content}
-                </div>
-              </div>
-              <div className="todo-repeat">{item.todo_repeat}</div>
-              {doneList.todo_seq === todoList.todo_seq ? (
-                <div
-                  className="todo-complete"
-                  onClick={() => handleCom({ item, doneList })}
-                >
-                  완료
-                </div>
-              ) : (
-                <div
-                  className="todo-complete"
-                  onClick={() => handleCom({ item, doneList })}
-                >
-                  미완료
-                </div>
-              )}
-              <div className="todo-edit">
-                <div>
-                  <MdEdit item={item} onClick={() => showModal({ item })} />
-                </div>
-                <div>
-                  <MdDelete
-                    item={item}
-                    onClick={() => handleDelete({ item })}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
+          {isOn === false ? (
+            <ToDoListItem
+              todoList={todoList}
+              doneList={doneList}
+              category={category}
+              setDetailId={setDetailId}
+              detailId={detailId}
+              setDoneMem={setDoneMem}
+              setDoneDate={setDoneDate}
+              setDoneMemo={setDoneMemo}
+              setToDoCom={setToDoCom}
+              offset={offset}
+              limit={limit}
+              total={total}
+              page={page}
+              setPage={setPage}
+              showModal={showModal}
+            />
+          ) : (
+            <ToDoDoneListItem
+              todoList={todoList}
+              doneList={doneList}
+              category={category}
+              detailId={detailId}
+              setDetailId={setDetailId}
+              setDoneMem={setDoneMem}
+              setDoneDate={setDoneDate}
+              setDoneMemo={setDoneMemo}
+              setToDoCom={setToDoCom}
+              offset={offset}
+              limit={limit}
+              total={total}
+              page={page}
+              setPage={setPage}
+              showModal={showModal}
+            />
+          )}
 
-          {/* <ToDoNotEmpty
-            todoList={todoList}
-            doneList={doneList}
-            offset={offset}
-            limit={limit}
-            toDoCom={toDoCom}
-            menu={menu}
-            setShowUpdate={setShowUpdate}
-            setMenu={setMenu}
-            showUpdate={showUpdate}
-            key={todoList.todo_seq}
-            // onDetail={onDetail}
-          /> */}
-
-          <Pagination
+          {/* <Pagination
             total={total}
             limit={limit}
             page={page}
             setPage={setPage}
-          />
+          /> */}
         </div>
         <div className="todoCreate-Img">
           <img

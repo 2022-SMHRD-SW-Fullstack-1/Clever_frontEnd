@@ -39,6 +39,7 @@ const CalendarDetail = ({
   const updateSchedul = (e) => {
     ApiService.updateSchedul(e)
       .then(() => {
+        alert("등록이 완료되었습니다.");
         getSchedule(groupSeq);
         planModification();
         setRendering(0);

@@ -10,6 +10,7 @@ import axios from "axios";
 // import { MdDelete, MdDone, MdEdit } from "react-icons/md";
 
 import ToDoItem from "../ToDoItem/ToDoItem";
+import ToDoToggle from "../ToDoToggle";
 
 const TodoHeadBlock = styled.div`
   h1 {
@@ -45,9 +46,11 @@ const ToDoList = ({
   showWriteModal,
   selectDate,
   cateRef,
+  cateObj,
 }) => {
+  console.log("cateObj", cateObj);
   const user = sessionStorage.getItem("mem_id");
-  console.log("user", user);
+  // console.log("user", user);
   // const todos = useTodoState();
   const today = new Date();
 
@@ -70,15 +73,17 @@ const ToDoList = ({
 
   useEffect(() => {
     axios.post("/todolist/todocom", { cate_seq: category }).then((res) => {
-      // console.log("완료할일", res);
+      // console.log("완료할일", res.data);
       setDoneList(res.data);
-      setDoneCount(res.data.length);
+      // setDoneCount(res.data.length);
     });
   }, [category]);
 
   // console.log("count", doneCount);
 
   // 이미지 미리보기 https://nukw0n-dev.tistory.com/30
+
+  const [isOn, setIsOn] = useState(false);
 
   return (
     <div className="todoContent">
@@ -87,14 +92,18 @@ const ToDoList = ({
           <h1>{dateString}</h1>
           <div className="day">{dayName}</div>
           {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
+          <ToDoToggle doneList={doneList} isOn={isOn} setIsOn={setIsOn} />
         </TodoHeadBlock>
         <ToDoItem
           cateName={cateName}
           category={category}
+          isOn={isOn}
+          setIsOn={setIsOn}
           doneList={doneList}
           cateList={cateList}
           key={category}
           cateRef={cateRef}
+          cateObj={cateObj}
         />
       </div>
     </div>

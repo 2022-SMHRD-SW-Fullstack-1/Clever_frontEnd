@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import "./ToDoToggle.scss";
@@ -18,7 +19,7 @@ const ToggleContainer = styled.div`
   }
   //.toggle--checked 클래스가 활성화 되었을 경우의 CSS를 구현
   > .toggle--checked {
-    background-color: rgb(0, 200, 102);
+    background-color:#3A4CA8;
     transition: 0.5s;
   }
 
@@ -46,14 +47,15 @@ const Desc = styled.div`
   margin: 10px;
 `;
 
-const ToDoToggle = ({ todoList, doneList }) => {
-  console.log("toggletodo", todoList);
-  console.log("toggledone", doneList);
-  const [isOn, setIsOn] = useState(false);
+const ToDoToggle = ({ doneList, isOn, setIsOn }) => {
+  // console.log("doneList", doneList);
+
+  // console.log("doneList", doneList);
+  // const [isOn, setIsOn] = useState(false);
 
   const toggleHandler = () => {
     //isOn의 상태를 변경하는 메소드
-    console.log("isOn", isOn);
+    // console.log("isOn", isOn);
     // false -> 미완료!
     setIsOn(!isOn);
   };
@@ -76,11 +78,11 @@ const ToDoToggle = ({ todoList, doneList }) => {
       <div className="todo-toggle">
         {isOn === false ? (
           <Desc>
-            <div className="todoDone">완료</div>
+            <div className="todoDone">전체보기</div>
           </Desc>
         ) : (
           <Desc>
-            <div className="togoDone">미완료</div>
+            <div className="todoDone">미완료만 보기</div>
           </Desc>
         )}
       </div>

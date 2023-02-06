@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import "./CalendarChart.scss";
 import { v4 as uuidv4 } from "uuid";
 import CalendarCalculator from "./CalendarCalculator";
+// import ApiService from "../../ApiService";
 
 const CalendarChart = ({
   getWorkerList,
@@ -10,14 +11,15 @@ const CalendarChart = ({
   today,
   setChartOpen,
   changeSchedul,
+  getComplete,
+  getTodoInfo,
 }) => {
   var year = today.substring(0, 4);
   var month = today.substring(5, 7);
   var date = today.substring(8, 10);
-
+  console.log("워커리스트", getWorkerList);
   var numToday = Number(year + month + date);
   const chartinfo = [];
-
   const workerName = [];
   const dateData = new Date();
   const yearData = Number(
@@ -34,6 +36,7 @@ const CalendarChart = ({
   const [selectedMonth, setSelectedMonth] = useState(monthData);
   const [selectedYear, setSelectedYear] = useState(yearData);
   const [selectedWorker, setSelectedWorker] = useState();
+
   var copyYear = selectedYear;
   var copyMonth;
   Number(selectedMonth) < 10
@@ -41,6 +44,40 @@ const CalendarChart = ({
     : (copyMonth = selectedMonth);
 
   const group_name = sessionStorage.getItem("group_name");
+  const copyTodoInfoList = useRef([]);
+  const copyCompleteList = useRef([]);
+
+  console.log("겟투두", getTodoInfo);
+  console.log("겟컴플", getComplete);
+
+  // for (var i = 0; i < getWorkerList.length; i++) {
+  //   for (var j = 0; j < getTodoInfo.length; j++) {
+  //     if (getWorkerList[i].mem_id === getTodoInfo[j].mem_id) {
+  //       copyTodoInfoList.current.push({
+  //         mem_id: getTodoInfo[j].mem_id,
+  //         mem_name: getWorkerList[i].mem_name,
+  //         todo_date: getTodoInfo[j].todo_dt,
+  //       });
+  //     }
+  //   }
+  // }
+  // console.log("카피투두인포리스트", copyTodoInfoList.current);
+  ////copyTodoInfoList로 할일 개수 copyCompleteList로 완료 개수
+
+  // for (var i = 0; i < copyTodoInfoList.current.length; i++) {
+  //   for (var j = 0; j < getComplete.length; j++) {
+  //     if (copyTodoInfoList.current[i].mem_id === getComplete[j].mem_id) {
+  //       copyCompleteList.current.push({
+  //         mem_id: copyTodoInfoList.current[i].mem_id,
+  //         mem_name: copyTodoInfoList.current[i].mem_name,
+  //         todo_date: copyTodoInfoList.current[i].todo_date,
+  //         cmpl_time: getComplete[j].cmpl_time,
+  //       });
+  //     }
+  //   }
+  // }
+
+  // console.log("할일 한객체", copyCompleteList.current);
 
   if (selectedWorker === undefined || selectedWorker === "전체") {
     for (var i = 1; i < getWorkerList.length; i++) {
@@ -49,7 +86,7 @@ const CalendarChart = ({
   } else {
     workerName.push(selectedWorker);
   }
-
+  /////////////////////////////////////////////////////////////////
   for (var i = 0; i < workerName.length; i++) {
     var totalWorkDay = 0;
     var totalWorkTime = 0;
@@ -107,6 +144,10 @@ const CalendarChart = ({
     changeSchedulCount === 0 ? (changeSchedulCountPercent = 0) : console.log();
 
     totalWorkDay < 1 ? (changeSchedulCountPercent = 0) : console.log();
+
+    totalWorkDay > 0 && totalWorkDay < changeSchedulCount
+      ? (changeSchedulCountPercent = 100)
+      : console.log();
 
     chartinfo.push({
       mem_name: workerName[i],
@@ -203,7 +244,7 @@ const CalendarChart = ({
               <th>근무변경 </th> <th>{item.change_count} 번</th>
             </tr>
             <tr>
-              <th>노동시간 </th>{" "}
+              <th>근무시간 </th>{" "}
               <th>{(item.this_month_work_time / 60).toFixed(0)} 시간</th>
             </tr>
           </div>

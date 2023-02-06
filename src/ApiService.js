@@ -82,5 +82,19 @@ class ApiService {
       console.log(err);
     }
   };
+  getTodoInfo = async () => {
+    try {
+      return await await axios.get("/getTodoInfo");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getComplete = async () => {
+    try {
+      return await await axios.get("/getComplete");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 export default new ApiService();
