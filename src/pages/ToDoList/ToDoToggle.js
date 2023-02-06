@@ -42,8 +42,8 @@ const ToggleContainer = styled.div`
 
 const Desc = styled.div`
   //설명 부분의 CSS를 구현
-  // float: left;
-  // text-align: left;
+  float: left;
+
   margin: 5px;
 `;
 
