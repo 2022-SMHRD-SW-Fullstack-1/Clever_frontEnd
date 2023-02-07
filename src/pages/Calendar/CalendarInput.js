@@ -189,7 +189,7 @@ const CalendarInput = ({
         closeModal();
       })
       .catch((err) => {
-        console.log(err);
+        alert("빠진부분없이 작성 해 주세요.");
       });
   };
 
@@ -314,10 +314,28 @@ const CalendarInput = ({
 
     for (var i = 0; i < finalDate.length; i++) {
       if (
-        PlanYear >= todayYear &&
-        PlanMonth >= todayMonth &&
+        PlanYear === todayYear &&
+        PlanMonth === todayMonth &&
         finalDate[i] >= todayDay
       ) {
+        finalDate[i] >= 10
+          ? saveArrScheduleInfo.push({
+              mem_name: String(Worker),
+              att_date: `${PlanYear}-${PlanMonth}-${finalDate[i]}`,
+              att_sche_start_time: String(startTime),
+              att_sche_end_time: String(endTime),
+              group_seq: groupSeq,
+              mem_id: getId,
+            })
+          : saveArrScheduleInfo.push({
+              mem_name: String(Worker),
+              att_date: `${PlanYear}-${PlanMonth}-0${finalDate[i]}`,
+              att_sche_start_time: String(startTime),
+              att_sche_end_time: String(endTime),
+              group_seq: groupSeq,
+              mem_id: getId,
+            });
+      } else if (PlanYear >= todayYear && PlanMonth > todayMonth) {
         finalDate[i] >= 10
           ? saveArrScheduleInfo.push({
               mem_name: String(Worker),
@@ -338,7 +356,14 @@ const CalendarInput = ({
       }
     }
     console.log("일정등록 :", saveArrScheduleInfo);
-    saveArrSchedule(saveArrScheduleInfo);
+    if (
+      saveArrScheduleInfo.length < 1 ||
+      saveArrScheduleInfo[0].mem_name === "선택"
+    ) {
+      alert("양식에 맞추어 다시 작성 해 주세요.");
+    } else {
+      saveArrSchedule(saveArrScheduleInfo);
+    }
   };
   // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
   const closeModal = () => {
