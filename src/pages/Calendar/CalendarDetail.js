@@ -81,18 +81,17 @@ const CalendarDetail = ({
         updateSchedul(updateInfo.current);
       }
     } else {
-      alert("양식에 맞추어 다시 작성 해 주세요.");
-      // updateInfo.current = [
-      //   {
-      //     att_date: selectedDate,
-      //     group_seq: groupSeq,
-      //     mem_id: "010",
-      //     att_sche_start_time: "10:00",
-      //     att_sche_end_time: "10:00",
-      //   },
-      // ];
+      updateInfo.current = [
+        {
+          att_date: selectedDate,
+          group_seq: groupSeq,
+          mem_id: "010",
+          att_sche_start_time: "10:00",
+          att_sche_end_time: "10:00",
+        },
+      ];
 
-      // updateSchedul(updateInfo.current);
+      updateSchedul(updateInfo.current);
     }
     console.log("최종", updateInfo.current);
   };
