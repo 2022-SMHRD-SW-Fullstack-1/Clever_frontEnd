@@ -108,11 +108,15 @@ body {
       font-size: 21px;
     }
     .todo-content {
-      // width: 200px;
+      width: 250px;
       // height: 30px;
       margin-top: 2px;
       font-size: 16px;
       padding-bottom: 10px;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .todo-edit {
@@ -208,4 +212,8 @@ body {
   // margin-left: 1100px;
 
   // margin-top: 20px;
+}
+.todo_img {
+  width: 500px;
+  height: 300px;
 }
