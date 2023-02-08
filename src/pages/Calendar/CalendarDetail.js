@@ -253,8 +253,9 @@ const CalendarDetail = ({
 
           <tr key={uuidv4}>
             <th> 실제 </th>
-            <th>{item.mem_name}</th> <th>{item.att_real_start_time}</th>
-            <th>{item.att_real_end_time}</th>
+            <th>{item.mem_name}</th>{" "}
+            <th>{item.att_real_start_time.substring(0, 5)}</th>
+            <th>{item.att_real_end_time.substring(0, 5)}</th>
           </tr>
           <br></br>
         </>

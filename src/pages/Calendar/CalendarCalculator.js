@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./CalendarCalculator.scss";
 
-const CalendarCalculator = ({ thisMonthWorkTime, workerName }) => {
+const CalendarCalculator = ({
+  thisMonthWorkTime,
+  workerName,
+  selectedMonth,
+  selectedYear,
+}) => {
   const [payment, setPayment] = useState(0);
   const workHr = useRef(thisMonthWorkTime);
   const [totalPayment, setTotalPayment] = useState();
@@ -13,7 +18,7 @@ const CalendarCalculator = ({ thisMonthWorkTime, workerName }) => {
   useEffect(() => {
     setPayment("");
     setTotalPayment(0);
-  }, [workerName]);
+  }, [workerName, selectedMonth, selectedYear]);
   const inputReset = (e) => {
     setPayment(e.target.value);
     setTotalPayment(e.target.value * copyDefault);
