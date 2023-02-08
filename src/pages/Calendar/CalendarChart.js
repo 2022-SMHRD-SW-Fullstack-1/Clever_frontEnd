@@ -21,6 +21,7 @@ const CalendarChart = ({
   var numToday = Number(year + month + date);
   const chartinfo = [];
   const workerName = [];
+
   const dateData = new Date();
   const yearData = Number(
     dateData.toLocaleDateString("en-US", {
@@ -257,6 +258,8 @@ const CalendarChart = ({
             <CalendarCalculator
               thisMonthWorkTime={(item.this_month_work_time / 60).toFixed(0)}
               workerName={selectedWorker}
+              selectedMonth={selectedMonth}
+              selectedYear={selectedYear}
             />
           </div>
         </div>
