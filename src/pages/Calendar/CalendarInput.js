@@ -286,7 +286,7 @@ const CalendarInput = ({
 
   const selectMonth = () => {
     const arrMonth = [];
-    for (var i = 1; i < 13; i++) {
+    for (var i = month; i < 13; i++) {
       arrMonth.push(i);
     }
     let optionMonth = arrMonth.map((item, index) => {
@@ -314,11 +314,11 @@ const CalendarInput = ({
 
     for (var i = 0; i < finalDate.length; i++) {
       if (
-        true
-        // PlanYear === todayYear &&
-        // PlanMonth === todayMonth &&
-        // finalDate[i] >= todayDay
+        PlanYear === todayYear &&
+        PlanMonth === todayMonth &&
+        finalDate[i] >= todayDay
       ) {
+        //
         finalDate[i] >= 10
           ? saveArrScheduleInfo.push({
               mem_name: String(Worker),
@@ -336,10 +336,7 @@ const CalendarInput = ({
               group_seq: groupSeq,
               mem_id: getId,
             });
-      } else if (
-        true
-        // PlanYear >= todayYear && PlanMonth > todayMonth
-      ) {
+      } else if (PlanYear >= todayYear && PlanMonth > todayMonth) {
         finalDate[i] >= 10
           ? saveArrScheduleInfo.push({
               mem_name: String(Worker),
