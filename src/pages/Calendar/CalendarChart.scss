@@ -44,14 +44,14 @@
 }
 
 .chartModelContainer .modalBox {
-  margin-top: 23px; //
+  margin-top: 350px; //
+  margin-left: 650px;
   padding-left: 20px;
   width: 1300px; //85
   height: 800px;
   z-index: 999;
   position: absolute;
-  top: 50%;
-  left: 50%;
+
   transform: translate(-50%, -50%);
   background-color: #fff; //#fff
 }

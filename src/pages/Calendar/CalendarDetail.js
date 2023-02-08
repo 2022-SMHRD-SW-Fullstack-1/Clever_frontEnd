@@ -30,6 +30,7 @@ const CalendarDetail = ({
   copySelectedWorkerList = [...selectedList];
   renderObject.current = [...selectedList];
   const copyArrAddList = useRef([]);
+  const updateInfo = useRef([]);
 
   useEffect(() => {
     planModification();
@@ -38,7 +39,7 @@ const CalendarDetail = ({
 
   const updateSchedul = (e) => {
     ApiService.updateSchedul(e)
-      .then(() => {
+      .then((res) => {
         alert("등록이 완료되었습니다.");
         getSchedule(groupSeq);
         planModification();
@@ -54,18 +55,33 @@ const CalendarDetail = ({
   };
 
   const submitModification = () => {
-    var updateInfo = selectedList.concat(copyArrAddList.current);
+    updateInfo.current = selectedList.concat(copyArrAddList.current);
 
-    for (var i = 0; i < updateInfo.length; i++) {
-      updateInfo[i]["att_date"] = selectedDate;
+    for (var i = 0; i < updateInfo.current.length; i++) {
+      updateInfo.current[i]["att_date"] = selectedDate;
     }
 
     copyArrAddList.current = [];
 
-    if (updateInfo.length > 0) {
-      updateSchedul(updateInfo);
+    console.log("길이", updateInfo.current.length);
+    if (updateInfo.current.length > 0) {
+      var checkForm = 0;
+      for (var i = 0; i < updateInfo.current.length; i++) {
+        if (
+          updateInfo.current[i].mem_name === "" ||
+          updateInfo.current[i].mem_name === "전체" ||
+          updateInfo.current[i].att_sche_start_time === "" ||
+          updateInfo.current[i].att_sche_end_time === ""
+        )
+          checkForm += 1;
+      }
+      if (checkForm > 0) {
+        alert("양식에 맞추어 다시 작성 해 주세요.");
+      } else {
+        updateSchedul(updateInfo.current);
+      }
     } else {
-      updateInfo = [
+      updateInfo.current = [
         {
           att_date: selectedDate,
           group_seq: groupSeq,
@@ -75,9 +91,9 @@ const CalendarDetail = ({
         },
       ];
 
-      updateSchedul(updateInfo);
+      updateSchedul(updateInfo.current);
     }
-    console.log("최종", updateInfo);
+    console.log("최종", updateInfo.current);
   };
 
   const confirmModification = (e) => {
@@ -197,7 +213,7 @@ const CalendarDetail = ({
             type="time"
             defaultValue={`${item.att_sche_start_time}`}
             onChange={(e) => {
-              selectedList[index].att_sche_start_ime = e.target.value;
+              selectedList[index].att_sche_start_time = e.target.value;
             }}
           />
           -
