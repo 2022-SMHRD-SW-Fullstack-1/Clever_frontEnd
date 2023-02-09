@@ -42,13 +42,14 @@ const ToDoList = ({
   cateName,
   category,
   cateList,
+  todoMemoList,
   setShowWriteModal,
   showWriteModal,
   selectDate,
   cateRef,
   cateObj,
 }) => {
-  console.log("cateObj", cateObj);
+  // console.log("cateObj", cateObj);
   const user = sessionStorage.getItem("mem_id");
   console.log("user", user);
   // const todos = useTodoState();
@@ -108,6 +109,7 @@ const ToDoList = ({
           <ToDoToggle doneList={doneList} isOn={isOn} setIsOn={setIsOn} />
         </TodoHeadBlock>
         <ToDoItem
+          todoMemoList={todoMemoList}
           cateName={cateName}
           category={category}
           isOn={isOn}

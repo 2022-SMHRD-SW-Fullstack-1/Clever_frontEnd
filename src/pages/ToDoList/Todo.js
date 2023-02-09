@@ -79,7 +79,7 @@ const Todo = () => {
 
   useEffect(() => {
     axios.post("/todolist/todaymemo").then((res) => {
-      // console.log("notice", res.data);
+      console.log("notice", res.data);
       setTodoMemoList(res.data);
     });
   }, []);
@@ -101,11 +101,13 @@ const Todo = () => {
         <div className="todoMemo">
           <TbMessageReport IoIosClose size="100" color="#3A4CA8" />
           <div className="todo-notice">
-            {/* {todoMemoList.map((item) => (
-              <div className="todo-memo">
-                <BiCheck />
-                {item.cmpl_memo}
-              </div> */}
+            {/* {todoMemoList.map((item) => ( */}
+            <div className="todo-memo">
+              {/* <BiCheck /> */}
+              {/* {item.cmpl_memo} */}
+              5시쯤 단체 주문있어요! <br></br> 다시 연락주신다고 하셔서
+              참고해주세요!
+            </div>
             {/* ))} */}
           </div>
         </div>
@@ -147,6 +149,7 @@ const Todo = () => {
       <div className="show-todo">
         <div className="toDoTemplate">
           <ToDoList
+            todoMemoList={todoMemoList}
             cateName={cateName}
             cateList={cateList}
             category={category}

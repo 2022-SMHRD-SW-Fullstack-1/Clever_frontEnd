@@ -15,6 +15,7 @@ import ToDoToggle from "../ToDoToggle";
 import Toggle from "./Toggle";
 import ToDoListItem from "./ToDoListItem";
 import ToDoDoneListItem from "./ToDoDoneListItem";
+import temp from "../../../image/temp.jpeg";
 
 const TasksLeft = styled.div`
   // color: #20c997;
@@ -29,6 +30,7 @@ const ToDoItem = ({
   cateName,
   cateList,
   doneList,
+  todoMemoList,
   item,
   cateRef,
   cateObj,
@@ -38,7 +40,8 @@ const ToDoItem = ({
 }) => {
   // console.log("itemObj", cateRef);
   // console.log("cateList", cateList);
-  console.log("itemToggle", isOn);
+  // console.log("itemToggle", isOn);
+  console.log("memo", todoMemoList);
 
   // setIsOn(false);
 
@@ -83,7 +86,6 @@ const ToDoItem = ({
   }, [cateType]);
 
   // console.log("obj", cateObj);
-
   const cateDefault = cateRef.category;
 
   const joinGroup = sessionStorage.getItem("group_seq");
@@ -120,6 +122,7 @@ const ToDoItem = ({
 
   const onDetail = ({ item }) => {
     console.log("detailedItem", item);
+
     // setDetailList(item);
     setDetailId(item.todo_seq);
     // console.log("detailId", detailId);
@@ -128,10 +131,12 @@ const ToDoItem = ({
     {
       doneList.map((item, idx) => {
         if (item.todo_seq === detailId) {
-          console.log("doneList T/F", item.todo_seq === detailId);
+          // console.log("doneList T/F", item.todo_seq === detailId);
           setDoneMem(item.mem_name);
           setDoneDate(item.cmpl_time);
-          setDoneMemo(item.cmpl_memo);
+          // setDoneMemo(item.cmpl_memo);
+          console.log("memo", todoMemoList);
+          setDoneMemo(todoMemoList);
           setToDoCom("완료");
         } else {
           setDoneMem("미");
@@ -240,9 +245,13 @@ const ToDoItem = ({
       <div className="todoDetail">
         <div>
           <div className="todoCom-mem">{doneMem} 완료</div>
-          <div className="todoCom-img">{detailId}</div>
+          {/* <div className="todoCom-img"></div> */}
+          <div className="todoCom-img">
+            <img src={temp} className="todo_img"></img>
+          </div>
           <div className="todoCom-time">완료일시 : {doneDate}</div>
-          <div className="todoCom-memo">메모 {doneMemo}</div>
+          <div className="todoCom-memo">{doneMemo}</div>
+          {/* <div className="todoCom-memo">{todoMemoList[0].cmpl_memo}</div> */}
         </div>
       </div>
     </div>
