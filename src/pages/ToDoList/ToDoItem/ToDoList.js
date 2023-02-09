@@ -51,7 +51,7 @@ const ToDoList = ({
 }) => {
   // console.log("cateObj", cateObj);
   const user = sessionStorage.getItem("mem_id");
-  // console.log("user", user);
+  console.log("user", user);
   // const todos = useTodoState();
   const today = new Date();
 
@@ -62,6 +62,17 @@ const ToDoList = ({
   });
 
   const dayName = today.toLocaleString("ko-KR", { weekday: "long" });
+  let date = new Date(selectDate);
+  const selectDateString =
+    selectDate &&
+    selectDate.getFullYear() +
+      "년 " +
+      (selectDate.getMonth() + 1) +
+      "월 " +
+      selectDate.getDate() +
+      "일";
+
+  const selectDayName = selectDate.toLocaleString("ko-KR", { weekday: "long" });
 
   // const undoneTasks = todos.filter((todo) => !todo.done);
 
@@ -90,8 +101,10 @@ const ToDoList = ({
     <div className="todoContent">
       <div className="todo-template">
         <TodoHeadBlock>
-          <h1>{dateString}</h1>
-          <div className="day">{dayName}</div>
+          <h1>{selectDate === "" ? dateString : selectDateString}</h1>
+          <div className="day">
+            {selectDate === "" ? dayName : selectDayName}
+          </div>
           {/* <TasksLeft>미완료 {undoneTasks.length}개 </TasksLeft> */}
           <ToDoToggle doneList={doneList} isOn={isOn} setIsOn={setIsOn} />
         </TodoHeadBlock>
@@ -106,6 +119,7 @@ const ToDoList = ({
           key={category}
           cateRef={cateRef}
           cateObj={cateObj}
+          selectDate={selectDate}
         />
       </div>
     </div>

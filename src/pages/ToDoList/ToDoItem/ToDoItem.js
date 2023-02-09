@@ -36,6 +36,7 @@ const ToDoItem = ({
   cateObj,
   isOn,
   setIsOn,
+  selectDate,
 }) => {
   // console.log("itemObj", cateRef);
   // console.log("cateList", cateList);
