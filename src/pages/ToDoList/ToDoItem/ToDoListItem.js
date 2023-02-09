@@ -75,7 +75,7 @@ const ToDoListItem = ({
             >
               {item.todo_title}
             </div>
-            <div
+            <span
               className="todo-content"
               key={idx}
               onClick={() => {
@@ -83,7 +83,7 @@ const ToDoListItem = ({
               }}
             >
               {item.todo_content}
-            </div>
+            </span>
           </div>
           <div className="todo-repeat">{item.todo_repeat}</div>
           {/* <div className="todo-complete">미완료</div> */}
